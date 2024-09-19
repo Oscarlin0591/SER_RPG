@@ -107,7 +107,7 @@ public abstract class Player extends GameObject {
         }
 
         // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && this.x > 0) {
             moveAmountX -= walkSpeed;
             facingDirection = Direction.LEFT;
             currentWalkingXDirection = Direction.LEFT;
@@ -115,7 +115,7 @@ public abstract class Player extends GameObject {
         }
 
         // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && this.x < map.endBoundX - this.getWidth()) {
             moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
             currentWalkingXDirection = Direction.RIGHT;
@@ -125,12 +125,12 @@ public abstract class Player extends GameObject {
             currentWalkingXDirection = Direction.NONE;
         }
 
-        if (Keyboard.isKeyDown(MOVE_UP_KEY)) {
+        if (Keyboard.isKeyDown(MOVE_UP_KEY) && this.y > 0) {
             moveAmountY -= walkSpeed;
             currentWalkingYDirection = Direction.UP;
             lastWalkingYDirection = Direction.UP;
         }
-        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY)) {
+        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && this.y < map.endBoundY) {
             moveAmountY += walkSpeed;
             currentWalkingYDirection = Direction.DOWN;
             lastWalkingYDirection = Direction.DOWN;
