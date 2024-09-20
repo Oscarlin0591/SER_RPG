@@ -19,14 +19,14 @@ public class Bug extends NPC {
     private float speed = 1;
     
     public Bug(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Bug.png"), 24, 15), "WALK_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("AlbinoBug.png"), 24, 15), "WALK_RIGHT");
     }
 
     // this code makes the bug npc walk back and forth (left to right)
     @Override
     public void performAction(Player player) {
         // if bug has not yet moved 90 pixels in one direction, move bug forward
-        if (totalAmountMoved < 90) {
+        if (totalAmountMoved < 180) {
             float amountMoved = moveXHandleCollision(speed * direction.getVelocity());
             totalAmountMoved += Math.abs(amountMoved);
         }
