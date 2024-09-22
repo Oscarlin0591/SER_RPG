@@ -130,7 +130,7 @@ public abstract class Player extends GameObject {
             currentWalkingYDirection = Direction.UP;
             lastWalkingYDirection = Direction.UP;
         }
-        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && this.y < map.endBoundY) {
+        else if (Keyboard.isKeyDown(MOVE_DOWN_KEY) && this.y < map.endBoundY - this.getHeight()) {
             moveAmountY += walkSpeed;
             currentWalkingYDirection = Direction.DOWN;
             lastWalkingYDirection = Direction.DOWN;

@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
 	private boolean isGamePaused = false;
 	private SpriteFont pauseLabel;
 	private KeyLocker keyLocker = new KeyLocker();
-	private final Key pauseKey = Key.P;
+	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
 
 	private Key showFPSKey = Key.G;
@@ -29,6 +29,12 @@ public class GamePanel extends JPanel {
 	private boolean showFPS = false;
 	private int currentFPS;
 	private boolean doPaint;
+
+	private int PAUSE_MENU_WIDTH = 300;
+	private int PAUSE_MENU_HEIGHT = 400;
+	private int PAUSE_BUTTON_WIDTH = 200;
+	private int PAUSE_BUTTON_HEIGHT = 100;
+	private SpriteFont quitLabel;
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
@@ -42,9 +48,13 @@ public class GamePanel extends JPanel {
 
 		screenManager = new ScreenManager();
 
-		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Arial", 24, Color.white);
+		pauseLabel = new SpriteFont("PAUSE", 350, 100, "Arial", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
+
+		quitLabel = new SpriteFont("Quit Game", 325, 375, "Arial", 24, Color.white);
+		quitLabel.setOutlineColor(Color.black);
+		quitLabel.setOutlineThickness(2.0f);
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
 
@@ -118,8 +128,11 @@ public class GamePanel extends JPanel {
 
 		// if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
-			pauseLabel.draw(graphicsHandler);
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
+			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+			quitLabel.draw(graphicsHandler);
+			pauseLabel.draw(graphicsHandler);
 		}
 
 		if (showFPS) {
