@@ -5,6 +5,7 @@ import Level.*;
 import NPCs.Bug;
 import NPCs.Dinosaur;
 import NPCs.Walrus;
+import NPCs.Shrek;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
@@ -33,18 +34,26 @@ public class TestMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(1, getMapTile(4, 28).getLocation().subtractY(40));
+        Walrus walrus = new Walrus(1, getMapTile(10, 24).getLocation().subtractY(40));
         walrus.setInteractScript(new WalrusScript());
         npcs.add(walrus);
 
-        Dinosaur dinosaur = new Dinosaur(2, getMapTile(13, 4).getLocation());
+        Walrus walrus2 = new Walrus(2, getMapTile(15, 24).getLocation().subtractY(40));
+        walrus2.setInteractScript(new WalrusScript());
+        npcs.add(walrus2);
+
+        Dinosaur dinosaur = new Dinosaur(3, getMapTile(13, 4).getLocation());
         dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
         
-        Bug bug = new Bug(3, getMapTile(7, 12).getLocation().subtractX(20));
+        Bug bug = new Bug(4, getMapTile(7, 20).getLocation().subtractX(20));
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
+
+        Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
+        //shrek.setInteractScript(new ShrekScript());
+        npcs.add(shrek);
 
         return npcs;
     }
