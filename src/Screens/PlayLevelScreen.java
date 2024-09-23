@@ -6,6 +6,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
 import Maps.TestMap;
+import Maps.GameMap;
 import Players.Cat;
 import Utils.Direction;
 import Utils.Point;
@@ -30,6 +31,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToWalrus", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
+        flagManager.addFlag("interactPortal",false);
 
         // define/setup map
         map = new TestMap();
@@ -70,6 +72,17 @@ public class PlayLevelScreen extends Screen {
         // if flag is set at any point during gameplay, game is "won"
         if (map.getFlagManager().isFlagSet("hasFoundBall")) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+        }
+
+        // if flag is set for portal interaction, change map
+        if (map.getFlagManager().isFlagSet("interactPortal")) {
+            map = new GameMap();
+            map.setFlagManager(flagManager);
+            player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            player.setMap(map);
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+            map.setPlayer(player);
+            map.getTextbox().setInteractKey(player.getInteractKey());
         }
     }
 

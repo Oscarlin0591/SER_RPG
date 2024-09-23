@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class GameMap extends Map {
 
     public GameMap() {
-        super("test_map.txt", new RPGTileset());
+        super("game_map.txt", new RPGTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
     }
 
