@@ -7,7 +7,7 @@ import Game.ScreenCoordinator;
 import Level.*;
 import Maps.TestMap;
 import Maps.GameMap;
-import Players.Cat;
+import Players.SpeedBoat;
 import Utils.Direction;
 // import Utils.Point;
 
@@ -38,7 +38,7 @@ public class PlayLevelScreen extends Screen {
         map.setFlagManager(flagManager);
 
         // setup player
-        player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         player.setFacingDirection(Direction.LEFT);
@@ -78,7 +78,7 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             map = new GameMap();
             map.setFlagManager(flagManager);
-            player = new Cat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
             player.setMap(map);
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             map.setPlayer(player);
