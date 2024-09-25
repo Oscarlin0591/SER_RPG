@@ -34,7 +34,15 @@ public class GamePanel extends JPanel {
 	private int PAUSE_MENU_HEIGHT = 400;
 	private int PAUSE_BUTTON_WIDTH = 200;
 	private int PAUSE_BUTTON_HEIGHT = 100;
+	private int HIGHLIGHT_WIDTH = PAUSE_BUTTON_WIDTH + 20;
+	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 20;
 	private SpriteFont quitLabel;
+	private SpriteFont returnLabel;
+	private final Key enterKey = Key.ENTER;
+	private int buttonHover = 0;
+	private final Key upKey = Key.UP;
+	private final Key downKey = Key.DOWN;
+
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
@@ -55,6 +63,10 @@ public class GamePanel extends JPanel {
 		quitLabel = new SpriteFont("Quit Game", 325, 375, "Arial", 24, Color.white);
 		quitLabel.setOutlineColor(Color.black);
 		quitLabel.setOutlineThickness(2.0f);
+
+		returnLabel = new SpriteFont("Return", 325, 215, "Arial", 24, Color.white);
+		returnLabel.setOutlineColor(Color.black);
+		returnLabel.setOutlineThickness(2.0f);
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
 
@@ -104,6 +116,28 @@ public class GamePanel extends JPanel {
 			keyLocker.lockKey(pauseKey);
 		}
 
+		if(Keyboard.isKeyDown(upKey)){
+			buttonHover = 0;
+		}
+
+		if(Keyboard.isKeyDown(downKey)){
+			buttonHover = 1;
+		}
+
+		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
+			switch (buttonHover) {
+				case 0:
+					isGamePaused = false;
+					break;
+				case 1:
+					System.exit(0);
+					break;
+				default:
+					break;
+			}
+			
+		}
+
 		if (Keyboard.isKeyUp(pauseKey)) {
 			keyLocker.unlockKey(pauseKey);
 		}
@@ -130,9 +164,16 @@ public class GamePanel extends JPanel {
 		if (isGamePaused) {
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
+			if(buttonHover == 1){
+				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+			}else{
+				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+			}
 			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
 			quitLabel.draw(graphicsHandler);
 			pauseLabel.draw(graphicsHandler);
+			returnLabel.draw(graphicsHandler);
 		}
 
 		if (showFPS) {
