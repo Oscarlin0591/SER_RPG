@@ -116,6 +116,8 @@ public abstract class Map {
 
         this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
         this.textbox = new Textbox(this);
+
+        this.loadMusic();
     }
 
     // reads in a map file to create the map's tilemap
@@ -189,6 +191,7 @@ public abstract class Map {
         return tileset;
     }
 
+    //made static for debugging
     public String getMapFileName() {
         return mapFileName;
     }
@@ -287,6 +290,9 @@ public abstract class Map {
     protected ArrayList<NPC> loadNPCs() {
         return new ArrayList<>();
     }
+
+    // song defined to be a part of the map, should be overridden in a subclass
+    protected void loadMusic() { }
 
     protected ArrayList<Trigger> loadTriggers() {
         return new ArrayList<>();

@@ -14,7 +14,7 @@ import Utils.Direction;
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
-    protected Map map;
+    protected static Map map;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
@@ -22,6 +22,11 @@ public class PlayLevelScreen extends Screen {
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+    }
+
+    //getter for current map
+    public static Map getMap () {
+        return map;
     }
 
     public void initialize() {

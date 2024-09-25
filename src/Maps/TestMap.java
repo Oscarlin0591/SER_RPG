@@ -10,8 +10,9 @@ import NPCs.Portal;
 import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 import Tilesets.CommonTileset;
-
 import java.util.ArrayList;
+import Engine.Config;
+import java.io.*;
 
 // Represents a test map to be used in a level
 public class TestMap extends Map {
@@ -82,6 +83,12 @@ public class TestMap extends Map {
         getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
         getMapTile(2, 6).setInteractScript(new TreeScript());
+    }
+
+    //all new maps must override (once properly implemented)
+    @Override
+    public void loadMusic() {
+        Music.playMusic("Music/Crystal Caves.wav");
     }
 }
 

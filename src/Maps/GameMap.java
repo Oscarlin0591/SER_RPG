@@ -9,8 +9,8 @@ import Scripts.SimpleTextScript;
 import Scripts.TestMap.*;
 // import Tilesets.CommonTileset;
 import Tilesets.RPGTileset;
-
 import java.util.ArrayList;
+import java.lang.Thread;
 
 // Represents a test map to be used in a level
 public class GameMap extends Map {
@@ -68,6 +68,11 @@ public class GameMap extends Map {
         getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
         getMapTile(2, 6).setInteractScript(new TreeScript());
+    }
+
+    @Override
+    public void loadMusic() {
+        Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 
