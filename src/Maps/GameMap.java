@@ -65,8 +65,7 @@ public class GameMap extends Map {
 
     @Override
     public void loadMusic() {
-        // Music.stopMusic();
-        Music.playMusic("Music/BDBTest.wav");
+        Music.playMusic("Music/Crystal Caves.wav");
     }
 }
 

@@ -88,8 +88,7 @@ public class TestMap extends Map {
     //all new maps must override (once properly implemented)
     @Override
     public void loadMusic() {
-        // Music.stopMusic();
-        Music.playMusic("Music/Bossa_Drum_Beat.wav");
+        Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 
