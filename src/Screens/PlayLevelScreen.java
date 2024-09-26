@@ -9,7 +9,7 @@ import Maps.TestMap;
 import Maps.GameMap;
 import Players.SpeedBoat;
 import Utils.Direction;
-// import Utils.Point;
+import Utils.Point;
 
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -37,6 +37,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("interactPortal",false);
+        flagManager.addFlag("toggleIsland", false);
 
         // define/setup map
         map = new TestMap();
@@ -57,38 +58,63 @@ public class PlayLevelScreen extends Screen {
         // both are supported, however preloading is recommended
         map.preloadScripts();
 
+        
         winScreen = new WinScreen(this);
     }
-
+    
     public void update() {
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
-                player.update();
-                map.update(player);
+            player.update();
+            map.update(player);
+            
                 break;
-            // if level has been completed, bring up level cleared screen
-            case LEVEL_COMPLETED:
+                // if level has been completed, bring up level cleared screen
+                case LEVEL_COMPLETED:
                 winScreen.update();
                 break;
-        }
-
-        // if flag is set at any point during gameplay, game is "won"
+            }
+            
+            // if flag is set at any point during gameplay, game is "won"
         if (map.getFlagManager().isFlagSet("hasFoundBall")) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }
-
+        
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
-            map = new GameMap();
-            map.setFlagManager(flagManager);
-            player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-            player.setMap(map);
-            playLevelScreenState = PlayLevelScreenState.RUNNING;
-            map.setPlayer(player);
-            map.getTextbox().setInteractKey(player.getInteractKey());
+            System.out.println("DEBUG: Portal interaction flag checker");
+            setLocationGameMap();
         }
+
+        // if flag is set for portal interaction, change map
+        if (map.getFlagManager().isFlagSet("toggleIsland")) {
+            System.out.println("DEBUG: Island interaction flag checker");
+            setLocationIslandMap();
+        }
+    }
+    
+    public void setLocationGameMap() {
+        map.getFlagManager().unsetFlag("interactPortal");
+        map = new GameMap();
+        map.setFlagManager(flagManager);
+        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player.setMap(map);
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
+        map.setPlayer(player);
+        map.getTextbox().setInteractKey(player.getInteractKey());
+    }
+
+    public void setLocationIslandMap() {
+        map.getFlagManager().unsetFlag("toggleIsland");
+        map = new TestMap();
+        map.setFlagManager(flagManager);
+        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player.setMap(map);
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
+        map.setPlayer(player);
+        map.getTextbox().setInteractKey(player.getInteractKey());
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
