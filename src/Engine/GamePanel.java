@@ -34,11 +34,12 @@ public class GamePanel extends JPanel {
 	private int PAUSE_MENU_HEIGHT = 400;
 	private int PAUSE_BUTTON_WIDTH = 200;
 	private int PAUSE_BUTTON_HEIGHT = 100;
-	private int HIGHLIGHT_WIDTH = PAUSE_BUTTON_WIDTH + 20;
-	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 20;
+	private int HIGHLIGHT_MARGIN = 10;
+	private int HIGHLIGHT_WIDTH = PAUSE_BUTTON_WIDTH + 2*HIGHLIGHT_MARGIN;
+	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 2*HIGHLIGHT_MARGIN;
 	private SpriteFont quitLabel;
 	private SpriteFont returnLabel;
-	private final Key enterKey = Key.ENTER;
+	private final Key enterKey = Key.SPACE;
 	private int buttonHover = 0;
 	private final Key upKey = Key.UP;
 	private final Key downKey = Key.DOWN;
@@ -116,23 +117,28 @@ public class GamePanel extends JPanel {
 			keyLocker.lockKey(pauseKey);
 		}
 
-		if(Keyboard.isKeyDown(upKey)){
+		/*if(Keyboard.isKeyDown(upKey)){
 			buttonHover = 0;
 		}
 
 		if(Keyboard.isKeyDown(downKey)){
 			buttonHover = 1;
+		}*/
+		if(Keyboard.isKeyDown(upKey) && buttonHover > 0){
+			buttonHover--;
+		}
+
+		if(Keyboard.isKeyDown(downKey) && buttonHover < 1){
+			buttonHover++;
 		}
 
 		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
 			switch (buttonHover) {
-				case 0:
-					isGamePaused = false;
-					break;
 				case 1:
 					System.exit(0);
 					break;
 				default:
+					isGamePaused = false;
 					break;
 			}
 			
@@ -164,10 +170,10 @@ public class GamePanel extends JPanel {
 		if (isGamePaused) {
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
-			if(buttonHover == 1){
-				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+			if(buttonHover == 0){
+				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT + HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
 			}else{
-				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2 - 2*HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
 			}
 			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
 			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
