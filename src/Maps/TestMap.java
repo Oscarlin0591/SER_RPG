@@ -53,8 +53,10 @@ public class TestMap extends Map {
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
 
+        //Shrek 'enemy' for combat test
         Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
-        // shrek.setInteractScript(new ShrekScript());
+        shrek.setExistenceFlag("isInCombat");
+        shrek.setInteractScript(new ShrekScript());
         npcs.add(shrek);
 
         Portal portal = new Portal(6, getMapTile(16, 25).getLocation());

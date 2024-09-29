@@ -38,8 +38,10 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("interactPortal",false);
         flagManager.addFlag("toggleIsland", false);
+        //in combat flag (to be toggled by Enemy NPCs)
+        flagManager.addFlag("isInCombat", false);
 
-        // define/setup map
+        // define/setup map - may need to replicate for all maps
         map = new TestMap();
         map.setFlagManager(flagManager);
 
@@ -92,6 +94,15 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
             System.out.println("DEBUG: Island interaction flag checker");
             setLocationIslandMap();
+        }
+
+        // if flag is set for being in combat PRINT DEBUG
+        if (map.getFlagManager().isFlagSet("isInCombat")) {
+            //add logic to pull up combat menu here 
+            System.out.println("DEBUG Combat Flag Works");
+
+            //exit combat
+            map.getFlagManager().unsetFlag("isInCombat");
         }
     }
     

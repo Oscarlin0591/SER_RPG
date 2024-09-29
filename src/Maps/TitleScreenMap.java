@@ -9,7 +9,6 @@ import Level.Music;
 import Tilesets.CommonTileset;
 import Utils.Colors;
 import Utils.Point;
-import java.lang.Thread;
 
 // Represents the map that is used as a background for the main menu and credits menu screen
 public class TitleScreenMap extends Map {
