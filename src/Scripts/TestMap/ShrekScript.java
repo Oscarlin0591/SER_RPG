@@ -16,7 +16,7 @@ public class ShrekScript extends Script {
         }});
 
         //toggle combat flag
-        scriptActions.add(new ChangeFlagScriptAction("isInCombat", true));
+        scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
 
         scriptActions.add(new UnlockPlayerScriptAction());
 

@@ -7,6 +7,7 @@ import Game.ScreenCoordinator;
 import Level.*;
 import Maps.TestMap;
 import Maps.GameMap;
+import Maps.BattleMap;
 import Players.SpeedBoat;
 import Utils.Direction;
 import Utils.Point;
@@ -18,6 +19,7 @@ public class PlayLevelScreen extends Screen {
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
+    protected GameOverScreen gameOverScreen;
     protected FlagManager flagManager;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -38,8 +40,11 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("interactPortal",false);
         flagManager.addFlag("toggleIsland", false);
-        //in combat flag (to be toggled by Enemy NPCs)
-        flagManager.addFlag("isInCombat", false);
+        // in combat flag (to be toggled by Enemy NPCs)
+        flagManager.addFlag("combatTriggered", false);
+        flagManager.addFlag("battleWon", false);
+        // flag to determine if game is lost
+        flagManager.addFlag("gameOver", false);
 
         // define/setup map - may need to replicate for all maps
         map = new TestMap();
@@ -50,6 +55,7 @@ public class PlayLevelScreen extends Screen {
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         player.setFacingDirection(Direction.LEFT);
+        System.out.println(player.getLocation());
 
         map.setPlayer(player);
 
@@ -62,6 +68,7 @@ public class PlayLevelScreen extends Screen {
 
         
         winScreen = new WinScreen(this);
+        gameOverScreen = new GameOverScreen(this);
     }
     
     public void update() {
@@ -71,17 +78,24 @@ public class PlayLevelScreen extends Screen {
             case RUNNING:
             player.update();
             map.update(player);
-            
                 break;
-                // if level has been completed, bring up level cleared screen
-                case LEVEL_COMPLETED:
+            // if level has been completed, bring up level cleared screen
+            case LEVEL_COMPLETED:
                 winScreen.update();
+                break;
+            case GAME_OVER:
+                gameOverScreen.update();
                 break;
             }
             
             // if flag is set at any point during gameplay, game is "won"
         if (map.getFlagManager().isFlagSet("hasFoundBall")) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
+        }
+
+        // if flag is set at any point during gameplay, game is "lost"
+        if (map.getFlagManager().isFlagSet("gameOver")) {
+            playLevelScreenState = PlayLevelScreenState.GAME_OVER;
         }
         
         // if flag is set for portal interaction, change map
@@ -97,15 +111,27 @@ public class PlayLevelScreen extends Screen {
         }
 
         // if flag is set for being in combat PRINT DEBUG
-        if (map.getFlagManager().isFlagSet("isInCombat")) {
+        if (map.getFlagManager().isFlagSet("combatTriggered")) {
             //add logic to pull up combat menu here 
             System.out.println("DEBUG Combat Flag Works");
+            map = new BattleMap();
+            map.setFlagManager(flagManager);
+            player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            System.out.print(player.getLocation());
+            player.setMap(map);
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+            map.setPlayer(player);
+            map.getTextbox().setInteractKey(player.getInteractKey());
+            map.getFlagManager().unsetFlag("combatTriggered");
 
-            //exit combat
-            map.getFlagManager().unsetFlag("isInCombat");
+        }
+        if (map.getFlagManager().isFlagSet("battleWon")) {
+            System.out.println("Batton won method triggered");
+            returnToIslandMap();
         }
     }
     
+    // methods to switch map, pending overhaul to shorten code.
     public void setLocationGameMap() {
         map.getFlagManager().unsetFlag("interactPortal");
         map = new GameMap();
@@ -128,6 +154,26 @@ public class PlayLevelScreen extends Screen {
         map.getTextbox().setInteractKey(player.getInteractKey());
     }
 
+    public void returnToIslandMap() {
+        System.out.println("DEBUG: trying to initialize map");
+        map = new TestMap();
+        System.out.println("DEBUG: map initialized");
+        map.setFlagManager(flagManager);
+        System.out.println("DEBUG: flag manager set");
+        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        System.out.println("DEBUG: player initialized");
+        player.setMap(map);
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
+        map.setPlayer(player);
+        map.getTextbox().setInteractKey(player.getInteractKey());
+        map.getFlagManager().unsetFlag("battleWon");
+    }
+
+    // combat method
+    public void isCombatFinished() {
+
+    }
+
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
@@ -137,6 +183,9 @@ public class PlayLevelScreen extends Screen {
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
                 break;
+            case GAME_OVER:
+                gameOverScreen.draw(graphicsHandler);
+                break;
         }
     }
 
@@ -144,6 +193,13 @@ public class PlayLevelScreen extends Screen {
         return playLevelScreenState;
     }
 
+    public void setPlayLevelScreenState(PlayLevelScreenState state) {
+        playLevelScreenState = state;
+    }
+
+    public void gameOver() {
+        playLevelScreenState = PlayLevelScreenState.GAME_OVER;
+    }
 
     public void resetLevel() {
         initialize();
@@ -153,8 +209,12 @@ public class PlayLevelScreen extends Screen {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
+
+
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED
+        RUNNING, LEVEL_COMPLETED, GAME_OVER
+
     }
+
 }

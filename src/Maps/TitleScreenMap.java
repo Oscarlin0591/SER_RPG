@@ -30,10 +30,10 @@ public class TitleScreenMap extends Map {
         cat.draw(graphicsHandler);
     }
 
-    // //all new maps must override (once properly implemented)
-    // @Override
-    // public void loadMusic() {
-    //     Music.playMusic("Music/Bossa_Drum_Beat.wav");
-    // }
+    //all new maps must override (once properly implemented)
+    @Override
+    public void loadMusic() {
+        Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
+    }
 
 }

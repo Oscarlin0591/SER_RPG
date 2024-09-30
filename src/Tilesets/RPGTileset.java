@@ -1055,7 +1055,7 @@ public class RPGTileset extends Tileset {
         .build();
 
         MapTileBuilder fantasyTile71 = new MapTileBuilder(fantasyFrame71)
-        .withTileType(TileType.NOT_PASSABLE);
+        .withTileType(TileType.PASSABLE);
 
         mapTiles.add(fantasyTile71);
 
@@ -1674,7 +1674,7 @@ Frame fantasyFrame11_5 = new FrameBuilder(getSubImage(11, 5))
         .build();
 
 MapTileBuilder fantasyTile11_5 = new MapTileBuilder(fantasyFrame11_5)
-        .withTileType(TileType.NOT_PASSABLE);
+        .withTileType(TileType.PASSABLE);
 
 mapTiles.add(fantasyTile11_5);
 
