@@ -5,7 +5,7 @@ import Level.*;
 import Screens.PlayLevelScreen;
 // import NPCs.Island;
 import Scripts.SimpleTextScript;
-import Scripts.TestMap.*;
+import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
 import java.lang.Thread;

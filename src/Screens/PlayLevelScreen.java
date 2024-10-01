@@ -5,8 +5,8 @@ import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.*;
-import Maps.TestMap;
-import Maps.GameMap;
+import Maps.StartIslandMap;
+import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
 import Utils.Direction;
@@ -47,7 +47,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("gameOver", false);
 
         // define/setup map - may need to replicate for all maps
-        map = new TestMap();
+        map = new StartIslandMap();
         map.setFlagManager(flagManager);
 
         // setup player
@@ -101,13 +101,13 @@ public class PlayLevelScreen extends Screen {
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             System.out.println("DEBUG: Portal interaction flag checker");
-            setLocationGameMap();
+            setLocationOceanMap();
         }
 
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
             System.out.println("DEBUG: Island interaction flag checker");
-            setLocationIslandMap();
+            setLocationStartIslandMap();
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -132,9 +132,9 @@ public class PlayLevelScreen extends Screen {
     }
     
     // methods to switch map, pending overhaul to shorten code.
-    public void setLocationGameMap() {
+    public void setLocationOceanMap() {
         map.getFlagManager().unsetFlag("interactPortal");
-        map = new GameMap();
+        map = new OceanMap();
         map.setFlagManager(flagManager);
         player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
@@ -143,9 +143,9 @@ public class PlayLevelScreen extends Screen {
         map.getTextbox().setInteractKey(player.getInteractKey());
     }
 
-    public void setLocationIslandMap() {
+    public void setLocationStartIslandMap() {
         map.getFlagManager().unsetFlag("toggleIsland");
-        map = new TestMap();
+        map = new StartIslandMap();
         map.setFlagManager(flagManager);
         player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
@@ -156,7 +156,7 @@ public class PlayLevelScreen extends Screen {
 
     public void returnToIslandMap() {
         System.out.println("DEBUG: trying to initialize map");
-        map = new TestMap();
+        map = new StartIslandMap();
         System.out.println("DEBUG: map initialized");
         map.setFlagManager(flagManager);
         System.out.println("DEBUG: flag manager set");

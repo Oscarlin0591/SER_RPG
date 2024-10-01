@@ -2,8 +2,8 @@ package MapEditor;
 
 import Level.Map;
 import Maps.BattleMap;
-import Maps.GameMap;
-import Maps.TestMap;
+import Maps.OceanMap;
+import Maps.StartIslandMap;
 import Maps.TitleScreenMap;
 
 import java.util.ArrayList;
@@ -20,12 +20,12 @@ public class EditorMaps {
 
     public static Map getMapByName(String mapName) {
         switch(mapName) {
-            case "TestMap":
-                return new TestMap();
+            case "StartIslandMap":
+                return new StartIslandMap();
             case "TitleScreen":
                 return new TitleScreenMap();
-            case "GameMap":
-                return new GameMap();
+            case "OceanMap":
+                return new OceanMap();
             case "BattleMap":
                 return new BattleMap();
             default:
