@@ -169,11 +169,6 @@ public class PlayLevelScreen extends Screen {
         map.getFlagManager().unsetFlag("battleWon");
     }
 
-    // combat method
-    public void isCombatFinished() {
-
-    }
-
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {

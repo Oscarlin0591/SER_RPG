@@ -39,6 +39,10 @@ public abstract class Player extends GameObject {
     protected Key MOVE_DOWN_KEY = Key.DOWN;
     protected Key INTERACT_KEY = Key.SPACE;
 
+    // values for health and strength
+    protected float health;
+    protected float strength;
+
     protected boolean isLocked = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
@@ -47,6 +51,16 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         this.affectedByTriggers = true;
+    }
+
+    public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, float newHealth, float newStrength) {
+        super(spriteSheet, x, y, startingAnimationName);
+        facingDirection = Direction.RIGHT;
+        playerState = PlayerState.STANDING;
+        previousPlayerState = playerState;
+        this.affectedByTriggers = true;
+        this.health = newHealth;
+        this.strength = newStrength;
     }
 
     public void update() {
@@ -254,6 +268,24 @@ public abstract class Player extends GameObject {
             moveX(speed);
         }
     }
+
+    // getters and setters for NPC class
+    public float getHealth() {
+        return this.health;
+    }
+
+    public void setHealth(float newHealth) {
+        this.health = newHealth;
+    }
+
+    public float getStrength() {
+        return this.strength;
+    }
+
+    public void setStrength(float newStrength) {
+        this.strength = newStrength;
+    }
+
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     /*
