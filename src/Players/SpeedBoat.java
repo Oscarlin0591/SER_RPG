@@ -30,14 +30,14 @@ public class SpeedBoat extends Player {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("STAND_RIGHT", new Frame[] {
+            put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
                             .withBounds(6, 12, 12, 7)
                             .build()
             });
 
-            put("STAND_LEFT", new Frame[] {
+            put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
@@ -45,7 +45,7 @@ public class SpeedBoat extends Player {
                             .build()
             });
 
-            put("WALK_RIGHT", new Frame[] {
+            put("WALK_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
                             .withBounds(6, 12, 12, 7)
@@ -64,7 +64,7 @@ public class SpeedBoat extends Player {
                             .build()
             });
 
-            put("WALK_LEFT", new Frame[] {
+            put("WALK_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)

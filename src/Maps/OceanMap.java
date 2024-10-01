@@ -2,13 +2,14 @@ package Maps;
 
 import EnhancedMapTiles.PushableRock;
 import Level.*;
-// import NPCs.Bug;
-// import NPCs.island;
-// import NPCs.Walrus;
 import NPCs.Island;
 import Scripts.SimpleTextScript;
+<<<<<<< HEAD:src/Maps/OceanMap.java
 import Scripts.StartIslandMap.*;
 // import Tilesets.CommonTileset;
+=======
+import Scripts.TestMap.*;
+>>>>>>> e6442d1c0fc534734d9e295d1f94eb4a3a4e551a:src/Maps/GameMap.java
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
 import java.lang.Thread;
