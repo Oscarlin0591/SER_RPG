@@ -10,8 +10,6 @@ import java.util.HashMap;
 // This class is a base class for all npcs in the game -- all npcs should extend from it
 public class NPC extends MapEntity {
     protected int id = 0;
-    protected float health;
-    protected float strength;
     protected boolean isLocked = false;
 
     public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -22,20 +20,6 @@ public class NPC extends MapEntity {
     public NPC(int id, float x, float y, HashMap<String, Frame[]> animations, String startingAnimation) {
         super(x, y, animations, startingAnimation);
         this.id = id;
-    }
-    
-    public NPC(int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, float newHealth, float newStrength) {
-        super(x, y, spriteSheet, startingAnimation);
-        this.id = id;
-        this.health = newHealth;
-        this.strength = newStrength;
-    };
-
-    public NPC(int id, float x, float y, HashMap<String, Frame[]> animations, String startingAnimation, float newHealth, float newStrength) {
-        super(x, y, animations, startingAnimation);
-        this.id = id;
-        this.health = newHealth;
-        this.strength = newStrength;
     }
 
     public NPC(int id, float x, float y, Frame[] frames) {
@@ -120,23 +104,6 @@ public class NPC extends MapEntity {
 
     public void unlock() {
         isLocked = false;
-    }
-
-    // getters and setters for NPC class
-    public float getHealth() {
-        return this.health;
-    }
-
-    public void setHealth(float newHealth) {
-        this.health = newHealth;
-    }
-
-    public float getStrength() {
-        return this.strength;
-    }
-
-    public void setStrength(float newStrength) {
-        this.strength = newStrength;
     }
 
     protected void performAction(Player player) {}

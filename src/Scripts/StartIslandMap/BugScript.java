@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import Level.Script;
 import ScriptActions.*;
+import Level.Enemy;
+import Maps.StartIslandMap;
 
 // script for talking to bug npc
 // checkout the documentation website for a detailed guide on how this script works

@@ -87,7 +87,7 @@ public class StartIslandMap extends Map {
         getMapTile(2, 6).setInteractScript(new TreeScript());
     }
 
-    //all new maps must override (once properly implemented)
+    //all new maps must override
     @Override
     public void loadMusic() {
         Music.playMusic("Music/Crystal Caves.wav");

@@ -8,18 +8,19 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.NPC;
+import Level.Enemy;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 
-public class Bug extends NPC {
+public class Bug extends Enemy {
     private int totalAmountMoved = 0;
     private Direction direction = Direction.RIGHT;
     private float speed = 1;
     
+    //modified to call Enemy constructor, for now hardcoded to put in -1 for health and strength
     public Bug(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("AlbinoBug.png"), 24, 15), "WALK_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("AlbinoBug.png"), 24, 15), "WALK_RIGHT", -1, -1);
     }
 
     // this code makes the bug npc walk back and forth (left to right)

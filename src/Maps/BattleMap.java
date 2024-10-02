@@ -24,13 +24,12 @@ public class BattleMap extends Map{
         ArrayList<NPC> npcs = new ArrayList<>();
 
         Walrus enemy_1 = new Walrus(500, getMapTile(6, 6).getLocation());
-        //walrus.setExistenceFlag("toggleIsland");
-        //walrus.setInteractScript(new enemyScript());
         npcs.add(enemy_1);
 
         Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
         npcs.add(enemy_2);
 
+        //redefined Bug as an Enemy object
         Bug enemy_3 = new Bug(502, getMapTile(3, 8).getLocation());
         enemy_3.lock();
         npcs.add(enemy_3);
@@ -46,5 +45,10 @@ public class BattleMap extends Map{
         triggers.add(new Trigger(600, 288, 50, 50, new BattleScript(), "battleWon"));
         System.out.println("DEBUG: Triggers loaded");
         return triggers;
+    }
+
+    @Override
+    public void loadMusic() {
+        Music.playMusic("Music/Gold_in_C_demo.wav");
     }
 }
