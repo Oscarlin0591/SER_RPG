@@ -1,8 +1,8 @@
 package Maps;
 
 import Level.*;
+import NPCs.*;
 import Screens.PlayLevelScreen;
-// import NPCs.Island;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
@@ -18,6 +18,26 @@ public class BattleMap extends Map{
     
     }
     
+    //load enemies
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
+
+        Walrus enemy_1 = new Walrus(500, getMapTile(6, 6).getLocation());
+        //walrus.setExistenceFlag("toggleIsland");
+        //walrus.setInteractScript(new enemyScript());
+        npcs.add(enemy_1);
+
+        Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
+        npcs.add(enemy_2);
+
+        Bug enemy_3 = new Bug(502, getMapTile(3, 8).getLocation());
+        enemy_3.lock();
+        npcs.add(enemy_3);
+
+        return npcs;
+    }
+
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
