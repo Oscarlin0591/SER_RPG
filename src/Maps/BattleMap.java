@@ -1,14 +1,10 @@
 package Maps;
 
 import Level.*;
-<<<<<<< HEAD
 import Screens.PlayLevelScreen;
 // import NPCs.Island;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
-=======
-import Scripts.TestMap.*;
->>>>>>> e6442d1c0fc534734d9e295d1f94eb4a3a4e551a
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
 import java.lang.Thread;
