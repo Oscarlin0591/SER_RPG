@@ -1,11 +1,17 @@
 package Engine;
 
 import GameObject.Rectangle;
+import Level.Map;
+import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /*
  * This is where the game loop process and render back buffer is setup
@@ -44,6 +50,9 @@ public class GamePanel extends JPanel {
 	private final Key upKey = Key.UP;
 	private final Key downKey = Key.DOWN;
 
+	private Map map;
+	//private Player player = PlayLevelScreen.
+
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
@@ -56,6 +65,8 @@ public class GamePanel extends JPanel {
 		graphicsHandler = new GraphicsHandler();
 
 		screenManager = new ScreenManager();
+
+		map = PlayLevelScreen.getMap();
 
 		pauseLabel = new SpriteFont("PAUSE", 350, 100, "Arial", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
@@ -135,6 +146,14 @@ public class GamePanel extends JPanel {
 		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
 			switch (buttonHover) {
 				case 1:
+					/*
+					 * Write to file
+					 */
+					try (BufferedWriter writer = new BufferedWriter(new FileWriter("Save.txt"))) {
+	        		    writer.write(map.toString());
+    			    } catch (IOException e) {
+        			    e.printStackTrace();
+        			}
 					System.exit(0);
 					break;
 				default:
