@@ -12,11 +12,14 @@ public class GameWindow {
 
 	public GameWindow() {
 		gameWindow = new JFrame("Game");
+		//make gameWindow open in fullscreen
+		gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		gamePanel = new GamePanel();
 		gamePanel.setFocusable(true);
 		gamePanel.requestFocusInWindow();
 		gameWindow.setContentPane(gamePanel);
 		gameWindow.setResizable(false);
+		//modified to set size of screen to size of gameWindow
 		gameWindow.setSize(Config.GAME_WINDOW_WIDTH, Config.GAME_WINDOW_HEIGHT);
 		gameWindow.setLocationRelativeTo(null);
 		gameWindow.setVisible(true);
