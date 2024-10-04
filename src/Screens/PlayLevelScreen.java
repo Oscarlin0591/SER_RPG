@@ -1,7 +1,16 @@
 package Screens;
 
+import java.awt.Color;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import Engine.GraphicsHandler;
+import Engine.Key;
+import Engine.KeyLocker;
+import Engine.Keyboard;
 import Engine.Screen;
+import Engine.ScreenManager;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Engine.GamePanel;
@@ -10,6 +19,7 @@ import Maps.StartIslandMap;
 import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
+import SpriteFont.SpriteFont;
 import Utils.Direction;
 import Utils.Point;
 
@@ -30,8 +40,39 @@ public class PlayLevelScreen extends Screen {
     protected FlagManager flagManager;
     protected JPanel healthBar;
 
+    private boolean isGamePaused = false;
+	private SpriteFont pauseLabel;
+    private int PAUSE_MENU_WIDTH = 300;
+	private int PAUSE_MENU_HEIGHT = 400;
+	private int PAUSE_BUTTON_WIDTH = 200;
+	private int PAUSE_BUTTON_HEIGHT = 100;
+	private int HIGHLIGHT_MARGIN = 10;
+	private int HIGHLIGHT_WIDTH = PAUSE_BUTTON_WIDTH + 2*HIGHLIGHT_MARGIN;
+	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 2*HIGHLIGHT_MARGIN;
+	private SpriteFont quitLabel;
+	private SpriteFont returnLabel;
+	private final Key enterKey = Key.SPACE;
+	private int buttonHover = 0;
+	private final Key upKey = Key.UP;
+	private final Key downKey = Key.DOWN;
+    private KeyLocker keyLocker = new KeyLocker();
+    private final Key pauseKey = Key.ESC;
+
+
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+        
+        pauseLabel = new SpriteFont("PAUSE", 350, 100, "Arial", 24, Color.white);
+		pauseLabel.setOutlineColor(Color.black);
+		pauseLabel.setOutlineThickness(2.0f);
+
+		quitLabel = new SpriteFont("Quit Game", 325, 375, "Arial", 24, Color.white);
+		quitLabel.setOutlineColor(Color.black);
+		quitLabel.setOutlineThickness(2.0f);
+
+		returnLabel = new SpriteFont("Return", 325, 215, "Arial", 24, Color.white);
+		returnLabel.setOutlineColor(Color.black);
+		returnLabel.setOutlineThickness(2.0f);
     }
 
     //getter for current map
@@ -82,6 +123,10 @@ public class PlayLevelScreen extends Screen {
     }
     
     public void update() {
+        updatePauseState();
+        /*if (!isGamePaused) {
+			ScreenManager.update();
+		}*/
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
@@ -144,6 +189,46 @@ public class PlayLevelScreen extends Screen {
             returnToIslandMap();
         }
     }
+
+    private void updatePauseState() {
+		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
+			isGamePaused = !isGamePaused;
+			keyLocker.lockKey(pauseKey);
+		}
+        
+		if(Keyboard.isKeyDown(upKey) && buttonHover > 0){
+			buttonHover--;
+		}
+
+		if(Keyboard.isKeyDown(downKey) && buttonHover < 1){
+			buttonHover++;
+		}
+
+		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
+			switch (buttonHover) {
+				case 1:
+                    System.exit(0);
+					/*
+					 * Write to file (don't work)
+					 */
+					try (BufferedWriter writer = new BufferedWriter(new FileWriter("Save.txt"))) {
+	        		    writer.write(map.toString());
+    			    } catch (IOException e) {
+        			    e.printStackTrace();
+        			}
+					
+					break;
+				default:
+					isGamePaused = false;
+					break;
+			}
+			
+		}
+
+		if (Keyboard.isKeyUp(pauseKey)) {
+			keyLocker.unlockKey(pauseKey);
+		}
+	}
     
     // methods to switch map, pending overhaul to shorten code.
     public void setLocationOceanMap() {
@@ -197,9 +282,21 @@ public class PlayLevelScreen extends Screen {
                 break;
         }
 
-        // if (map.getFlagManager().isFlagSet("combatTriggered") && !map.getFlagManager().isFlagSet("battleWon")) {
-        //     battleGUI();
-        // }
+        // if game is paused, draw pause gfx over Screen gfx
+		if (isGamePaused) {
+			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
+			if(buttonHover == 0){
+				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT + HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+			}else{
+				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2 - 2*HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+			}
+			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+			quitLabel.draw(graphicsHandler);
+			pauseLabel.draw(graphicsHandler);
+			returnLabel.draw(graphicsHandler);
+		}
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
