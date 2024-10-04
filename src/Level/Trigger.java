@@ -45,7 +45,7 @@ public class Trigger extends MapEntity {
         Rectangle scaledCalibratedBounds = getCalibratedBounds();
         scaledCalibratedBounds.setColor(color);
         scaledCalibratedBounds.setBorderColor(Color.black);
-        scaledCalibratedBounds.setBorderThickness(1);
+        scaledCalibratedBounds.setBorderThickness(2);
         scaledCalibratedBounds.draw(graphicsHandler);
     }
 }

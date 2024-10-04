@@ -52,6 +52,12 @@ public class GamePanel extends JPanel {
 
 	private Map map;
 	//private Player player = PlayLevelScreen.
+	// Battle GUI
+	protected static SpriteFont healthLabel;
+	protected static float playerHealth;
+	protected static String healthInfo = ("Health: " + playerHealth);
+	private static boolean isInBattle = false;
+	private static boolean battleInitiated = false;
 
 
 	// The JPanel and various important class instances are setup here
@@ -185,6 +191,12 @@ public class GamePanel extends JPanel {
 		// draw current game state
 		screenManager.draw(graphicsHandler);
 
+		// battle health bar and stuff, conditional will be added later
+		if (isInBattle) {
+		graphicsHandler.drawFilledRectangleWithBorder(650, 0, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
+		healthLabel.draw(graphicsHandler);
+		}
+
 		// if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
@@ -204,6 +216,21 @@ public class GamePanel extends JPanel {
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
 		}
+	}
+
+	public static void combatTriggered(float newHealth) {
+		updateHealthInfo(newHealth);
+		isInBattle = true;
+	}
+	
+	public static void combatFinished() {
+		isInBattle = false;
+	}
+	
+	public static void updateHealthInfo(float newHealth) {
+		playerHealth = newHealth;
+		healthInfo = ("Health: " + playerHealth);
+		healthLabel = new SpriteFont(healthInfo, 700, 30, "Arial", 12, Color.BLACK);
 	}
 
 	@Override

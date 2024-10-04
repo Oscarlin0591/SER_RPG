@@ -4,6 +4,7 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import Engine.GamePanel;
 import Level.*;
 import Maps.StartIslandMap;
 import Maps.OceanMap;
@@ -12,15 +13,22 @@ import Players.SpeedBoat;
 import Utils.Direction;
 import Utils.Point;
 
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected static Map map;
-    protected Player player;
+    public Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected GameOverScreen gameOverScreen;
     protected FlagManager flagManager;
+    protected JPanel healthBar;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -65,6 +73,8 @@ public class PlayLevelScreen extends Screen {
         // preloads all scripts ahead of time rather than loading them dynamically
         // both are supported, however preloading is recommended
         map.preloadScripts();
+
+        // battleGUI();
 
         
         winScreen = new WinScreen(this);
@@ -122,11 +132,15 @@ public class PlayLevelScreen extends Screen {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             map.setPlayer(player);
             map.getTextbox().setInteractKey(player.getInteractKey());
+            battleGUI();
             map.getFlagManager().unsetFlag("combatTriggered");
+            System.out.println(player.getHealth());
+            GamePanel.combatTriggered(player.getHealth());
 
         }
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
+            GamePanel.combatFinished();
             returnToIslandMap();
         }
     }
@@ -182,6 +196,10 @@ public class PlayLevelScreen extends Screen {
                 gameOverScreen.draw(graphicsHandler);
                 break;
         }
+
+        // if (map.getFlagManager().isFlagSet("combatTriggered") && !map.getFlagManager().isFlagSet("battleWon")) {
+        //     battleGUI();
+        // }
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
@@ -204,7 +222,19 @@ public class PlayLevelScreen extends Screen {
         screenCoordinator.setGameState(GameState.MENU);
     }
 
+    public void battleGUI() {
+        healthBar = new JPanel(new GridLayout(4,1));
+        healthBar.setBackground(Color.LIGHT_GRAY);
+        healthBar.setPreferredSize(new Dimension(360,120));
+        JLabel health = new JLabel("Health: " + player.getHealth());
+        healthBar.add(health);
 
+        
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {

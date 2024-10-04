@@ -11,9 +11,9 @@ import java.util.ArrayList;
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
         return new ArrayList<String>() {{
-            add("TestMap");
+            add("StartIslandMap");
             add("TitleScreen");
-            add("GameMap");
+            add("OceanMap");
             add("BattleMap");
         }};
     }
