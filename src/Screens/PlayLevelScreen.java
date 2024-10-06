@@ -32,6 +32,7 @@ public class PlayLevelScreen extends Screen {
     protected GameOverScreen gameOverScreen;
     protected FlagManager flagManager;
 
+    //The many many pause screen variables
     private boolean isGamePaused = false;
 	private SpriteFont pauseLabel;
     private int PAUSE_MENU_WIDTH = 300;
@@ -114,9 +115,6 @@ public class PlayLevelScreen extends Screen {
     
     public void update() {
         updatePauseState();
-        /*if (!isGamePaused) {
-			ScreenManager.update();
-		}*/
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
@@ -193,16 +191,17 @@ public class PlayLevelScreen extends Screen {
 		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
 			switch (buttonHover) {
 				case 1:
-                    System.exit(0);
-					/*
-					 * Write to file (don't work)
-					 */
-					try (BufferedWriter writer = new BufferedWriter(new FileWriter("Save.txt"))) {
-	        		    writer.write(map.toString());
+					// Write to save file
+                    //IMPORTANT: DO NOT UNCOMMENT, COULD LEAD TO MULTIPLE MERGE CONFLICTS!
+					/*try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/Saves/Save.txt"))) {
+	        		    writer.write("" + (int)player.getX());
+                        writer.write("\n" + (int)player.getY());
+                        writer.write("\n" + map.toString());
+
     			    } catch (IOException e) {
         			    e.printStackTrace();
-        			}
-					
+        			}*/
+					System.exit(0);
 					break;
 				default:
 					isGamePaused = false;
