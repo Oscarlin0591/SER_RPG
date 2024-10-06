@@ -10,13 +10,18 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Level.Player;
+import Level.Enemy;
 import Utils.Direction;
 import Utils.Point;
 
-public class Shrek extends NPC {
+public class Shrek extends Enemy {
     
     public Shrek(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT", 10, 1);
+    }
+
+    public Shrek(int id, Point location, int health, int strength) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT", health, strength);
     }
 
     // this code makes the bug npc walk back and forth (left to right)

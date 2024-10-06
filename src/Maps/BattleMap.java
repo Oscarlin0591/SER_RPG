@@ -3,7 +3,6 @@ package Maps;
 import Level.*;
 import NPCs.*;
 import Screens.PlayLevelScreen;
-import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
@@ -11,11 +10,25 @@ import java.lang.Thread;
 
 public class BattleMap extends Map{
     public static boolean battle = false;
+    public static Shrek enemy;
+    public static float enemyHealth;
+    public static float playerHealth;
 
     public BattleMap() {
-    super("battle_map.txt", new RPGTileset());
-    this.playerStartPosition = getMapTile(12, 6).getLocation();
-    
+        super("battle_map.txt", new RPGTileset());
+        this.playerStartPosition = getMapTile(12, 6).getLocation();
+    }
+
+    public BattleMap(Shrek newEnemy) {
+        super("battle_map.txt", new RPGTileset());
+        this.playerStartPosition = getMapTile(12, 6).getLocation();
+        enemy = newEnemy;
+        // if (battle()) {
+
+        // } else {
+
+        // }
+        battle();
     }
     
     //load enemies
@@ -34,14 +47,37 @@ public class BattleMap extends Map{
         enemy_3.lock();
         npcs.add(enemy_3);
 
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
+            Enemy enemy_4 = new Shrek(503, getMapTile(4,4).getLocation());
+            npcs.add(enemy_4);
+
+        }
+
         return npcs;
+    }
+
+    public boolean battle() {
+
+        // while (this.player.getHealth() <= 0 && enemy.getHealth() <= 0) {
+
+        // }
+
+
+        if (this.player.getHealth() <= 0){
+            return false;
+        } else if (enemy.getHealth() <= 0) {
+            return true;
+        } else {
+            System.out.println("ERROR on battle Method");
+            return false;
+        }
     }
 
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(576, 288, 50, 10, new BattleScript(), "battleWon"));
-        triggers.add(new Trigger(576, 300, 10, 80, new BattleScript(), "battleWon"));
+        // triggers.add(new Trigger(576, 288, 50, 10, new BattleScript(), "battleWon"));
+        // triggers.add(new Trigger(576, 300, 10, 80, new BattleScript(), "battleWon"));
         triggers.add(new Trigger(400, 288, 400, 300, new BattleScript(), "battleWon"));
         System.out.println("DEBUG: Triggers loaded");
         return triggers;

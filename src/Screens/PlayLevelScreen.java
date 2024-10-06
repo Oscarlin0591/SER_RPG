@@ -16,6 +16,7 @@ import Game.ScreenCoordinator;
 import Engine.GamePanel;
 import Level.*;
 import Maps.StartIslandMap;
+import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
@@ -95,6 +96,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("battleWon", false);
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
+        // enemy flags (test)
+        flagManager.addFlag("shrekEnemy", false);
 
         // define/setup map - may need to replicate for all maps
         map = new StartIslandMap();
@@ -167,7 +170,12 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("combatTriggered")) {
             //add logic to pull up combat menu here 
             System.out.println("DEBUG Combat Flag Works");
+
+            // if (map.getFlagManager().isFlagSet("shrekEnemy")) {
+            //     map = new BattleMap(new Shrek(503, new Point(12,6), 10, 1));
+            // } else {
             map = new BattleMap();
+
             map.setFlagManager(flagManager);
             player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
             System.out.print(player.getLocation());
@@ -175,7 +183,6 @@ public class PlayLevelScreen extends Screen {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             map.setPlayer(player);
             map.getTextbox().setInteractKey(player.getInteractKey());
-            battleGUI();
             map.getFlagManager().unsetFlag("combatTriggered");
             System.out.println(player.getHealth());
             GamePanel.combatTriggered(player.getHealth());
@@ -306,6 +313,7 @@ public class PlayLevelScreen extends Screen {
         playLevelScreenState = state;
     }
 
+    // game over screen
     public void gameOver() {
         playLevelScreenState = PlayLevelScreenState.GAME_OVER;
     }
@@ -316,16 +324,6 @@ public class PlayLevelScreen extends Screen {
 
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
-    }
-
-    public void battleGUI() {
-        healthBar = new JPanel(new GridLayout(4,1));
-        healthBar.setBackground(Color.LIGHT_GRAY);
-        healthBar.setPreferredSize(new Dimension(360,120));
-        JLabel health = new JLabel("Health: " + player.getHealth());
-        healthBar.add(health);
-
-        
     }
 
     public Player getPlayer() {

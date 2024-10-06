@@ -33,22 +33,26 @@ public class GamePanel extends JPanel {
 	private int currentFPS;
 	private boolean doPaint;
 
-	
-
 	private Map map;
 	//private Player player = PlayLevelScreen.
+
 	// Battle GUI
 	protected static SpriteFont healthLabel;
 	protected static float playerHealth;
 	protected static String healthInfo = ("Health: " + playerHealth);
 	private static boolean isInBattle = false;
 	// private static boolean battleInitiated = false;
+	private static int screenWidth;
+	private static int screenHeight;
 
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
 		super();
 		this.setDoubleBuffered(true);
+
+		screenHeight = this.getHeight();
+		screenWidth = this.getWidth();
 
 		// attaches Keyboard class's keyListener to this JPanel
 		this.addKeyListener(Keyboard.getKeyListener());
@@ -101,8 +105,6 @@ public class GamePanel extends JPanel {
 		//}
 	}
 
-	
-
 	private void updateShowFPSState() {
 		if (Keyboard.isKeyDown(showFPSKey) && !keyLocker.isKeyLocked(showFPSKey)) {
 			showFPS = !showFPS;
@@ -119,6 +121,11 @@ public class GamePanel extends JPanel {
 	public void draw() {			
 		// draw current game state
 		screenManager.draw(graphicsHandler);
+		// draws health bar
+		if (isInBattle) {
+			graphicsHandler.drawFilledRectangleWithBorder(this.getWidth()-150, this.getHeight()-600, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			healthLabel.draw(graphicsHandler);
+			}
 
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
@@ -137,7 +144,7 @@ public class GamePanel extends JPanel {
 	public static void updateHealthInfo(float newHealth) {
 		playerHealth = newHealth;
 		healthInfo = ("Health: " + playerHealth);
-		healthLabel = new SpriteFont(healthInfo, 700, 30, "Arial", 12, Color.BLACK);
+		healthLabel = new SpriteFont(healthInfo, screenWidth-200, 30, "Arial", 12, Color.BLACK);
 	}
 
 	@Override
