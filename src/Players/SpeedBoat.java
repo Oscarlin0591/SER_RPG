@@ -14,8 +14,6 @@ import java.util.HashMap;
 // basically just sets some values for physics and then defines animations
 
 public class SpeedBoat extends Player {
-        
-        protected float playerHealth;
 
         public SpeedBoat(float x, float y) {
                 super(new SpriteSheet(ImageLoader.load("SpeedBoat.png"), 24, 24), x, y, "STAND_RIGHT", 10, 1);

@@ -20,7 +20,7 @@ public class Shrek extends Enemy {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT", 10, 1);
     }
 
-    public Shrek(int id, Point location, int health, int strength) {
+    public Shrek(int id, Point location, float health, float strength) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT", health, strength);
     }
 

@@ -98,6 +98,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("gameOver", false);
         // enemy flags (test)
         flagManager.addFlag("shrekEnemy", false);
+        flagManager.addFlag("bugEnemy", false);
 
         // define/setup map - may need to replicate for all maps
         map = new StartIslandMap();
@@ -185,7 +186,7 @@ public class PlayLevelScreen extends Screen {
             map.getTextbox().setInteractKey(player.getInteractKey());
             map.getFlagManager().unsetFlag("combatTriggered");
             System.out.println(player.getHealth());
-            GamePanel.combatTriggered(player.getHealth());
+            GamePanel.combatTriggered();
 
         }
         if (map.getFlagManager().isFlagSet("battleWon")) {

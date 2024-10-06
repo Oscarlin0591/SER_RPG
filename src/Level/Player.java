@@ -286,6 +286,11 @@ public abstract class Player extends GameObject {
         this.strength = newStrength;
     }
 
+    // damage method
+    public void damage(float damage) {
+        setHealth(this.health - damage);
+    }
+
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     /*

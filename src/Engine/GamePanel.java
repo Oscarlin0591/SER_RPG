@@ -123,6 +123,7 @@ public class GamePanel extends JPanel {
 		screenManager.draw(graphicsHandler);
 		// draws health bar
 		if (isInBattle) {
+			updateHealthInfo();
 			graphicsHandler.drawFilledRectangleWithBorder(this.getWidth()-150, this.getHeight()-600, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
 			healthLabel.draw(graphicsHandler);
 			}
@@ -132,8 +133,8 @@ public class GamePanel extends JPanel {
 		}
 	}
 
-	public static void combatTriggered(float newHealth) {
-		updateHealthInfo(newHealth);
+	public static void combatTriggered() {
+		// updateHealthInfo();
 		isInBattle = true;
 	}
 	
@@ -141,10 +142,10 @@ public class GamePanel extends JPanel {
 		isInBattle = false;
 	}
 	
-	public static void updateHealthInfo(float newHealth) {
-		playerHealth = newHealth;
+	public static void updateHealthInfo() {
+		playerHealth = PlayLevelScreen.getMap().getPlayer().getHealth();
 		healthInfo = ("Health: " + playerHealth);
-		healthLabel = new SpriteFont(healthInfo, screenWidth-200, 30, "Arial", 12, Color.BLACK);
+		healthLabel = new SpriteFont(healthInfo, 0, 30, "Arial", 12, Color.BLACK);
 	}
 
 	@Override

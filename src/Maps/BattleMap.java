@@ -36,19 +36,23 @@ public class BattleMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus enemy_1 = new Walrus(500, getMapTile(6, 6).getLocation());
-        npcs.add(enemy_1);
+        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("walrusEnemy")) {
+            Walrus enemy_1 = new Walrus(500, getMapTile(6, 6).getLocation());
+            npcs.add(enemy_1);
+        // }
 
         Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
         npcs.add(enemy_2);
 
         //redefined Bug as an Enemy object
-        Bug enemy_3 = new Bug(502, getMapTile(3, 8).getLocation());
-        enemy_3.lock();
-        npcs.add(enemy_3);
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
+            Bug enemy_3 = new Bug(502, getMapTile(3, 8).getLocation(), 5, 5);
+            enemy_3.lock();
+            npcs.add(enemy_3);
+        }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-            Enemy enemy_4 = new Shrek(503, getMapTile(4,4).getLocation());
+            Enemy enemy_4 = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
             npcs.add(enemy_4);
 
         }
