@@ -50,7 +50,15 @@ public class BugScript extends Script {
                     }
                 });
                 
-                addScriptAction(new TextboxScriptAction("Oh...uh...awkward..."));
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("WHAT?!?!");
+                    addText("What about bugs don't you like?");
+                    addText("That's it! We're throwing hands.. or legs.. or limbs. En garde!");
+
+                    //toggle combat flag
+                }});
+                addScriptAction(new ChangeFlagScriptAction("bugEnemy", true));
+                addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
             }});
         }});
 

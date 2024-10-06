@@ -2,6 +2,7 @@ package Scripts.StartIslandMap;
 
 import java.util.ArrayList;
 
+import Engine.GamePanel;
 import Level.Script;
 import Screens.PlayLevelScreen;
 import ScriptActions.*;
@@ -20,7 +21,7 @@ public class BattleScript extends Script {
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("TIME TO COMMENCE BATTLE!");
-            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING" });
+            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING", "RECEIVE DAMAGE" });
         }});
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -60,6 +61,39 @@ public class BattleScript extends Script {
                 }});
                 System.out.println("DEBUG: game over flag tripped");
                 addScriptAction(new ChangeFlagScriptAction("gameOver",true));
+            }});
+            
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                        // isBattleWon = true;
+                        PlayLevelScreen.getMap().getPlayer().damage(1);
+                        
+                        // player health check
+                        if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
+                            isBattleWon = false;
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
+                        }
+                        System.out.println("DEBUG: Damage flag tripped");
+                        return answer == 2;
+                    }
+                    
+                });
+                // battle lost text
+                // if (PlayLevelScreen.getMap().getPlayer().getHealth() > 0) {
+                //     addScriptAction(new TextboxScriptAction() {{
+                //         addText("You mysteriously take 1 damage! How odd..");
+                //     }});
+                // } else if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
+                //     addScriptAction(new TextboxScriptAction() {{
+                //         addText("The enemy lands a finishing blow!");
+                //         addText("You can only pray to the goddesses\nto save you now");
+                //         addText("Perhaps you will stand victorious\nin your next life...");
+                //         }});
+                //     }
+            
             }});
         }});
 

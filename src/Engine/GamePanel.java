@@ -1,11 +1,17 @@
 package Engine;
 
 import GameObject.Rectangle;
+import Level.Map;
+import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /*
  * This is where the game loop process and render back buffer is setup
@@ -18,10 +24,7 @@ public class GamePanel extends JPanel {
 	// used to draw graphics to the panel
 	private GraphicsHandler graphicsHandler;
 
-	private boolean isGamePaused = false;
-	private SpriteFont pauseLabel;
 	private KeyLocker keyLocker = new KeyLocker();
-	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
 
 	private Key showFPSKey = Key.G;
@@ -30,25 +33,26 @@ public class GamePanel extends JPanel {
 	private int currentFPS;
 	private boolean doPaint;
 
-	private int PAUSE_MENU_WIDTH = 300;
-	private int PAUSE_MENU_HEIGHT = 400;
-	private int PAUSE_BUTTON_WIDTH = 200;
-	private int PAUSE_BUTTON_HEIGHT = 100;
-	private int HIGHLIGHT_MARGIN = 10;
-	private int HIGHLIGHT_WIDTH = PAUSE_BUTTON_WIDTH + 2*HIGHLIGHT_MARGIN;
-	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 2*HIGHLIGHT_MARGIN;
-	private SpriteFont quitLabel;
-	private SpriteFont returnLabel;
-	private final Key enterKey = Key.SPACE;
-	private int buttonHover = 0;
-	private final Key upKey = Key.UP;
-	private final Key downKey = Key.DOWN;
+	private Map map;
+	//private Player player = PlayLevelScreen.
+
+	// Battle GUI
+	protected static SpriteFont healthLabel;
+	protected static float playerHealth;
+	protected static String healthInfo = ("Health: " + playerHealth);
+	private static boolean isInBattle = false;
+	// private static boolean battleInitiated = false;
+	private static int screenWidth;
+	private static int screenHeight;
 
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
 		super();
 		this.setDoubleBuffered(true);
+
+		screenHeight = this.getHeight();
+		screenWidth = this.getWidth();
 
 		// attaches Keyboard class's keyListener to this JPanel
 		this.addKeyListener(Keyboard.getKeyListener());
@@ -57,17 +61,7 @@ public class GamePanel extends JPanel {
 
 		screenManager = new ScreenManager();
 
-		pauseLabel = new SpriteFont("PAUSE", 350, 100, "Arial", 24, Color.white);
-		pauseLabel.setOutlineColor(Color.black);
-		pauseLabel.setOutlineThickness(2.0f);
-
-		quitLabel = new SpriteFont("Quit Game", 325, 375, "Arial", 24, Color.white);
-		quitLabel.setOutlineColor(Color.black);
-		quitLabel.setOutlineThickness(2.0f);
-
-		returnLabel = new SpriteFont("Return", 325, 215, "Arial", 24, Color.white);
-		returnLabel.setOutlineColor(Color.black);
-		returnLabel.setOutlineThickness(2.0f);
+		map = PlayLevelScreen.getMap();
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Arial", 12, Color.black);
 
@@ -103,50 +97,12 @@ public class GamePanel extends JPanel {
 	}
 
 	public void update() {
-		updatePauseState();
+		
 		updateShowFPSState();
 
-		if (!isGamePaused) {
+		//if (!isGamePaused) {
 			screenManager.update();
-		}
-	}
-
-	private void updatePauseState() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
-			isGamePaused = !isGamePaused;
-			keyLocker.lockKey(pauseKey);
-		}
-
-		/*if(Keyboard.isKeyDown(upKey)){
-			buttonHover = 0;
-		}
-
-		if(Keyboard.isKeyDown(downKey)){
-			buttonHover = 1;
-		}*/
-		if(Keyboard.isKeyDown(upKey) && buttonHover > 0){
-			buttonHover--;
-		}
-
-		if(Keyboard.isKeyDown(downKey) && buttonHover < 1){
-			buttonHover++;
-		}
-
-		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
-			switch (buttonHover) {
-				case 1:
-					System.exit(0);
-					break;
-				default:
-					isGamePaused = false;
-					break;
-			}
-			
-		}
-
-		if (Keyboard.isKeyUp(pauseKey)) {
-			keyLocker.unlockKey(pauseKey);
-		}
+		//}
 	}
 
 	private void updateShowFPSState() {
@@ -165,26 +121,31 @@ public class GamePanel extends JPanel {
 	public void draw() {			
 		// draw current game state
 		screenManager.draw(graphicsHandler);
-
-		// if game is paused, draw pause gfx over Screen gfx
-		if (isGamePaused) {
-			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
-			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
-			if(buttonHover == 0){
-				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT + HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
-			}else{
-				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2 - 2*HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+		// draws health bar
+		if (isInBattle) {
+			updateHealthInfo();
+			graphicsHandler.drawFilledRectangleWithBorder(this.getWidth()-150, this.getHeight()-600, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			healthLabel.draw(graphicsHandler);
 			}
-			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
-			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
-			quitLabel.draw(graphicsHandler);
-			pauseLabel.draw(graphicsHandler);
-			returnLabel.draw(graphicsHandler);
-		}
 
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
 		}
+	}
+
+	public static void combatTriggered() {
+		// updateHealthInfo();
+		isInBattle = true;
+	}
+	
+	public static void combatFinished() {
+		isInBattle = false;
+	}
+	
+	public static void updateHealthInfo() {
+		playerHealth = PlayLevelScreen.getMap().getPlayer().getHealth();
+		healthInfo = ("Health: " + playerHealth);
+		healthLabel = new SpriteFont(healthInfo, 0, 30, "Arial", 12, Color.BLACK);
 	}
 
 	@Override
