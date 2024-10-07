@@ -42,7 +42,7 @@ public class PlayLevelScreen extends Screen {
     protected JPanel healthBar;
 
     //The many many pause screen variables
-    private boolean isGamePaused = false;
+    // private boolean isGamePaused = false; - converted to PlayLevelScreenState.PAUSED
 	private SpriteFont pauseLabel;
     private int PAUSE_MENU_WIDTH = 300;
 	private int PAUSE_MENU_HEIGHT = 400;
@@ -63,16 +63,17 @@ public class PlayLevelScreen extends Screen {
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
-        
-        pauseLabel = new SpriteFont("PAUSE", 350, 100, "Arial", 24, Color.white);
+
+        //labels are still slightly off + not based fully on screensize, should be handled at some future point
+        pauseLabel = new SpriteFont("PAUSE", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 - 175, "Arial", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
 
-		quitLabel = new SpriteFont("Quit Game", 325, 375, "Arial", 24, Color.white);
+		quitLabel = new SpriteFont("Quit Game", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 + 75, "Arial", 24, Color.white);
 		quitLabel.setOutlineColor(Color.black);
 		quitLabel.setOutlineThickness(2.0f);
 
-		returnLabel = new SpriteFont("Return", 325, 215, "Arial", 24, Color.white);
+		returnLabel = new SpriteFont("Return", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 - 40, "Arial", 24, Color.white);
 		returnLabel.setOutlineColor(Color.black);
 		returnLabel.setOutlineThickness(2.0f);
     }
@@ -133,8 +134,8 @@ public class PlayLevelScreen extends Screen {
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
-            player.update();
-            map.update(player);
+                player.update();
+                map.update(player);
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -142,6 +143,11 @@ public class PlayLevelScreen extends Screen {
                 break;
             case GAME_OVER:
                 gameOverScreen.update();
+                break;
+            case PAUSED:
+                //currently same as if running
+                player.update();
+                map.update(player);
                 break;
             }
             
@@ -198,7 +204,32 @@ public class PlayLevelScreen extends Screen {
 
     private void updatePauseState() {
 		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
-			isGamePaused = !isGamePaused;
+            //if screen currently running, it is now paused
+            if (playLevelScreenState == PlayLevelScreenState.RUNNING) {
+                playLevelScreenState = PlayLevelScreenState.PAUSED;
+
+                //lock player movement
+                getPlayer().lock();
+
+                //lock npc movement - seems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
+                for (NPC npc : getMap().getNPCs()) {
+                    npc.lock();
+                }
+            }
+            //if screen currently paused, it is now running
+            else if (playLevelScreenState == PlayLevelScreenState.PAUSED) {
+                playLevelScreenState = PlayLevelScreenState.RUNNING;
+                System.out.println("DEBUG: UNLOCKED");
+
+                //unlock player movement
+                getPlayer().unlock();
+
+                //unlock npc movement
+                for (NPC npc : getMap().getNPCs()) {
+                    npc.unlock();
+                }
+            }
+            
 			keyLocker.lockKey(pauseKey);
 		}
         
@@ -210,7 +241,7 @@ public class PlayLevelScreen extends Screen {
 			buttonHover++;
 		}
 
-		if(Keyboard.isKeyDown(enterKey) && isGamePaused){
+		if(Keyboard.isKeyDown(enterKey) && playLevelScreenState == PlayLevelScreenState.PAUSED){
 			switch (buttonHover) {
 				case 1:
 					// Write to save file
@@ -226,8 +257,11 @@ public class PlayLevelScreen extends Screen {
 					System.exit(0);
 					break;
 				default:
-					isGamePaused = false;
-					break;
+					playLevelScreenState = PlayLevelScreenState.RUNNING; //may run into issues if unpausing while game state was not previously running, but dont think thats possible anyways
+					
+                    //unlock player movement
+                    this.getPlayer().unlock();
+                    break;
 			}
 			
 		}
@@ -287,23 +321,24 @@ public class PlayLevelScreen extends Screen {
             case GAME_OVER:
                 gameOverScreen.draw(graphicsHandler);
                 break;
-        }
+            case PAUSED:
+                //still draw map
+                map.draw(player, graphicsHandler);
 
-        // if game is paused, draw pause gfx over Screen gfx
-		if (isGamePaused) {
-			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
-			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
-			if(buttonHover == 0){
-				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT + HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
-			}else{
-				graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2 - 2*HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
-			}
-			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
-			graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
-			quitLabel.draw(graphicsHandler);
-			pauseLabel.draw(graphicsHandler);
-			returnLabel.draw(graphicsHandler);
-		}
+                //draw pause menu overtop map
+                graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+                graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
+                if(buttonHover == 0){
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT + HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+                }else{
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2 - 2*HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+                }
+                graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+                graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+                quitLabel.draw(graphicsHandler);
+                pauseLabel.draw(graphicsHandler);
+                returnLabel.draw(graphicsHandler);
+        }
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
@@ -313,6 +348,10 @@ public class PlayLevelScreen extends Screen {
     public void setPlayLevelScreenState(PlayLevelScreenState state) {
         playLevelScreenState = state;
     }
+
+    // public PlayLevelScreenState getLastPlayerLevelScreenState () {
+    //     return playLevelScreenState;
+    // }
 
     // game over screen
     public void gameOver() {
@@ -333,8 +372,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER
-
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED
     }
-
 }
