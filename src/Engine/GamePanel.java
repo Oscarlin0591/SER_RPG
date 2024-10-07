@@ -42,17 +42,12 @@ public class GamePanel extends JPanel {
 	protected static String healthInfo = ("Health: " + playerHealth);
 	private static boolean isInBattle = false;
 	// private static boolean battleInitiated = false;
-	private static int screenWidth;
-	private static int screenHeight;
 
 
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
 		super();
 		this.setDoubleBuffered(true);
-
-		screenHeight = this.getHeight();
-		screenWidth = this.getWidth();
 
 		// attaches Keyboard class's keyListener to this JPanel
 		this.addKeyListener(Keyboard.getKeyListener());
@@ -97,12 +92,9 @@ public class GamePanel extends JPanel {
 	}
 
 	public void update() {
-		
 		updateShowFPSState();
+		screenManager.update();
 
-		//if (!isGamePaused) {
-			screenManager.update();
-		//}
 	}
 
 	private void updateShowFPSState() {
@@ -124,7 +116,7 @@ public class GamePanel extends JPanel {
 		// draws health bar
 		if (isInBattle) {
 			updateHealthInfo();
-			graphicsHandler.drawFilledRectangleWithBorder(this.getWidth()-150, this.getHeight()-600, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			graphicsHandler.drawFilledRectangleWithBorder(ScreenManager.getScreenWidth()-140, 0, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
 			healthLabel.draw(graphicsHandler);
 			}
 
@@ -134,7 +126,6 @@ public class GamePanel extends JPanel {
 	}
 
 	public static void combatTriggered() {
-		// updateHealthInfo();
 		isInBattle = true;
 	}
 	
@@ -145,7 +136,7 @@ public class GamePanel extends JPanel {
 	public static void updateHealthInfo() {
 		playerHealth = PlayLevelScreen.getMap().getPlayer().getHealth();
 		healthInfo = ("Health: " + playerHealth);
-		healthLabel = new SpriteFont(healthInfo, 0, 30, "Arial", 12, Color.BLACK);
+		healthLabel = new SpriteFont(healthInfo, ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
+import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
 import Utils.Direction;
 import Utils.Point;
@@ -106,7 +107,7 @@ public class PlayLevelScreen extends Screen {
         map.setFlagManager(flagManager);
 
         // setup player
-        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         player.setFacingDirection(Direction.LEFT);
@@ -158,19 +159,20 @@ public class PlayLevelScreen extends Screen {
 
         // if flag is set at any point during gameplay, game is "lost"
         if (map.getFlagManager().isFlagSet("gameOver")) {
+            GamePanel.combatFinished();
             playLevelScreenState = PlayLevelScreenState.GAME_OVER;
         }
         
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             System.out.println("DEBUG: Portal interaction flag checker");
-            setLocationOceanMap();
+            teleport(new OceanMap(), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
         }
 
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
             System.out.println("DEBUG: Island interaction flag checker");
-            setLocationStartIslandMap();
+            teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -178,11 +180,7 @@ public class PlayLevelScreen extends Screen {
             //add logic to pull up combat menu here 
             System.out.println("DEBUG Combat Flag Works");
 
-            // if (map.getFlagManager().isFlagSet("shrekEnemy")) {
-            //     map = new BattleMap(new Shrek(503, new Point(12,6), 10, 1));
-            // } else {
             map = new BattleMap();
-
             map.setFlagManager(flagManager);
             player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
             System.out.print(player.getLocation());
@@ -272,41 +270,29 @@ public class PlayLevelScreen extends Screen {
 	}
     
     // methods to switch map, pending overhaul to shorten code.
-    public void setLocationOceanMap() {
-        map.getFlagManager().unsetFlag("interactPortal");
-        map = new OceanMap();
-        map.setFlagManager(flagManager);
-        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-        player.setMap(map);
-        playLevelScreenState = PlayLevelScreenState.RUNNING;
-        map.setPlayer(player);
-        map.getTextbox().setInteractKey(player.getInteractKey());
-    }
-
-    public void setLocationStartIslandMap() {
-        map.getFlagManager().unsetFlag("toggleIsland");
-        map = new StartIslandMap();
-        map.setFlagManager(flagManager);
-        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-        player.setMap(map);
-        playLevelScreenState = PlayLevelScreenState.RUNNING;
-        map.setPlayer(player);
-        map.getTextbox().setInteractKey(player.getInteractKey());
-    }
 
     public void returnToIslandMap() {
         System.out.println("DEBUG: trying to initialize map");
+
         map = new StartIslandMap();
-        System.out.println("DEBUG: map initialized");
         map.setFlagManager(flagManager);
-        System.out.println("DEBUG: flag manager set");
-        player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-        System.out.println("DEBUG: player initialized");
+        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);
         map.getTextbox().setInteractKey(player.getInteractKey());
         map.getFlagManager().unsetFlag("battleWon");
+    }
+
+    public void teleport(Map newMap, String flag, Player newPlayer) {
+        map.getFlagManager().unsetFlag(flag);
+        map = newMap;
+        map.setFlagManager(flagManager);
+        player = newPlayer;
+        player.setMap(map);
+        playLevelScreenState = PlayLevelScreenState.RUNNING;
+        map.setPlayer(player);
+        map.getTextbox().setInteractKey(player.getInteractKey());
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
@@ -348,10 +334,6 @@ public class PlayLevelScreen extends Screen {
     public void setPlayLevelScreenState(PlayLevelScreenState state) {
         playLevelScreenState = state;
     }
-
-    // public PlayLevelScreenState getLastPlayerLevelScreenState () {
-    //     return playLevelScreenState;
-    // }
 
     // game over screen
     public void gameOver() {

@@ -40,7 +40,6 @@ public class BattleScript extends Script {
                     addText("You defeated the enemy!");
                     addText("You earned:\n3 doubloons and a mysterious scroll.");
                 }});
-                System.out.println("DEBUG: Win flag tripped");
                 addScriptAction(new ChangeFlagScriptAction("battleWon",true));
             }});
 
@@ -59,7 +58,6 @@ public class BattleScript extends Script {
                     addText("The enemy lauches a devastating attack!");
                     addText("Your ship sinks immediately and you\nmeet your untimely demise...");
                 }});
-                System.out.println("DEBUG: game over flag tripped");
                 addScriptAction(new ChangeFlagScriptAction("gameOver",true));
             }});
             
@@ -83,18 +81,19 @@ public class BattleScript extends Script {
                 });
                 // battle lost text
                 // if (PlayLevelScreen.getMap().getPlayer().getHealth() > 0) {
-                //     addScriptAction(new TextboxScriptAction() {{
-                //         addText("You mysteriously take 1 damage! How odd..");
-                //     }});
-                // } else if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
-                //     addScriptAction(new TextboxScriptAction() {{
-                //         addText("The enemy lands a finishing blow!");
-                //         addText("You can only pray to the goddesses\nto save you now");
-                //         addText("Perhaps you will stand victorious\nin your next life...");
-                //         }});
-                //     }
-            
-            }});
+                    addScriptAction(new TextboxScriptAction() {{
+                        addText("You mysteriously take 1 damage! How odd..");
+                    }});
+                    
+                }});
+                
+                if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("gameOver")) {
+                    scriptActions.add(new TextboxScriptAction() {{
+                        addText("The enemy lands a finishing blow!");
+                        addText("You can only pray to the goddesses\nto save you now");
+                        addText("Perhaps you will stand victorious\nin your next life...");
+                        }});
+                    }
         }});
 
         // scriptActions.add(new ChangeFlagScriptAction("isInCombat", true));
