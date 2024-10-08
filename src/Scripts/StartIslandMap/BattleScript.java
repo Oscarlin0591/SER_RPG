@@ -2,7 +2,7 @@ package Scripts.StartIslandMap;
 
 import java.util.ArrayList;
 import Screens.PlayLevelScreen;
-import Engine.GamePanel;
+// import Engine.GamePanel;
 import Level.Script;
 import ScriptActions.*;
 

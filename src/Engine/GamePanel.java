@@ -9,9 +9,7 @@ import Utils.Colors;
 import javax.swing.*;
 
 import java.awt.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
 
 /*
  * This is where the game loop process and render back buffer is setup

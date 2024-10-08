@@ -16,7 +16,7 @@ import Game.ScreenCoordinator;
 import Engine.GamePanel;
 import Level.*;
 import Maps.StartIslandMap;
-import NPCs.Shrek;
+//import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
@@ -25,10 +25,10 @@ import SpriteFont.SpriteFont;
 import Utils.Direction;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+// import javax.swing.JLabel;
+// import java.awt.GridLayout;
+// import java.awt.Color;
+// import java.awt.Dimension;
 
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen {

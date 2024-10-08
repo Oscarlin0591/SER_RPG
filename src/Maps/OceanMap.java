@@ -1,6 +1,6 @@
 package Maps;
 
-import EnhancedMapTiles.PushableRock;
+//import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.Island;
 import Scripts.SimpleTextScript;
