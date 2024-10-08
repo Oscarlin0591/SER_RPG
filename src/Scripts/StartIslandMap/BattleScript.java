@@ -1,12 +1,10 @@
 package Scripts.StartIslandMap;
 
 import java.util.ArrayList;
-
+import Screens.PlayLevelScreen;
 import Engine.GamePanel;
 import Level.Script;
-import Screens.PlayLevelScreen;
 import ScriptActions.*;
-import Maps.BattleMap;
 
 
 public class BattleScript extends Script {

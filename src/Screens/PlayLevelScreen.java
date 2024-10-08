@@ -23,7 +23,6 @@ import Players.SpeedBoat;
 import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
 import Utils.Direction;
-import Utils.Point;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;

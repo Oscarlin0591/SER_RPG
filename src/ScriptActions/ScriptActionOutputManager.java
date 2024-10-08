@@ -27,6 +27,7 @@ public class ScriptActionOutputManager {
         output.put(flagName, new ScriptActionOutput(data));
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T getFlagData(String flagName) {
         return (T)output.get(flagName).getData();
     }
