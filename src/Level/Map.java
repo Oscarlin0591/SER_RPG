@@ -76,6 +76,9 @@ public abstract class Map {
     // reference to current player
     protected Player player;
 
+    // current map chosen to teleport
+    protected static String chosenMap = null;
+
     public Map(String mapFileName, Tileset tileset) {
         this.mapFileName = mapFileName;
         this.tileset = tileset;
@@ -605,4 +608,13 @@ public abstract class Map {
     public void setPlayer(Player player) {
         this.player = player;
     }
+
+    public void setChosenMap(String map) {
+        chosenMap = map;
+    }
+
+    public String getChosenMap() {
+        return chosenMap;
+    }
+
 }

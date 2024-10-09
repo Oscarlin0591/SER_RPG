@@ -15,6 +15,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Engine.GamePanel;
 import Level.*;
+import MapEditor.EditorMaps;
 import Maps.StartIslandMap;
 import NPCs.Shrek;
 import Maps.OceanMap;
@@ -60,7 +61,6 @@ public class PlayLevelScreen extends Screen {
 	private final Key downKey = Key.DOWN;
     private KeyLocker keyLocker = new KeyLocker();
     private final Key pauseKey = Key.ESC;
-
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -166,7 +166,7 @@ public class PlayLevelScreen extends Screen {
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             System.out.println("DEBUG: Portal interaction flag checker");
-            teleport(new OceanMap(), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+            teleport(new BattleMap(), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
         }
 
         // if flag is set for portal interaction, change map
@@ -197,6 +197,11 @@ public class PlayLevelScreen extends Screen {
             System.out.println("Batton won method triggered");
             GamePanel.combatFinished();
             returnToIslandMap();
+        }
+
+        if (map.getChosenMap() != null) {
+            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+            map.setChosenMap(null);
         }
     }
 
