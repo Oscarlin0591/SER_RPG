@@ -2,6 +2,7 @@ package Engine;
 
 import GameObject.Rectangle;
 import Level.Map;
+import Maps.BattleMap;
 import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
@@ -39,6 +40,10 @@ public class GamePanel extends JPanel {
 	protected static float playerHealth;
 	protected static String healthInfo = ("Health: " + playerHealth);
 	private static boolean isInBattle = false;
+
+	protected static SpriteFont enemyHealthLabel;
+	protected static float enemyHealth;
+	protected static String enemyHealthInfo = ("Health: " + enemyHealth);
 	// private static boolean battleInitiated = false;
 
 
@@ -116,6 +121,9 @@ public class GamePanel extends JPanel {
 			updateHealthInfo();
 			graphicsHandler.drawFilledRectangleWithBorder(ScreenManager.getScreenWidth()-140, 0, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
 			healthLabel.draw(graphicsHandler);
+
+			graphicsHandler.drawFilledRectangleWithBorder(ScreenManager.getScreenWidth()-140, ScreenManager.getScreenHeight()-75, 140, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			enemyHealthLabel.draw(graphicsHandler);
 			}
 
 		if (showFPS) {
@@ -130,11 +138,19 @@ public class GamePanel extends JPanel {
 	public static void combatFinished() {
 		isInBattle = false;
 	}
+
+	public static boolean getBattleStatus() {
+		return isInBattle;
+	}
 	
 	public static void updateHealthInfo() {
 		playerHealth = PlayLevelScreen.getMap().getPlayer().getHealth();
 		healthInfo = ("Health: " + playerHealth);
 		healthLabel = new SpriteFont(healthInfo, ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
+
+		enemyHealth = BattleMap.getEnemy().getHealth();
+		enemyHealthInfo = ("Health: " + enemyHealth);
+		enemyHealthLabel = new SpriteFont(enemyHealthInfo, ScreenManager.getScreenWidth()-75, ScreenManager.getScreenHeight()-30, "Arial",12, Color.BLACK);
 	}
 
 	@Override

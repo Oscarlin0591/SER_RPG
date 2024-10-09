@@ -159,9 +159,6 @@ public class PlayLevelScreen extends Screen {
         // both are supported, however preloading is recommended
         map.preloadScripts();
 
-        // battleGUI();
-
-        
         winScreen = new WinScreen(this);
         gameOverScreen = new GameOverScreen(this);
     }

@@ -6,7 +6,15 @@ public class Enemy extends NPC {
     //instance variables
     protected float health;
     protected float strength;
+    
+    //call NPC constructor
+    public Enemy (int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, float health, float strength) {
+        super(id, x, y, spriteSheet, startingAnimation);
 
+        //initialize health and strength
+        this.health = health;
+        this.strength = strength;
+    }
     // getters and setters
     public float getHealth() {
         return this.health;
@@ -24,12 +32,8 @@ public class Enemy extends NPC {
         this.strength = newStrength;
     }
 
-    public Enemy (int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, float health, float strength) {
-        //call NPC constructor
-        super(id, x, y, spriteSheet, startingAnimation);
-
-        //initialize health and strength
-        this.health = health;
-        this.strength = strength;
+    public void attack(float damage) {
+        setHealth(this.health - damage);
     }
+    
 }
