@@ -5,6 +5,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
+import Saves.ContinueState;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
@@ -21,6 +22,9 @@ public class MenuScreen extends Screen {
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
+
+    //will come up with better solution to this
+    protected static ContinueState continueState = new ContinueState(); 
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -98,6 +102,7 @@ public class MenuScreen extends Screen {
             if (menuItemSelected == 0) {
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
+                continueState.setPressedContinue(true);
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 2){
                 screenCoordinator.setGameState(GameState.CREDITS);

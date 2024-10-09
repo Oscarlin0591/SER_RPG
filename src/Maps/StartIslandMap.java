@@ -10,15 +10,14 @@ import NPCs.Portal;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.CommonTileset;
+
 import java.util.ArrayList;
-import Engine.Config;
-import java.io.*;
 
 // Represents a test map to be used in a level
 public class StartIslandMap extends Map {
 
     public StartIslandMap() {
-        super("test_map.txt", new CommonTileset());
+        super("starting_map.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
     }
 

@@ -8,10 +8,8 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.NPC;
-import Level.Player;
 import Level.Enemy;
-import Utils.Direction;
+//import Utils.Direction;
 import Utils.Point;
 
 public class Shrek extends Enemy {

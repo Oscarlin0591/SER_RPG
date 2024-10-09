@@ -17,20 +17,23 @@ import Engine.GamePanel;
 import Level.*;
 import MapEditor.EditorMaps;
 import Maps.StartIslandMap;
-import NPCs.Shrek;
+//import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
 import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
 import Utils.Direction;
-import Utils.Point;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+// import javax.swing.JLabel;
+// import java.awt.GridLayout;
+// import java.awt.Color;
+// import java.awt.Dimension;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen {
@@ -61,6 +64,8 @@ public class PlayLevelScreen extends Screen {
 	private final Key downKey = Key.DOWN;
     private KeyLocker keyLocker = new KeyLocker();
     private final Key pauseKey = Key.ESC;
+
+    //private boolean pressedContinue = true;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -103,11 +108,44 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("bugEnemy", false);
 
         // define/setup map - may need to replicate for all maps
-        map = new StartIslandMap();
+        int playerContX = 0;
+        int playerContY = 0;
+        String mapCont = "";
+        if(MenuScreen.continueState.getPressedContinue()){
+            try{
+                File saveFile = new File("src/Saves/Save.txt");
+                Scanner in = new Scanner(saveFile);
+                playerContX = in.nextInt();
+                //System.out.println(playerContX);
+                playerContY = in.nextInt();
+                //System.out.println(playerContY);
+                mapCont = in.next();
+                //System.out.println(mapCont);
+                in.close();
+            }catch(FileNotFoundException e){
+                e.printStackTrace();
+            }
+
+            switch (mapCont) {
+                case "game_map.txt":
+                    map = new OceanMap();
+                    break;
+                default:
+                    map = new StartIslandMap();
+                    break;
+            }
+        }else{
+            map = new StartIslandMap();
+        }
+        
         map.setFlagManager(flagManager);
 
         // setup player
-        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        if(MenuScreen.continueState.getPressedContinue()){
+            player = new SpeedBoatSteve(playerContX, playerContY);
+        }else{
+            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        }
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         player.setFacingDirection(Direction.LEFT);
@@ -122,9 +160,6 @@ public class PlayLevelScreen extends Screen {
         // both are supported, however preloading is recommended
         map.preloadScripts();
 
-        // battleGUI();
-
-        
         winScreen = new WinScreen(this);
         gameOverScreen = new GameOverScreen(this);
     }
@@ -252,7 +287,7 @@ public class PlayLevelScreen extends Screen {
 					/*try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/Saves/Save.txt"))) {
 	        		    writer.write("" + (int)player.getX());
                         writer.write("\n" + (int)player.getY());
-                        writer.write("\n" + map.toString());
+                        writer.write("\n" + map.getMapFileName());
 
     			    } catch (IOException e) {
         			    e.printStackTrace();

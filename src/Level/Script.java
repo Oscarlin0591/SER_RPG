@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import GameObject.Rectangle;
+
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
 import ScriptActions.ScriptAction;

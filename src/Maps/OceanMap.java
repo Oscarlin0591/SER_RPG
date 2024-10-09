@@ -1,6 +1,6 @@
 package Maps;
 
-import EnhancedMapTiles.PushableRock;
+//import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.Island;
 import Scripts.SimpleTextScript;
@@ -8,7 +8,6 @@ import Scripts.StartIslandMap.*;
 // import Tilesets.CommonTileset;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
-import java.lang.Thread;
 
 // Represents a test map to be used in a level
 public class OceanMap extends Map {
