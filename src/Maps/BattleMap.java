@@ -6,7 +6,6 @@ import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
-import java.lang.Thread;
 
 public class BattleMap extends Map{
     public static boolean battle = false;

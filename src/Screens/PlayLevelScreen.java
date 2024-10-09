@@ -16,20 +16,19 @@ import Game.ScreenCoordinator;
 import Engine.GamePanel;
 import Level.*;
 import Maps.StartIslandMap;
-import NPCs.Shrek;
+//import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
 import Players.SpeedBoat;
 import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
 import Utils.Direction;
-import Utils.Point;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.GridLayout;
-import java.awt.Color;
-import java.awt.Dimension;
+// import javax.swing.JLabel;
+// import java.awt.GridLayout;
+// import java.awt.Color;
+// import java.awt.Dimension;
 
 import java.io.File;
 import java.io.FileNotFoundException;
