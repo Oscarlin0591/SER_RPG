@@ -329,6 +329,7 @@ public class PlayLevelScreen extends Screen {
         map = newMap;
         map.setFlagManager(flagManager);
         player = newPlayer;
+        player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);

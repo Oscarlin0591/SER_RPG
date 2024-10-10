@@ -41,6 +41,7 @@ public class BattleScript extends Script {
                         
                         if (answer == 0) {
                         BattleMap.getEnemy().attack(PlayLevelScreen.getMap().getPlayer().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
                         }
 
                         if (BattleMap.getEnemy().getHealth() <= 0) {
@@ -72,7 +73,14 @@ public class BattleScript extends Script {
                     @Override
                     public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+
+                        if (answer == 1) {
+                            PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
+                        }
+
+                        if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
                         isBattleLost = true;
+                        }
                         System.out.println("game over");
                         return answer == 1;
                     }
@@ -80,9 +88,8 @@ public class BattleScript extends Script {
                 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("The enemy lauches a devastating attack!");
-                    addText("Your ship sinks immediately and you\nmeet your untimely demise...");
+                    addText("Your ship is damaged!");
                 }});
-                addScriptAction(new ChangeFlagScriptAction("gameOver",true));
             }});
             
             // RECEIVE DAMAGE script
