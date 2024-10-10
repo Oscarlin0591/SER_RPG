@@ -2,11 +2,7 @@ package Maps;
 
 import EnhancedMapTiles.PushableRock;
 import Level.*;
-import NPCs.Bug;
-import NPCs.Dinosaur;
-import NPCs.Walrus;
-import NPCs.Shrek;
-import NPCs.Portal;
+import NPCs.*;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.CommonTileset;
@@ -62,6 +58,10 @@ public class StartIslandMap extends Map {
         portal.setExistenceFlag("interactPortal");
         portal.setInteractScript(new PortalScript());
         npcs.add(portal);
+
+        Kraken kraken = new Kraken(7, getMapTile(13, 21).getLocation().subtractX(20));
+        kraken.setInteractScript(new KrakenScript());
+        npcs.add(kraken);
 
         return npcs;
     }

@@ -8,21 +8,23 @@ import GameObject.SpriteSheet;
 import Level.NPC;
 import Utils.Point;
 
+
 import java.util.HashMap;
 
 // This class is for the portal NPC
-public class Portal extends NPC {
+public class Kraken extends NPC {
 
-    public Portal(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("shack.png"), 64, 64), "PORTAL_1");
+    public Kraken(int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("kraken.png"), 64, 64), "STAND_RIGHT");
+        System.out.println(Math.random());
     }
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("PORTAL_1", new Frame[] {
+            put("STAND_RIGHT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
+                            .withScale(2/1)
                             .build(),
            });
         }};

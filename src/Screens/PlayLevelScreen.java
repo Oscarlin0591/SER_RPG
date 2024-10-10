@@ -249,7 +249,7 @@ public class PlayLevelScreen extends Screen {
                 //lock player movement
                 getPlayer().lock();
 
-                //lock npc movement - seems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
+                //lock npc movement - sxeems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
                 for (NPC npc : getMap().getNPCs()) {
                     npc.lock();
                 }
