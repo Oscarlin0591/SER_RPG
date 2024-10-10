@@ -7,8 +7,8 @@ import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
 
-import Engine.GamePanel;
-import java.lang.Thread;
+// import Engine.GamePanel;
+// import java.lang.Thread;
 
 public class BattleMap extends Map{
     // public static boolean battle = false;
