@@ -45,19 +45,16 @@ public class BattleMap extends Map{
         // npcs.add(enemy_2);
 
         //redefined Bug as an Enemy object
-        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
-            this.enemy = new Bug(502, getMapTile(3, 8).getLocation(), 5, 5);
-            // npcs.add(enemy);
-            enemy.lock();
-            npcs.set(0, enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
-        }
+        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
+        //     Bug enemy_3 = new Bug(502, getMapTile(3, 8).getLocation(), 5, 5);
+        //     enemy_3.lock();
+        //     npcs.add(enemy_3);
+        // }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-            this.enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-            // npcs.add(enemy);
-            npcs.set(0, enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
+            Enemy enemy_4 = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
+            npcs.add(enemy_4);
+
         }
 
         return npcs;
