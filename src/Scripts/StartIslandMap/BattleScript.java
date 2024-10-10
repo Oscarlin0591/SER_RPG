@@ -29,7 +29,7 @@ public class BattleScript extends Script {
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("TIME TO COMMENCE BATTLE!");
-            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING", "RECEIVE DAMAGE"});
+            addText("This is a test, ATTACK to damage enemy or DO NOTHING to take damage.", new String[] { "ATTACK", "DO NOTHING", "RECEIVE DAMAGE"});
         }});
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -44,11 +44,16 @@ public class BattleScript extends Script {
                         PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
                         }
 
+                        if (PlayLevelScreen.getMap().getPlayer().getHealth() < 1) {
+                            isBattleLost = true;
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
+                            } else
                         if (BattleMap.getEnemy().getHealth() <= 0) {
                             isBattleWon = true;
                             // scriptActions.set(0, conditionalScripts.get(0));
                             PlayLevelScreen.getMap().getFlagManager().setFlag("battleWon");
                         }
+
                         return answer == 0;
                     }
                 });
@@ -77,11 +82,12 @@ public class BattleScript extends Script {
                         if (answer == 1) {
                             PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
                         }
-
                         if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
                         isBattleLost = true;
-                        }
+                        PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
                         System.out.println("game over");
+                        }
+
                         return answer == 1;
                     }
                 });
