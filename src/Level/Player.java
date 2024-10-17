@@ -13,6 +13,7 @@ public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 0;
+    protected float defaultWalkSpeed = 2.3f;   
     protected int interactionRange = 1;
     protected Direction currentWalkingXDirection;
     protected Direction currentWalkingYDirection;
@@ -36,12 +37,14 @@ public abstract class Player extends GameObject {
     protected Key MOVE_UP_KEY = Key.W;
     protected Key MOVE_DOWN_KEY = Key.S;
     protected Key INTERACT_KEY = Key.E;
+    protected Key SPRINT_KEY = Key.SHIFT;
 
     // values for health and strength
     protected float health;
     protected float strength;
 
     protected boolean isLocked = false;
+    protected boolean isSprinting;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -162,6 +165,16 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY) && Keyboard.isKeyUp(MOVE_UP_KEY) && Keyboard.isKeyUp(MOVE_DOWN_KEY)) {
             playerState = PlayerState.STANDING;
         }
+        
+        if (Keyboard.isKeyDown(SPRINT_KEY) && !isSprinting) {
+            isSprinting = true;
+            walkSpeed *= 1.75; 
+        }
+    
+        if (Keyboard.isKeyUp(SPRINT_KEY) && isSprinting) {
+            isSprinting = false;
+            walkSpeed = defaultWalkSpeed;
+        }
     }
 
     protected void updateLockedKeys() {
@@ -266,7 +279,17 @@ public abstract class Player extends GameObject {
             moveX(speed);
         }
     }
+/* 
+    public void sprint() {
+        walkSpeed = getWalkSpeed() * 1.75f;
+        walkSpeed = 2.3f;
+    }   
 
+    public void stopSprint() {
+        
+    }
+
+*/
     // getters and setters for NPC class
     public float getHealth() {
         return this.health;
@@ -288,6 +311,7 @@ public abstract class Player extends GameObject {
     public void damage(float damage) {
         setHealth(this.health - damage);
     }
+
 
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
