@@ -35,6 +35,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import java.util.Random;
+
 // This class is for when the RPG game is actually being played
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
@@ -65,6 +67,11 @@ public class PlayLevelScreen extends Screen {
     private KeyLocker keyLocker = new KeyLocker();
     private final Key pauseKey = Key.ESC;
 
+    //random encounter vars
+    private float spawnInterval;
+    private float timeSinceLastBattle = 0;
+    Random rand = new Random();
+
     //private boolean pressedContinue = true;
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
@@ -82,6 +89,8 @@ public class PlayLevelScreen extends Screen {
 		returnLabel = new SpriteFont("Return", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 - 40, "Arial", 24, Color.white);
 		returnLabel.setOutlineColor(Color.black);
 		returnLabel.setOutlineThickness(2.0f);
+
+        spawnInterval = rand.nextInt(10,15);
     }
 
     //getter for current map
@@ -166,6 +175,15 @@ public class PlayLevelScreen extends Screen {
     
     public void update() {
         updatePauseState();
+
+        if(map.getMapFileName().equals("game_map.txt")){
+            timeSinceLastBattle += .01;
+            if (timeSinceLastBattle >= spawnInterval) {
+                timeSinceLastBattle = 0;
+                spawnInterval = rand.nextInt(10,15);
+                flagManager.setFlag("combatTriggered");
+            }
+        }
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
