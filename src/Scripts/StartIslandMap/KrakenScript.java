@@ -14,7 +14,13 @@ public class KrakenScript extends Script {
         scriptActions.add(new TextboxScriptAction() {{
             addText("urrrghhhh...");
             addText("...");
+            addText("urrgghh...");
+            addText("alright lets do this");
         }});
+
+        //toggle combat flag
+        scriptActions.add(new ChangeFlagScriptAction("krakenEnemy", true));
+        scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
 
         scriptActions.add(new UnlockPlayerScriptAction());
 

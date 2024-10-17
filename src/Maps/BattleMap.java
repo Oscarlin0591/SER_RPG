@@ -33,6 +33,7 @@ public class BattleMap extends Map{
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+        
         this.enemy = new Bug(999, getMapTile(3, 8).getLocation(), 5, 5);
         npcs.add(enemy);
 
@@ -53,8 +54,14 @@ public class BattleMap extends Map{
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
             Enemy enemy_4 = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-            npcs.add(enemy_4);
+            npcs.set(0, enemy_4);
 
+        }
+
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
+            Enemy kraken = new Kraken(504, getMapTile(4, 4).getLocation(), 1, 1);
+            npcs.set(0,kraken);
+            
         }
 
         return npcs;

@@ -2,7 +2,7 @@ package Maps;
 
 //import EnhancedMapTiles.PushableRock;
 import Level.*;
-import NPCs.Island;
+import NPCs.*;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 // import Tilesets.CommonTileset;
@@ -32,6 +32,11 @@ public class OceanMap extends Map {
         island.setExistenceFlag("toggleIsland");
         island.setInteractScript(new IslandScript());
         npcs.add(island);
+
+        Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1);
+        kraken.setExistenceFlag("combatTriggered");
+        kraken.setInteractScript(new KrakenScript());
+        npcs.add(kraken);
 
         return npcs;
     }

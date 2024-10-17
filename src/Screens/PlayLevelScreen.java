@@ -106,6 +106,7 @@ public class PlayLevelScreen extends Screen {
         // enemy flags (test)
         flagManager.addFlag("shrekEnemy", false);
         flagManager.addFlag("bugEnemy", false);
+        flagManager.addFlag("krakenEnemy", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;

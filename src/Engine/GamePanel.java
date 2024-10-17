@@ -113,7 +113,7 @@ public class GamePanel extends JPanel {
 		fpsDisplayLabel.setText("FPS: " + currentFPS);
 	}
 
-	public void draw() {			
+	public void draw() {
 		// draw current game state
 		screenManager.draw(graphicsHandler);
 		// draws health bar
