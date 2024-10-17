@@ -5,18 +5,17 @@ import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
-import Level.NPC;
+import Level.Enemy;
 import Utils.Point;
 
 
 import java.util.HashMap;
 
-// This class is for the portal NPC
-public class Kraken extends NPC {
+// This class is for the kraken boss
+public class Kraken extends Enemy {
 
-    public Kraken(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("kraken.png"), 64, 64), "STAND_RIGHT");
-        System.out.println(Math.random());
+    public Kraken(int id, Point location, int health, int strength) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("kraken.png"), 64, 64), "STAND_RIGHT", health, strength);
     }
 
     @Override
