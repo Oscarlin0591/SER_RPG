@@ -44,17 +44,18 @@ public class BattleMap extends Map{
         //     npcs.add(enemy_1);
         // }
 
-        Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
-        npcs.add(enemy_2);
+        // Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
+        // npcs.add(enemy_2);
 
-        //redefined Bug as an Enemy object
-        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
-        //     Bug enemy_3 = new Bug(502, getMapTile(3, 8).getLocation(), 5, 5);
-        //     enemy_3.lock();
-        //     npcs.add(enemy_3);
-        // }
 
         //override default enemy depending on enemy flags
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
+            enemy = new Bug(502, getMapTile(3, 8).getLocation(), 20, 5);;
+            enemy.lock();
+            npcs.set(0, enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
+        }
+
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
             enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
             npcs.set(0, enemy);

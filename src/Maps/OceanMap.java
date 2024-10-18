@@ -5,15 +5,16 @@ import Level.*;
 import NPCs.*;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
+import Tilesets.MasterTileset;
 // import Tilesets.CommonTileset;
-import Tilesets.RPGTileset;
+// import Tilesets.RPGTileset;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
 public class OceanMap extends Map {
 
     public OceanMap() {
-        super("game_map.txt", new RPGTileset());
+        super("game_map.txt", new MasterTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
     }
 
@@ -37,6 +38,11 @@ public class OceanMap extends Map {
         kraken.setExistenceFlag("combatTriggered");
         kraken.setInteractScript(new KrakenScript());
         npcs.add(kraken);
+        
+        Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
+        cave.setExistenceFlag("toggleCave");
+        cave.setInteractScript(new CaveScript());
+        npcs.add(cave);
 
         return npcs;
     }

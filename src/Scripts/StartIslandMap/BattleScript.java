@@ -43,11 +43,11 @@ public class BattleScript extends Script {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
                         
                         if (answer == 0) {
-                            BattleMap.getEnemy().attack(Math.round(PlayLevelScreen.getMap().getPlayer().getStrength() * Math.random()) + 1);
-                            PlayLevelScreen.getMap().getPlayer().damage(Math.round(BattleMap.getEnemy().getStrength() * Math.random()) + 1);
+                        BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
                         }
 
-                        if (PlayLevelScreen.getMap().getPlayer().getHealth() < 1) {
+                        if (PlayLevelScreen.getMap().getPlayer().getHealth() <=0) {
                             isBattleLost = true;
                             PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
                             } else
@@ -83,7 +83,7 @@ public class BattleScript extends Script {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
 
                         if (answer == 1) {
-                            PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
+                            PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
                         }
                         if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
                         isBattleLost = true;
