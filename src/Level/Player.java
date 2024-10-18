@@ -290,7 +290,7 @@ public abstract class Player extends GameObject {
     }
 
 */
-    // getters and setters for NPC class
+    // getters and setters for Player class
     public float getHealth() {
         return this.health;
     }

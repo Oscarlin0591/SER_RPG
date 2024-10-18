@@ -51,7 +51,7 @@ public class Textbox {
     private SpriteFont text = null;
     private ArrayList<SpriteFont> options = null;
     private KeyLocker keyLocker = new KeyLocker();
-    private Key interactKey = Key.SPACE;
+    private Key interactKey = Key.E;
 
     private Map map;
 
@@ -142,23 +142,23 @@ public class Textbox {
         }
 
         if (options != null) {
-            if (Keyboard.isKeyDown(Key.DOWN) && !keyLocker.isKeyLocked(Key.DOWN)) {
-                keyLocker.lockKey(Key.DOWN);
+            if (Keyboard.isKeyDown(Key.S) && !keyLocker.isKeyLocked(Key.S)) {
+                keyLocker.lockKey(Key.S);
                 if (selectedOptionIndex < options.size() - 1) {
                     selectedOptionIndex++;
                 }
             }
-            if (Keyboard.isKeyDown(Key.UP) && !keyLocker.isKeyLocked(Key.UP)) {
-                keyLocker.lockKey(Key.UP);
+            if (Keyboard.isKeyDown(Key.W) && !keyLocker.isKeyLocked(Key.W)) {
+                keyLocker.lockKey(Key.W);
                 if (selectedOptionIndex > 0) {
                     selectedOptionIndex--;
                 }
             }
-            if (Keyboard.isKeyUp(Key.DOWN)) {
-                keyLocker.unlockKey(Key.DOWN);
+            if (Keyboard.isKeyUp(Key.S)) {
+                keyLocker.unlockKey(Key.S);
             }
-            if (Keyboard.isKeyUp(Key.UP)) {
-                keyLocker.unlockKey(Key.UP);
+            if (Keyboard.isKeyUp(Key.W)) {
+                keyLocker.unlockKey(Key.W);
             }
         }
     }

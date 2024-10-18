@@ -34,7 +34,8 @@ public class BattleMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
         
-        this.enemy = new Bug(999, getMapTile(3, 8).getLocation(), 5, 5);
+        //set default enemy
+        enemy = new Bug(999, getMapTile(3, 8).getLocation(), 5, 5);
         npcs.add(enemy);
 
         // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("walrusEnemy")) {
@@ -52,16 +53,17 @@ public class BattleMap extends Map{
         //     npcs.add(enemy_3);
         // }
 
+        //override default enemy depending on enemy flags
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-            Enemy enemy_4 = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-            npcs.set(0, enemy_4);
-
+            enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
+            npcs.set(0, enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
         }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
-            Enemy kraken = new Kraken(504, getMapTile(4, 4).getLocation(), 1, 1);
-            npcs.set(0,kraken);
-            
+            enemy = new Kraken(504, getMapTile(4, 4).getLocation(), 15, 4);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
         }
 
         return npcs;
@@ -84,7 +86,7 @@ public class BattleMap extends Map{
         return enemy;
     }
 
-    // public static float getEnemyStrength() {
+    //  public static float getEnemyStrength() {
     //     return enemy.getStrength();
     // }
 

@@ -21,9 +21,6 @@ public class BattleScript extends Script {
             addText("You earned:\n3 doubloons and a mysterious scroll.");
         }});
 
-
-
-
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
@@ -37,11 +34,17 @@ public class BattleScript extends Script {
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
+                        //check for and implement player upgrades - probs not where this will stay forever but its here for now cuz combat
+                        if (map.getFlagManager().isFlagSet("playerRoided")) {
+                            getMap().getPlayer().setStrength(getMap().getPlayer().getStrength() + 4);
+                            map.getFlagManager().unsetFlag("playerRoided");
+                        }
+
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
                         
                         if (answer == 0) {
-                        BattleMap.getEnemy().attack(PlayLevelScreen.getMap().getPlayer().getStrength());
-                        PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
+                            BattleMap.getEnemy().attack(Math.round(PlayLevelScreen.getMap().getPlayer().getStrength() * Math.random()) + 1);
+                            PlayLevelScreen.getMap().getPlayer().damage(Math.round(BattleMap.getEnemy().getStrength() * Math.random()) + 1);
                         }
 
                         if (PlayLevelScreen.getMap().getPlayer().getHealth() < 1) {

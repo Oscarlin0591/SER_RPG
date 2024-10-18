@@ -60,10 +60,10 @@ public class PlayLevelScreen extends Screen {
 	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 2*HIGHLIGHT_MARGIN;
 	private SpriteFont quitLabel;
 	private SpriteFont returnLabel;
-	private final Key enterKey = Key.SPACE;
+	private final Key enterKey = Key.E;
 	private int buttonHover = 0;
-	private final Key upKey = Key.UP;
-	private final Key downKey = Key.DOWN;
+	private final Key upKey = Key.W;
+	private final Key downKey = Key.S;
     private KeyLocker keyLocker = new KeyLocker();
     private final Key pauseKey = Key.ESC;
 
@@ -116,6 +116,9 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("shrekEnemy", false);
         flagManager.addFlag("bugEnemy", false);
         flagManager.addFlag("krakenEnemy", false);
+
+        // player upgrade flags
+        flagManager.addFlag("playerRoided", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -205,8 +208,8 @@ public class PlayLevelScreen extends Screen {
                 map.update(player);
                 break;
             }
-            
-            // if flag is set at any point during gameplay, game is "won"
+
+        // if flag is set at any point during gameplay, game is "won"
         if (map.getFlagManager().isFlagSet("hasFoundBall")) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }
@@ -247,6 +250,7 @@ public class PlayLevelScreen extends Screen {
             GamePanel.combatTriggered();
 
         }
+
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
             GamePanel.combatFinished();
