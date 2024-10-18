@@ -7,6 +7,7 @@ import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
 
+
 // import Engine.GamePanel;
 // import java.lang.Thread;
 
@@ -43,8 +44,8 @@ public class BattleMap extends Map{
         //     npcs.add(enemy_1);
         // }
 
-        // Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
-        // npcs.add(enemy_2);
+        Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
+        npcs.add(enemy_2);
 
         //redefined Bug as an Enemy object
         // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
