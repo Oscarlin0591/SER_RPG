@@ -35,9 +35,9 @@ public class BattleScript extends Script {
                     @Override
                     public boolean isRequirementMet() {
                         //check for and implement player upgrades - probs not where this will stay forever but its here for now cuz combat
-                        if (map.getFlagManager().isFlagSet("playerRoided")) {
-                            getMap().getPlayer().setStrength(getMap().getPlayer().getStrength() + 4);
-                            map.getFlagManager().unsetFlag("playerRoided");
+                        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("playerRoided")) {
+                            PlayLevelScreen.getMap().getPlayer().setStrength(getMap().getPlayer().getStrength() + 4);
+                            PlayLevelScreen.getMap().getFlagManager().unsetFlag("playerRoided");
                         }
 
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
@@ -53,6 +53,11 @@ public class BattleScript extends Script {
                             } else
                         if (BattleMap.getEnemy().getHealth() <= 0) {
                             isBattleWon = true;
+
+                            //toggle enemy killed flag if applicable
+                            if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
+
                             // scriptActions.set(0, conditionalScripts.get(0));
                             PlayLevelScreen.getMap().getFlagManager().setFlag("battleWon");
                         }

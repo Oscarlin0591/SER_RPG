@@ -118,6 +118,7 @@ public class PlayLevelScreen extends Screen {
 
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
+
         // enemy flags (test)
         flagManager.addFlag("shrekEnemy", false);
         flagManager.addFlag("bugEnemy", false);
@@ -125,6 +126,9 @@ public class PlayLevelScreen extends Screen {
 
         // player upgrade flags
         flagManager.addFlag("playerRoided", false);
+
+        // boss / enemy kill flags
+        flagManager.addFlag("krakenKilled", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
