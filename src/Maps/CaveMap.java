@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class CaveMap extends Map {
     public CaveMap() {
         super("cave_map.txt", new CaveTileset());
-        this.playerStartPosition = getMapTile(17, 20).getLocation();
+        this.playerStartPosition = getMapTile(17, 23).getLocation();
     }
 
     // @Override

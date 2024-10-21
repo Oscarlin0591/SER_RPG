@@ -4,6 +4,7 @@ import Engine.GraphicsHandler;
 import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
+import Engine.ScreenManager;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
@@ -27,16 +28,16 @@ public class Textbox {
     protected final int fontX = 35;
     protected final int fontBottomY = 472;
     protected final int fontTopY = 34;
-    protected final int width = 750;
+    protected final int width = ScreenManager.getScreenWidth()-22;
     protected final int height = 100;
 
     // options textbox constants
-    protected final int optionX = 680;
+    protected final int optionX = ScreenManager.getScreenWidth()-200;
     protected final int optionBottomY = 350;
     protected final int optionTopY = 130;
-    protected final int optionWidth = 92;
+    protected final int optionWidth = 200;
     protected final int optionHeight = 100;
-    protected final int fontOptionX = 706;
+    protected final int fontOptionX = optionX+10;
     protected final int fontOptionBottomYStart = 365;
     protected final int fontOptionTopYStart = 145;
     protected final int fontOptionSpacing = 35;
@@ -109,7 +110,7 @@ public class Textbox {
             int fontY = !map.getCamera().isAtBottomOfMap() ? fontBottomY : fontTopY;
   
             // create text spritefont that will be drawn in textbox
-            text = new SpriteFont(currentTextItem.getText(), fontX, fontY, "Arial", 30, Color.black);
+            text = new SpriteFont(currentTextItem.getText(), fontX, fontY, "Lucida Calligraphy", 30, Color.black);
 
             // if there are options associated with this text item, prepare option spritefont text to be drawn in options textbox
             if (currentTextItem.getOptions() != null) {
@@ -120,7 +121,7 @@ public class Textbox {
                 options = new ArrayList<>();
                 // for each option, crate option text spritefont that will be drawn in options textbox
                 for (int i = 0; i < currentTextItem.getOptions().size(); i++) {
-                    options.add(new SpriteFont(currentTextItem.options.get(i), fontOptionX, fontOptionY + (i *  fontOptionSpacing), "Arial", 30, Color.black));
+                    options.add(new SpriteFont(currentTextItem.options.get(i), fontOptionX, fontOptionY + (i *  fontOptionSpacing), "Lucida Calligraphy", 30, Color.black));
                 }
                 selectedOptionIndex = 0;
             }

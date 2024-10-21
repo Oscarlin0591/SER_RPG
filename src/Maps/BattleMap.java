@@ -49,18 +49,18 @@ public class BattleMap extends Map{
 
 
         //override default enemy depending on enemy flags
-        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
-            enemy = new Bug(502, getMapTile(3, 8).getLocation(), 20, 5);;
-            enemy.lock();
-            npcs.set(0, enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
-        }
+        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
+        //     enemy = new Bug(502, getMapTile(3, 8).getLocation(), 20, 5);;
+        //     enemy.lock();
+        //     npcs.set(0, enemy);
+        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
+        // }
 
-        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-            enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-            npcs.set(0, enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
-        }
+        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
+        //     enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
+        //     npcs.set(0, enemy);
+        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
+        // }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
             enemy = new Kraken(801, getMapTile(4, 4).getLocation(), 20, 6);
