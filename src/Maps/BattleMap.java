@@ -62,11 +62,11 @@ public class BattleMap extends Map{
         //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
         // }
 
-        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
-            enemy = new Kraken(801, getMapTile(4, 4).getLocation(), 20, 6);
-            npcs.set(0,enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
-        }
+        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
+        //     enemy = new Kraken(801, getMapTile(4, 4).getLocation(), 20, 6);
+        //     npcs.set(0,enemy);
+        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
+        // }
 
         return npcs;
     }
@@ -107,6 +107,6 @@ public class BattleMap extends Map{
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Gold_in_C_demo.wav");
+        // Music.playMusic("Music/Gold_in_C_demo.wav");
     }
 }

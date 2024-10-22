@@ -3,12 +3,11 @@ package Maps;
 //import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.*;
+import NPCs.Interactable.Shipwreck;
 import Screens.PlayLevelScreen;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.MasterTileset;
-// import Tilesets.CommonTileset;
-// import Tilesets.RPGTileset;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
@@ -35,13 +34,17 @@ public class OceanMap extends Map {
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
+        Shipwreck shipwreck = new Shipwreck(5, getMapTile(5,20).getLocation(),"Shipwreck.png");
+        shipwreck.setInteractScript(new SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls..."));
+        npcs.add(shipwreck);
+
         //if kraken not killed, add it to npcs
-        if (!PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenKilled")) {
-            Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1);
-            kraken.setExistenceFlag("combatTriggered");
-            kraken.setInteractScript(new KrakenScript());
-            npcs.add(kraken);
-        }
+        // if (!PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenKilled")) {
+        //     Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1);
+        //     kraken.setExistenceFlag("combatTriggered");
+        //     kraken.setInteractScript(new KrakenScript());
+        //     npcs.add(kraken);
+        // }
         
         Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
         cave.setExistenceFlag("toggleCave");
@@ -73,7 +76,7 @@ public class OceanMap extends Map {
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Seafaring Humdrum.wav");
+        // Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 
