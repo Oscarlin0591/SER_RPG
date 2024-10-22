@@ -1,8 +1,11 @@
 package Maps;
 
 import Level.*;
+import NPCs.Bug;
 import NPCs.Island;
 import Scripts.SimpleTextScript;
+import Scripts.CaveMapScripts.BugScript;
+import Scripts.CaveMapScripts.CaveHoleScript;
 import Tilesets.MasterTileset;
 import Tilesets.CaveTileset;
 import java.util.ArrayList;
@@ -20,17 +23,16 @@ public class CaveMap extends Map {
     //     return enhancedMapTiles;
     // }
 
-    // @Override
-    // public ArrayList<NPC> loadNPCs() {
-    //     ArrayList<NPC> npcs = new ArrayList<>();
+    @Override
+    public ArrayList<NPC> loadNPCs() {
+        ArrayList<NPC> npcs = new ArrayList<>();
 
-    //     Island island = new Island(2, getMapTile(13, 4).getLocation());
-    //     island.setExistenceFlag("toggleIsland");
-    //     island.setInteractScript(new IslandScript());
-    //     npcs.add(island);
+        Bug bug = new Bug(4, getMapTile(7, 20).getLocation().subtractX(20));
+        bug.setInteractScript(new BugScript());
+        npcs.add(bug);
 
-    //     return npcs;
-    // }
+        return npcs;
+    }
 
     // @Override
     // public ArrayList<Trigger> loadTriggers() {
@@ -41,20 +43,20 @@ public class CaveMap extends Map {
     //     return triggers;
     // }
 
-    // @Override
-    // public void loadScripts() {
-    //     getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
+    @Override
+    public void loadScripts() {
+        // getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
 
-    //     getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
+        // getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
 
-    //     getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
+        // getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
-    //     getMapTile(2, 6).setInteractScript(new TreeScript());
-    // }
+        getMapTile(37, 5).setInteractScript(new CaveHoleScript());
+    }
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Crystal Caves.wav");
+        // Music.playMusic("Music/Crystal Caves.wav");
     }
 }
 
