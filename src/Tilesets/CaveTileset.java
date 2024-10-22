@@ -68,6 +68,18 @@ public class CaveTileset extends Tileset {
                     CaveTiles.set(index, nonPassTile);
                     nonPassIndex++;
                 }
+
+                if (index == 59) {
+                    Frame nonPassFrame = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    MapTileBuilder nonPassTile = new MapTileBuilder(nonPassFrame)
+                    .withTileType(TileType.NOT_PASSABLE);
+                    
+                    CaveTiles.set(index, nonPassTile);
+                    nonPassIndex++;
+                }
                 index++;
             }
         }

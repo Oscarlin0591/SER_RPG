@@ -47,10 +47,6 @@ public class StartIslandMap extends Map {
         dinosaur.setExistenceFlag("hasTalkedToDinosaur");
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
-        
-        Bug bug = new Bug(4, getMapTile(7, 20).getLocation().subtractX(20));
-        bug.setInteractScript(new BugScript());
-        npcs.add(bug);
 
         //Shrek 'enemy' for combat test
         Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
@@ -64,7 +60,7 @@ public class StartIslandMap extends Map {
         npcs.add(portal);
 
         CapJV capJDV = new CapJV(3,getMapTile(20, 20).getLocation().subtractX(20));
-        //capJDV.setInteractScript(new TutorialScript());
+        capJDV.setInteractScript(new TutorialScript());
         npcs.add(capJDV);
 
         return npcs;
@@ -93,7 +89,7 @@ public class StartIslandMap extends Map {
     //all new maps must override
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Crystal Caves.wav");
+        // Music.playMusic("Music/Crystal Caves.wav");
     }
 }
 

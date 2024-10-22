@@ -25,6 +25,7 @@ import Players.SpeedBoat;
 import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
 import Utils.Direction;
+import Utils.Point;
 
 import javax.swing.JPanel;
 // import javax.swing.JLabel;
@@ -42,6 +43,8 @@ import java.util.Random;
 public class PlayLevelScreen extends Screen {
     protected ScreenCoordinator screenCoordinator;
     protected static Map map;
+    protected static Map prevMap;
+    protected static Utils.Point playerLoc;
     public Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
@@ -251,6 +254,8 @@ public class PlayLevelScreen extends Screen {
             //add logic to pull up combat menu here 
             System.out.println("DEBUG Combat Flag Works");
 
+            prevMap = getMap();
+            playerLoc = getPlayer().getLocation();
             map = new BattleMap();
             map.setFlagManager(flagManager);
             player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
@@ -268,7 +273,7 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
             GamePanel.combatFinished();
-            returnToIslandMap();
+            returnToPrevMap(prevMap, playerLoc);
         }
 
         if (map.getChosenMap() != null) {
@@ -348,12 +353,12 @@ public class PlayLevelScreen extends Screen {
     
     // methods to switch map, pending overhaul to shorten code.
 
-    public void returnToIslandMap() {
+    public void returnToPrevMap(Map prevMap, Point prevLoc) {
         System.out.println("DEBUG: trying to initialize map");
 
-        map = new StartIslandMap();
+        map = prevMap;
         map.setFlagManager(flagManager);
-        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player = new SpeedBoatSteve(prevLoc.x, prevLoc.y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);

@@ -1,4 +1,4 @@
-package Scripts.StartIslandMap;
+package Scripts.CaveMapScripts;
 
 import java.util.ArrayList;
 
@@ -34,8 +34,11 @@ public class BugScript extends Script {
                 });
 
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("I knew you were a cool cat!");
-                    addText("I'm going to let you in on a little secret...\nYou can push some rocks out of the way.");
+                    addText("Hell yeah man! Me too!");
+                    addText("It would've been weird if you said you didn't like bugs... considering I am one.");
+                    addText("As a bug enjoyer, I'm going to let you in on a little secret...\nThere is a giant bug here somewhere in this cave.");
+                    addText("He's like, totally ancient and stuff!");
+                    addText("The few time I saw him, he keeps murmuring about something like \"Protect the barrier...\"\nor something...He's super cool though!");
                 }});
             }});
 
