@@ -24,16 +24,9 @@ public class Island extends NPC {
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(6)
-                            .withBounds(8, 8, 8, 8)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(0, 0, 18, 16)
                             .build()
             });
-            put("STAND_RIGHT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(6)
-                           .withBounds(8, 8, 16, 16)
-                           .build()
-           });
         }};
     }
 

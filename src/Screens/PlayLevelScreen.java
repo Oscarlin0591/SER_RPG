@@ -20,6 +20,7 @@ import Maps.StartIslandMap;
 //import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
+import Maps.CaveMap;
 import Players.SpeedBoat;
 import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
@@ -60,10 +61,10 @@ public class PlayLevelScreen extends Screen {
 	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 2*HIGHLIGHT_MARGIN;
 	private SpriteFont quitLabel;
 	private SpriteFont returnLabel;
-	private final Key enterKey = Key.SPACE;
+	private final Key enterKey = Key.E;
 	private int buttonHover = 0;
-	private final Key upKey = Key.UP;
-	private final Key downKey = Key.DOWN;
+	private final Key upKey = Key.W;
+	private final Key downKey = Key.S;
     private KeyLocker keyLocker = new KeyLocker();
     private final Key pauseKey = Key.ESC;
 
@@ -105,17 +106,29 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToWalrus", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
+
+        // flag for teleportation
         flagManager.addFlag("interactPortal",false);
         flagManager.addFlag("toggleIsland", false);
+        flagManager.addFlag("toggleCave", false);
+
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
         flagManager.addFlag("battleWon", false);
+
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
+
         // enemy flags (test)
         flagManager.addFlag("shrekEnemy", false);
         flagManager.addFlag("bugEnemy", false);
         flagManager.addFlag("krakenEnemy", false);
+
+        // player upgrade flags
+        flagManager.addFlag("playerRoided", false);
+
+        // boss / enemy kill flags
+        flagManager.addFlag("krakenKilled", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -205,8 +218,8 @@ public class PlayLevelScreen extends Screen {
                 map.update(player);
                 break;
             }
-            
-            // if flag is set at any point during gameplay, game is "won"
+
+        // if flag is set at any point during gameplay, game is "won"
         if (map.getFlagManager().isFlagSet("hasFoundBall")) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
         }
@@ -225,8 +238,12 @@ public class PlayLevelScreen extends Screen {
 
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
-            System.out.println("DEBUG: Island interaction flag checker");
             teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+        }
+
+        // if flag is set for cave icon, change to caves
+        if (map.getFlagManager().isFlagSet("toggleCave")) {
+            teleport(new CaveMap(), "toggleCave", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -247,6 +264,7 @@ public class PlayLevelScreen extends Screen {
             GamePanel.combatTriggered();
 
         }
+
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
             GamePanel.combatFinished();
@@ -303,14 +321,14 @@ public class PlayLevelScreen extends Screen {
 				case 1:
 					// Write to save file
                     //IMPORTANT: DO NOT UNCOMMENT, COULD LEAD TO MULTIPLE MERGE CONFLICTS!
-					/*try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/Saves/Save.txt"))) {
+					try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/Saves/Save.txt"))) {
 	        		    writer.write("" + (int)player.getX());
                         writer.write("\n" + (int)player.getY());
                         writer.write("\n" + map.getMapFileName());
 
     			    } catch (IOException e) {
         			    e.printStackTrace();
-        			}*/
+        			}
 					System.exit(0);
 					break;
 				default:

@@ -21,9 +21,6 @@ public class BattleScript extends Script {
             addText("You earned:\n3 doubloons and a mysterious scroll.");
         }});
 
-
-
-
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
@@ -37,19 +34,30 @@ public class BattleScript extends Script {
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
+                        //check for and implement player upgrades - probs not where this will stay forever but its here for now cuz combat
+                        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("playerRoided")) {
+                            PlayLevelScreen.getMap().getPlayer().setStrength(getMap().getPlayer().getStrength() + 4);
+                            PlayLevelScreen.getMap().getFlagManager().unsetFlag("playerRoided");
+                        }
+
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
                         
                         if (answer == 0) {
-                        BattleMap.getEnemy().attack(PlayLevelScreen.getMap().getPlayer().getStrength());
-                        PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
+                        BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
                         }
 
-                        if (PlayLevelScreen.getMap().getPlayer().getHealth() < 1) {
+                        if (PlayLevelScreen.getMap().getPlayer().getHealth() <=0) {
                             isBattleLost = true;
                             PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
                             } else
                         if (BattleMap.getEnemy().getHealth() <= 0) {
                             isBattleWon = true;
+
+                            //toggle enemy killed flag if applicable
+                            if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
+
                             // scriptActions.set(0, conditionalScripts.get(0));
                             PlayLevelScreen.getMap().getFlagManager().setFlag("battleWon");
                         }
@@ -80,7 +88,7 @@ public class BattleScript extends Script {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
 
                         if (answer == 1) {
-                            PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
+                            PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
                         }
                         if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
                         isBattleLost = true;

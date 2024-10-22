@@ -7,19 +7,27 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import Level.TileType;
 import Level.Tileset;
+import Tilesets.CaveTileset;
+import Tilesets.RPGTileset;
 
 import java.util.ArrayList;
 
 public class MasterTileset extends Tileset {
 
+    static RPGTileset RPGTiles = new RPGTileset();
+    static CaveTileset CaveTiles = new CaveTileset();
+
     public MasterTileset() {
         super(ImageLoader.load("CommonTileset.png"), 16, 16, 3);
-
     }
 
     @Override
     public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
+
+        for (int i = 0; i < RPGTileset.getRPGTiles().size(); i++) {
+                mapTiles.add(RPGTileset.getRPGTiles().get(i));
+        }
 
         // grass
         Frame grassFrame = new FrameBuilder(getSubImage(0, 0))
@@ -319,6 +327,10 @@ public class MasterTileset extends Tileset {
 
         mapTiles.add(topWaterTile);
 
+        for (int i = 0; i < CaveTileset.getCaveTiles().size(); i++) {
+
+            mapTiles.add(CaveTileset.getCaveTiles().get(i));
+        }
 
         return mapTiles;
     }

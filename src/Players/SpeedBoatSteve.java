@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
+import Screens.PlayLevelScreen;
 
 import java.util.HashMap;
 
@@ -16,7 +17,7 @@ import java.util.HashMap;
 public class SpeedBoatSteve extends Player {
 
         public SpeedBoatSteve(float x, float y) {
-                super(new SpriteSheet(ImageLoader.load("speedboatSteve.png"), 14, 17), x, y, "STAND_RIGHT", 10, 2);
+                super(new SpriteSheet(ImageLoader.load("speedboatSteve.png"), 14, 17), x, y, "STAND_RIGHT", 20, 5);
                 walkSpeed = defaultWalkSpeed;
         }
 

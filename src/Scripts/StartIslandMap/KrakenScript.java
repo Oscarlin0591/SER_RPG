@@ -3,6 +3,7 @@ package Scripts.StartIslandMap;
 import java.util.ArrayList;
 
 import Level.Script;
+import Screens.PlayLevelScreen;
 import ScriptActions.*;
 
 public class KrakenScript extends Script {
@@ -16,8 +17,12 @@ public class KrakenScript extends Script {
             addText("...");
             addText("urrgghh...");
             addText("alright lets do this");
+            addText("take these steroids first tho (PLAYER STRENGTH BOOST TO MAKE FIGHT WINNABLE)");
         }});
 
+        //toggle player upgrade flag
+        scriptActions.add(new ChangeFlagScriptAction("playerRoided", true));
+        
         //toggle combat flag
         scriptActions.add(new ChangeFlagScriptAction("krakenEnemy", true));
         scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
