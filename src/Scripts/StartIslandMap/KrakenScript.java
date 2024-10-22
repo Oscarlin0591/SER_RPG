@@ -16,6 +16,7 @@ public class KrakenScript extends Script {
             addText("urrrghhhh...");
             addText("...");
             addText("urrgghh...");
+            addText("...");
             addText("alright lets do this");
             addText("take these steroids first tho (PLAYER STRENGTH BOOST TO MAKE FIGHT WINNABLE)");
         }});
