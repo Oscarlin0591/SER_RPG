@@ -64,7 +64,7 @@ public class StartIslandMap extends Map {
         npcs.add(portal);
 
         CapJV capJDV = new CapJV(3,getMapTile(20, 20).getLocation().subtractX(20));
-        capJDV.setInteractScript(new TutorialScript());
+        //capJDV.setInteractScript(new TutorialScript());
         npcs.add(capJDV);
 
         return npcs;
