@@ -9,6 +9,7 @@ import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.MasterTileset;
 import java.util.ArrayList;
+import Screens.PlayLevelScreen;
 
 // Represents a test map to be used in a level
 public class OceanMap extends Map {
@@ -39,12 +40,10 @@ public class OceanMap extends Map {
         npcs.add(shipwreck);
 
         //if kraken not killed, add it to npcs
-        if (!PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenKilled")) {
-            Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1);
-            kraken.setExistenceFlag("combatTriggered");
-            kraken.setInteractScript(new KrakenScript());
-            npcs.add(kraken);
-        }
+        Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1);
+        kraken.setExistenceFlag("krakenKilled");
+        kraken.setInteractScript(new KrakenScript());
+        npcs.add(kraken);
         
         Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
         cave.setExistenceFlag("toggleCave");

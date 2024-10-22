@@ -89,7 +89,7 @@ public class StartIslandMap extends Map {
     //all new maps must override
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Crystal Caves.wav");
+        Music.playMusic("Music/Crystal Caves.wav");
     }
 }
 
