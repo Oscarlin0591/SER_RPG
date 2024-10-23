@@ -58,6 +58,9 @@ public class BattleScript extends Script {
                             if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
 
+                            if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101))
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
+
                             // scriptActions.set(0, conditionalScripts.get(0));
                             PlayLevelScreen.getMap().getFlagManager().setFlag("battleWon");
                         }

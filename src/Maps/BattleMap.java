@@ -62,6 +62,12 @@ public class BattleMap extends Map{
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
         }
 
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvEnemy")) {
+            enemy = new CapJV(101, getMapTile(4, 4).getLocation(), 6, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("jvEnemy");
+        }
+
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
             enemy = new Kraken(801, getMapTile(4, 4).getLocation(), 20, 6);
             npcs.set(0,enemy);

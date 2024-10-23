@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Screens.PlayLevelScreen;
+
 /*
     This class is for defining a map that is used for a specific level
     The map class handles/manages a lot of different things, including:
@@ -24,7 +26,7 @@ import java.util.Scanner;
     5. calculating which tile a game object is currently on based on its x and y location
 */
 
-public abstract class Map {
+public class Map {
     // the tile map (map tiles that make up the entire map image)
     protected MapTile[] mapTiles;
 

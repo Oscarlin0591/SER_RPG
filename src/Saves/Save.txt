@@ -1,3 +1,3 @@
-881
-960
+761
+776
 starting_map.txt
