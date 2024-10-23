@@ -1,6 +1,6 @@
 package Screens;
 
-import java.awt.Color;
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -11,12 +11,15 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.Screen;
 import Engine.ScreenManager;
+import Engine.ImageLoader;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Engine.GamePanel;
 import Level.*;
 import MapEditor.EditorMaps;
 import Maps.StartIslandMap;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
 //import NPCs.Shrek;
 import Maps.OceanMap;
 import Maps.BattleMap;
@@ -51,25 +54,26 @@ public class PlayLevelScreen extends Screen {
     protected GameOverScreen gameOverScreen;
     public static FlagManager flagManager; //chaged to public static from protected
     protected JPanel healthBar;
-
-    //The many many pause screen variables
-    // private boolean isGamePaused = false; - converted to PlayLevelScreenState.PAUSED
-	private SpriteFont pauseLabel;
-    private int PAUSE_MENU_WIDTH = 300;
-	private int PAUSE_MENU_HEIGHT = 400;
-	private int PAUSE_BUTTON_WIDTH = 200;
-	private int PAUSE_BUTTON_HEIGHT = 100;
-	private int HIGHLIGHT_MARGIN = 10;
-	private int HIGHLIGHT_WIDTH = PAUSE_BUTTON_WIDTH + 2*HIGHLIGHT_MARGIN;
-	private int HIGHLIGHT_HEIGHT = PAUSE_BUTTON_HEIGHT + 2*HIGHLIGHT_MARGIN;
-	private SpriteFont quitLabel;
-	private SpriteFont returnLabel;
-	private final Key enterKey = Key.E;
 	private int buttonHover = 0;
-	private final Key upKey = Key.W;
-	private final Key downKey = Key.S;
     private KeyLocker keyLocker = new KeyLocker();
+
+    private final Key enterKey = Key.ENTER;
+    private final Key leftKey = Key.A;
+	private final Key rightKey = Key.D;
     private final Key pauseKey = Key.ESC;
+
+    private SpriteFont pauseLabel;
+	private SpriteFont quitLabel;
+    private SpriteFont profileLabel;
+    private SpriteFont profileLabel2;
+    private SpriteFont healthLabel;
+    private SpriteFont strengthLabel;
+    private SpriteFont returnLabel;
+
+    private BufferedImage heart = ImageLoader.load("heart.png");
+    private BufferedImage sword = ImageLoader.load("sword.png");
+    private BufferedImage steve = ImageLoader.load("steve.png");
+    private BufferedImage pauseBackground = ImageLoader.load("pauseBackground.jpg");
 
     //random encounter vars
     private float spawnInterval;
@@ -82,19 +86,33 @@ public class PlayLevelScreen extends Screen {
         this.screenCoordinator = screenCoordinator;
 
         //labels are still slightly off + not based fully on screensize, should be handled at some future point
-        pauseLabel = new SpriteFont("PAUSE", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 - 175, "Arial", 24, Color.white);
+        pauseLabel = new SpriteFont("PAUSED", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/20, "Times New Roman", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
-		pauseLabel.setOutlineThickness(2.0f);
+		pauseLabel.setOutlineThickness(3f);
 
-		quitLabel = new SpriteFont("Quit Game", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 + 75, "Arial", 24, Color.white);
+        profileLabel = new SpriteFont("Speedboat Steve is a brave adventurer who is sailing across the world. He", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/6.5f, "Times New Roman", 20, Color.white);
+        profileLabel.setOutlineColor(Color.black);
+        profileLabel.setOutlineThickness(2f);
+
+        profileLabel2 = new SpriteFont("must find treasure, and navigate through the ocean. Watch out for enemies!", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/5.5f, "Times New Roman", 20, Color.white);
+        profileLabel2.setOutlineColor(Color.black);
+        profileLabel2.setOutlineThickness(2f);
+
+		quitLabel = new SpriteFont("QUIT GAME", ScreenManager.getScreenWidth()/1.5f, ScreenManager.getScreenHeight()/1.3f, "Times New Roman", 28, Color.white);
 		quitLabel.setOutlineColor(Color.black);
-		quitLabel.setOutlineThickness(2.0f);
+		quitLabel.setOutlineThickness(2f);
 
-		returnLabel = new SpriteFont("Return", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/2 - 40, "Arial", 24, Color.white);
+        returnLabel = new SpriteFont("RETURN", ScreenManager.getScreenWidth()/2f, ScreenManager.getScreenHeight()/1.3f, "Times New Roman", 28, Color.white);
 		returnLabel.setOutlineColor(Color.black);
-		returnLabel.setOutlineThickness(2.0f);
+		returnLabel.setOutlineThickness(2f);
 
-        spawnInterval = rand.nextInt(10,15);
+        healthLabel = new SpriteFont("HEALTH:", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/3.5f, "Times New Roman", 36, Color.white);
+        healthLabel.setOutlineColor(Color.black);
+        healthLabel.setOutlineThickness(3f);
+
+        strengthLabel = new SpriteFont("STRENGTH: ", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/2.3f, "Times New Roman", 36, Color.white);
+        strengthLabel.setOutlineColor(Color.black);
+        strengthLabel.setOutlineThickness(3f);
     }
 
     //getter for current map
@@ -170,9 +188,10 @@ public class PlayLevelScreen extends Screen {
 
         // setup player
         if(MenuScreen.continueState.getPressedContinue()){
-            player = new SpeedBoatSteve(playerContX, playerContY);
+
+            player = new SpeedBoatSteve(playerContX, playerContY,10,10);
         }else{
-            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,10);
         }
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -233,17 +252,17 @@ public class PlayLevelScreen extends Screen {
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             System.out.println("DEBUG: Portal interaction flag checker");
-            teleport(new BattleMap(), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+            teleport(new BattleMap(), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
-            teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+            teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for cave icon, change to caves
         if (map.getFlagManager().isFlagSet("toggleCave")) {
-            teleport(new CaveMap(), "toggleCave", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+            teleport(new CaveMap(), "toggleCave", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -255,7 +274,7 @@ public class PlayLevelScreen extends Screen {
             playerLoc = getPlayer().getLocation();
             map = new BattleMap();
             map.setFlagManager(flagManager);
-            player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
             System.out.print(player.getLocation());
             player.setMap(map);
             playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -274,7 +293,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         if (map.getChosenMap() != null) {
-            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y));
+            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
             map.setChosenMap(null);
         }
     }
@@ -306,15 +325,15 @@ public class PlayLevelScreen extends Screen {
                     npc.unlock();
                 }
             }
-            
-			keyLocker.lockKey(pauseKey);
 		}
+
+        keyLocker.lockKey(pauseKey);
         
-		if(Keyboard.isKeyDown(upKey) && buttonHover > 0){
+		if(Keyboard.isKeyDown(leftKey) && buttonHover > 0){
 			buttonHover--;
 		}
 
-		if(Keyboard.isKeyDown(downKey) && buttonHover < 1){
+		if(Keyboard.isKeyDown(rightKey) && buttonHover < 1){
 			buttonHover++;
 		}
 
@@ -355,7 +374,7 @@ public class PlayLevelScreen extends Screen {
 
         map = prevMap;
         map.setFlagManager(flagManager);
-        player = new SpeedBoatSteve(prevLoc.x, prevLoc.y);
+        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);
@@ -388,22 +407,59 @@ public class PlayLevelScreen extends Screen {
                 gameOverScreen.draw(graphicsHandler);
                 break;
             case PAUSED:
+                int currentHealth = Math.round(player.getHealth());
+                int currentStrength = Math.round(player.getStrength());
+                int hearts = currentHealth/10;
+                int swords = currentStrength/2;
+                int heartXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
+                int heartYPos = ScreenManager.getScreenHeight()/3;
+                int swordXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
+                int swordYPos = ScreenManager.getScreenHeight()/2;
+
+                int backgroundEdge = ScreenManager.getScreenWidth()/8+ScreenManager.getScreenWidth()-(ScreenManager.getScreenWidth()/8*2);
                 //still draw map
                 map.draw(player, graphicsHandler);
 
                 //draw pause menu overtop map
-                graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
-                graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_MENU_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_MENU_HEIGHT/2, PAUSE_MENU_WIDTH, PAUSE_MENU_HEIGHT, new Color(255,255,255));
-                if(buttonHover == 0){
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 - HIGHLIGHT_HEIGHT + HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+                graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 200));                
+           
+                graphicsHandler.drawImage(pauseBackground,ScreenManager.getScreenWidth()/8, ScreenManager.getScreenHeight()/8, ScreenManager.getScreenWidth()-(ScreenManager.getScreenWidth()/8*2),ScreenManager.getScreenHeight()-(ScreenManager.getScreenHeight()/8*2));
+            
+                graphicsHandler.drawImage(steve, ScreenManager.getScreenWidth()/6, ScreenManager.getScreenHeight()/6, ScreenManager.getScreenWidth()/4, ScreenManager.getScreenHeight()/2+ScreenManager.getScreenHeight()/7);
+               
+
+                if (buttonHover == 0){
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/3, ScreenManager.getScreenHeight(), 100,100, Color.DARK_GRAY);
                 }else{
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - HIGHLIGHT_WIDTH/2, ScreenManager.getScreenHeight()/2 + HIGHLIGHT_HEIGHT/2 - 2*HIGHLIGHT_MARGIN, HIGHLIGHT_WIDTH, HIGHLIGHT_HEIGHT, Color.DARK_GRAY);
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2, ScreenManager.getScreenHeight(),100,100,Color.DARK_GRAY);
                 }
-                graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 + PAUSE_BUTTON_HEIGHT/2, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
-                graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2 - PAUSE_BUTTON_WIDTH/2, ScreenManager.getScreenHeight()/2 - PAUSE_BUTTON_HEIGHT, PAUSE_BUTTON_WIDTH, PAUSE_BUTTON_HEIGHT, Color.LIGHT_GRAY);
+
+                for(int i = 0; i < hearts; i++) {
+                    graphicsHandler.drawImage(heart, heartXPos, heartYPos,50,50);
+                    heartXPos += 55;
+                    if (heartXPos > backgroundEdge - 55) {
+                        heartXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
+                        heartYPos += 55;
+                    }
+                }
+
+                for(int i = 0; i <= swords+1; i++) {
+                    graphicsHandler.drawImage(sword, swordXPos, swordYPos,50,50);
+                    if (swordXPos > backgroundEdge - 55) {
+                        swordXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
+                        swordYPos += 55;
+                    }
+                    swordXPos += 55;
+                }
+                
+                profileLabel.draw(graphicsHandler);
+                profileLabel2.draw(graphicsHandler);
                 quitLabel.draw(graphicsHandler);
                 pauseLabel.draw(graphicsHandler);
                 returnLabel.draw(graphicsHandler);
+                healthLabel.draw(graphicsHandler);
+                strengthLabel.draw(graphicsHandler);
+
         }
     }
 

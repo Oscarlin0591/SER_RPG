@@ -63,6 +63,10 @@ public class StartIslandMap extends Map {
         capJDV.setInteractScript(new TutorialScript());
         npcs.add(capJDV);
 
+        RedPotion potion = new RedPotion(7, getMapTile(13, 20).getLocation());
+        potion.setInteractScript(new PotionScript());
+        npcs.add(potion);
+
         return npcs;
     }
 

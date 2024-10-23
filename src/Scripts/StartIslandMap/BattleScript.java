@@ -21,12 +21,15 @@ public class BattleScript extends Script {
             addText("You earned:\n3 doubloons and a mysterious scroll.");
         }});
 
+
+
+
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("TIME TO COMMENCE BATTLE!");
-            addText("This is a test, ATTACK to damage enemy or DO NOTHING to take damage.", new String[] { "ATTACK", "DO NOTHING", "RECEIVE DAMAGE"});
+            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING", "RECEIVE DAMAGE"});
         }});
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -34,23 +37,14 @@ public class BattleScript extends Script {
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
-                        //check for and implement player upgrades - probs not where this will stay forever but its here for now cuz combat
-                        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("playerRoided")) {
-                            PlayLevelScreen.getMap().getPlayer().setStrength(getMap().getPlayer().getStrength() + 4);
-                            PlayLevelScreen.getMap().getFlagManager().unsetFlag("playerRoided");
-                        }
-
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                        
                         if (answer == 0) {
-                        BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
-                        PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
+                            System.out.println("DEBUG: OPTION 0 SELECTED");
+
+                        BattleMap.getEnemy().attack(PlayLevelScreen.getMap().getPlayer().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
                         }
 
-                        if (PlayLevelScreen.getMap().getPlayer().getHealth() <=0) {
-                            isBattleLost = true;
-                            PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
-                            } else
                         if (BattleMap.getEnemy().getHealth() <= 0) {
                             isBattleWon = true;
 
@@ -64,7 +58,6 @@ public class BattleScript extends Script {
                             // scriptActions.set(0, conditionalScripts.get(0));
                             PlayLevelScreen.getMap().getFlagManager().setFlag("battleWon");
                         }
-
                         return answer == 0;
                     }
                 });
@@ -91,13 +84,14 @@ public class BattleScript extends Script {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
 
                         if (answer == 1) {
-                            PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                            PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
                         }
+
                         if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
                         isBattleLost = true;
-                        PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
-                        System.out.println("game over");
                         }
+                        System.out.println("game over");
+                        System.out.println("DEBUG: OPTION 1 SELECTED");
 
                         return answer == 1;
                     }
@@ -116,7 +110,7 @@ public class BattleScript extends Script {
                     public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
                         if (answer == 2) {
-                        PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength() * Math.round((0.8f + Math.random() * 0.4f) * 10.0f) / 10.0f);
                         }
 
                         // player health check
@@ -125,6 +119,8 @@ public class BattleScript extends Script {
                             PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
                         }
                         System.out.println("DEBUG: Damage flag tripped");
+                        System.out.println("DEBUG: OPTION 2 SELECTED");
+
                         return answer == 2;
                     }
                     
