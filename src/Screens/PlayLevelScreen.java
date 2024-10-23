@@ -84,6 +84,7 @@ public class PlayLevelScreen extends Screen {
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+        spawnInterval = rand.nextInt(10,15);
 
         //labels are still slightly off + not based fully on screensize, should be handled at some future point
         pauseLabel = new SpriteFont("PAUSED", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/20, "Times New Roman", 24, Color.white);
@@ -157,16 +158,24 @@ public class PlayLevelScreen extends Screen {
         int playerContX = 0;
         int playerContY = 0;
         String mapCont = "";
+        int playerHealthCont = 0;
+        int playerStrengthCont = 0;
         if(MenuScreen.continueState.getPressedContinue()){
             try{
                 File saveFile = new File("src/Saves/Save.txt");
                 Scanner in = new Scanner(saveFile);
                 playerContX = in.nextInt();
-                //System.out.println(playerContX);
+                System.out.println(playerContX);
                 playerContY = in.nextInt();
-                //System.out.println(playerContY);
+                System.out.println(playerContY);
                 mapCont = in.next();
-                //System.out.println(mapCont);
+                System.out.println(mapCont);
+                playerHealthCont = in.nextInt();
+                playerStrengthCont = in.nextInt();
+                //kraken's existence
+                if(in.nextBoolean()){
+                    flagManager.setFlag("krakenKilled");
+                }
                 in.close();
             }catch(FileNotFoundException e){
                 e.printStackTrace();
@@ -188,8 +197,11 @@ public class PlayLevelScreen extends Screen {
 
         // setup player
         if(MenuScreen.continueState.getPressedContinue()){
-
-            player = new SpeedBoatSteve(playerContX, playerContY,10,10);
+            if(map.getMapFileName().equals("game_map.txt")){
+                player = new SpeedBoat(playerContX, playerContY, playerHealthCont, playerStrengthCont);
+            }else{
+                player = new SpeedBoatSteve(playerContX, playerContY, playerHealthCont, playerStrengthCont);
+            }
         }else{
             player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,10);
         }
@@ -346,6 +358,9 @@ public class PlayLevelScreen extends Screen {
 	        		    writer.write("" + (int)player.getX());
                         writer.write("\n" + (int)player.getY());
                         writer.write("\n" + map.getMapFileName());
+                        writer.write("\n" + player.getHealth());
+                        writer.write("\n" + player.getStrength());
+                        writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
 
     			    } catch (IOException e) {
         			    e.printStackTrace();
