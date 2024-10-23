@@ -193,7 +193,7 @@ public class PlayLevelScreen extends Screen {
     public void update() {
         updatePauseState();
 
-        if(map.getMapFileName().equals("game_map.txt")){
+        if(map.getMapFileName().equals("game_map.txt") && !player.getIsLocked()){
             timeSinceLastBattle += .01;
             if (timeSinceLastBattle >= spawnInterval) {
                 timeSinceLastBattle = 0;

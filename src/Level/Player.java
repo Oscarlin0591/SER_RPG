@@ -244,6 +244,10 @@ public abstract class Player extends GameObject {
         this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
     }
 
+    public boolean getIsLocked(){
+        return isLocked;
+    }
+
     // used by other files or scripts to force player to stand
     public void stand(Direction direction) {
         playerState = PlayerState.STANDING;

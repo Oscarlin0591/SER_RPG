@@ -6,6 +6,7 @@ import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
 import java.util.ArrayList;
+import java.util.Random;
 
 
 // import Engine.GamePanel;
@@ -36,7 +37,18 @@ public class BattleMap extends Map{
         ArrayList<NPC> npcs = new ArrayList<>();
         
         //set default enemy
-        enemy = new Bug(999, getMapTile(3, 8).getLocation(), 5, 5);
+        Random rand = new Random();
+        int ranEnemy = rand.nextInt(3);
+        switch (ranEnemy) {
+            case 0:
+                enemy = new Bug(999, getMapTile(3, 8).getLocation(), 5, 5);
+                break;
+            case 1:
+                enemy = new Shrek(503, getMapTile(3,8).getLocation(), 10, 1);
+                break;
+            default:
+                break;
+        }
         npcs.add(enemy);
 
         // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("walrusEnemy")) {
