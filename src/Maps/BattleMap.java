@@ -38,7 +38,7 @@ public class BattleMap extends Map{
         
         //set default enemy
         Random rand = new Random();
-        int ranEnemy = rand.nextInt(3);
+        int ranEnemy = rand.nextInt(2);
         switch (ranEnemy) {
             case 0:
                 enemy = new Bug(999, getMapTile(3, 8).getLocation(), 5, 5);
