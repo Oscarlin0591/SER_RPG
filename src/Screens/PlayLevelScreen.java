@@ -49,7 +49,7 @@ public class PlayLevelScreen extends Screen {
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected GameOverScreen gameOverScreen;
-    protected FlagManager flagManager;
+    public static FlagManager flagManager; //chaged to public static from protected
     protected JPanel healthBar;
 
     //The many many pause screen variables
@@ -126,11 +126,13 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("shrekEnemy", false);
         flagManager.addFlag("bugEnemy", false);
         flagManager.addFlag("krakenEnemy", false);
+        flagManager.addFlag("jvEnemy", false);
 
         // player upgrade flags
         flagManager.addFlag("playerRoided", false);
 
         // boss / enemy kill flags
+        flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
 
         // define/setup map - may need to replicate for all maps
@@ -222,11 +224,6 @@ public class PlayLevelScreen extends Screen {
                 break;
             }
 
-        // if flag is set at any point during gameplay, game is "won"
-        if (map.getFlagManager().isFlagSet("hasFoundBall")) {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
-        }
-
         // if flag is set at any point during gameplay, game is "lost"
         if (map.getFlagManager().isFlagSet("gameOver")) {
             GamePanel.combatFinished();
@@ -291,7 +288,7 @@ public class PlayLevelScreen extends Screen {
                 //lock player movement
                 getPlayer().lock();
 
-                //lock npc movement - sxeems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
+                //lock npc movement - seems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
                 for (NPC npc : getMap().getNPCs()) {
                     npc.lock();
                 }

@@ -6,15 +6,15 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.NPC;
+import Level.Enemy;
 import Utils.Point;
 
 import java.util.HashMap;
 
 
-public class CapJV extends NPC {
-    public CapJV(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("captainJackVeith.png"), 14, 17), "STAND_LEFT");
+public class CapJV extends Enemy {
+    public CapJV(int id, Point location, int health, int strength) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("captainJackVeith.png"), 14, 17), "STAND_LEFT", health, strength);
     }
 
     @Override
