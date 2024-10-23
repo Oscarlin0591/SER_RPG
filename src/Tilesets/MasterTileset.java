@@ -7,8 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import Level.TileType;
 import Level.Tileset;
-import Tilesets.CaveTileset;
-import Tilesets.RPGTileset;
+import Tilesets.*;
 
 import java.util.ArrayList;
 
@@ -16,6 +15,7 @@ public class MasterTileset extends Tileset {
 
     static RPGTileset RPGTiles = new RPGTileset();
     static CaveTileset CaveTiles = new CaveTileset();
+    static WaterTileset WaterTiles = new WaterTileset();
 
     public MasterTileset() {
         super(ImageLoader.load("CommonTileset.png"), 16, 16, 3);
@@ -24,6 +24,10 @@ public class MasterTileset extends Tileset {
     @Override
     public ArrayList<MapTileBuilder> defineTiles() {
         ArrayList<MapTileBuilder> mapTiles = new ArrayList<>();
+
+        for (int i = 0; i < WaterTileset.getWaterTiles().size(); i++) {
+                mapTiles.add(WaterTileset.getWaterTiles().get(i));
+        }
 
         for (int i = 0; i < RPGTileset.getRPGTiles().size(); i++) {
                 mapTiles.add(RPGTileset.getRPGTiles().get(i));
