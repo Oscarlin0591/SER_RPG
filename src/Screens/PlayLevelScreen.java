@@ -179,9 +179,17 @@ public class PlayLevelScreen extends Screen {
                 System.out.println(mapCont);
                 playerHealthCont = in.nextInt();
                 playerStrengthCont = in.nextInt();
+                //beaten jv
+                if(in.nextBoolean()){
+                    flagManager.setFlag("jvBeaten");
+                }
                 //kraken's existence
                 if(in.nextBoolean()){
                     flagManager.setFlag("krakenKilled");
+                }
+                //beetle defeated
+                if(in.nextBoolean()){
+                    flagManager.setFlag("beetleKilled");
                 }
                 in.close();
             }catch(FileNotFoundException e){
@@ -192,6 +200,8 @@ public class PlayLevelScreen extends Screen {
                 case "game_map.txt":
                     map = new OceanMap();
                     break;
+                case "cave_map.txt":
+                    map = new CaveMap();
                 default:
                     map = new StartIslandMap();
                     break;
@@ -388,8 +398,9 @@ public class PlayLevelScreen extends Screen {
                         writer.write("\n" + map.getMapFileName());
                         writer.write("\n" + (int)player.getHealth());
                         writer.write("\n" + (int)player.getStrength());
+                        writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
                         writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
-
+                        writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
     			    } catch (IOException e) {
         			    e.printStackTrace();
         			}
