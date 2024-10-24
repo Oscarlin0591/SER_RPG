@@ -52,6 +52,8 @@ public class BossBeetleScript extends Script{
                     addText("There are no other options. En Garde!");
                 }});
 
+                addScriptAction(new UnlockPlayerScriptAction());
+
                 addScriptAction(new ChangeFlagScriptAction("beetleEnemy", true));
                 addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
             }});
@@ -69,12 +71,15 @@ public class BossBeetleScript extends Script{
                     addText("What a sour attitude you have!");
                     addText("Think you could take me on? Bring it!");
                 }});
+                
+                addScriptAction(new UnlockPlayerScriptAction());
+
                 addScriptAction(new ChangeFlagScriptAction("beetleEnemy", true));
                 addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
             }});
         }});
 
-        scriptActions.add(new NPCUnlockScriptAction());
+        // scriptActions.add(new NPCUnlockScriptAction());
         scriptActions.add(new UnlockPlayerScriptAction());
 
         return scriptActions;

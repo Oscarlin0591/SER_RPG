@@ -15,21 +15,12 @@ public class BattleScript extends Script {
 
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
-        ArrayList<ScriptAction> conditionalScripts = new ArrayList<>();
-        conditionalScripts.add(new TextboxScriptAction() {{
-            addText("You defeated the enemy!");
-            addText("You earned:\n3 doubloons and a mysterious scroll.");
-        }});
-
-
-
-
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("TIME TO COMMENCE BATTLE!");
-            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING", "RECEIVE DAMAGE"});
+            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING"});
         }});
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -39,24 +30,22 @@ public class BattleScript extends Script {
                     public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
                         if (answer == 0) {
-        
                             BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
                             PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
 
                             if (PlayLevelScreen.getMap().getPlayer().getHealth() <=0) {
-                                isBattleLost = true;
-                                PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("battleLost");
+                                // PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
                             } else if (BattleMap.getEnemy().getHealth() <= 0) {
-                                isBattleWon = true;
-            
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("battleWonText");
+
+
                                 // toggle enemy killed flag if applicable
                                 if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
                                     PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
             
                                 if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101))
                                     PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
-            
-                                PlayLevelScreen.getMap().getFlagManager().setFlag("battleWon");
                         }
                         }
 
@@ -64,19 +53,30 @@ public class BattleScript extends Script {
                     }
                 });
 
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new CustomRequirement() {
+                        @Override
+                        public boolean isRequirementMet() {
+                            return PlayLevelScreen.getMap().getFlagManager().isFlagSet("battleLost");
+                        }
+                    });
+                    addScriptAction(new TextboxScriptAction(){{
+                        addText("The enemy lands a finishing blow!");
+                        addText("You can only pray to the goddesses\nto save you now");
+                        addText("Perhaps you will stand victorious\nin your next life...");
+                    }});
+                    addScriptAction(new ChangeFlagScriptAction("gameOver", true));
+                }});
+
                 
-                if (isBattleWon) {
-                    addScriptAction(new TextboxScriptAction() {{
-                        addText("You defeated the enemy!");
-                        addText("You earned:\n3 doubloons and a mysterious scroll.");
-                    }});
-                    // addScriptAction(new ChangeFlagScriptAction("battleWon",true));
-                } else {
-                    addScriptAction(new TextboxScriptAction() {{
-                        addText("You fired your cannons at the enemy!");
-                        addText("The ammunition shreds through the enemy vessel...\nKeep it up!");
-                    }});
-                }
+                // addScriptAction(new ChangeFlagScriptAction("battleWon",true));
+                
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("You fired your cannons at the enemy!");
+                    addText("The ammunition shreds through the enemy vessel...\nKeep it up!");
+                }});
+                
+                
             }});
 
             // DO NOTHING script
@@ -88,57 +88,52 @@ public class BattleScript extends Script {
 
                         if (answer == 1) {
                             PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
-                        }
+                        } 
 
                         if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
-                        isBattleLost = true;
-                        PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("battleLost");
                         }
-                        return answer == 1;
-                    }
-                });
-                
+
+                        
+                    return answer == 1;
+                }
+            });
                 addScriptAction(new TextboxScriptAction() {{
                     addText("The enemy lauches a devastating attack!");
                     addText("Your ship is damaged!");
                 }});
             }});
-            
-            // // RECEIVE DAMAGE script
-            // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-            //     addRequirement(new CustomRequirement() {
-            //         @Override
-            //         public boolean isRequirementMet() {
-            //             int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-            //             if (answer == 2) {
-            //             PlayLevelScreen.getMap().getPlayer().damage(BattleMap.getEnemy().getStrength() * Math.round((0.8f + Math.random() * 0.4f) * 10.0f) / 10.0f);
-            //             }
+        }});
 
-            //             // player health check
-            //             if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
-            //                 isBattleWon = false;
-            //                 PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
-            //             }
-            //             System.out.println("DEBUG: Damage flag tripped");
-            //             System.out.println("DEBUG: OPTION 2 SELECTED");
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        return PlayLevelScreen.getMap().getFlagManager().isFlagSet("battleWonText");
+                    }
+                });
+                addScriptAction(new TextboxScriptAction(){{
+                    addText("You defeated the enemy!");
+                    addText("You earned:\n3 doubloons and a mysterious scroll.");
+                }});
+                addScriptAction(new ChangeFlagScriptAction("battleWon", true));
+            }});
 
-            //             return answer == 2;
-            //         }
-                    
-            //     });
-                
-            //         addScriptAction(new TextboxScriptAction() {{
-            //             addText("You mysteriously take 1 damage! How odd..");
-            //         }});
-            // }});
-            
-                if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("gameOver")) {
-                    scriptActions.add(new TextboxScriptAction() {{
-                        addText("The enemy lands a finishing blow!");
-                        addText("You can only pray to the goddesses\nto save you now");
-                        addText("Perhaps you will stand victorious\nin your next life...");
-                    }});
-                }
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        return PlayLevelScreen.getMap().getFlagManager().isFlagSet("battleLost");
+                    }
+                });
+                addScriptAction(new TextboxScriptAction(){{
+                    addText("The enemy lands a finishing blow!");
+                    addText("You can only pray to the goddesses\nto save you now");
+                    addText("Perhaps you will stand victorious\nin your next life...");
+                }});
+                addScriptAction(new ChangeFlagScriptAction("gameOver", true));
+                }});
         }});
 
         // scriptActions.add(new ChangeFlagScriptAction("isInCombat", true));

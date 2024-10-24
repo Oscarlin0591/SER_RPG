@@ -49,6 +49,7 @@ public class PlayLevelScreen extends Screen {
     protected static Map prevMap;
     protected static Utils.Point playerLoc;
     public Player player;
+    private Player prevPlayer;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected GameOverScreen gameOverScreen;
@@ -139,6 +140,8 @@ public class PlayLevelScreen extends Screen {
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
         flagManager.addFlag("battleWon", false);
+        flagManager.addFlag("battleWonText", false);
+        flagManager.addFlag("battleLost", false);
 
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
@@ -156,6 +159,7 @@ public class PlayLevelScreen extends Screen {
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
+        flagManager.addFlag("beetleKilled", false);
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
@@ -182,9 +186,17 @@ public class PlayLevelScreen extends Screen {
                 System.out.println(mapCont);
                 playerHealthCont = in.nextInt();
                 playerStrengthCont = in.nextInt();
+                //beaten jv
+                if(in.nextBoolean()){
+                    flagManager.setFlag("jvBeaten");
+                }
                 //kraken's existence
                 if(in.nextBoolean()){
                     flagManager.setFlag("krakenKilled");
+                }
+                //beetle defeated
+                if(in.nextBoolean()){
+                    flagManager.setFlag("beetleKilled");
                 }
                 in.close();
             }catch(FileNotFoundException e){
@@ -195,6 +207,8 @@ public class PlayLevelScreen extends Screen {
                 case "game_map.txt":
                     map = new OceanMap();
                     break;
+                case "cave_map.txt":
+                    map = new CaveMap();
                 default:
                     map = new StartIslandMap();
                     break;
@@ -213,7 +227,7 @@ public class PlayLevelScreen extends Screen {
                 player = new SpeedBoatSteve(playerContX, playerContY, playerHealthCont, playerStrengthCont);
             }
         }else{
-            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,10);
+            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
         }
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -284,7 +298,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         if (map.getFlagManager().isFlagSet("exitIsland")) {
-            teleport(new OceanMap(), "exitIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+            teleport(new OceanMap(), "exitIsland", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
         // if flag is set for cave icon, change to caves
         if (map.getFlagManager().isFlagSet("toggleCave")) {
@@ -303,6 +317,7 @@ public class PlayLevelScreen extends Screen {
 
             prevMap = getMap();
             playerLoc = getPlayer().getLocation();
+            prevPlayer = getPlayer();
             map = new BattleMap();
             map.setFlagManager(flagManager);
             player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
@@ -319,9 +334,21 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
             GamePanel.combatFinished();
-            returnToPrevMap(prevMap, playerLoc);
-        }
+            switch(prevMap.getMapFileName()) {
+                case "cave_map.txt":
+                    returnToPrevMap(new CaveMap(), playerLoc, prevPlayer);
+                    break;
+                case "game_map.txt":
+                    returnToPrevMap(new OceanMap(), playerLoc, prevPlayer);
+                    break;
+                case "starting_map.txt":
+                    returnToPrevMap(new StartIslandMap(), playerLoc, prevPlayer);
+                    break;
 
+            }
+            
+        }
+        
         if (map.getChosenMap() != null) {
             teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
             map.setChosenMap(null);
@@ -376,10 +403,11 @@ public class PlayLevelScreen extends Screen {
 	        		    writer.write("" + (int)player.getX());
                         writer.write("\n" + (int)player.getY());
                         writer.write("\n" + map.getMapFileName());
-                        writer.write("\n" + player.getHealth());
-                        writer.write("\n" + player.getStrength());
+                        writer.write("\n" + (int)player.getHealth());
+                        writer.write("\n" + (int)player.getStrength());
+                        writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
                         writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
-
+                        writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
     			    } catch (IOException e) {
         			    e.printStackTrace();
         			}
@@ -402,15 +430,20 @@ public class PlayLevelScreen extends Screen {
     
     // methods to switch map, pending overhaul to shorten code.
 
-    public void returnToPrevMap(Map prevMap, Point prevLoc) {
-        map = prevMap;
+    public void returnToPrevMap(Map newMap, Point prevLoc, Player newPlayer) {
+        
+        map = newMap;
         map.setFlagManager(flagManager);
-        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
+        player = newPlayer;
         player.setMap(map);
+        player.setLocation(prevLoc.x,prevLoc.y);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);
         map.getTextbox().setInteractKey(player.getInteractKey());
         map.getFlagManager().unsetFlag("battleWon");
+        map.getFlagManager().unsetFlag("battleWonText");
+        map.getFlagManager().unsetFlag("battleLost");
+        
     }
 
     public void teleport(Map newMap, String flag, Player newPlayer) {
@@ -460,9 +493,9 @@ public class PlayLevelScreen extends Screen {
                
 
                 if (buttonHover == 0){
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/3, ScreenManager.getScreenHeight(), 100,100, Color.DARK_GRAY);
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2-8, ScreenManager.getScreenHeight()/2+220, 130,80, Color.BLACK);
                 }else{
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2, ScreenManager.getScreenHeight(),100,100,Color.DARK_GRAY);
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2+235, ScreenManager.getScreenHeight()/2+220,170,80,Color.BLACK);
                 }
 
                 for(int i = 0; i < hearts; i++) {
@@ -476,7 +509,7 @@ public class PlayLevelScreen extends Screen {
 
                 for(int i = 0; i <= swords+1; i++) {
                     graphicsHandler.drawImage(sword, swordXPos, swordYPos,50,50);
-                    if (swordXPos > backgroundEdge - 55) {
+                    if (swordXPos > backgroundEdge - 70) {
                         swordXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
                         swordYPos += 55;
                     }

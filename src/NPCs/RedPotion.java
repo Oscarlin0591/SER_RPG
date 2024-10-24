@@ -12,7 +12,7 @@ import Utils.Point;
 
 public class RedPotion extends NPC { 
     public RedPotion(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("potion.png"),16, 16), "STAND_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("redpotion.png"),16, 16), "STAND_RIGHT");
     }
 
     @Override

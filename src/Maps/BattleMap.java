@@ -61,11 +61,11 @@ public class BattleMap extends Map{
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
         }
 
-        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-            enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-            npcs.set(0, enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
-        }
+        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
+        //     enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
+        //     npcs.set(0, enemy);
+        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
+        // }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvEnemy")) {
             enemy = new CapJV(101, getMapTile(4, 4).getLocation(), 6, 1);
@@ -112,6 +112,19 @@ public class BattleMap extends Map{
 
     @Override
     public void loadMusic() {
+        Random rand = new Random();
+        int randMusic = rand.nextInt(4);
+        switch (randMusic) {
+            case 1:
+                Music.playMusic("Music/Fighting The Invisible.wav");
+                break;
+            case 2:
+                Music.playMusic("Music/Splash Thunder.wav");
+                break;
+            default:
+                Music.playMusic("Music/BossThemeOne16bit.wav");
+                break;
+        }
         Music.playMusic("Music/Gold_in_C_demo.wav");
     }
 }

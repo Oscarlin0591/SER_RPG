@@ -52,7 +52,7 @@ public class StartIslandMap extends Map {
         dinosaur.setInteractScript(new DinoScript());
         npcs.add(dinosaur);
 
-        // //Shrek 'enemy' for combat test
+        //Shrek 'enemy' for combat test
         // Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
         // shrek.setExistenceFlag("combatTriggered");
         // shrek.setInteractScript(new ShrekScript());

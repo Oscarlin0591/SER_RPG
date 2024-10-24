@@ -10,6 +10,7 @@ public class TutorialScript extends Script{
 
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -17,7 +18,7 @@ public class TutorialScript extends Script{
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
-                        return !PlayLevelScreen.flagManager.isFlagSet("jvBeaten");
+                        return !PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvBeaten");
                     }
                 });
                 

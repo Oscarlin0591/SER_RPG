@@ -24,11 +24,11 @@ public class KrakenScript extends Script {
         //toggle player upgrade flag
         scriptActions.add(new ChangeFlagScriptAction("playerRoided", true));
         
+        scriptActions.add(new UnlockPlayerScriptAction());
         //toggle combat flag
         scriptActions.add(new ChangeFlagScriptAction("krakenEnemy", true));
         scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
 
-        scriptActions.add(new UnlockPlayerScriptAction());
 
         return scriptActions;
     }

@@ -12,6 +12,7 @@ public class Music {
     
     public static void playMusic (String musicFilePath) {
         //(re)initialize currentClip if needed
+        
         if (currentMap == null || currentMap != PlayLevelScreen.getMap()) {
             try {
                 if (currentClip != null)

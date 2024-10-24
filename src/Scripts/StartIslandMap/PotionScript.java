@@ -17,8 +17,6 @@ import Screens.PlayLevelScreen;
 public class PotionScript extends Script {
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
-        int healh;
-
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
@@ -29,7 +27,7 @@ public class PotionScript extends Script {
         scriptActions.add(new ScriptAction() {
             @Override
             public ScriptState execute() {
-                player.setHealth(player.getHealth()+10);
+                player.setHealth(player.getHealth()+5);
                 System.out.println(player.getHealth());
 
                 //remove potion once used
