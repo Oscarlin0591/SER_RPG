@@ -2,6 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.*;
+import NPCs.Bosses.HolyBeetle;
 import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
@@ -27,8 +28,6 @@ public class BattleMap extends Map{
         super("battle_map.txt", new RPGTileset());
         this.playerStartPosition = getMapTile(12, 6).getLocation();
         enemy = newEnemy;
-
-        battle();
     }
     
     //load enemies
@@ -51,28 +50,22 @@ public class BattleMap extends Map{
         }
         npcs.add(enemy);
 
-        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("walrusEnemy")) {
-        //     Walrus enemy_1 = new Walrus(500, getMapTile(6, 6).getLocation());
-        //     npcs.add(enemy_1);
-        // }
 
-        // Dinosaur enemy_2 = new Dinosaur(501, getMapTile(6, 8).getLocation());
-        // npcs.add(enemy_2);
 
 
         //override default enemy depending on enemy flags
-        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
-        //     enemy = new Bug(502, getMapTile(3, 8).getLocation(), 20, 5);;
-        //     enemy.lock();
-        //     npcs.set(0, enemy);
-        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
-        // }
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
+            enemy = new Bug(502, getMapTile(3, 8).getLocation(), 20, 5);;
+            enemy.lock();
+            npcs.set(0, enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
+        }
 
-        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-        //     enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-        //     npcs.set(0, enemy);
-        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
-        // }
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
+            enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
+            npcs.set(0, enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
+        }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvEnemy")) {
             enemy = new CapJV(101, getMapTile(4, 4).getLocation(), 6, 1);
@@ -86,21 +79,15 @@ public class BattleMap extends Map{
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
         }
 
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("beetleEnemy")) {
+            enemy = new HolyBeetle(802, getMapTile(4, 4).getLocation(), 50, 5);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("beetleEnemy");
+        }
+
         return npcs;
     }
 
-    // redundant method as of now
-    public boolean battle() {
-
-        if (this.player.getHealth() <= 0){
-            return false;
-        } else if (enemy.getHealth() <= 0) {
-            return true;
-        } else {
-            System.out.println("ERROR on battle Method");
-            return false;
-        }
-    }
 
     public static Enemy getEnemy() {
         return enemy;

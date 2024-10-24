@@ -3,17 +3,19 @@ package Maps;
 import Level.*;
 import NPCs.Bug;
 import NPCs.Island;
+import NPCs.Bosses.HolyBeetle;
 import Scripts.SimpleTextScript;
-import Scripts.CaveMapScripts.BugScript;
-import Scripts.CaveMapScripts.CaveHoleScript;
+import Scripts.CaveMapScripts.*;
 import Tilesets.MasterTileset;
 import Tilesets.CaveTileset;
 import java.util.ArrayList;
 
 public class CaveMap extends Map {
+
+    
     public CaveMap() {
         super("cave_map.txt", new CaveTileset());
-        this.playerStartPosition = getMapTile(17, 23).getLocation();
+        this.playerStartPosition = getMapTile(17, 22).getLocation();
     }
 
     // @Override
@@ -31,24 +33,25 @@ public class CaveMap extends Map {
         bug.setInteractScript(new BugScript());
         npcs.add(bug);
 
+        HolyBeetle beetleBoss = new HolyBeetle(5, getMapTile(40,11).getLocation(), 50, 5);
+        beetleBoss.setInteractScript(new BossBeetleScript());
+        // beetleBoss.setIsHidden(true);
+        npcs.add(beetleBoss);
+
         return npcs;
     }
 
-    // @Override
-    // public ArrayList<Trigger> loadTriggers() {
-    //     ArrayList<Trigger> triggers = new ArrayList<>();
-    //     //add triggers below, commented out one is an example.
+    @Override
+    public ArrayList<Trigger> loadTriggers() {
+        ArrayList<Trigger> triggers = new ArrayList<>();
+        //add triggers below, commented out one is an example.
 
-    //     // triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
-    //     return triggers;
-    // }
+        triggers.add(new Trigger(790, 1130, 100, 10, new CaveExitScript()));
+        return triggers;
+    }
 
     @Override
     public void loadScripts() {
-        // getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
-
-        // getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
-
         // getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
         getMapTile(37, 5).setInteractScript(new CaveHoleScript());

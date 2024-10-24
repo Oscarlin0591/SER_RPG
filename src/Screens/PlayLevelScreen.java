@@ -131,7 +131,9 @@ public class PlayLevelScreen extends Screen {
         // flag for teleportation
         flagManager.addFlag("interactPortal",false);
         flagManager.addFlag("toggleIsland", false);
+        flagManager.addFlag("exitIsland", false);
         flagManager.addFlag("toggleCave", false);
+        flagManager.addFlag("exitCave", false);
 
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
@@ -145,6 +147,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("bugEnemy", false);
         flagManager.addFlag("krakenEnemy", false);
         flagManager.addFlag("jvEnemy", false);
+        flagManager.addFlag("beetleEnemy", false);
 
         // player upgrade flags
         flagManager.addFlag("playerRoided", false);
@@ -252,17 +255,23 @@ public class PlayLevelScreen extends Screen {
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             System.out.println("DEBUG: Portal interaction flag checker");
-            teleport(new BattleMap(), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength()));
+            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
+            playerLoc = getPlayer().getLocation();
             teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for cave icon, change to caves
         if (map.getFlagManager().isFlagSet("toggleCave")) {
+            playerLoc = getPlayer().getLocation();
             teleport(new CaveMap(), "toggleCave", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+        }
+
+        if (map.getFlagManager().isFlagSet("exitCave")) {
+            teleport(new OceanMap(), "exitCave", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -281,7 +290,6 @@ public class PlayLevelScreen extends Screen {
             map.setPlayer(player);
             map.getTextbox().setInteractKey(player.getInteractKey());
             map.getFlagManager().unsetFlag("combatTriggered");
-            System.out.println(player.getHealth());
             GamePanel.combatTriggered();
 
         }
@@ -370,8 +378,6 @@ public class PlayLevelScreen extends Screen {
     // methods to switch map, pending overhaul to shorten code.
 
     public void returnToPrevMap(Map prevMap, Point prevLoc) {
-        System.out.println("DEBUG: trying to initialize map");
-
         map = prevMap;
         map.setFlagManager(flagManager);
         player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
