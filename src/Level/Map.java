@@ -619,4 +619,8 @@ public class Map {
         return chosenMap;
     }
 
+    public String getMapName() {
+        return mapFileName;
+    }
+
 }

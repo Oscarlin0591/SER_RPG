@@ -49,6 +49,7 @@ public class PlayLevelScreen extends Screen {
     protected static Map prevMap;
     protected static Utils.Point playerLoc;
     public Player player;
+    private Player prevPlayer;
     protected PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected GameOverScreen gameOverScreen;
@@ -139,6 +140,8 @@ public class PlayLevelScreen extends Screen {
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
         flagManager.addFlag("battleWon", false);
+        flagManager.addFlag("battleWonText", false);
+        flagManager.addFlag("battleLost", false);
 
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
@@ -156,6 +159,7 @@ public class PlayLevelScreen extends Screen {
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
+        flagManager.addFlag("beetleKilled", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -277,7 +281,7 @@ public class PlayLevelScreen extends Screen {
         }
 
         if (map.getFlagManager().isFlagSet("exitIsland")) {
-            teleport(new OceanMap(), "exitIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+            teleport(new OceanMap(), "exitIsland", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
         // if flag is set for cave icon, change to caves
         if (map.getFlagManager().isFlagSet("toggleCave")) {
@@ -296,6 +300,7 @@ public class PlayLevelScreen extends Screen {
 
             prevMap = getMap();
             playerLoc = getPlayer().getLocation();
+            prevPlayer = getPlayer();
             map = new BattleMap();
             map.setFlagManager(flagManager);
             player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
@@ -312,9 +317,21 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
             GamePanel.combatFinished();
-            returnToPrevMap(prevMap, playerLoc);
-        }
+            switch(prevMap.getMapFileName()) {
+                case "cave_map.txt":
+                    returnToPrevMap(new CaveMap(), playerLoc, prevPlayer);
+                    break;
+                case "game_map.txt":
+                    returnToPrevMap(new OceanMap(), playerLoc, prevPlayer);
+                    break;
+                case "starting_map.txt":
+                    returnToPrevMap(new StartIslandMap(), playerLoc, prevPlayer);
+                    break;
 
+            }
+            
+        }
+        
         if (map.getChosenMap() != null) {
             teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
             map.setChosenMap(null);
@@ -395,15 +412,20 @@ public class PlayLevelScreen extends Screen {
     
     // methods to switch map, pending overhaul to shorten code.
 
-    public void returnToPrevMap(Map prevMap, Point prevLoc) {
-        map = prevMap;
+    public void returnToPrevMap(Map newMap, Point prevLoc, Player newPlayer) {
+        
+        map = newMap;
         map.setFlagManager(flagManager);
-        player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength());
+        player = newPlayer;
         player.setMap(map);
+        player.setLocation(prevLoc.x,prevLoc.y);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);
         map.getTextbox().setInteractKey(player.getInteractKey());
         map.getFlagManager().unsetFlag("battleWon");
+        map.getFlagManager().unsetFlag("battleWonText");
+        map.getFlagManager().unsetFlag("battleLost");
+        
     }
 
     public void teleport(Map newMap, String flag, Player newPlayer) {

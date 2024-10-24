@@ -10,6 +10,7 @@ public class TutorialScript extends Script{
 
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -17,7 +18,7 @@ public class TutorialScript extends Script{
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
-                        return !PlayLevelScreen.flagManager.isFlagSet("jvBeaten");
+                        return !PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvBeaten");
                     }
                 });
                 
@@ -137,7 +138,7 @@ public class TutorialScript extends Script{
             addRequirement(new CustomRequirement() {
                 @Override
                 public boolean isRequirementMet() {
-                    return (PlayLevelScreen.flagManager.isFlagSet("jvBeaten"));
+                    return (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvBeaten"));
                 }
             });
 
@@ -149,7 +150,7 @@ public class TutorialScript extends Script{
             }});
 
             addScriptAction(new TextboxScriptAction() {{
-                addText("Ye looking like yer hungry for booty!",new String[] { "I'm looking for the Nave d'Oro... You reckon tellin me 'bout it?", "Buzz off you coxswain!" });
+                addText("Ye looking like yer hungry for booty!",new String[] {"I'm looking for the Nave d'Oro...\nYou reckon tellin me 'bout it?", "Buzz off you coxswain!" });
             }});
                 
 

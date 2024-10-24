@@ -53,10 +53,10 @@ public class StartIslandMap extends Map {
         npcs.add(dinosaur);
 
         //Shrek 'enemy' for combat test
-        Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
-        shrek.setExistenceFlag("combatTriggered");
-        shrek.setInteractScript(new ShrekScript());
-        npcs.add(shrek);
+        // Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
+        // shrek.setExistenceFlag("combatTriggered");
+        // shrek.setInteractScript(new ShrekScript());
+        // npcs.add(shrek);
 
         // Portal portal = new Portal(6, getMapTile(16, 25).getLocation());
         // // portal.setExistenceFlag("interactPortal");
