@@ -23,8 +23,8 @@ public class OceanMap extends Map {
 
     public OceanMap(Point playerLoc) {
         super("game_map.txt", new MasterTileset());
-        System.out.println((int)playerLoc.x + " " + (int)playerLoc.y);
-        this.playerStartPosition = getMapTile(((int)playerLoc.x), ((int)playerLoc.y)).getLocation();
+        System.out.println((int)(Math.ceil(playerLoc.x/16)) + " " + (int)playerLoc.y);
+        this.playerStartPosition = getMapTile((int)(Math.ceil(playerLoc.x/16)), (int)(Math.ceil(playerLoc.y/16))).getLocation();
     }
 
     @Override
@@ -61,21 +61,9 @@ public class OceanMap extends Map {
         potion.setInteractScript(new PotionScript());
         npcs.add(potion);
 
-        Meat mysteryMeat = new Meat(9, getMapTile(16,30).getLocation());
-        mysteryMeat.setInteractScript(new MeatScript());
-        npcs.add(mysteryMeat);
-
-        MysteriousMan mysteryMan = new MysteriousMan(10,getMapTile(17,15).getLocation());
-        mysteryMan.setInteractScript(new ManScript());
-        npcs.add(mysteryMan);
-
         BluePotion bluePotion = new BluePotion(11,getMapTile(1,5).getLocation());
         bluePotion.setInteractScript(new SuperPotionScript());
         npcs.add(bluePotion);
-
-        Girl girl = new Girl(12,getMapTile(6,4).getLocation());
-        girl.setInteractScript(new GirlScript());
-        npcs.add(girl);
 
         return npcs;
     }

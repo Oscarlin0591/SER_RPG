@@ -20,7 +20,7 @@ public class Girl extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0),8)
-                    .withScale(2)
+                    .withScale(3)
                     .build()
             });
         }};

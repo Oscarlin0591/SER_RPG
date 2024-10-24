@@ -306,8 +306,8 @@ public class PlayLevelScreen extends Screen {
             teleport(new CaveMap(), "toggleCave", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
-        if (map.getFlagManager().isFlagSet("exitCave")) {
-            teleport(new OceanMap(playerLoc), "exitCave", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+        if (map.getFlagManager().isFlagSet("exitCave")) { // figuring out location soon
+            teleport(new OceanMap(), "exitCave", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
         // if flag is set for being in combat PRINT DEBUG

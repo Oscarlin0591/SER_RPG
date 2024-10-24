@@ -47,10 +47,10 @@ public class StartIslandMap extends Map {
         walrus2.setInteractScript(new WalrusScript());
         npcs.add(walrus2);
 
-        Dinosaur dinosaur = new Dinosaur(3, getMapTile(13, 4).getLocation());
-        dinosaur.setExistenceFlag("hasTalkedToDinosaur");
-        dinosaur.setInteractScript(new DinoScript());
-        npcs.add(dinosaur);
+        // Dinosaur dinosaur = new Dinosaur(3, getMapTile(13, 4).getLocation());
+        // dinosaur.setExistenceFlag("hasTalkedToDinosaur");
+        // dinosaur.setInteractScript(new DinoScript());
+        // npcs.add(dinosaur);
 
         //Shrek 'enemy' for combat test
         // Shrek shrek = new Shrek(5, getMapTile(15, 20).getLocation().subtractX(20));
@@ -71,6 +71,18 @@ public class StartIslandMap extends Map {
         potion.setExistenceFlag("startIslandPotion");
         potion.setInteractScript(new PotionScript());
         npcs.add(potion);
+
+        Meat mysteryMeat = new Meat(9, getMapTile(16,5).getLocation());
+        mysteryMeat.setInteractScript(new MeatScript());
+        npcs.add(mysteryMeat);
+
+        MysteriousMan mysteryMan = new MysteriousMan(10,getMapTile(8, 2).getLocation());
+        mysteryMan.setInteractScript(new ManScript());
+        npcs.add(mysteryMan);
+
+        Girl girl = new Girl(12,getMapTile(9,9).getLocation());
+        girl.setInteractScript(new GirlScript());
+        npcs.add(girl);
 
         return npcs;
     }
