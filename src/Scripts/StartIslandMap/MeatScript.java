@@ -9,20 +9,20 @@ import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
 
-public class PotionScript extends Script {
+public class MeatScript extends Script {
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("health boost!");
+            addText("strength boost!");
         }});
 
         scriptActions.add(new ScriptAction() {
             @Override
             public ScriptState execute() {
-                player.setHealth(player.getHealth()+5);
+                player.setStrength(player.getStrength()+1);
                 System.out.println(player.getHealth());
                 return ScriptState.COMPLETED;
             }

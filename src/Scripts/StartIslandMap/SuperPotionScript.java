@@ -9,7 +9,7 @@ import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
 
-public class PotionScript extends Script {
+public class SuperPotionScript extends Script {
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
@@ -22,7 +22,7 @@ public class PotionScript extends Script {
         scriptActions.add(new ScriptAction() {
             @Override
             public ScriptState execute() {
-                player.setHealth(player.getHealth()+5);
+                player.setHealth(player.getHealth()+20);
                 System.out.println(player.getHealth());
                 return ScriptState.COMPLETED;
             }

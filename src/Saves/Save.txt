@@ -1,3 +1,6 @@
-912
-780
-starting_map.txt
+772
+1383
+game_map.txt
+10.0
+23.0
+false

@@ -53,9 +53,25 @@ public class OceanMap extends Map {
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
-        RedPotion potion = new RedPotion(8, getMapTile(2,10).getLocation());
+        RedPotion potion = new RedPotion(8, getMapTile(16,5).getLocation());
         potion.setInteractScript(new PotionScript());
         npcs.add(potion);
+
+        Meat mysteryMeat = new Meat(9, getMapTile(16,30).getLocation());
+        mysteryMeat.setInteractScript(new MeatScript());
+        npcs.add(mysteryMeat);
+
+        MysteriousMan mysteryMan = new MysteriousMan(10,getMapTile(17,15).getLocation());
+        mysteryMan.setInteractScript(new ManScript());
+        npcs.add(mysteryMan);
+
+        BluePotion bluePotion = new BluePotion(11,getMapTile(1,5).getLocation());
+        bluePotion.setInteractScript(new SuperPotionScript());
+        npcs.add(bluePotion);
+
+        Girl girl = new Girl(12,getMapTile(6,4).getLocation());
+        girl.setInteractScript(new GirlScript());
+        npcs.add(girl);
 
         return npcs;
     }
