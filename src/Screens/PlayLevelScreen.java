@@ -386,8 +386,8 @@ public class PlayLevelScreen extends Screen {
 	        		    writer.write("" + (int)player.getX());
                         writer.write("\n" + (int)player.getY());
                         writer.write("\n" + map.getMapFileName());
-                        writer.write("\n" + player.getHealth());
-                        writer.write("\n" + player.getStrength());
+                        writer.write("\n" + (int)player.getHealth());
+                        writer.write("\n" + (int)player.getStrength());
                         writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
 
     			    } catch (IOException e) {
