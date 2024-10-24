@@ -125,6 +125,6 @@ public class BattleMap extends Map{
                 Music.playMusic("Music/BossThemeOne16bit.wav");
                 break;
         }
-        Music.playMusic("Music/Gold_in_C_demo.wav");
+        //Music.playMusic("Music/Gold_in_C_demo.wav");
     }
 }

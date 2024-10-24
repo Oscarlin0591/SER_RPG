@@ -58,7 +58,7 @@ public class PlayLevelScreen extends Screen {
 	private int buttonHover = 0;
     private KeyLocker keyLocker = new KeyLocker();
 
-    private final Key enterKey = Key.ENTER;
+    private final Key enterKey = Key.E;
     private final Key leftKey = Key.A;
 	private final Key rightKey = Key.D;
     private final Key pauseKey = Key.ESC;
