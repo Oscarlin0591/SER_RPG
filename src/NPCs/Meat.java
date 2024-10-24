@@ -10,9 +10,9 @@ import GameObject.SpriteSheet;
 import Level.NPC;
 import Utils.Point;
 
-public class RedPotion extends NPC { 
-    public RedPotion(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("redpotion.png"),16, 16), "STAND_RIGHT");
+public class Meat extends NPC { 
+    public Meat(int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("meat.png"),16, 16), "STAND_RIGHT");
     }
 
     @Override

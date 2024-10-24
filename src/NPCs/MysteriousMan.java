@@ -10,9 +10,9 @@ import GameObject.SpriteSheet;
 import Level.NPC;
 import Utils.Point;
 
-public class RedPotion extends NPC { 
-    public RedPotion(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("redpotion.png"),16, 16), "STAND_RIGHT");
+public class MysteriousMan extends NPC { 
+    public MysteriousMan(int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("mysteryman.png"),16, 16), "STAND_RIGHT");
     }
 
     @Override
@@ -20,7 +20,7 @@ public class RedPotion extends NPC {
         return new HashMap<String, Frame[]>() {{
             put("STAND_RIGHT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0),8)
-                    .withScale(2)
+                    .withScale(3)
                     .build()
             });
         }};

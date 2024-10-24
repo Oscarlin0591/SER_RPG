@@ -210,7 +210,7 @@ public class PlayLevelScreen extends Screen {
                 player = new SpeedBoatSteve(playerContX, playerContY, playerHealthCont, playerStrengthCont);
             }
         }else{
-            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,10);
+            player = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
         }
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
@@ -475,9 +475,9 @@ public class PlayLevelScreen extends Screen {
                
 
                 if (buttonHover == 0){
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/3, ScreenManager.getScreenHeight(), 100,100, Color.DARK_GRAY);
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2-8, ScreenManager.getScreenHeight()/2+220, 130,80, Color.BLACK);
                 }else{
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2, ScreenManager.getScreenHeight(),100,100,Color.DARK_GRAY);
+                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2+235, ScreenManager.getScreenHeight()/2+220,170,80,Color.BLACK);
                 }
 
                 for(int i = 0; i < hearts; i++) {
@@ -491,7 +491,7 @@ public class PlayLevelScreen extends Screen {
 
                 for(int i = 0; i <= swords+1; i++) {
                     graphicsHandler.drawImage(sword, swordXPos, swordYPos,50,50);
-                    if (swordXPos > backgroundEdge - 55) {
+                    if (swordXPos > backgroundEdge - 70) {
                         swordXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
                         swordYPos += 55;
                     }
