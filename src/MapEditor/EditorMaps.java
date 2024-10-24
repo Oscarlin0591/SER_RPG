@@ -26,12 +26,12 @@ public class EditorMaps {
                 return new StartIslandMap();
             case "TitleScreen":
                 return new TitleScreenMap();
+            case "OceanMap":
+                return new OceanMap();
             case "BattleMap":
                 return new BattleMap();
             case "CaveMap":
                 return new CaveMap();
-            case "OceanMap":
-                return new OceanMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

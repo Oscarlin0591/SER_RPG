@@ -16,7 +16,12 @@ public class OceanMap extends Map {
 
     public OceanMap() {
         super("game_map.txt", new MasterTileset());
-        this.playerStartPosition = getMapTile(17, 20).getLocation();
+        this.playerStartPosition = getMapTile(13, 6).getLocation();
+    }
+
+    public OceanMap(int x, int y) {
+        super("game_map.txt", new MasterTileset());
+        this.playerStartPosition = getMapTile(x, y).getLocation();
     }
 
     @Override
@@ -31,7 +36,6 @@ public class OceanMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
         Island island = new Island(2, getMapTile(13, 4).getLocation());
-        island.setExistenceFlag("toggleIsland");
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
@@ -46,9 +50,12 @@ public class OceanMap extends Map {
         npcs.add(kraken);
         
         Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
-        cave.setExistenceFlag("toggleCave");
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
+
+        RedPotion potion = new RedPotion(8, getMapTile(2,10).getLocation());
+        potion.setInteractScript(new PotionScript());
+        npcs.add(potion);
 
         return npcs;
     }
