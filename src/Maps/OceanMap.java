@@ -8,6 +8,8 @@ import Screens.PlayLevelScreen;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.MasterTileset;
+import Utils.Point;
+
 import java.util.ArrayList;
 import Screens.PlayLevelScreen;
 
@@ -19,9 +21,10 @@ public class OceanMap extends Map {
         this.playerStartPosition = getMapTile(13, 6).getLocation();
     }
 
-    public OceanMap(int x, int y) {
+    public OceanMap(Point playerLoc) {
         super("game_map.txt", new MasterTileset());
-        this.playerStartPosition = getMapTile(x, y).getLocation();
+        System.out.println((int)playerLoc.x + " " + (int)playerLoc.y);
+        this.playerStartPosition = getMapTile(((int)playerLoc.x), ((int)playerLoc.y)).getLocation();
     }
 
     @Override

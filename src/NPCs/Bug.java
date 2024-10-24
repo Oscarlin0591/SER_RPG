@@ -31,7 +31,7 @@ public class Bug extends Enemy {
     @Override
     public void performAction(Player player) {
         // if bug has not yet moved 90 pixels in one direction, move bug forward
-        if (totalAmountMoved < 180) {
+        if (totalAmountMoved < 270) {
             float amountMoved = moveXHandleCollision(speed * direction.getVelocity());
             totalAmountMoved += Math.abs(amountMoved);
         }

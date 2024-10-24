@@ -4,6 +4,7 @@ import Level.*;
 import NPCs.Bug;
 import NPCs.Island;
 import NPCs.Bosses.HolyBeetle;
+import NPCs.Interactable.Spider;
 import Scripts.SimpleTextScript;
 import Scripts.CaveMapScripts.*;
 import Tilesets.MasterTileset;
@@ -38,6 +39,10 @@ public class CaveMap extends Map {
         beetleBoss.setInteractScript(new BossBeetleScript());
         // beetleBoss.setIsHidden(true);
         npcs.add(beetleBoss);
+
+        Spider spider = new Spider(6, getMapTile(30,10).getLocation());
+        spider.setInteractScript(new SpiderScript());
+        npcs.add(spider);
 
         return npcs;
     }

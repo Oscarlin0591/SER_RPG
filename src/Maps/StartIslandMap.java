@@ -86,7 +86,7 @@ public class StartIslandMap extends Map {
                 scriptActions.add(new LockPlayerScriptAction());
 
                 scriptActions.add(new TextboxScriptAction() {{
-                    addText("Exit Cave?", new String[] { "Yes", "No" });
+                    addText("Exit Island?", new String[] { "Yes", "No" });
                 }});
 
                 scriptActions.add(new ConditionalScriptAction() {{
@@ -116,13 +116,13 @@ public class StartIslandMap extends Map {
 
     @Override
     public void loadScripts() {
-        getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
+        // getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
 
-        getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
+        // getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
 
-        getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
+        // getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
-        getMapTile(2, 6).setInteractScript(new TreeScript());
+        // getMapTile(2, 6).setInteractScript(new TreeScript());
     }
 
     //all new maps must override
