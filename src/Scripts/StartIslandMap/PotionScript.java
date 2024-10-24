@@ -4,15 +4,21 @@ import java.util.ArrayList;
 
 import Level.Script;
 import Level.ScriptState;
+import Maps.StartIslandMap;
 import ScriptActions.LockPlayerScriptAction;
+import ScriptActions.NPCChangeVisibilityScriptAction;
 import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
+import Utils.Visibility;
+import Level.MapEntityStatus;
+import Screens.PlayLevelScreen;
 
 public class PotionScript extends Script {
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
         int healh;
+
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
@@ -25,6 +31,14 @@ public class PotionScript extends Script {
             public ScriptState execute() {
                 player.setHealth(player.getHealth()+10);
                 System.out.println(player.getHealth());
+
+                //remove potion once used
+                if (map.getNPCById(7) != null) {
+                    PlayLevelScreen.flagManager.setFlag("startIslandPotion");
+                } else if (map.getNPCById(77) != null) {
+                    PlayLevelScreen.flagManager.setFlag("oceanPotion");
+                }
+
                 return ScriptState.COMPLETED;
             }
         });

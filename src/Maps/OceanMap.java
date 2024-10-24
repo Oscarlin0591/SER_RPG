@@ -53,7 +53,8 @@ public class OceanMap extends Map {
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
-        RedPotion potion = new RedPotion(8, getMapTile(2,10).getLocation());
+        RedPotion potion = new RedPotion(77, getMapTile(2,10).getLocation());
+        potion.setExistenceFlag("oceanPotion");
         potion.setInteractScript(new PotionScript());
         npcs.add(potion);
 

@@ -157,6 +157,13 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
 
+        // quest / npc progression flags
+        flagManager.addFlag("jvSpokenTo", false);
+
+        // item picked up flags
+        flagManager.addFlag("startIslandPotion", false);
+        flagManager.addFlag("oceanPotion", false);
+
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
         int playerContY = 0;
