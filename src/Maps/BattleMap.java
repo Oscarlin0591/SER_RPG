@@ -112,6 +112,19 @@ public class BattleMap extends Map{
 
     @Override
     public void loadMusic() {
+        Random rand = new Random();
+        int randMusic = rand.nextInt(4);
+        switch (randMusic) {
+            case 1:
+                Music.playMusic("Music/Fighting The Invisible.wav");
+                break;
+            case 2:
+                Music.playMusic("Music/Splash Thunder.wav");
+                break;
+            default:
+                Music.playMusic("Music/BossThemeOne16bit.wav");
+                break;
+        }
         Music.playMusic("Music/Gold_in_C_demo.wav");
     }
 }
