@@ -3,15 +3,19 @@ package Maps;
 import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.*;
+import ScriptActions.ChangeFlagScriptAction;
+import ScriptActions.ConditionalScriptAction;
+import ScriptActions.ConditionalScriptActionGroup;
+import ScriptActions.CustomRequirement;
+import ScriptActions.LockPlayerScriptAction;
+import ScriptActions.ScriptAction;
+import ScriptActions.TextboxScriptAction;
+import ScriptActions.UnlockPlayerScriptAction;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.CommonTileset;
 
 import java.util.ArrayList;
-
-import NPCs.Bug;
-import NPCs.Shrek;  
-import NPCs.CapJV;
 
 // Represents a test map to be used in a level
 public class StartIslandMap extends Map {
@@ -54,10 +58,10 @@ public class StartIslandMap extends Map {
         shrek.setInteractScript(new ShrekScript());
         npcs.add(shrek);
 
-        Portal portal = new Portal(6, getMapTile(16, 25).getLocation());
-        // portal.setExistenceFlag("interactPortal");
-        portal.setInteractScript(new PortalScript());
-        npcs.add(portal);
+        // Portal portal = new Portal(6, getMapTile(16, 25).getLocation());
+        // // portal.setExistenceFlag("interactPortal");
+        // portal.setInteractScript(new PortalScript());
+        // npcs.add(portal);
 
         CapJV capJDV = new CapJV(3,getMapTile(14, 16).getLocation().subtractX(20), -1, -1);
         capJDV.setInteractScript(new TutorialScript());
@@ -73,7 +77,37 @@ public class StartIslandMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        // triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
+        triggers.add(new Trigger(200, 1360, 200, 10, new Script() {
+
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+                scriptActions.add(new LockPlayerScriptAction());
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Exit Cave?", new String[] { "Yes", "No" });
+                }});
+
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 0;
+                            }
+                        });
+
+                        addScriptAction(new ChangeFlagScriptAction("exitIsland", true));
+                    }});
+
+                }});
+                scriptActions.add(new UnlockPlayerScriptAction());
+
+                return scriptActions;
+            }
+        }
+        ));
         // triggers.add(new Trigger(790, 960, 10, 80, new LostBallScript(), "hasLostBall"));
         // triggers.add(new Trigger(890, 960, 10, 80, new LostBallScript(), "hasLostBall"));
         return triggers;

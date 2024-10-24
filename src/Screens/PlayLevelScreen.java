@@ -264,6 +264,9 @@ public class PlayLevelScreen extends Screen {
             teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
+        if (map.getFlagManager().isFlagSet("exitIsland")) {
+            teleport(new OceanMap(), "exitIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+        }
         // if flag is set for cave icon, change to caves
         if (map.getFlagManager().isFlagSet("toggleCave")) {
             playerLoc = getPlayer().getLocation();
