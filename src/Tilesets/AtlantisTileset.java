@@ -26,8 +26,10 @@ public class AtlantisTileset extends Tileset{
         int index = 0;
         int[] passableTiles1 = new int[]{258,259,262,263,348,349,352,353,354,358,359,360,364,365,366,367,368,369,370,371,372,373,374,375,376,377,378, -1};
         int[] passableTiles2 = new int[]{457,458,461,462,463,467,468,469,473,474,475,476,477,478,479,480,481,482,483,484,485,486,487, -1};
+        int[] nonPassableTiles = new int[] {514,521,522,531,532,534,537,538,555,556,557,558,560,562,564,567,568,571,572,574,576,578,581,582,585,586,589,590,593,594,597,598,-1};
         int passIndex1 = 0;
         int passIndex2=0;
+        int nonPassIndex=0;
 
         atlantisFloor1 = new FrameBuilder(getSubImage(0, 0))
             .withScale(tileScale)
@@ -50,7 +52,7 @@ public class AtlantisTileset extends Tileset{
                     MapTileBuilder atlantisTile = new MapTileBuilder(atlantisFrame)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile);
                 }
 
@@ -63,7 +65,7 @@ public class AtlantisTileset extends Tileset{
                     MapTileBuilder atlantisTile = new MapTileBuilder(atlantisFrame)
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile);
                 }
                 if ((index >=152 && index < 158) || (index >=246 && index <251)) {
@@ -76,7 +78,7 @@ public class AtlantisTileset extends Tileset{
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile);
                 }
 
@@ -90,7 +92,7 @@ public class AtlantisTileset extends Tileset{
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile);
                 }
 
@@ -105,6 +107,7 @@ public class AtlantisTileset extends Tileset{
         for (int row = 7; row < 19; row++) {
             for (int col = 0; col < 34; col++) {
 
+                // set 1 tiles (green)
                 if ((index >=256 && index <381)) {
                     Frame atlantisFrame = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
@@ -116,7 +119,7 @@ public class AtlantisTileset extends Tileset{
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     System.out.println("Non-passable tile created at index: " + index);
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile);
                 }
 
@@ -130,13 +133,14 @@ public class AtlantisTileset extends Tileset{
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     System.out.println("Passable tile triggered at index: " + index);
                     
                     AtlantisTiles.set(index, atlantisTile);
                     passIndex1++;
                 } 
 
+                // set 2 tiles (blue)
                 if (index >= 381 && index <490) {
                     Frame atlantisFrame = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
@@ -148,7 +152,7 @@ public class AtlantisTileset extends Tileset{
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     System.out.println("Non-passable tile created at index: " + index);
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile);
                 }
 
@@ -162,13 +166,13 @@ public class AtlantisTileset extends Tileset{
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     passIndex2++;
                     System.out.println("Passable tile triggered at index: " + index);
 
                     AtlantisTiles.set(index, atlantisTile);
                 } 
-                if (index >= 490 && index < 603) {
+                if ((index >= 490 && index < 603) && (index != nonPassableTiles[nonPassIndex])) {
                     Frame atlantisFrame1 = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
                     .build();
@@ -178,7 +182,7 @@ public class AtlantisTileset extends Tileset{
                     .withTopLayer(atlantisFrame1)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile1);
 
                     Frame atlantisFrame2 = new FrameBuilder(getSubImage(row, col))
@@ -190,9 +194,38 @@ public class AtlantisTileset extends Tileset{
                     .withTopLayer(atlantisFrame2)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                     
-                    // Add tile to RPGTiles or mapTiles
+
                     AtlantisTiles.add(atlantisTile2);
                 }
+                if ((index == nonPassableTiles[nonPassIndex] && nonPassIndex < nonPassableTiles.length-1)) {
+                    Frame atlantisFrame1 = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder atlantisTile1 = new MapTileBuilder(atlantisFloor1)
+                    .withTopLayer(atlantisFrame1)
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
+                    
+
+                    AtlantisTiles.add(atlantisTile1);
+                    // AtlantisTiles.set(index, atlantisTile1);
+
+                    Frame atlantisFrame2 = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder atlantisTile2 = new MapTileBuilder(atlantisFloor2)
+                    .withTopLayer(atlantisFrame2)
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
+                    
+
+                    AtlantisTiles.add(atlantisTile2);
+
+                    // AtlantisTiles.set(index, atlantisTile2);
+                    nonPassIndex++;
+                } 
                 System.out.println(index);
                 index++;
             }
