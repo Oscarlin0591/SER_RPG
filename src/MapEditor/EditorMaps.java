@@ -1,6 +1,7 @@
 package MapEditor;
 
 import Level.Map;
+import Maps.AtlantisMap;
 import Maps.BattleMap;
 import Maps.CaveMap;
 import Maps.OceanMap;
@@ -17,6 +18,7 @@ public class EditorMaps {
             add("OceanMap");
             add("BattleMap");
             add("CaveMap");
+            add("AtlantisMap");
         }};
     }
 
@@ -32,6 +34,8 @@ public class EditorMaps {
                 return new BattleMap();
             case "CaveMap":
                 return new CaveMap();
+            case "AtlantisMap":
+                return new AtlantisMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

@@ -71,6 +71,11 @@ public class GraphicsHandler {
         g.drawString(text, x, y);
     }
 
+    public void drawCircle(int x, int y, int width, int height, Color color) {
+        g.setColor(color);
+        g.drawOval(x,y,width, height);
+    }
+
     // https://stackoverflow.com/a/35222059 and https://stackoverflow.com/a/31831120
     public void drawStringWithOutline(String text, int x, int y, Font font, Color textColor, Color outlineColor, float outlineThickness) {
         // remember original settings

@@ -17,24 +17,17 @@ import Game.ScreenCoordinator;
 import Engine.GamePanel;
 import Level.*;
 import MapEditor.EditorMaps;
-import Maps.StartIslandMap;
+import Maps.*;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
-//import NPCs.Shrek;
-import Maps.OceanMap;
-import Maps.BattleMap;
-import Maps.CaveMap;
+
 import Players.SpeedBoat;
 import Players.SpeedBoatSteve;
 import SpriteFont.SpriteFont;
 import Utils.Direction;
 import Utils.Point;
 
-import javax.swing.JPanel;
-// import javax.swing.JLabel;
-// import java.awt.GridLayout;
-// import java.awt.Color;
-// import java.awt.Dimension;
+import javax.swing.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -136,12 +129,14 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("exitIsland", false);
         flagManager.addFlag("toggleCave", false);
         flagManager.addFlag("exitCave", false);
+        flagManager.addFlag("toggleAtlantis", false);
 
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
         flagManager.addFlag("battleWon", false);
         flagManager.addFlag("battleWonText", false);
         flagManager.addFlag("battleLost", false);
+        flagManager.addFlag("battlePanel",false);
 
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
@@ -310,6 +305,11 @@ public class PlayLevelScreen extends Screen {
             teleport(new OceanMap(), "exitCave", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
         }
 
+        if (map.getFlagManager().isFlagSet("toggleAtlantis")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new AtlantisMap(), "toggleAtlantis", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+        }
+
         // if flag is set for being in combat PRINT DEBUG
         if (map.getFlagManager().isFlagSet("combatTriggered")) {
             //add logic to pull up combat menu here 
@@ -333,6 +333,7 @@ public class PlayLevelScreen extends Screen {
 
         if (map.getFlagManager().isFlagSet("battleWon")) {
             System.out.println("Batton won method triggered");
+            getMap().getFlagManager().unsetFlag("battlePanel");
             GamePanel.combatFinished();
             switch(prevMap.getMapFileName()) {
                 case "cave_map.txt":
@@ -491,7 +492,7 @@ public class PlayLevelScreen extends Screen {
             
                 graphicsHandler.drawImage(steve, ScreenManager.getScreenWidth()/6, ScreenManager.getScreenHeight()/6, ScreenManager.getScreenWidth()/4, ScreenManager.getScreenHeight()/2+ScreenManager.getScreenHeight()/7);
                
-
+                
                 if (buttonHover == 0){
                     graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2-8, ScreenManager.getScreenHeight()/2+220, 130,80, Color.BLACK);
                 }else{
@@ -523,6 +524,7 @@ public class PlayLevelScreen extends Screen {
                 returnLabel.draw(graphicsHandler);
                 healthLabel.draw(graphicsHandler);
                 strengthLabel.draw(graphicsHandler);
+
 
         }
     }
