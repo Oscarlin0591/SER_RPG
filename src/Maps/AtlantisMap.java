@@ -1,6 +1,7 @@
 package Maps;
 
 import Level.*;
+import Scripts.AtlantisMapScripts.*;
 import Tilesets.AtlantisTileset;
 import java.util.ArrayList;
 
@@ -9,7 +10,7 @@ public class AtlantisMap extends Map {
     
     public AtlantisMap() {
         super("atlantis_map.txt", new AtlantisTileset());
-        this.playerStartPosition = getMapTile(5, 18).getLocation();
+        this.playerStartPosition = getMapTile(2, 6).getLocation();
     }
 
     // @Override
@@ -31,7 +32,7 @@ public class AtlantisMap extends Map {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        // triggers.add(new Trigger(790, 1130, 100, 10, new AtlantisExitScript()));
+        triggers.add(new Trigger(getMapTile(0, 6).getLocation().x, getMapTile(0, 6).getLocation().y, 15, 50, new AtlantisExitScript()));
         return triggers;
     }
 
@@ -44,7 +45,7 @@ public class AtlantisMap extends Map {
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Atlantis.wav");
+        // Music.playMusic("Music/Atlantis.wav");
     }
 }
 

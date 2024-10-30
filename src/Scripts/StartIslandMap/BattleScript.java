@@ -9,14 +9,15 @@ import Maps.BattleMap;
 
 
 public class BattleScript extends Script {
-
+    
     boolean isBattleWon = false;
     boolean isBattleLost = false;
-
+    
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
+        System.out.println(PlayLevelScreen.getMap().getPlayer().getMaxHealth());
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("TIME TO COMMENCE BATTLE!");
@@ -87,6 +88,7 @@ public class BattleScript extends Script {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
 
                         if (answer == 1) {
+                            PlayLevelScreen.getMap().getPlayer().heal();
                             PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
                         } 
 

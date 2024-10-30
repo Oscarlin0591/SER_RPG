@@ -8,6 +8,7 @@ import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
 import Utils.Direction;
+import java.awt.image.BufferedImage;
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -19,6 +20,8 @@ public abstract class Player extends GameObject {
     protected Direction currentWalkingYDirection;
     protected Direction lastWalkingXDirection;
     protected Direction lastWalkingYDirection;
+    protected float width;
+    protected float height;
 
     // values used to handle player movement
     protected float moveAmountX, moveAmountY;
@@ -40,8 +43,9 @@ public abstract class Player extends GameObject {
     protected Key SPRINT_KEY = Key.SHIFT;
 
     // values for health and strength
-    protected float health;
-    protected float strength;
+    protected static float max_health;
+    protected static float health;
+    protected static float strength;
 
     protected boolean isLocked = false;
     protected boolean isSprinting;
@@ -60,8 +64,9 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         this.affectedByTriggers = true;
-        this.health = newHealth;
-        this.strength = newStrength;
+        max_health = newHealth;
+        setHealth(max_health);
+        strength = newStrength;
     }
 
     public void update() {
@@ -296,27 +301,52 @@ public abstract class Player extends GameObject {
 */
     // getters and setters for Player class
     public float getHealth() {
-        return this.health;
+        return health;
     }
 
-    public void setHealth(float newHealth) {
-        this.health = newHealth;
+    public static void setHealth(float newHealth) {
+        health = newHealth;
     }
 
     public float getStrength() {
-        return this.strength;
+        return strength;
     }
 
     public void setStrength(float newStrength) {
-        this.strength = newStrength;
+        strength = newStrength;
     }
 
     // damage method
     public void damage(float damage) {
-        setHealth(this.health - damage);
+        if (health - damage == 0) {
+            setHealth(0);
+        } else {
+        setHealth(health - damage);
+        }
     }
 
+    public void heal() {
+        if ((float)(health + max_health*.4) <= max_health) {
+        setHealth((float)(health + max_health*.4));
+        } else if ((float)(health + max_health*.4) > max_health) {
+            setHealth(max_health);
+        }
 
+        System.out.println("Healed: " + (health + max_health*.4));
+    }
+
+    public void setMaxHealth(float maxHealth) {
+        max_health = maxHealth;
+        setHealth(max_health);
+    }
+
+    public float getMaxHealth() {
+        return max_health;
+    }
+
+    public void changeCostume(BufferedImage image) {
+        this.loadAnimations(new SpriteSheet(image, 14,16));
+    }
 
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     /*

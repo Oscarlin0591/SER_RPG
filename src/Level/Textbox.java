@@ -23,7 +23,7 @@ public class Textbox {
 
     // textbox constants
     protected final int x = 22;
-    protected final int bottomY = ScreenManager.getScreenHeight()-130;
+    protected final static int bottomY = ScreenManager.getScreenHeight()-130;
     protected final int topY = 22;
     protected final int fontX = 35;
     protected final int fontBottomY = bottomY;
@@ -33,7 +33,7 @@ public class Textbox {
 
     // options textbox constants
     protected final int optionX = 22;
-    protected final int optionBottomY = bottomY - 110;
+    protected final static int optionBottomY = bottomY - 110;
     protected final int optionTopY = 130;
     protected final int optionWidth = width;
     protected final int optionHeight = 100;
@@ -205,6 +205,10 @@ public class Textbox {
 
     public void setInteractKey(Key interactKey) {
         this.interactKey = interactKey;
+    }
+
+    public static int getOptionBottomY() {
+        return optionBottomY;
     }
 
 }

@@ -2,6 +2,7 @@ package Scripts.StartIslandMap;
 
 import java.util.ArrayList;
 
+import Engine.*;
 import Screens.PlayLevelScreen;
 import Level.Script;
 import ScriptActions.*;
@@ -12,6 +13,8 @@ public class TutorialScript extends Script{
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
 
         scriptActions.add(new LockPlayerScriptAction());
+
+        scriptActions.add(new ChangeFlagScriptAction("jdvdialogue", true));
 
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
@@ -96,6 +99,7 @@ public class TutorialScript extends Script{
                                         addScriptAction(new UnlockPlayerScriptAction());
 
                                         //toggle combat
+                                        scriptActions.add(new ChangeFlagScriptAction("jdvdialogue", false));
                                         addScriptAction(new ChangeFlagScriptAction("jvEnemy", true));
                                         addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
                                     }});
@@ -195,6 +199,8 @@ public class TutorialScript extends Script{
             }});
         }});
     }});
+
+    scriptActions.add(new ChangeFlagScriptAction("jdvdialogue", false));
     
     scriptActions.add(new UnlockPlayerScriptAction());
 
