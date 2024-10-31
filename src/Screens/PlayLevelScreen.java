@@ -226,6 +226,9 @@ public class PlayLevelScreen extends Screen {
                 player = speedBoatSteve;
                 // new SpeedBoatSteve(playerContX, playerContY, playerHealthCont, playerStrengthCont);
             }
+            player.setLocation(playerContX, playerContY);
+            player.setStrength(playerStrengthCont);
+            player.setMaxHealth(playerHealthCont);
         }else{
             player = speedBoatSteve;
             // new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
@@ -418,6 +421,7 @@ public class PlayLevelScreen extends Screen {
                         writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
                         writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
                         writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
+                        //writer.write("\n" + flagManager.print());
     			    } catch (IOException e) {
         			    e.printStackTrace();
         			}
