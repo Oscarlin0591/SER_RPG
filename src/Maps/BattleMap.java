@@ -61,11 +61,11 @@ public class BattleMap extends Map{
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
         }
 
-        // if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-        //     enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
-        //     npcs.set(0, enemy);
-        //     PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
-        // }
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
+            enemy = new Shrek(503, getMapTile(4,4).getLocation(), 10, 1);
+            npcs.set(0, enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
+        }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvEnemy")) {
             enemy = new CapJV(101, getMapTile(4, 4).getLocation(), 6, 1);
@@ -92,15 +92,6 @@ public class BattleMap extends Map{
     public static Enemy getEnemy() {
         return enemy;
     }
-
-    //  public static float getEnemyStrength() {
-    //     return enemy.getStrength();
-    // }
-
-    // public static float getEnemyHealth() {
-    //     return enemy.getHealth();
-    // }
-
 
     @Override
     public ArrayList<Trigger> loadTriggers() {

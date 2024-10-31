@@ -17,10 +17,10 @@ import java.util.HashMap;
 public class SpeedBoatSteve extends Player {
 
         public SpeedBoatSteve(float x, float y, float health, float strength) {
-                super(new SpriteSheet(ImageLoader.load("speedboatSteve.png"), 14, 17), x, y, "STAND_RIGHT", 20, 5);
+                super(new SpriteSheet(ImageLoader.load("speedboatSteve.png"), 14, 17), x, y, "STAND_RIGHT", health, strength);
                 walkSpeed = defaultWalkSpeed;
-                this.health = health;
-                this.strength = strength;
+                setHealth(health);
+                setStrength(strength);
         }
 
         public void update() {

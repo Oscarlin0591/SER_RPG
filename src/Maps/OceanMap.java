@@ -56,6 +56,10 @@ public class OceanMap extends Map {
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
+        Atlantis atlantis = new Atlantis(5, getMapTile(36, 18).getLocation());
+        atlantis.setInteractScript(new AtlantisScript());
+        npcs.add(atlantis);
+
         RedPotion potion = new RedPotion(77, getMapTile(2,10).getLocation());
         potion.setExistenceFlag("oceanPotion");
         potion.setInteractScript(new PotionScript());
@@ -73,19 +77,19 @@ public class OceanMap extends Map {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        // triggers.add(new Trigger(790, 1030, 100, 10, new LostBallScript(), "hasLostBall"));
+        triggers.add(new Trigger(930, 2285, 300, 20, new LostBallScript(), "hasLostBall"));
         return triggers;
     }
 
     @Override
     public void loadScripts() {
-        getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
+        // getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
 
-        getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
+        // getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
 
-        getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
+        // getMapTile(20, 4).setInteractScript(new SimpleTextScript("Dino's house"));
 
-        getMapTile(2, 6).setInteractScript(new TreeScript());
+        // getMapTile(2, 6).setInteractScript(new TreeScript());
     }
 
     @Override

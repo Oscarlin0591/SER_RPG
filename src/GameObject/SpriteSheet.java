@@ -34,6 +34,10 @@ public class SpriteSheet {
 		return image;
 	}
 
+	public void setImage(BufferedImage newImage) {
+		this.image = newImage;
+	}
+
 	public int getSpriteWidth() {
 		return spriteWidth;
 	}

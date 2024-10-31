@@ -27,8 +27,9 @@ public class PotionScript extends Script {
         scriptActions.add(new ScriptAction() {
             @Override
             public ScriptState execute() {
-                player.setHealth(player.getHealth()+5);
-                System.out.println(player.getHealth());
+                player.setMaxHealth(player.getMaxHealth()+5);
+                System.out.println("Max: " + player.getMaxHealth());
+                System.out.println("Health: " + player.getHealth());
 
                 //remove potion once used
                 if (map.getNPCById(7) != null) {

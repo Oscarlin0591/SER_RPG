@@ -2,6 +2,7 @@ package Scripts.StartIslandMap;
 
 import java.util.ArrayList;
 
+import Level.Player;
 import Level.Script;
 import Level.ScriptState;
 import ScriptActions.LockPlayerScriptAction;
@@ -22,8 +23,7 @@ public class SuperPotionScript extends Script {
         scriptActions.add(new ScriptAction() {
             @Override
             public ScriptState execute() {
-                player.setHealth(player.getHealth()+20);
-                System.out.println(player.getHealth());
+                player.setMaxHealth(getMap().getPlayer().getMaxHealth() + 20);
                 return ScriptState.COMPLETED;
             }
         });

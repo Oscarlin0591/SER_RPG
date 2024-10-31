@@ -23,26 +23,26 @@ public class Textbox {
 
     // textbox constants
     protected final int x = 22;
-    protected final int bottomY = 460;
+    protected final static int bottomY = ScreenManager.getScreenHeight()-130;
     protected final int topY = 22;
     protected final int fontX = 35;
-    protected final int fontBottomY = 472;
+    protected final int fontBottomY = bottomY;
     protected final int fontTopY = 34;
     protected final int width = ScreenManager.getScreenWidth()-22;
-    protected final int height = 100;
+    protected final int height = 125;
 
     // options textbox constants
-    protected final int optionX = ScreenManager.getScreenWidth()-200;
-    protected final int optionBottomY = 350;
+    protected final int optionX = 22;
+    protected final static int optionBottomY = bottomY - 110;
     protected final int optionTopY = 130;
-    protected final int optionWidth = 200;
+    protected final int optionWidth = width;
     protected final int optionHeight = 100;
-    protected final int fontOptionX = optionX+10;
-    protected final int fontOptionBottomYStart = 365;
+    protected final int fontOptionX = optionX+50;
+    protected final int fontOptionBottomYStart = optionBottomY + 10;
     protected final int fontOptionTopYStart = 145;
-    protected final int fontOptionSpacing = 35;
-    protected final int optionPointerX = ScreenManager.getScreenWidth()-300;
-    protected final int optionPointerYBottomStart = 378;
+    protected final int fontOptionSpacing = 40;
+    protected final int optionPointerX = 30;
+    protected final int optionPointerYBottomStart = bottomY - 90;
     protected final int optionPointerYTopStart = 158;
 
     // core vars that make textbox work
@@ -169,7 +169,7 @@ public class Textbox {
         // if camera is at bottom of screen, textbox is drawn at top of screen instead of the bottom like usual
         // to prevent it from covering the player
         int y = !map.getCamera().isAtBottomOfMap() ? bottomY : topY;
-        graphicsHandler.drawFilledRectangleWithBorder(x, y, width, height, Color.white, Color.black, 2);
+        graphicsHandler.drawFilledRectangleWithBorder(x, y, width, height, new Color(112, 181, 255), new Color(255, 221, 0), 2);
 
         if (text != null) {
             // draw text in textbox
@@ -180,7 +180,7 @@ public class Textbox {
                 // if camera is at bottom of screen, textbox is drawn at top of screen instead of the bottom like usual
                 // to prevent it from covering the player
                 int optionY = !map.getCamera().isAtBottomOfMap() ? optionBottomY : optionTopY;
-                graphicsHandler.drawFilledRectangleWithBorder(optionX, optionY, optionWidth, optionHeight, Color.white, Color.black, 2);
+                graphicsHandler.drawFilledRectangleWithBorder(optionX, optionY, optionWidth, optionHeight, new Color(112, 181, 255), new Color(255, 221, 0), 2);
 
                 // draw each option text
                 for (SpriteFont option : options) {
@@ -205,6 +205,10 @@ public class Textbox {
 
     public void setInteractKey(Key interactKey) {
         this.interactKey = interactKey;
+    }
+
+    public static int getOptionBottomY() {
+        return optionBottomY;
     }
 
 }

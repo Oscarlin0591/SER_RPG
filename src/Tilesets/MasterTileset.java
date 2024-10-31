@@ -18,7 +18,7 @@ public class MasterTileset extends Tileset {
     static WaterTileset WaterTiles = new WaterTileset();
 
     public MasterTileset() {
-        super(ImageLoader.load("CommonTileset.png"), 16, 16, 3);
+        super(ImageLoader.load("TilesetPNGs/CommonTileset.png"), 16, 16, 3);
     }
 
     @Override
