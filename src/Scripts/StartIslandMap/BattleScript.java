@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import Screens.PlayLevelScreen;
 import Level.Script;
+import Level.ScriptState;
 import ScriptActions.*;
 import Maps.BattleMap;
 
@@ -15,13 +16,13 @@ public class BattleScript extends Script {
     
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
+
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
-        System.out.println(PlayLevelScreen.getMap().getPlayer().getMaxHealth());
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("TIME TO COMMENCE BATTLE!");
-            addText("This is a test, ATTACK to win or DO NOTHING to lose.", new String[] { "ATTACK", "DO NOTHING"});
+            addText("You can ATTACK, HEAL, DODGE, and TALK", new String[] { "ATTACK", "HEAL"});
         }});
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -29,55 +30,68 @@ public class BattleScript extends Script {
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
+                    return (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0);
+                    }
+                });
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.getMap().getFlagManager().setFlag("battleLost");
+                        return ScriptState.COMPLETED;
+                    }
+                });
+            }});
+
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                    return (BattleMap.getEnemy().getHealth() <= 0);
+                    }
+                });
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.getMap().getFlagManager().setFlag("battleWonText");
+                        return ScriptState.COMPLETED;
+                    }
+                });
+            }});
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                        if (answer == 0) {
-                            BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
-                            PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
-
-                            if (PlayLevelScreen.getMap().getPlayer().getHealth() <=0) {
-                                PlayLevelScreen.getMap().getFlagManager().setFlag("battleLost");
-                                // PlayLevelScreen.getMap().getFlagManager().setFlag("gameOver");
-                            } else if (BattleMap.getEnemy().getHealth() <= 0) {
-                                PlayLevelScreen.getMap().getFlagManager().setFlag("battleWonText");
-
-
-                                // toggle enemy killed flag if applicable
-                                if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
-                                    PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
-            
-                                if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101))
-                                    PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
-                        }
-                        }
-
                         return answer == 0;
                     }
                 });
 
-                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                    addRequirement(new CustomRequirement() {
-                        @Override
-                        public boolean isRequirementMet() {
-                            return PlayLevelScreen.getMap().getFlagManager().isFlagSet("battleLost");
-                        }
-                    });
-                    addScriptAction(new TextboxScriptAction(){{
-                        addText("The enemy lands a finishing blow!");
-                        addText("You can only pray to the goddesses\nto save you now");
-                        addText("Perhaps you will stand victorious\nin your next life...");
-                    }});
-                    addScriptAction(new ChangeFlagScriptAction("gameOver", true));
-                }});
-
-                
-                // addScriptAction(new ChangeFlagScriptAction("battleWon",true));
-                
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You fired your cannons at the enemy!");
                     addText("The ammunition shreds through the enemy vessel...\nKeep it up!");
                 }});
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                        return ScriptState.COMPLETED;
+                    }
+                });
                 
-                
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("The enemy lauches an attack!");
+                    addText("Your ship is damaged!");
+                }});
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
             }});
 
             // DO NOTHING script
@@ -87,22 +101,51 @@ public class BattleScript extends Script {
                     public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
 
-                        if (answer == 1) {
-                            PlayLevelScreen.getMap().getPlayer().heal();
-                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
-                        } 
-
-                        if (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0) {
-                            PlayLevelScreen.getMap().getFlagManager().setFlag("battleLost");
-                        }
-
-                        
                     return answer == 1;
                 }
             });
+
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("The enemy lauches a devastating attack!");
+                    addText("You grabbed spare boards on the ship and make emergency repairs");
+                    addText("Your ship recovers some structural integrity");
+                }});
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.getMap().getPlayer().heal();
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("The enemy lauches an attack!");
                     addText("Your ship is damaged!");
+                }});
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new CustomRequirement() {
+                        @Override
+                        public boolean isRequirementMet() {
+                        return (PlayLevelScreen.getMap().getPlayer().getHealth() <= 0);
+                        }
+                    });
+
+                    addScriptAction(new ScriptAction() {
+                        @Override
+                        public ScriptState execute() {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("battleLost");
+                            return ScriptState.COMPLETED;
+                        }
+                    });
                 }});
             }});
         }});
@@ -120,6 +163,37 @@ public class BattleScript extends Script {
                     addText("You earned:\n3 doubloons and a mysterious scroll.");
                 }});
                 addScriptAction(new ChangeFlagScriptAction("battleWon", true));
+                // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                //     addRequirement(new CustomRequirement() {
+                //         @Override
+                //         public boolean isRequirementMet() {
+                //             return (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801));
+                //         }
+                //     });
+                    
+                //     addScriptAction(new ScriptAction() {
+                //         @Override
+                //         public ScriptState execute() {
+                //             PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
+                //             return ScriptState.COMPLETED;
+                //         }
+                //     });
+                // }});
+                // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                //     addRequirement(new CustomRequirement() {
+                //         @Override
+                //         public boolean isRequirementMet() {
+                //             return (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101));
+                //         }
+                //     });
+                //     addScriptAction(new ScriptAction() {
+                //         @Override
+                //         public ScriptState execute() {
+                //             PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
+                //             return ScriptState.COMPLETED;
+                //         }
+                //     });
+                // }});
             }});
 
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{

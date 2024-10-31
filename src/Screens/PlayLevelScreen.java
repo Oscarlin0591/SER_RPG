@@ -36,7 +36,7 @@ public class PlayLevelScreen extends Screen {
     protected static Map prevMap;
     protected static Point playerLoc;
     public Player player;
-    // protected static SpeedBoat speedBoat;
+    protected static SpeedBoat speedBoat;
     protected static SpeedBoatSteve speedBoatSteve;
     private Point prevLoc;
     protected PlayLevelScreenState playLevelScreenState;
@@ -215,12 +215,12 @@ public class PlayLevelScreen extends Screen {
         // static players
         // speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
         speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
+        speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength());
 
         // setup player
         if(MenuScreen.continueState.getPressedContinue()){
             if(map.getMapFileName().equals("game_map.txt")){
-                player = speedBoatSteve;
-                player.changeCostume(ImageLoader.load("Speedboat.png"));
+                player = speedBoat;
                 // new SpeedBoat(playerContX, playerContY, playerHealthCont, playerStrengthCont);
             }else{
                 player = speedBoatSteve;
@@ -294,31 +294,31 @@ public class PlayLevelScreen extends Screen {
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("toggleIsland")) {
             playerLoc = getPlayer().getLocation();
-            teleport(new StartIslandMap(), "toggleIsland", new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+            teleport(new StartIslandMap(), "toggleIsland", speedBoatSteve, new StartIslandMap().getPlayerStartPosition());
         }
 
         if (map.getFlagManager().isFlagSet("exitIsland")) {
-            teleport(new OceanMap(), "exitIsland", player, ImageLoader.load("SpeedBoat.png"), new OceanMap().getPlayerStartPosition());
+            teleport(new OceanMap(), "exitIsland", speedBoat, new OceanMap().getPlayerStartPosition());
         }
         // if flag is set for cave icon, change to caves
         if (map.getFlagManager().isFlagSet("toggleCave")) {
             playerLoc = getPlayer().getLocation();
-            teleport(new CaveMap(), "toggleCave", player, ImageLoader.load("speedboatSteve.png"), new CaveMap().getPlayerStartPosition());
+            teleport(new CaveMap(), "toggleCave", speedBoatSteve, new CaveMap().getPlayerStartPosition());
         }
 
         if (map.getFlagManager().isFlagSet("exitCave")) { // figuring out location soon
-            teleport(new OceanMap(), "exitCave", player, ImageLoader.load("SpeedBoat.png"), prevLoc);
+            teleport(new OceanMap(), "exitCave", speedBoat, prevLoc);
         }
 
         // if flag is set for atlantis icon, change to atlantis
         if (map.getFlagManager().isFlagSet("toggleAtlantis")) {
             playerLoc = getPlayer().getLocation();
-            teleport(new AtlantisMap(), "toggleAtlantis", player, ImageLoader.load("speedboatSteve.png"), new AtlantisMap().getPlayerStartPosition());
+            teleport(new AtlantisMap(), "toggleAtlantis", speedBoatSteve, new AtlantisMap().getPlayerStartPosition());
         }
 
         if (map.getFlagManager().isFlagSet("exitAtlantis")) {
             playerLoc = getPlayer().getLocation();
-            teleport(new OceanMap(), "exitAtlantis", player, ImageLoader.load("speedboatSteve.png"), prevLoc);
+            teleport(new OceanMap(), "exitAtlantis", speedBoat,  prevLoc);
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -355,9 +355,8 @@ public class PlayLevelScreen extends Screen {
                 case "starting_map.txt":
                     returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
                     break;
-
             }
-            
+            player.fullHealth();
         }
         
         if (map.getChosenMap() != null) {
@@ -470,17 +469,22 @@ public class PlayLevelScreen extends Screen {
         map.getTextbox().setInteractKey(player.getInteractKey());
     }
     
-    public void teleport(Map newMap, String flag, Player newPlayer, BufferedImage newImage, Point location) {
+    public void teleport(Map newMap, String flag, Player newPlayer, Point location) {
+        float playerHealth = getPlayer().getHealth();
+        float playerMaxHealth = getPlayer().getMaxHealth();
+        float playerStrength = getPlayer().getStrength();
+
         prevLoc = getPlayer().getLocation();
         map.getFlagManager().unsetFlag(flag);
         map = newMap;
         map.setFlagManager(flagManager);
-        // player = newPlayer;
+        player = newPlayer;
+        player.setHealth(playerHealth);
+        player.setMaxHealth(playerMaxHealth);
+        player.setStrength(playerStrength);
         player.setLocation(location.x, location.y);
         player.setMap(map);
         playLevelScreenState = PlayLevelScreenState.RUNNING;
-        player.changeCostume(newImage);
-        // System.out.println("Change costume method triggered" +getMap().playerStartPosition.x + " " +  location.y);
         map.setPlayer(player);
         map.getTextbox().setInteractKey(player.getInteractKey());
         player.unlock();

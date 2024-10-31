@@ -344,10 +344,10 @@ public abstract class Player extends GameObject {
         return max_health;
     }
 
-    public void changeCostume(BufferedImage image) {
-        this.loadAnimations(new SpriteSheet(image, 14,16));
+    public void fullHealth() {
+        setHealth(max_health);
     }
-
+    
     // Uncomment this to have game draw player's bounds to make it easier to visualize
     /*
     public void draw(GraphicsHandler graphicsHandler) {

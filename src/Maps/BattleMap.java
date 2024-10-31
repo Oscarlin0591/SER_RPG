@@ -93,15 +93,6 @@ public class BattleMap extends Map{
         return enemy;
     }
 
-    //  public static float getEnemyStrength() {
-    //     return enemy.getStrength();
-    // }
-
-    // public static float getEnemyHealth() {
-    //     return enemy.getHealth();
-    // }
-
-
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
