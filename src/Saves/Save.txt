@@ -1,6 +1,8 @@
-772
-1383
+624
+646
 game_map.txt
-10.0
-23.0
+60
+10
+true
+true
 false

@@ -9,4 +9,4 @@ out/
 TestResources/
 _site
 .DS_Store
-src/Saves/Save.txt
+/src/Saves/Save.txt
