@@ -70,7 +70,6 @@ public class BattleScript extends Script {
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You fired your cannons at the enemy!");
-                    addText("The ammunition shreds through the enemy vessel...\nKeep it up!");
                 }});
                 addScriptAction(new ScriptAction() {
                     @Override
@@ -79,6 +78,10 @@ public class BattleScript extends Script {
                         return ScriptState.COMPLETED;
                     }
                 });
+
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("The ammunition shreds through the enemy vessel. Keep it up!");
+                }});
                 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("The enemy lauches an attack!");
@@ -162,38 +165,23 @@ public class BattleScript extends Script {
                     addText("You defeated the enemy!");
                     addText("You earned:\n3 doubloons and a mysterious scroll.");
                 }});
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801)) {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
+                        }
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101)) {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
+                        }
+
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
                 addScriptAction(new ChangeFlagScriptAction("battleWon", true));
-                // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                //     addRequirement(new CustomRequirement() {
-                //         @Override
-                //         public boolean isRequirementMet() {
-                //             return (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801));
-                //         }
-                //     });
-                    
-                //     addScriptAction(new ScriptAction() {
-                //         @Override
-                //         public ScriptState execute() {
-                //             PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
-                //             return ScriptState.COMPLETED;
-                //         }
-                //     });
-                // }});
-                // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                //     addRequirement(new CustomRequirement() {
-                //         @Override
-                //         public boolean isRequirementMet() {
-                //             return (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101));
-                //         }
-                //     });
-                //     addScriptAction(new ScriptAction() {
-                //         @Override
-                //         public ScriptState execute() {
-                //             PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
-                //             return ScriptState.COMPLETED;
-                //         }
-                //     });
-                // }});
+
             }});
 
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
@@ -205,8 +193,8 @@ public class BattleScript extends Script {
                 });
                 addScriptAction(new TextboxScriptAction(){{
                     addText("The enemy lands a finishing blow!");
-                    addText("You can only pray to the goddesses\nto save you now");
-                    addText("Perhaps you will stand victorious\nin your next life...");
+                    addText("You can only pray to the goddesses to save you now");
+                    addText("Perhaps you will stand victorious in your next life...");
                 }});
                 addScriptAction(new ChangeFlagScriptAction("gameOver", true));
                 }});

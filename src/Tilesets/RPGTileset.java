@@ -15,7 +15,7 @@ public class RPGTileset extends Tileset {
         protected static ArrayList<MapTileBuilder> RPGTiles;
 
         public RPGTileset() { 
-                super(ImageLoader.load("FantasyTileset.png"), 16, 16, 3); // loads png
+                super(ImageLoader.load("TilesetPNGs/FantasyTileset.png"), 16, 16, 3); // loads png
         }
 
     @Override

@@ -15,7 +15,7 @@ public class AtlantisTileset extends Tileset{
     static Frame atlantisFloor2;
 
     public AtlantisTileset() {
-        super(ImageLoader.load("atlantisTiles.png"), 16, 16, 3);
+        super(ImageLoader.load("TilesetPNGs/atlantisTiles.png"), 16, 16, 3);
     }
 
     @Override

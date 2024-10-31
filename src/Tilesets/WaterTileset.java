@@ -14,7 +14,7 @@ public class WaterTileset extends Tileset{
     static Frame caveFloor1;
 
     public WaterTileset() {
-        super(ImageLoader.load("WaterTileset.png"), 16, 16, 3);
+        super(ImageLoader.load("TilesetPNGs/WaterTileset.png"), 16, 16, 3);
     }
 
     @Override
