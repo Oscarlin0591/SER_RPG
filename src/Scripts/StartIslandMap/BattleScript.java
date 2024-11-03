@@ -2,17 +2,21 @@ package Scripts.StartIslandMap;
 
 import java.util.ArrayList;
 
+import Engine.GraphicsHandler;
 import Screens.PlayLevelScreen;
+import Screens.BattleScreen;
 import Level.Script;
 import Level.ScriptState;
 import ScriptActions.*;
 import Maps.BattleMap;
+import Game.ScreenCoordinator;
 
 
 public class BattleScript extends Script {
     
     boolean isBattleWon = false;
     boolean isBattleLost = false;
+
     
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
@@ -68,13 +72,24 @@ public class BattleScript extends Script {
                     }
                 });
 
-                addScriptAction(new TextboxScriptAction() {{
-                    addText("You fired your cannons at the enemy!");
-                }});
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                        PlayLevelScreen.getMap().getFlagManager().setFlag("battlePanel");
+
+                        return ScriptState.COMPLETED;
+                    }
+                });
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("You fired your cannons at the enemy!");
+                }});
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        System.out.println(PlayLevelScreen.battleScreen.returnMultiplier());
+                        BattleMap.getEnemy().attack((float) (Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()) * PlayLevelScreen.getMap().getPlayer().getStrength());
+
                         return ScriptState.COMPLETED;
                     }
                 });

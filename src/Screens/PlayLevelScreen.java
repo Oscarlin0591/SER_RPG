@@ -39,9 +39,10 @@ public class PlayLevelScreen extends Screen {
     protected static SpeedBoat speedBoat;
     protected static SpeedBoatSteve speedBoatSteve;
     private Point prevLoc;
-    protected PlayLevelScreenState playLevelScreenState;
+    protected static PlayLevelScreenState playLevelScreenState;
     protected WinScreen winScreen;
     protected GameOverScreen gameOverScreen;
+    public static BattleScreen battleScreen;
     public static FlagManager flagManager; //chaged to public static from protected
     protected JPanel healthBar;
 	private int buttonHover = 0;
@@ -62,7 +63,7 @@ public class PlayLevelScreen extends Screen {
 
     private BufferedImage heart = ImageLoader.load("heart.png");
     private BufferedImage sword = ImageLoader.load("sword.png");
-    private BufferedImage steve = ImageLoader.load("steve.png");
+    private BufferedImage steve = ImageLoader.load("CharacterPNGs/steve.png");
     private BufferedImage pauseBackground = ImageLoader.load("pauseBackground.jpg");
 
     //random encounter vars
@@ -128,6 +129,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("exitCave", false);
         flagManager.addFlag("toggleAtlantis", false);
         flagManager.addFlag("exitAtlantis", false);
+        flagManager.addFlag("toggleArctic", false);
+        flagManager.addFlag("exitArctic", false);
 
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
@@ -248,6 +251,7 @@ public class PlayLevelScreen extends Screen {
 
         winScreen = new WinScreen(this);
         gameOverScreen = new GameOverScreen(this);
+        battleScreen = new BattleScreen(this);
     }
     
     public void update() {
@@ -280,6 +284,8 @@ public class PlayLevelScreen extends Screen {
                 player.update();
                 map.update(player);
                 break;
+            case BATTLE:
+                battleScreen.update();
             }
 
         // if flag is set at any point during gameplay, game is "lost"
@@ -324,6 +330,22 @@ public class PlayLevelScreen extends Screen {
             teleport(new OceanMap(), "exitAtlantis", speedBoat,  prevLoc);
         }
 
+        if (map.getFlagManager().isFlagSet("toggleArctic")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new ArcticMap(), "toggleArctic", speedBoatSteve, new ArcticMap().getPlayerStartPosition());
+        }
+
+        if (map.getFlagManager().isFlagSet("exitArctic")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new OceanMap(), "exitArctic", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
+        }
+
+        if (map.getFlagManager().isFlagSet("battlePanel")) {
+            battle();
+            refreshBattle();
+            map.getFlagManager().unsetFlag("battlePanel");
+        }
+
         // if flag is set for being in combat PRINT DEBUG
         if (map.getFlagManager().isFlagSet("combatTriggered")) {
             //add logic to pull up combat menu here 
@@ -345,8 +367,6 @@ public class PlayLevelScreen extends Screen {
         }
 
         if (map.getFlagManager().isFlagSet("battleWon")) {
-            System.out.println("Batton won method triggered");
-            getMap().getFlagManager().unsetFlag("battlePanel");
             GamePanel.combatFinished();
             switch(prevMap.getMapFileName()) {
                 case "cave_map.txt":
@@ -442,7 +462,7 @@ public class PlayLevelScreen extends Screen {
 		}
 	}
     
-    // methods to switch map, pending overhaul to shorten code.
+    // methods to switch map
 
     public void returnToPrevMap(Map newMap, Point prevLoc, Player newPlayer) {
         map = newMap;
@@ -500,7 +520,7 @@ public class PlayLevelScreen extends Screen {
             case RUNNING:
                 map.draw(player, graphicsHandler);
                 if (getMap().getFlagManager().isFlagSet("jdvdialogue")) {
-                    graphicsHandler.drawImage(ImageLoader.load("Captain_Jack_Veith.png"), ScreenManager.getScreenWidth()-400, Textbox.getOptionBottomY()-400, 400, 400);
+                    graphicsHandler.drawImage(ImageLoader.load("CharacterPNGs/Captain_Jack_Veith.png"), ScreenManager.getScreenWidth()-400, Textbox.getOptionBottomY()-400, 400, 400);
                 }
                 break;
             case LEVEL_COMPLETED:
@@ -508,6 +528,10 @@ public class PlayLevelScreen extends Screen {
                 break;
             case GAME_OVER:
                 gameOverScreen.draw(graphicsHandler);
+                break;
+            case BATTLE:
+                map.draw(player, graphicsHandler);
+                battleScreen.draw(graphicsHandler);
                 break;
             case PAUSED:
                 int currentHealth = Math.round(player.getHealth());
@@ -571,13 +595,25 @@ public class PlayLevelScreen extends Screen {
         return playLevelScreenState;
     }
 
-    public void setPlayLevelScreenState(PlayLevelScreenState state) {
+    public static void setPlayLevelScreenState(PlayLevelScreenState state) {
         playLevelScreenState = state;
     }
 
     // game over screen
     public void gameOver() {
         playLevelScreenState = PlayLevelScreenState.GAME_OVER;
+    }
+
+    public static void battle() {
+        setPlayLevelScreenState(PlayLevelScreenState.BATTLE);
+    }
+
+    public void refreshBattle() {
+        battleScreen = new BattleScreen(this);
+    }
+
+    public static void running() {
+        setPlayLevelScreenState(PlayLevelScreenState.RUNNING);
     }
 
     public void resetLevel() {
@@ -594,6 +630,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE
     }
 }

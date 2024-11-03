@@ -14,7 +14,7 @@ import java.util.HashMap;
 
 public class CapJV extends Enemy {
     public CapJV(int id, Point location, int health, int strength) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("captainJackVeith.png"), 14, 17), "STAND_LEFT", health, strength);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/captainJackVeith.png"), 14, 17), "STAND_LEFT", health, strength);
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class SpeedBoatSteve extends Player {
 
         public SpeedBoatSteve(float x, float y, float health, float strength) {
-                super(new SpriteSheet(ImageLoader.load("speedboatSteve.png"), 14, 17), x, y, "STAND_RIGHT", health, strength);
+                super(new SpriteSheet(ImageLoader.load("CharacterPNGs/speedboatSteve.png"), 14, 17), x, y, "STAND_RIGHT", health, strength);
                 walkSpeed = defaultWalkSpeed;
                 setHealth(health);
                 setStrength(strength);

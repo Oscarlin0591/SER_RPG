@@ -15,11 +15,11 @@ import Utils.Point;
 public class Shrek extends Enemy {
     
     public Shrek(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT", 10, 1);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/Shrek.png"), 40, 40), "STAND_RIGHT", 10, 1);
     }
 
     public Shrek(int id, Point location, float health, float strength) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Shrek.png"), 40, 40), "STAND_RIGHT", health, strength);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/Shrek.png"), 40, 40), "STAND_RIGHT", health, strength);
     }
 
     // this code makes the bug npc walk back and forth (left to right)
