@@ -4,6 +4,7 @@ import Level.Map;
 import Level.Music;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.Yeti;
 import Scripts.ArcticMapScripts.*;
 import Tilesets.ArcticTileset;
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class ArcticMap extends Map{
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+
+        Yeti yeti = new Yeti(201, getMapTile(32,6).getLocation(), 100, 10);
+        npcs.add(yeti);
 
         return npcs;
     }
