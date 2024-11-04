@@ -1,8 +1,8 @@
-576
-288
-battle_map.txt
-8
-2
-false
+549
+811
+starting_map.txt
+10
+4
+true
 false
 false

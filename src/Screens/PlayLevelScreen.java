@@ -142,15 +142,12 @@ public class PlayLevelScreen extends Screen {
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
 
-        // enemy flags (test)
+        // enemy flags
         flagManager.addFlag("shrekEnemy", false);
         flagManager.addFlag("bugEnemy", false);
         flagManager.addFlag("krakenEnemy", false);
         flagManager.addFlag("jvEnemy", false);
         flagManager.addFlag("beetleEnemy", false);
-
-        // player upgrade flags
-        flagManager.addFlag("playerRoided", false);
 
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
@@ -163,6 +160,10 @@ public class PlayLevelScreen extends Screen {
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
         flagManager.addFlag("oceanPotion", false);
+
+        // misc flags
+        flagManager.addFlag("playerRoided", false);
+        flagManager.addFlag("attackDodged", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -217,7 +218,7 @@ public class PlayLevelScreen extends Screen {
 
         // static players
         // speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
-        speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2, 1, 1);
+        speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,4, 1, 1);
         speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
 
         // setup player

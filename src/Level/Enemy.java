@@ -1,6 +1,7 @@
 package Level;
 
 import GameObject.SpriteSheet;
+import Screens.PlayLevelScreen;
 
 public class Enemy extends NPC {
     //instance variables
@@ -59,7 +60,7 @@ public class Enemy extends NPC {
         if ((dodgeChance * Math.random()) < 0.9) {
             setHealth(this.health - damage);
         } else {
-            //hypothetical dodge flag tripped to display message
+            PlayLevelScreen.flagManager.setFlag("attackDodged");
         }
     }
     

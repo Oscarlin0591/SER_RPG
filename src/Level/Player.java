@@ -7,6 +7,7 @@ import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
+import Screens.PlayLevelScreen;
 import Utils.Direction;
 import java.awt.image.BufferedImage;
 
@@ -349,9 +350,8 @@ public abstract class Player extends GameObject {
             } else {
                 setHealth(health - damage);
             }
-        } else {
-            //trip dodge flag to trigger dodge message in combat?
-        }
+        } else
+            PlayLevelScreen.flagManager.setFlag("attackDodged");
     }
 
     public void heal() {
