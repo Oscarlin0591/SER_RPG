@@ -13,6 +13,8 @@ public class BattleScript extends Script {
     
     boolean isBattleWon = false;
     boolean isBattleLost = false;
+
+    boolean attackCrit = false;
     
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
@@ -59,6 +61,7 @@ public class BattleScript extends Script {
                     }
                 });
             }});
+            
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                 addRequirement(new CustomRequirement() {
                     @Override
@@ -71,13 +74,44 @@ public class BattleScript extends Script {
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You fired your cannons at the enemy!");
                 }});
+                
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                        //if not crit, deal damage normally
+                        if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
+                            BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength());
+                        else {//if crit deal double damage
+                            BattleMap.getEnemy().attack((float) Math.random()*2 + PlayLevelScreen.getMap().getPlayer().getStrength() * 2);
+                            attackCrit = true;
+                        }
                         return ScriptState.COMPLETED;
-                    }
-                });
+                        }
+                    });
+    
+                    //if last enemy attack crit, print message then reset attackCrit boolean
+                    scriptActions.add(new ConditionalScriptAction() {{
+                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                            addRequirement(new CustomRequirement() {
+                                @Override
+                                public boolean isRequirementMet() {
+                                    return attackCrit;
+                                }
+                            });
+    
+                            addScriptAction(new TextboxScriptAction() {{
+                                addText("You land a critical hit on the enemy!");
+                            }});
+    
+                            addScriptAction(new ScriptAction() {
+                                @Override
+                                public ScriptState execute() {
+                                    attackCrit = false;
+                                    return ScriptState.COMPLETED;
+                                }
+                            });
+                        }});
+                    }});
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("The ammunition shreds through the enemy vessel. Keep it up!");
@@ -87,14 +121,44 @@ public class BattleScript extends Script {
                     addText("The enemy lauches an attack!");
                     addText("Your ship is damaged!");
                 }});
+
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
+                        //if not crit, deal damage normally
+                        if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
+                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
+                        else {//if crit deal double damage
+                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength() * 2);
+                            attackCrit = true;
+                        }
                         return ScriptState.COMPLETED;
                     }
                 });
 
+                //if last enemy attack crit, print message then reset attackCrit boolean
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                return attackCrit;
+                            }
+                        });
+
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("The enemy lands a critical hit!");
+                        }});
+
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                attackCrit = false;
+                                return ScriptState.COMPLETED;
+                            }
+                        });
+                    }});
+                }});
             }});
 
             // DO NOTHING script
@@ -103,10 +167,9 @@ public class BattleScript extends Script {
                     @Override
                     public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-
-                    return answer == 1;
-                }
-            });
+                        return answer == 1;
+                    }
+                });
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You grabbed spare boards on the ship and make emergency repairs");
@@ -129,10 +192,40 @@ public class BattleScript extends Script {
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
+                        //if not crit, deal damage normally
+                        if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
+                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
+                        else {//if crit deal double damage
+                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength() * 2);
+                            attackCrit = true;
+                        }
                         return ScriptState.COMPLETED;
                     }
                 });
+
+                //if last enemy attack crit, print message then reset attackCrit boolean
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                return attackCrit;
+                            }
+                        });
+
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("The enemy lands a critical hit!");
+                        }});
+
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                attackCrit = false;
+                                return ScriptState.COMPLETED;
+                            }
+                        });
+                    }});
+                }});
 
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                     addRequirement(new CustomRequirement() {

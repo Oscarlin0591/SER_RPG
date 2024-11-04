@@ -1,8 +1,8 @@
-624
-646
-game_map.txt
-60
+657
+798
+starting_map.txt
 10
+2
 true
-true
+false
 false

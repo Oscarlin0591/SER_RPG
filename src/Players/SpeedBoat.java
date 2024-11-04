@@ -15,11 +15,9 @@ import java.util.HashMap;
 
 public class SpeedBoat extends Player {
 
-        public SpeedBoat(float x, float y, float health, float strength) {
-                super(new SpriteSheet(ImageLoader.load("SpeedBoat.png"), 24, 24), x, y, "STAND_RIGHT", 10, 2);
+        public SpeedBoat(float x, float y, float health, float strength, float critChance, float dodgeChance) {
+                super(new SpriteSheet(ImageLoader.load("SpeedBoat.png"), 24, 24), x, y, "STAND_RIGHT", health, strength, critChance, dodgeChance);
                 walkSpeed = defaultWalkSpeed;
-                this.health = health;
-                this.strength = strength;
         }
 
         public void update() {

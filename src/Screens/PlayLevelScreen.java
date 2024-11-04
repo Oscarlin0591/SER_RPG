@@ -214,8 +214,8 @@ public class PlayLevelScreen extends Screen {
 
         // static players
         // speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
-        speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
-        speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength());
+        speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2, 1, 1);
+        speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
 
         // setup player
         if(MenuScreen.continueState.getPressedContinue()){
@@ -288,7 +288,7 @@ public class PlayLevelScreen extends Screen {
         // if flag is set for portal interaction, change map
         if (map.getFlagManager().isFlagSet("interactPortal")) {
             System.out.println("DEBUG: Portal interaction flag checker");
-            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength()));
+            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
         }
 
         // if flag is set for portal interaction, change map
@@ -360,7 +360,7 @@ public class PlayLevelScreen extends Screen {
         }
         
         if (map.getChosenMap() != null) {
-            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength()));
+            teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
             map.setChosenMap(null);
         }
     }
