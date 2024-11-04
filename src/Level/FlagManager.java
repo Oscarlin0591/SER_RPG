@@ -38,4 +38,8 @@ public class FlagManager {
         }
         return false;
     }
+
+    public String print(){
+        return flags.toString();
+    }
 }
