@@ -12,7 +12,7 @@ import Utils.Point;
 
 public class Girl extends NPC { 
     public Girl(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("girl.png"),12, 16), "STAND_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/girl.png"),12, 16), "STAND_RIGHT");
     }
 
     @Override

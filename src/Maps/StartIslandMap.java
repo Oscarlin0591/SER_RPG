@@ -140,7 +140,7 @@ public class StartIslandMap extends Map {
     //all new maps must override
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
+        // Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
     }
 }
 

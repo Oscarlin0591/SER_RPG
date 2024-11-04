@@ -20,11 +20,11 @@ public class Bug extends Enemy {
     
     //modified to call Enemy constructor, for now hardcoded to put in -1 for health and strength
     public Bug(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("AlbinoBug.png"), 24, 15), "WALK_RIGHT", 1, 1);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/AlbinoBug.png"), 24, 15), "WALK_RIGHT", 1, 1);
     }
 
     public Bug(int id, Point location, float newHealth, float newStrength) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("AlbinoBug.png"), 24, 15), "WALK_RIGHT", newHealth, newStrength);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/AlbinoBug.png"), 24, 15), "WALK_RIGHT", newHealth, newStrength);
     }
 
     // this code makes the bug npc walk back and forth (left to right)
