@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Level.Script;
 import Screens.PlayLevelScreen;
 import ScriptActions.*;
+import Utils.Visibility;
 
 public class KrakenScript extends Script {
     @Override
@@ -28,7 +29,6 @@ public class KrakenScript extends Script {
         //toggle combat flag
         scriptActions.add(new ChangeFlagScriptAction("krakenEnemy", true));
         scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
-
 
         return scriptActions;
     }

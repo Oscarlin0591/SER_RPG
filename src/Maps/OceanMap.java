@@ -77,13 +77,13 @@ public class OceanMap extends Map {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        triggers.add(new Trigger(930, 2285, 300, 20, new LostBallScript(), "hasLostBall"));
+        triggers.add(new Trigger(930, 2285, 300, 20, new ArcticScript()));
         return triggers;
     }
 
     @Override
     public void loadScripts() {
-        // getMapTile(21, 19).setInteractScript(new SimpleTextScript("Cat's house"));
+        getMapTile(28, 34).setInteractScript(new SimpleTextScript("South Pole Below"));
 
         // getMapTile(7, 26).setInteractScript(new SimpleTextScript("Walrus's house"));
 
@@ -94,7 +94,7 @@ public class OceanMap extends Map {
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Seafaring Humdrum.wav");
+        // Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 

@@ -45,7 +45,6 @@ public class WaterTileset extends Tileset{
                 // Add tile to RPGTiles or mapTiles
                 WaterTiles.add(waterTile);
                 
-                // tileIndex++;
             }
             index++; 
             }
@@ -429,6 +428,18 @@ public class WaterTileset extends Tileset{
                 WaterTiles.add(glacierTile);
 
         }
+
+        Frame glacierFrame = new FrameBuilder(getSubImage(10, 8))
+                .withScale(tileScale)
+                .build();
+
+                // Define the tile type (passable/not passable)
+                MapTileBuilder glacierTile = new MapTileBuilder(Wave5Frames)
+                .withTopLayer(glacierFrame)
+                .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
+                
+                // Add tile to RPGTiles or mapTiles
+                WaterTiles.add(glacierTile);
 
 
         return WaterTiles;

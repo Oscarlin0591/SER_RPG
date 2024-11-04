@@ -6,9 +6,11 @@ import Level.Player;
 import Level.Script;
 import Level.ScriptState;
 import ScriptActions.LockPlayerScriptAction;
+import ScriptActions.NPCChangeVisibilityScriptAction;
 import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
+import Utils.Visibility;
 
 public class SuperPotionScript extends Script {
     @Override
@@ -17,7 +19,7 @@ public class SuperPotionScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("health boost!");
+            addText("You gained 20 health!");
         }});
 
         scriptActions.add(new ScriptAction() {
@@ -27,6 +29,8 @@ public class SuperPotionScript extends Script {
                 return ScriptState.COMPLETED;
             }
         });
+
+        scriptActions.add(new NPCChangeVisibilityScriptAction(Visibility.HIDDEN));
 
         scriptActions.add(new UnlockPlayerScriptAction());
 

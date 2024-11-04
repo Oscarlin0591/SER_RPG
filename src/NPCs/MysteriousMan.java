@@ -12,7 +12,7 @@ import Utils.Point;
 
 public class MysteriousMan extends NPC { 
     public MysteriousMan(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("mysteryman.png"),16, 16), "STAND_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/mysteryman.png"),16, 16), "STAND_RIGHT");
     }
 
     @Override

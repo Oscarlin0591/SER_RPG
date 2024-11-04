@@ -65,7 +65,7 @@ public class CaveMap extends Map {
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Crystal Caves.wav");
+        // Music.playMusic("Music/Crystal Caves.wav");
     }
 }
 

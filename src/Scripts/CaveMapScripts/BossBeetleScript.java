@@ -79,6 +79,8 @@ public class BossBeetleScript extends Script{
             }});
         }});
 
+        scriptActions.add(new NPCChangeVisibilityScriptAction(Visibility.HIDDEN));
+
         // scriptActions.add(new NPCUnlockScriptAction());
         scriptActions.add(new UnlockPlayerScriptAction());
 

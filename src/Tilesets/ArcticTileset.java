@@ -15,7 +15,7 @@ public class ArcticTileset extends Tileset{
     static Frame arcticFloor1;
     static Frame arcticFloor2;
     static Frame arcticWater;
-    static Frame invisible;
+    static Frame arcticLedge;
     
     public ArcticTileset() {
     super(ImageLoader.load("TilesetPNGs/ArcticTileset.png"), 16, 16, 3);
@@ -25,7 +25,8 @@ public class ArcticTileset extends Tileset{
     public ArrayList<MapTileBuilder> defineTiles() {
 
         int index = 0;
-        // int[] waterTileIndex = new int[] {74,75,76,77,78,78,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95};
+        int[] nonPass = new int[] {2,32,33,34,35,40,41,42,43,44,45,46,47};
+        int nonPassIndex = 0;
 
 
         arcticFloor1 = new FrameBuilder(getSubImage(0, 0))
@@ -40,7 +41,7 @@ public class ArcticTileset extends Tileset{
             .withScale(tileScale)
             .build(); 
 
-        invisible = new FrameBuilder(getSubImage(16, 15))
+        arcticLedge = new FrameBuilder(getSubImage(2, 9))
             .withScale(tileScale)
             .build(); 
 
@@ -61,7 +62,21 @@ public class ArcticTileset extends Tileset{
                     ArcticTiles.add(arcticTile);
                 }
 
-                if ((index >=74 && index <96)){
+                if (index == nonPass[nonPassIndex] && nonPassIndex < nonPass.length-1) {
+                    Frame arcticFrame = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder arcticTile = new MapTileBuilder(arcticFrame)
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
+                    
+
+                    ArcticTiles.set(index,arcticTile);
+                    nonPassIndex++;
+                }
+
+                if ((index >=74 && index <96)||(index >=105 && index <134)){
                     Frame arcticFrame = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
                     .build();
@@ -69,19 +84,33 @@ public class ArcticTileset extends Tileset{
                     // Define the tile type (passable/not passable)
                     MapTileBuilder arcticTile = new MapTileBuilder(arcticWater)
                     .withTopLayer(arcticFrame)
-                    .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     
 
                     ArcticTiles.add(arcticTile);
                 }
 
-                if ((index >=96 && index <179)){
+                if ((index >=96 && index <102)||(index >=134 && index < 179)){
                     Frame arcticFrame = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
                     .build();
                     
                     // Define the tile type (passable/not passable)
                     MapTileBuilder arcticTile = new MapTileBuilder(arcticFloor1)
+                    .withTopLayer(arcticFrame)
+                    .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                    
+
+                    ArcticTiles.add(arcticTile);
+                }
+
+                if (index >=102 && index <105){
+                    Frame arcticFrame = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder arcticTile = new MapTileBuilder(arcticLedge)
                     .withTopLayer(arcticFrame)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                     
@@ -97,7 +126,7 @@ public class ArcticTileset extends Tileset{
                     // Define the tile type (passable/not passable)
                     MapTileBuilder arcticTile = new MapTileBuilder(arcticFloor1)
                     .withTopLayer(arcticFrame)
-                    .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     
 
                     ArcticTiles.add(arcticTile);
@@ -111,7 +140,7 @@ public class ArcticTileset extends Tileset{
                     // Define the tile type (passable/not passable)
                     MapTileBuilder arcticTile = new MapTileBuilder(arcticFloor2)
                     .withTopLayer(arcticFrame)
-                    .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                     
 
                     ArcticTiles.add(arcticTile);
