@@ -21,7 +21,7 @@ public class PotionScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("health boost!");
+            addText("You gained 5 health!");
         }});
 
         scriptActions.add(new ScriptAction() {

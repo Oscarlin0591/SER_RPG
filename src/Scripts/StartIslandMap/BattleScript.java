@@ -88,7 +88,7 @@ public class BattleScript extends Script {
                     @Override
                     public ScriptState execute() {
                         System.out.println(PlayLevelScreen.battleScreen.returnMultiplier());
-                        BattleMap.getEnemy().attack((float) (Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()) * PlayLevelScreen.getMap().getPlayer().getStrength());
+                        BattleMap.getEnemy().attack(Math.round(Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()) * PlayLevelScreen.getMap().getPlayer().getStrength());
 
                         return ScriptState.COMPLETED;
                     }
@@ -105,7 +105,7 @@ public class BattleScript extends Script {
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        PlayLevelScreen.getMap().getPlayer().damage((float) Math.random()*2 + BattleMap.getEnemy().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage(Math.round(Math.random()*2 + BattleMap.getEnemy().getStrength()));
                         return ScriptState.COMPLETED;
                     }
                 });
@@ -144,7 +144,7 @@ public class BattleScript extends Script {
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()*2) * BattleMap.getEnemy().getStrength());
+                        PlayLevelScreen.getMap().getPlayer().damage(Math.round((Math.random()*2) * BattleMap.getEnemy().getStrength()));
                         return ScriptState.COMPLETED;
                     }
                 });
