@@ -93,9 +93,9 @@ public class BattleScript extends Script {
                         
                         //if not crit, deal damage normally
                         if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
-                            BattleMap.getEnemy().attack(Math.round(Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()));
+                            BattleMap.getEnemy().attack((float) (Math.random()*PlayLevelScreen.battleScreen.returnMultiplier() * player.getStrength()));
                         else {//if crit deal double damage
-                            BattleMap.getEnemy().attack(Math.round(Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()) * 2);
+                            BattleMap.getEnemy().attack((float) (Math.random()*PlayLevelScreen.battleScreen.returnMultiplier() * player.getStrength()) * 2);
                             attackCrit = true;
                         }
                         return ScriptState.COMPLETED;
@@ -140,9 +140,9 @@ public class BattleScript extends Script {
                     public ScriptState execute() {
                         //if not crit, deal damage normally
                         if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
-                            PlayLevelScreen.getMap().getPlayer().damage(Math.round(Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()) * PlayLevelScreen.getMap().getPlayer().getStrength());
+                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()* BattleMap.getEnemy().getStrength())); //nts check with aislin
                         else {//if crit deal double damage
-                            PlayLevelScreen.getMap().getPlayer().damage(Math.round(Math.random()*PlayLevelScreen.battleScreen.returnMultiplier()) * PlayLevelScreen.getMap().getPlayer().getStrength() * 2);
+                            PlayLevelScreen.getMap().getPlayer().damage((float) (Math.random()* BattleMap.getEnemy().getStrength()) * 2);
                             attackCrit = true;
                         }
                         return ScriptState.COMPLETED;
@@ -207,9 +207,9 @@ public class BattleScript extends Script {
                     public ScriptState execute() {
                         //if not crit, deal damage normally
                         if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
-                            PlayLevelScreen.getMap().getPlayer().damage(Math.round((Math.random()*2) * BattleMap.getEnemy().getStrength()));
+                            PlayLevelScreen.getMap().getPlayer().damage((float) ((Math.random()*2) * BattleMap.getEnemy().getStrength()));
                         else {//if crit deal double damage
-                            PlayLevelScreen.getMap().getPlayer().damage(Math.round((Math.random()*2) * BattleMap.getEnemy().getStrength()) * 2);
+                            PlayLevelScreen.getMap().getPlayer().damage((float) ((Math.random()*2) * BattleMap.getEnemy().getStrength()) * 2);
                             attackCrit = true;
                         }
                         return ScriptState.COMPLETED;
