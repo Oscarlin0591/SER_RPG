@@ -41,8 +41,6 @@ public class ArcticMap extends Map{
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        //add triggers below, commented out one is an example.
-
         triggers.add(new Trigger(getMapTile(11, 0).getLocation().x, getMapTile(11, 0).getLocation().y, 144, 25, new ArcticExitScript()));
         return triggers;
     }

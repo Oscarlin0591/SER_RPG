@@ -121,6 +121,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("jdvdialogue", false);
         flagManager.addFlag("talkedToYeti", false);
+        flagManager.addFlag("talkedToKrampus", false);
 
         // flag for teleportation
         flagManager.addFlag("interactPortal",false);
