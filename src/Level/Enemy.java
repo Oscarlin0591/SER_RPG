@@ -55,7 +55,7 @@ public class Enemy extends NPC {
         dodgeChance = newDodgeChance;
     }
 
-    public void attack(float damage) {
+    public void attack(int damage) {
         //if not dodge, deal damage
         if ((dodgeChance * Math.random()) < 0.9) {
             setHealth(this.health - damage);

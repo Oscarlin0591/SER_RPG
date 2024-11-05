@@ -342,7 +342,7 @@ public abstract class Player extends GameObject {
     }
 
     // damage method
-    public void damage(float damage) {
+    public void damage(int damage) {
         //if not dodge, deal damage
         if ((dodgeChance * Math.random()) < 0.9) {
             if (health - damage == 0) {
