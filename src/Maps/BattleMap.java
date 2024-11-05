@@ -3,6 +3,7 @@ package Maps;
 import Level.*;
 import NPCs.*;
 import NPCs.Bosses.HolyBeetle;
+import NPCs.Bosses.Kraken;
 import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
@@ -50,21 +51,12 @@ public class BattleMap extends Map{
         }
         npcs.add(enemy);
 
-
-
-
         //override default enemy depending on enemy flags
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
-            enemy = new Bug(502, getMapTile(3, 8).getLocation(), 20, 5, 1, 1);;
+            enemy = new Bug(502, getMapTile(4,8).getLocation(), 10, 1, 1, 1);
             enemy.lock();
             npcs.set(0, enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
-        }
-
-        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("shrekEnemy")) {
-            enemy = new Shrek(503, getMapTile(4,6).getLocation(), 10, 1, 1, 1);
-            npcs.set(0, enemy);
-            PlayLevelScreen.getMap().getFlagManager().unsetFlag("shrekEnemy");
         }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvEnemy")) {

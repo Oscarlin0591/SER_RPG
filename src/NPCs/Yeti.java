@@ -23,17 +23,17 @@ public class Yeti extends Enemy {
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(2)
-                            .withBounds(0, 0, 64, 64)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .build()
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    .withScale(2)
+                    .withBounds(0, 0, 64, 64)
+                    .build()
             });
             put("STAND_RIGHT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(2)
-                           .withBounds(0, 0, 64, 64)
-                           .build()
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    .withScale(2)
+                    .withBounds(0, 0, 64, 64)
+                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .build()
            });
         }};
     }

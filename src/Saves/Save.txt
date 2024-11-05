@@ -3,6 +3,6 @@
 starting_map.txt
 10
 4
-true
+false
 false
 false

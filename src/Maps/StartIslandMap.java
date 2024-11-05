@@ -3,6 +3,8 @@ package Maps;
 import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.*;
+import NPCs.Interactable.Girl;
+import NPCs.Interactable.MysteriousMan;
 import ScriptActions.ChangeFlagScriptAction;
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
@@ -108,6 +110,14 @@ public class StartIslandMap extends Map {
                             public boolean isRequirementMet() {
                                 int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
                                 return answer == 0;
+                            }
+                        });
+
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                player.setLocation(player.getX(), player.getY() - 10);
+                                return ScriptState.COMPLETED;
                             }
                         });
 

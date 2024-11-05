@@ -117,8 +117,6 @@ public class AtlantisTileset extends Tileset{
                     MapTileBuilder atlantisTile = new MapTileBuilder(atlantisFloor1)
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
-                    System.out.println("Non-passable tile created at index: " + index);
-                    
 
                     AtlantisTiles.add(atlantisTile);
                 }
@@ -132,9 +130,6 @@ public class AtlantisTileset extends Tileset{
                     MapTileBuilder atlantisTile = new MapTileBuilder(atlantisFloor1)
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
-                    
-
-                    System.out.println("Passable tile triggered at index: " + index);
                     
                     AtlantisTiles.set(index, atlantisTile);
                     passIndex1++;
@@ -150,7 +145,6 @@ public class AtlantisTileset extends Tileset{
                     MapTileBuilder atlantisTile = new MapTileBuilder(atlantisFloor2)
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
-                    System.out.println("Non-passable tile created at index: " + index);
                     
 
                     AtlantisTiles.add(atlantisTile);
@@ -165,10 +159,7 @@ public class AtlantisTileset extends Tileset{
                     MapTileBuilder atlantisTile = new MapTileBuilder(atlantisFloor2)
                     .withTopLayer(atlantisFrame)
                     .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
-                    
-
                     passIndex2++;
-                    System.out.println("Passable tile triggered at index: " + index);
 
                     AtlantisTiles.set(index, atlantisTile);
                 } 
@@ -226,7 +217,6 @@ public class AtlantisTileset extends Tileset{
                     // AtlantisTiles.set(index, atlantisTile2);
                     nonPassIndex++;
                 } 
-                System.out.println(index);
                 index++;
             }
 

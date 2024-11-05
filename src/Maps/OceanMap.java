@@ -3,6 +3,7 @@ package Maps;
 //import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.*;
+import NPCs.Bosses.Kraken;
 import NPCs.Interactable.Shipwreck;
 import Screens.PlayLevelScreen;
 import Scripts.SimpleTextScript;
@@ -42,9 +43,12 @@ public class OceanMap extends Map {
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
-        Shipwreck shipwreck = new Shipwreck(5, getMapTile(5,20).getLocation(),"Shipwreck.png");
-        shipwreck.setInteractScript(new SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls..."));
-        npcs.add(shipwreck);
+        Shipwreck shipwreck1 = new Shipwreck(5, getMapTile(5,20).getLocation(),"Shipwreck.png");
+        shipwreck1.setInteractScript(new SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls..."));
+        npcs.add(shipwreck1);
+
+        PirateShip pirateShip1 = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png");
+        npcs.add(pirateShip1);
 
         //if kraken not killed, add it to npcs
         Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1, -1, -1);
