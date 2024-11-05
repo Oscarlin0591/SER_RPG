@@ -9,6 +9,7 @@ public class Enemy extends NPC {
     protected float strength;
     protected float critChance;
     protected float dodgeChance;
+    protected float maxHealth;
     
     //constructor
     public Enemy (int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, float health, float strength, float critChance, float dodgeChance) {
@@ -20,6 +21,9 @@ public class Enemy extends NPC {
         this.strength = strength;
         this.critChance = critChance;
         this.dodgeChance = dodgeChance;
+
+        //initialize maxHealth
+        this.maxHealth = health;
     }
 
     // getters and setters
@@ -29,6 +33,10 @@ public class Enemy extends NPC {
 
     public void setHealth(float newHealth) {
         this.health = newHealth;
+    }
+
+    public float getMaxHealth () {
+        return this.maxHealth;
     }
 
     public float getStrength() {

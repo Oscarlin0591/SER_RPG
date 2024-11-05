@@ -519,10 +519,30 @@ public class PlayLevelScreen extends Screen {
         // based on screen state, draw appropriate graphics
         switch (playLevelScreenState) {
             case RUNNING:
+                //player and game
                 map.draw(player, graphicsHandler);
-                if (getMap().getFlagManager().isFlagSet("jdvdialogue")) {
+
+                //veith npc visual
+                if (getMap().getFlagManager().isFlagSet("jdvdialogue"))
                     graphicsHandler.drawImage(ImageLoader.load("CharacterPNGs/Captain_Jack_Veith.png"), ScreenManager.getScreenWidth()-400, Textbox.getOptionBottomY()-400, 400, 400);
-                }
+
+                //health bars in combat - moved from GamePanel
+                if (GamePanel.isInBattle) {
+                    GamePanel.updateHealthInfo();
+
+                    //draw empty health bars behind health
+                    graphicsHandler.drawFilledRectangleWithBorder(585, 525, 200, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
+                    graphicsHandler.drawFilledRectangleWithBorder(40, 525, 200, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
+
+                    //draw filled health bar at health percentage
+                    int playerHealthPercent = Math.round((player.getHealth() / player.getMaxHealth()) * 200);
+			        graphicsHandler.drawFilledRectangleWithBorder(585, 525, playerHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			        GamePanel.healthLabel.draw(graphicsHandler);
+
+                    int enemyHealthPercent = Math.round((BattleMap.enemy.getHealth() / BattleMap.enemy.getMaxHealth()) * 200);
+			        graphicsHandler.drawFilledRectangleWithBorder(40, 525, enemyHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			        GamePanel.enemyHealthLabel.draw(graphicsHandler);
+			    }
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
