@@ -39,7 +39,15 @@ public class FlagManager {
         return false;
     }
 
-    public String print(){
-        return flags.toString();
+    public String getValues(){
+        return flags.values().toString();
+    }
+
+    public String getKeys(){
+        return flags.keySet().toString();
+    }
+
+    public int getSize(){
+        return flags.size();
     }
 }

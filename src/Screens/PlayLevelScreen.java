@@ -183,7 +183,7 @@ public class PlayLevelScreen extends Screen {
                 playerHealthCont = in.nextInt();
                 playerStrengthCont = in.nextInt();
                 //beaten jv
-                if(in.nextBoolean()){
+                /*if(in.nextBoolean()){
                     flagManager.setFlag("jvBeaten");
                 }
                 //kraken's existence
@@ -193,7 +193,57 @@ public class PlayLevelScreen extends Screen {
                 //beetle defeated
                 if(in.nextBoolean()){
                     flagManager.setFlag("beetleKilled");
+                }*/
+                boolean[] flagValues = new boolean[flagManager.getSize()];
+                for(int i = 0; i < flagManager.getSize(); i++){
+                    boolean temp = false;
+                    String value = in.next();
+                    value = value.substring(0, value.length() - 1);
+                    if(value.equals("true")){
+                        temp = true;
+                    }
+                    flagValues[i] = temp;
                 }
+                for(int i = 0; i < flagValues.length; i++){
+                    System.out.println(i);
+                    System.out.println(flagValues[i]);
+                }
+
+                String[] flagNames = new String[flagManager.getSize()];
+                for(int i = 0; i < flagManager.getSize(); i++){
+                    String name = in.next();
+                    name = name.substring(0, name.length() - 1);
+                    flagNames[i] = name;
+                }
+                for(int i = 0; i < flagNames.length; i++){
+                    System.out.println(i);
+                    System.out.println(flagNames[i]);
+                }
+
+                for(int i = 0; i < flagManager.getSize(); i++){
+                    if(flagValues[i]){
+                        flagManager.setFlag(flagNames[i]);
+                    }
+                }
+
+                //String flagName = in.nextLine();
+                //String flagValues = in
+                
+                /*while(!flagString.isEmpty()){
+                    //for()
+                    String temp = "";
+                    for(int i = 0; i > flagArray.length; i++){
+                        if(flagArray[i] != '{'){
+                            temp = 
+                        }
+                    }
+                    //    vvvv replace with another var
+                    if(flagString.equals("true")){
+
+                    }else{
+
+                    }
+                }*/
                 in.close();
             }catch(FileNotFoundException e){
                 e.printStackTrace();
@@ -438,10 +488,13 @@ public class PlayLevelScreen extends Screen {
                         writer.write("\n" + map.getMapFileName());
                         writer.write("\n" + (int)player.getHealth());
                         writer.write("\n" + (int)player.getStrength());
-                        writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
-                        writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
-                        writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
-                        //writer.write("\n" + flagManager.print());
+                        //writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
+                        //writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
+                        //writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
+                        String temp = flagManager.getValues();
+                        writer.write("\n" + temp.substring(1,temp.length() - 1));
+                        temp = flagManager.getKeys();
+                        writer.write("\n" + temp.substring(1, temp.length() - 1));
     			    } catch (IOException e) {
         			    e.printStackTrace();
         			}
