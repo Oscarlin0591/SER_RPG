@@ -15,8 +15,8 @@ import java.util.HashMap;
 // This class is for the Yeti NPC
 public class Yeti extends Enemy {
 
-    public Yeti(int id, Point location,float newHealth, float newStrength) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/Yeti.png"), 64, 64), "STAND_RIGHT", newHealth, newStrength);
+    public Yeti(int id, Point location,float newHealth, float newStrength, float newCritChance, float newDodgeChance) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/Yeti.png"), 64, 64), "STAND_RIGHT", newHealth, newStrength, newCritChance, newDodgeChance);
     }
 
     @Override

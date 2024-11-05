@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import Level.Script;
 import Level.ScriptState;
 import ScriptActions.LockPlayerScriptAction;
+import ScriptActions.NPCChangeVisibilityScriptAction;
 import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
+import Utils.Visibility;
 
 public class MeatScript extends Script {
     @Override
@@ -16,7 +18,7 @@ public class MeatScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("strength boost!");
+            addText("You gained 1 strength!");
         }});
 
         scriptActions.add(new ScriptAction() {
@@ -27,6 +29,8 @@ public class MeatScript extends Script {
                 return ScriptState.COMPLETED;
             }
         });
+
+        scriptActions.add(new NPCChangeVisibilityScriptAction(Visibility.HIDDEN));
 
         scriptActions.add(new UnlockPlayerScriptAction());
 

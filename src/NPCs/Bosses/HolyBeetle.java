@@ -20,11 +20,11 @@ public class HolyBeetle extends Enemy {
     
     //modified to call Enemy constructor, for now hardcoded to put in -1 for health and strength
     public HolyBeetle(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("beetleBoss.png"), 32, 32), "WALK_LEFT", 1, 1);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("beetleBoss.png"), 32, 32), "WALK_LEFT", -1, -1, -1, -1);
     }
 
-    public HolyBeetle(int id, Point location, float newHealth, float newStrength) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("beetleBoss.png"), 32, 32), "WALK_LEFT", newHealth, newStrength);
+    public HolyBeetle(int id, Point location, float newHealth, float newStrength, float newCritChance, float newDodgeChance) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("beetleBoss.png"), 32, 32), "WALK_LEFT", newHealth, newStrength, newCritChance, newDodgeChance);
     }
 
 

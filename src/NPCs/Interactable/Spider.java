@@ -18,7 +18,6 @@ public class Spider extends NPC {
     private Direction direction = Direction.RIGHT;
     private float speed = 1;
     
-    //modified to call Enemy constructor, for now hardcoded to put in -1 for health and strength
     public Spider(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("spiderSpriteSheet.png"), 32, 32), "WALK_RIGHT");
     }

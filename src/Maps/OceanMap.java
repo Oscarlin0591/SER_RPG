@@ -47,7 +47,7 @@ public class OceanMap extends Map {
         npcs.add(shipwreck);
 
         //if kraken not killed, add it to npcs
-        Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1);
+        Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1, -1, -1);
         kraken.setExistenceFlag("krakenKilled");
         kraken.setInteractScript(new KrakenScript());
         npcs.add(kraken);

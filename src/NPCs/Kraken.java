@@ -14,8 +14,8 @@ import java.util.HashMap;
 // This class is for the kraken boss
 public class Kraken extends Enemy {
 
-    public Kraken(int id, Point location, int health, int strength) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("kraken.png"), 64, 64), "STAND_RIGHT", health, strength);
+    public Kraken(int id, Point location, int health, int strength, float newCritChance, float newDodgeChance) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("kraken.png"), 64, 64), "STAND_RIGHT", health, strength, newCritChance, newDodgeChance);
     }
 
     @Override

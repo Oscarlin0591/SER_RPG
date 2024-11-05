@@ -7,6 +7,7 @@ import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.Rectangle;
 import GameObject.SpriteSheet;
+import Screens.PlayLevelScreen;
 import Utils.Direction;
 import java.awt.image.BufferedImage;
 
@@ -42,10 +43,12 @@ public abstract class Player extends GameObject {
     protected Key INTERACT_KEY = Key.E;
     protected Key SPRINT_KEY = Key.SHIFT;
 
-    // values for health and strength
+    // values for stats
     protected static float max_health;
     protected static float health;
     protected static float strength;
+    protected static float critChance;
+    protected static float dodgeChance;
 
     protected boolean isLocked = false;
     protected boolean isSprinting;
@@ -58,15 +61,21 @@ public abstract class Player extends GameObject {
         this.affectedByTriggers = true;
     }
 
-    public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, float newHealth, float newStrength) {
+    public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName, float newHealth, float newStrength, float newCritChance, float newDodgeChance) {
         super(spriteSheet, x, y, startingAnimationName);
+
         facingDirection = Direction.RIGHT;
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         this.affectedByTriggers = true;
+
         max_health = newHealth;
         setHealth(max_health);
+
         strength = newStrength;
+
+        critChance = newCritChance;
+        dodgeChance = newDodgeChance;
     }
 
     public void update() {
@@ -316,13 +325,33 @@ public abstract class Player extends GameObject {
         strength = newStrength;
     }
 
+    public float getCritChance() {
+        return critChance;
+    }
+
+    public void setCritChance(float newCritChance) {
+        critChance = newCritChance;
+    }
+
+    public float getDodgeChance() {
+        return dodgeChance;
+    }
+
+    public void setDodgeChance(float newDodgeChance) {
+        dodgeChance = newDodgeChance;
+    }
+
     // damage method
-    public void damage(float damage) {
-        if (health - damage == 0) {
-            setHealth(0);
-        } else {
-        setHealth(health - damage);
-        }
+    public void damage(int damage) {
+        //if not dodge, deal damage
+        if ((dodgeChance * Math.random()) < 0.9) {
+            if (health - damage == 0) {
+                setHealth(0);
+            } else {
+                setHealth(health - damage);
+            }
+        } else
+            PlayLevelScreen.flagManager.setFlag("attackDodged");
     }
 
     public void heal() {

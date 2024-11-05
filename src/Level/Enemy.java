@@ -1,20 +1,25 @@
 package Level;
 
 import GameObject.SpriteSheet;
+import Screens.PlayLevelScreen;
 
 public class Enemy extends NPC {
     //instance variables
     protected float health;
     protected float strength;
+    protected float critChance;
+    protected float dodgeChance;
     
     //constructor
-    public Enemy (int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, float health, float strength) {
+    public Enemy (int id, float x, float y, SpriteSheet spriteSheet, String startingAnimation, float health, float strength, float critChance, float dodgeChance) {
         //call NPC constructor
         super(id, x, y, spriteSheet, startingAnimation);
 
         //initialize health and strength
         this.health = health;
         this.strength = strength;
+        this.critChance = critChance;
+        this.dodgeChance = dodgeChance;
     }
 
     // getters and setters
@@ -34,8 +39,29 @@ public class Enemy extends NPC {
         this.strength = newStrength;
     }
 
-    public void attack(float damage) {
-        setHealth(this.health - damage);
+    public float getCritChance() {
+        return critChance;
+    }
+
+    public void setCritChance(float newCritChance) {
+        critChance = newCritChance;
+    }
+
+    public float getDodgeChance() {
+        return dodgeChance;
+    }
+
+    public void setDodgeChance(float newDodgeChance) {
+        dodgeChance = newDodgeChance;
+    }
+
+    public void attack(int damage) {
+        //if not dodge, deal damage
+        if ((dodgeChance * Math.random()) < 0.9) {
+            setHealth(this.health - damage);
+        } else {
+            PlayLevelScreen.flagManager.setFlag("attackDodged");
+        }
     }
     
 }

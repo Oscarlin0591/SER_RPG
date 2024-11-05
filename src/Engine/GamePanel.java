@@ -146,11 +146,15 @@ public class GamePanel extends JPanel {
 	public static void updateHealthInfo() {
 		playerHealth = PlayLevelScreen.getMap().getPlayer().getHealth();
 		healthInfo = String.format("Health: %.2f", playerHealth);
-		healthLabel = new SpriteFont(healthInfo, ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
+		if (playerHealth < 0) {
+			healthLabel = new SpriteFont("Health: 0", ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
+		}else healthLabel = new SpriteFont(healthInfo, ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
 
 		enemyHealth = BattleMap.getEnemy().getHealth();
 		enemyHealthInfo = String.format("Health: %.2f", enemyHealth);
-		enemyHealthLabel = new SpriteFont(enemyHealthInfo, ScreenManager.getScreenWidth()-75, ScreenManager.getScreenHeight()-30, "Arial",12, Color.BLACK);
+		if (enemyHealth < 0) {
+			enemyHealthLabel = new SpriteFont("Health: 0", ScreenManager.getScreenWidth()-75, ScreenManager.getScreenHeight()-30, "Arial",12, Color.BLACK);
+		}else enemyHealthLabel = new SpriteFont(enemyHealthInfo, ScreenManager.getScreenWidth()-75, ScreenManager.getScreenHeight()-30, "Arial",12, Color.BLACK);
 	}
 
 	@Override

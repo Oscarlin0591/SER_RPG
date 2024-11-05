@@ -26,7 +26,7 @@ public class ArcticMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Yeti yeti = new Yeti(201, getMapTile(32,6).getLocation(), 100, 10);
+        Yeti yeti = new Yeti(201, getMapTile(32,6).getLocation(), 100, 10, 1, 1);
         npcs.add(yeti);
 
         return npcs;
