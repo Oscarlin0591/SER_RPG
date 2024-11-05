@@ -33,63 +33,75 @@ public class BattleScreen extends Screen{
     protected boolean battleFinished;
     
     private HitBox[] hitboxes;
-        public BattleScreen(PlayLevelScreen playLevelScreen) {
-            this.playLevelScreen = playLevelScreen;
-            box = new Rectangle(0, ScreenManager.getScreenHeight()/2, 10, 120);
-            box.setColor(Color.lightGray);
-            box.setBorderColor(Color.black);
-            box.setBorderThickness(2);
-    
-            hitBox1 = new HitBox();
-            hitboxes = new HitBox[10];
-            for (int i = 0; i < hitboxes.length; i++) {
-                hitboxes[i] = new HitBox();
-                if (i > 0 && hitboxes[i].intersects(hitboxes[i-1])) {
-                    hitboxes[i] = new HitBox();
-                }
-            }
-            count = 0;
-            // battleFinished = false;
-        }
-    
-        public void countBox() {
-            count+=0.2;
-        }
-    
-        @Override
-        public void initialize() {
-            // background = ImageLoader.load("background.png");
-            for (int i = 0; i < hitboxes.length; i++) {
+
+    public BattleScreen(PlayLevelScreen playLevelScreen) {
+        this.playLevelScreen = playLevelScreen;
+        box = new Rectangle(0, ScreenManager.getScreenHeight()/2, 10, 120);
+        box.setColor(Color.lightGray);
+        box.setBorderColor(Color.black);
+        box.setBorderThickness(2);
+
+        hitBox1 = new HitBox();
+        hitboxes = new HitBox[8];
+        for (int i = 0; i < hitboxes.length; i++) {
+            hitboxes[i] = new HitBox();
+            if (i > 0 && hitboxes[i].intersects(hitboxes[i-1])) {
                 hitboxes[i] = new HitBox();
             }
         }
+        count = 0;
+        // battleFinished = false;
+    }
+
+    public void countBox() {
+        count+=0.4;
+    }
+
+    @Override
+    public void initialize() {
+        // background = ImageLoader.load("background.png");
+        for (int i = 0; i < hitboxes.length; i++) {
+            hitboxes[i] = new HitBox();
+        }
+    }
     
-        public void update() {
-            // player.update();
-            box.update();
-            if(box.getX()+25 < ScreenManager.getScreenWidth()) {
-                box.moveRight(xVel);
-                for (HitBox hitbox : hitboxes) {
+    public void update() {
+        box.update();
+        if(box.getX()+25 < ScreenManager.getScreenWidth()) {
+            box.moveRight(xVel);
+
+            for (HitBox hitbox : hitboxes) {
                 if (Keyboard.isKeyDown(Key.SPACE) && keyPressTimer == 0) {
-                    if (box.intersects(hitbox)) {
-                        hitbox.setColor(Color.green);
+                    if (box.intersects(hitbox) && !hitbox.isBoxHit()) {
+                        hitbox.boxHit();
                         countBox();
                     }
-                    keyPressTimer = 15;
-                    if(Keyboard.isKeyUp(Key.SPACE)) {
-                        keyPressTimer = 0;
-                    }
-                } else {
-                    if (keyPressTimer > 0) {
-                        keyPressTimer--;
-                    }
+                    keyPressTimer = 5;
+                }
+
+                if (keyPressTimer > 0) {
+                    keyPressTimer--;
                 }
             }
         } else {
             box.setLocation(0, box.getY());
-            // battleFinished = true;
             PlayLevelScreen.running();
         }
+    // for (HitBox hitbox : hitboxes) {
+    //     if (hitbox.isBoxHit()){
+    //         int a = 255;
+    //         if (a > 0) {
+    //             int count = 100;
+    //             while (count > 0) {
+    //                 count--;
+    //             }
+    //             hitbox.setColor(new Color(0,255,0,a));
+    //             hitbox.setBorderColor(new Color(0,0,0,a));
+    //             a-=5;
+    //         }
+    //     }
+    //     hitbox.update();
+    // }
     }
 
     public float returnMultiplier() {
@@ -110,11 +122,32 @@ public class BattleScreen extends Screen{
     }
     private class HitBox extends Rectangle {
 
+        private boolean isHit = false;
+
         public HitBox() {
             super((float) (Math.random()*ScreenManager.getScreenWidth())-25, (ScreenManager.getScreenHeight()/2)-10, 40, 150);
-            this.setColor(Color.red);
+            this.setColor(new Color(255, 0, 0, 255));
             this.setBorderColor(Color.black);
             this.setBorderThickness(2);
+        }
+
+        public void boxHit() {
+            isHit = true;
+            // int a = 255;
+            // if (a > 0) {
+            //     int count = 10000000;
+            //     while (count > 0) {
+            //         count--;
+            //     }
+            //     this.setColor(new Color(0,255,0,a));
+            //     this.setBorderColor(new Color(0,0,0,a));
+            //     a-=5;
+            // }
+            this.setColor(Color.GREEN);
+        }
+
+        public boolean isBoxHit() {
+            return isHit;
         }
     
     }

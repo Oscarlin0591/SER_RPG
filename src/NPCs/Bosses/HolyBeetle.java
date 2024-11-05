@@ -20,11 +20,11 @@ public class HolyBeetle extends Enemy {
     
     //modified to call Enemy constructor, for now hardcoded to put in -1 for health and strength
     public HolyBeetle(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("beetleBoss.png"), 32, 32), "WALK_LEFT", -1, -1, -1, -1);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/beetleBoss.png"), 32, 32), "WALK_LEFT", -1, -1, -1, -1);
     }
 
     public HolyBeetle(int id, Point location, float newHealth, float newStrength, float newCritChance, float newDodgeChance) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("beetleBoss.png"), 32, 32), "WALK_LEFT", newHealth, newStrength, newCritChance, newDodgeChance);
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/beetleBoss.png"), 32, 32), "WALK_LEFT", newHealth, newStrength, newCritChance, newDodgeChance);
     }
 
 
@@ -46,13 +46,13 @@ public class HolyBeetle extends Enemy {
            });
            put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 16)
-                        .withScale(4)
-                        .withBounds(0, 5, 32, 32)
-                        .build(),
+                    .withScale(4)
+                    .withBounds(0, 5, 32, 32)
+                    .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 16)
-                        .withScale(4)
-                        .withBounds(0, 5, 32, 32)
-                        .build(),
+                    .withScale(4)
+                    .withBounds(0, 5, 32, 32)
+                    .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 2), 16)
                     .withScale(4)
                     .withBounds(0, 5, 32, 32)

@@ -120,6 +120,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("jdvdialogue", false);
+        flagManager.addFlag("talkedToYeti", false);
 
         // flag for teleportation
         flagManager.addFlag("interactPortal",false);
@@ -402,12 +403,9 @@ public class PlayLevelScreen extends Screen {
             //add logic to pull up combat menu here 
             prevMap = getMap();
             playerLoc = getPlayer().getLocation();
-            // prevPlayer = getPlayer();
             map = new BattleMap();
             map.setFlagManager(flagManager);
-            // player = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getMaxHealth(),player.getStrength());
             player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-            System.out.print(player.getLocation());
             player.setMap(map);
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             map.setPlayer(player);

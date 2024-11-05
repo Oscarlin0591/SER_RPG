@@ -3,6 +3,7 @@ package Scripts.AtlantisMapScripts;
 import java.util.ArrayList;
 
 import Level.Script;
+import Level.ScriptState;
 import ScriptActions.*;
 
 
@@ -32,6 +33,23 @@ public class AtlantisExitScript extends Script {
                 addScriptAction(new ChangeFlagScriptAction("exitAtlantis", true));
             }});
 
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                        return answer == 1;
+                    }
+                });
+
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        player.setLocation(player.getX()+10, player.getY());
+                        return ScriptState.COMPLETED;
+                    }
+                });
+            }});
         }});
         scriptActions.add(new UnlockPlayerScriptAction());
 

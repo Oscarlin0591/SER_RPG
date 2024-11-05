@@ -3,6 +3,6 @@
 game_map.txt
 15
 4
-true
+false
 false
 false

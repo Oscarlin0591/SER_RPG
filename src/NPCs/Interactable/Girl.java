@@ -1,4 +1,4 @@
-package NPCs;
+package NPCs.Interactable;
 
 import java.util.HashMap;
 
@@ -10,9 +10,9 @@ import GameObject.SpriteSheet;
 import Level.NPC;
 import Utils.Point;
 
-public class MysteriousMan extends NPC { 
-    public MysteriousMan(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/mysteryman.png"),16, 16), "STAND_RIGHT");
+public class Girl extends NPC { 
+    public Girl(int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/girl.png"),12, 16), "STAND_RIGHT");
     }
 
     @Override

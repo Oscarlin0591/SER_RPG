@@ -1,4 +1,4 @@
-package NPCs;
+package NPCs.Bosses;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;

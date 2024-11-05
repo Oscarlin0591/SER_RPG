@@ -4,7 +4,8 @@ import Level.Map;
 import Level.Music;
 import Level.NPC;
 import Level.Trigger;
-import NPCs.Yeti;
+import NPCs.Bosses.*;
+import NPCs.*;
 import Scripts.ArcticMapScripts.*;
 import Tilesets.ArcticTileset;
 import java.util.ArrayList;
@@ -26,8 +27,13 @@ public class ArcticMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Yeti yeti = new Yeti(201, getMapTile(32,6).getLocation(), 100, 10, 1, 1);
+        Yeti yeti = new Yeti(201, getMapTile(32,6).getLocation(), 100, 10,1,1);
+        yeti.setInteractScript(new YetiScript());
         npcs.add(yeti);
+
+        Krampus krampus = new Krampus(202, getMapTile(45,41).getLocation(), 150, 8, 1, 1);
+        krampus.setInteractScript(new KrampusScript());
+        npcs.add(krampus);
 
         return npcs;
     }

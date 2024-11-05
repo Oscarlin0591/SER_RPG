@@ -420,7 +420,7 @@ public class WaterTileset extends Tileset{
                 .build();
 
                 // Define the tile type (passable/not passable)
-                MapTileBuilder glacierTile = new MapTileBuilder(Wave4Frames)
+                MapTileBuilder glacierTile = new MapTileBuilder(Wave12Frames)
                 .withTopLayer(glacierFrame)
                 .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
                 
