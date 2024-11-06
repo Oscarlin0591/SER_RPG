@@ -47,6 +47,8 @@ public class BossBeetleScript extends Script{
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("The barrier?");
+                    addText("And why would you need the this barrier taken down?", new String[] {"I want to get the Nave d'Oro"});
+                    addText("The Nave d'Oro, eh?");
                     addText("Over my dead exoskeleton!");
                     addText("You're just like the others, so eager on the shine of gold that you are\nblinded by the terror that could be released if I let that barrier down...");
                     addText("There are no other options. En Garde!");

@@ -11,9 +11,6 @@ public class YetiScript extends Script{
     public ArrayList<ScriptAction> loadScriptActions() {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
-
-        scriptActions.add(new NPCLockScriptAction());
-
         scriptActions.add(new NPCFacePlayerScriptAction());
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -57,8 +54,6 @@ public class YetiScript extends Script{
             // addText("What? Fourth-wall? I don't know what you're talking about...");
         }});
 
-
-        scriptActions.add(new NPCUnlockScriptAction());
         scriptActions.add(new UnlockPlayerScriptAction());
 
         return scriptActions;
