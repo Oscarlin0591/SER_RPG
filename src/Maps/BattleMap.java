@@ -2,11 +2,12 @@ package Maps;
 
 import Level.*;
 import NPCs.*;
-import NPCs.Bosses.HolyBeetle;
-import NPCs.Bosses.Kraken;
+import NPCs.Bosses.*;
 import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.RPGTileset;
+import Utils.Direction;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -54,6 +55,7 @@ public class BattleMap extends Map{
         //override default enemy depending on enemy flags
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {
             enemy = new Bug(502, getMapTile(4,8).getLocation(), 10, 1, 1, 1);
+            enemy.stand(Direction.RIGHT);
             enemy.lock();
             npcs.set(0, enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("bugEnemy");
@@ -75,6 +77,18 @@ public class BattleMap extends Map{
             enemy = new HolyBeetle(802, getMapTile(4, 6).getLocation(), 50, 5, 1, 1);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("beetleEnemy");
+        }
+
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("yetiEnemy")) {
+            enemy = new Yeti(802, getMapTile(4, 6).getLocation(), 100, 8, 1, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("yetiEnemy");
+        }
+
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("krampusEnemy")) {
+            enemy = new Krampus(802, getMapTile(4, 6).getLocation(), 150, 10, 1, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("krampusEnemy");
         }
 
         return npcs;

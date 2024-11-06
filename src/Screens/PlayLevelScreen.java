@@ -150,6 +150,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("krakenEnemy", false);
         flagManager.addFlag("jvEnemy", false);
         flagManager.addFlag("beetleEnemy", false);
+        flagManager.addFlag("yetiEnemy", false);
+        flagManager.addFlag("krampusEnemy", false);
 
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
