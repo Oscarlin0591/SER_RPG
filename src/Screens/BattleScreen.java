@@ -31,6 +31,7 @@ public class BattleScreen extends Screen{
     protected int keyPressTimer = 0;
     protected float count;
     protected boolean battleFinished;
+    protected KeyLocker keyLocker = new KeyLocker();
     
     private HitBox[] hitboxes;
 
@@ -71,37 +72,29 @@ public class BattleScreen extends Screen{
             box.moveRight(xVel);
 
             for (HitBox hitbox : hitboxes) {
-                if (Keyboard.isKeyDown(Key.SPACE) && keyPressTimer == 0) {
+                if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
+                // && keyPressTimer == 0) {
                     if (box.intersects(hitbox) && !hitbox.isBoxHit()) {
                         hitbox.boxHit();
                         countBox();
+                        keyLocker.lockKey(Key.SPACE);
+                        // System.out.println("Space locked");
                     }
-                    keyPressTimer = 5;
-                }
+                    // keyPressTimer = 5;
+                    
+                } else if (Keyboard.isKeyUp(Key.SPACE)) {
+                    keyLocker.unlockKey(Key.SPACE);
+                    // System.out.println("Space unlocked");
+                     }
 
-                if (keyPressTimer > 0) {
-                    keyPressTimer--;
-                }
+                // if (keyPressTimer > 0) {
+                //     keyPressTimer--;
+                // }
             }
         } else {
             box.setLocation(0, box.getY());
             PlayLevelScreen.running();
         }
-    // for (HitBox hitbox : hitboxes) {
-    //     if (hitbox.isBoxHit()){
-    //         int a = 255;
-    //         if (a > 0) {
-    //             int count = 100;
-    //             while (count > 0) {
-    //                 count--;
-    //             }
-    //             hitbox.setColor(new Color(0,255,0,a));
-    //             hitbox.setBorderColor(new Color(0,0,0,a));
-    //             a-=5;
-    //         }
-    //     }
-    //     hitbox.update();
-    // }
     }
 
     public float returnMultiplier() {
@@ -133,16 +126,6 @@ public class BattleScreen extends Screen{
 
         public void boxHit() {
             isHit = true;
-            // int a = 255;
-            // if (a > 0) {
-            //     int count = 10000000;
-            //     while (count > 0) {
-            //         count--;
-            //     }
-            //     this.setColor(new Color(0,255,0,a));
-            //     this.setBorderColor(new Color(0,0,0,a));
-            //     a-=5;
-            // }
             this.setColor(Color.GREEN);
         }
 

@@ -36,14 +36,14 @@ public class GamePanel extends JPanel {
 	//private Player player = PlayLevelScreen.
 
 	// Battle GUI
-	protected static SpriteFont healthLabel;
-	protected static float playerHealth;
-	protected static String healthInfo = ("Health: " + playerHealth);
-	private static boolean isInBattle = false;
+	public static SpriteFont healthLabel;
+	public static float playerHealth;
+	public static String healthInfo = ("Player Health: " + playerHealth);
+	public static boolean isInBattle = false;
 
-	protected static SpriteFont enemyHealthLabel;
-	protected static float enemyHealth;
-	protected static String enemyHealthInfo = ("Health: " + enemyHealth);
+	public static SpriteFont enemyHealthLabel;
+	public static float enemyHealth;
+	public static String enemyHealthInfo = ("Enemy Health: " + enemyHealth);
 	// private static boolean battleInitiated = false;
 
 
@@ -116,15 +116,6 @@ public class GamePanel extends JPanel {
 	public void draw() {
 		// draw current game state
 		screenManager.draw(graphicsHandler);
-		// draws health bar
-		if (isInBattle) {
-			updateHealthInfo();
-			graphicsHandler.drawFilledRectangleWithBorder(ScreenManager.getScreenWidth()-140, 0, 150, 75, Color.RED, Color.LIGHT_GRAY, 2);
-			healthLabel.draw(graphicsHandler);
-
-			graphicsHandler.drawFilledRectangleWithBorder(ScreenManager.getScreenWidth()-140, ScreenManager.getScreenHeight()-75, 140, 75, Color.RED, Color.LIGHT_GRAY, 2);
-			enemyHealthLabel.draw(graphicsHandler);
-			}
 
 		if (showFPS) {
 			fpsDisplayLabel.draw(graphicsHandler);
@@ -145,16 +136,16 @@ public class GamePanel extends JPanel {
 	
 	public static void updateHealthInfo() {
 		playerHealth = PlayLevelScreen.getMap().getPlayer().getHealth();
-		healthInfo = String.format("Health: %.2f", playerHealth);
+		healthInfo = String.format("Player Health: %.2f", playerHealth);
 		if (playerHealth < 0) {
-			healthLabel = new SpriteFont("Health: 0", ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
-		}else healthLabel = new SpriteFont(healthInfo, ScreenManager.getScreenWidth()-75, 30, "Arial", 12, Color.BLACK);
+			healthLabel = new SpriteFont("Player Health: 0", 630, 550, "Arial", 12, Color.WHITE);
+		}else healthLabel = new SpriteFont(healthInfo, 630, 550, "Arial", 12, Color.WHITE);
 
 		enemyHealth = BattleMap.getEnemy().getHealth();
-		enemyHealthInfo = String.format("Health: %.2f", enemyHealth);
+		enemyHealthInfo = String.format("Enemy Health: %.2f", enemyHealth);
 		if (enemyHealth < 0) {
-			enemyHealthLabel = new SpriteFont("Health: 0", ScreenManager.getScreenWidth()-75, ScreenManager.getScreenHeight()-30, "Arial",12, Color.BLACK);
-		}else enemyHealthLabel = new SpriteFont(enemyHealthInfo, ScreenManager.getScreenWidth()-75, ScreenManager.getScreenHeight()-30, "Arial",12, Color.BLACK);
+			enemyHealthLabel = new SpriteFont("Enemy Health: 0", 70, 550, "Arial",12, Color.WHITE);
+		}else enemyHealthLabel = new SpriteFont(enemyHealthInfo, 70, 550, "Arial",12, Color.WHITE);
 	}
 
 	@Override
