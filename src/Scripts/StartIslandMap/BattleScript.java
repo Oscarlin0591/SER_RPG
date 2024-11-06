@@ -224,87 +224,116 @@ public class BattleScript extends Script {
                                 }
                             });                    
                         }});
-                    }});
-                        
-                addScriptAction(new TextboxScriptAction() {{
-                    addText("The enemy lauches an attack!");
-                }});
+                
+                    //enemy death script
+                    scriptActions.add(new ConditionalScriptAction() {{
+                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                            addRequirement(new CustomRequirement() {
+                                @Override
+                                public boolean isRequirementMet() {
+                                    return (BattleMap.getEnemy().getHealth() <= 0);
+                                }
+                            });
 
-                addScriptAction(new ScriptAction() {
-                    @Override
-                    public ScriptState execute() {
-                        //calculate damage
-                        int damage = (int) Math.round(Math.random() * 2 * BattleMap.getEnemy().getStrength()); if (damage == 0) damage = 1;
-
-                        //if not crit, deal damage normally
-                        if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
-                            PlayLevelScreen.getMap().getPlayer().damage(damage);
-                        else {//if crit deal double damage
-                            PlayLevelScreen.getMap().getPlayer().damage(damage * 2);
-                            attackCrit = true;
-                        }
-                            return ScriptState.COMPLETED;
-                    }
-                });
-
-                //if last enemy attack crit, print message then reset attackCrit boolean
-                scriptActions.add(new ConditionalScriptAction() {{
-                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                        addRequirement(new CustomRequirement() {
-                            @Override
-                            public boolean isRequirementMet() {
-                                return attackCrit;
-                            }
-                        });
-
-                        addScriptAction(new TextboxScriptAction() {{
-                            addText("The enemy lands a critical hit!");
+                            addScriptAction(new ScriptAction() {
+                                @Override
+                                public ScriptState execute() {
+                                    PlayLevelScreen.getMap().getFlagManager().setFlag("battleWonText");
+                                        return ScriptState.COMPLETED;
+                                }
+                            });
                         }});
 
-                        addScriptAction(new ScriptAction() {
-                            @Override
-                            public ScriptState execute() {
-                                attackCrit = false;
-                                return ScriptState.COMPLETED;
-                            }
-                        });
-                    }});
-                }});
+                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                            addRequirement(new CustomRequirement() {
+                                @Override
+                                public boolean isRequirementMet() {
+                                    return (!(BattleMap.getEnemy().getHealth() <= 0));
+                                }
+                            });
 
-                //if player dodged last enemy attack, print message then reset attackDodged flag
-                scriptActions.add(new ConditionalScriptAction() {{
-                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                        addRequirement(new CustomRequirement() {
-                            @Override
-                            public boolean isRequirementMet() {
-                                return !PlayLevelScreen.flagManager.isFlagSet("attackDodged");
-                            }
-                        });
-
-                        addScriptAction(new TextboxScriptAction() {{
-                            addText("Your ship is damaged!");
+                            addScriptAction(new TextboxScriptAction() {{
+                                addText("The enemy lauches an attack!");
+                            }});
+            
+                            addScriptAction(new ScriptAction() {
+                                @Override
+                                public ScriptState execute() {
+                                    //calculate damage
+                                    int damage = (int) Math.round(Math.random() * 2 * BattleMap.getEnemy().getStrength()); if (damage == 0) damage = 1;
+            
+                                    //if not crit, deal damage normally
+                                    if (BattleMap.getEnemy().getCritChance() * Math.random() < 0.9)
+                                        PlayLevelScreen.getMap().getPlayer().damage(damage);
+                                    else {//if crit deal double damage
+                                        PlayLevelScreen.getMap().getPlayer().damage(damage * 2);
+                                        attackCrit = true;
+                                    }
+                                        return ScriptState.COMPLETED;
+                                }
+                            });
+            
+                            //if last enemy attack crit, print message then reset attackCrit boolean
+                            scriptActions.add(new ConditionalScriptAction() {{
+                                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                                    addRequirement(new CustomRequirement() {
+                                        @Override
+                                        public boolean isRequirementMet() {
+                                            return attackCrit;
+                                        }
+                                    });
+            
+                                    addScriptAction(new TextboxScriptAction() {{
+                                        addText("The enemy lands a critical hit!");
+                                    }});
+            
+                                    addScriptAction(new ScriptAction() {
+                                        @Override
+                                        public ScriptState execute() {
+                                            attackCrit = false;
+                                            return ScriptState.COMPLETED;
+                                        }
+                                    });
+                                }});
+                            }});
+            
+                            //if player dodged last enemy attack, print message then reset attackDodged flag
+                            scriptActions.add(new ConditionalScriptAction() {{
+                                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                                    addRequirement(new CustomRequirement() {
+                                        @Override
+                                        public boolean isRequirementMet() {
+                                            return !PlayLevelScreen.flagManager.isFlagSet("attackDodged");
+                                        }
+                                    });
+            
+                                    addScriptAction(new TextboxScriptAction() {{
+                                        addText("Your ship is damaged!");
+                                    }});
+                                }});
+            
+                                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                                    addRequirement(new CustomRequirement() {
+                                        @Override
+                                        public boolean isRequirementMet() {
+                                            return PlayLevelScreen.flagManager.isFlagSet("attackDodged");
+                                        }
+                                    });
+                    
+                                    addScriptAction(new TextboxScriptAction() {{
+                                        addText("You dodged the enemy's attack!");
+                                    }});
+                    
+                                    addScriptAction(new ScriptAction() {
+                                        @Override
+                                        public ScriptState execute() {
+                                            PlayLevelScreen.flagManager.unsetFlag("attackDodged");
+                                            return ScriptState.COMPLETED;
+                                        }
+                                    });                    
+                                }});
+                            }});
                         }});
-                    }});
-
-                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                        addRequirement(new CustomRequirement() {
-                            @Override
-                            public boolean isRequirementMet() {
-                                return PlayLevelScreen.flagManager.isFlagSet("attackDodged");
-                            }
-                        });
-        
-                        addScriptAction(new TextboxScriptAction() {{
-                            addText("You dodged the enemy's attack!");
-                        }});
-        
-                        addScriptAction(new ScriptAction() {
-                            @Override
-                            public ScriptState execute() {
-                                PlayLevelScreen.flagManager.unsetFlag("attackDodged");
-                                return ScriptState.COMPLETED;
-                            }
-                        });                    
                     }});
                 }});
 
