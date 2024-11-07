@@ -35,5 +35,4 @@ public class TitleScreenMap extends Map {
     public void loadMusic() {
         // Music.playMusic("Music/Gold_in_C_demo.wav");
     }
-
 }
