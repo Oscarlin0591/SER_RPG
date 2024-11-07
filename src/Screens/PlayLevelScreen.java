@@ -597,16 +597,16 @@ public class PlayLevelScreen extends Screen {
                     GamePanel.updateHealthInfo();
 
                     //draw empty health bars behind health
-                    graphicsHandler.drawFilledRectangleWithBorder(585, 525, 200, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
-                    graphicsHandler.drawFilledRectangleWithBorder(40, 525, 200, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
+                    graphicsHandler.drawFilledRectangleWithBorder(GameWindow.gamePanel.getWidth() - 245, GameWindow.gamePanel.getHeight() - 100, 200, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
+                    graphicsHandler.drawFilledRectangleWithBorder(45, GameWindow.gamePanel.getHeight() - 100, 200, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
 
                     //draw filled health bar at health percentage
                     int playerHealthPercent = Math.round((player.getHealth() / player.getMaxHealth()) * 200); if (playerHealthPercent < 0) playerHealthPercent = 0;
-			        graphicsHandler.drawFilledRectangleWithBorder(585, 525, playerHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			        graphicsHandler.drawFilledRectangleWithBorder(GameWindow.gamePanel.getWidth() - 245, GameWindow.gamePanel.getHeight() - 100, playerHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
 			        GamePanel.healthLabel.draw(graphicsHandler);
 
                     int enemyHealthPercent = Math.round((BattleMap.enemy.getHealth() / BattleMap.enemy.getMaxHealth()) * 200); if (enemyHealthPercent < 0) enemyHealthPercent = 0;
-			        graphicsHandler.drawFilledRectangleWithBorder(40, 525, enemyHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
+			        graphicsHandler.drawFilledRectangleWithBorder(45, GameWindow.gamePanel.getHeight() - 100, enemyHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
 			        GamePanel.enemyHealthLabel.draw(graphicsHandler);
 			    }
                 break;
@@ -630,7 +630,7 @@ public class PlayLevelScreen extends Screen {
                 int swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
                 int swordYPos = GameWindow.gamePanel.getHeight()/2 - 180;
 
-                int backgroundEdge = ScreenManager.getScreenWidth()/8+ScreenManager.getScreenWidth()-(ScreenManager.getScreenWidth()/8*2);
+                int backgroundEdge = GameWindow.gamePanel.getWidth()/8+GameWindow.gamePanel.getWidth()-(GameWindow.gamePanel.getWidth()/8*2);
                 //still draw map
                 map.draw(player, graphicsHandler);
 

@@ -1,7 +1,7 @@
-816
-960
+673
+782
 starting_map.txt
 10
 4
-false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false
 playerRoided, toggleArctic, jvSpokenTo, combatTriggered, exitIsland, startIslandPotion, beetleKilled, krakenEnemy, toggleAtlantis, toggleShipwreck, battleWon, oceanPotion, beetleEnemy, talkedToKrampus, battlePanel, exitAtlantis, talkedToYeti, battleLost, shrekEnemy, hasLostBall, bugEnemy, attackDodged, krmapusQuest, hasFoundBall, interactPortal, hasTalkedToWalrus2, toggleIsland, krampusEnemy, exitArctic, hasTalkedToWalrus1, krakenKilled, hasTalkedToDinosaur, jdvdialogue, toggleCave, yetiEnemy, gameOver, jvEnemy, jvBeaten, battleWonText, exitCave

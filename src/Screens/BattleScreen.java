@@ -3,6 +3,7 @@ package Screens;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
@@ -37,7 +38,7 @@ public class BattleScreen extends Screen{
 
     public BattleScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
-        box = new Rectangle(0, ScreenManager.getScreenHeight()/2, 10, 120);
+        box = new Rectangle(0, GameWindow.gamePanel.getHeight()/2, 10, 120);
         box.setColor(Color.lightGray);
         box.setBorderColor(Color.black);
         box.setBorderThickness(2);
@@ -68,7 +69,7 @@ public class BattleScreen extends Screen{
     
     public void update() {
         box.update();
-        if(box.getX()+25 < ScreenManager.getScreenWidth()) {
+        if(box.getX()+25 < GameWindow.gamePanel.getWidth()) {
             box.moveRight(xVel);
 
             for (HitBox hitbox : hitboxes) {
@@ -112,7 +113,7 @@ public class BattleScreen extends Screen{
         private boolean isHit = false;
 
         public HitBox() {
-            super((float) (Math.random()*ScreenManager.getScreenWidth())-25, (ScreenManager.getScreenHeight()/2)-10, 40, 150);
+            super((float) (Math.random()*GameWindow.gamePanel.getWidth())-25, (GameWindow.gamePanel.getHeight()/2)-10, 40, 150);
             this.setColor(new Color(255, 0, 0, 255));
             this.setBorderColor(Color.black);
             this.setBorderThickness(2);
