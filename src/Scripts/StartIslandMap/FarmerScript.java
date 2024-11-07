@@ -39,6 +39,7 @@ public class FarmerScript extends Script {
                     addText("thanks kiddo!");
                     addText("i'll let you in on a little secret, if you give my tree a\nshake, an apple should fall");
                     addText("that tree's pretty weak though, hard to grow anything here");
+                    addText("if you get the chance, head over towards the top of the map,\nthat is, if you have a hunger for exploration");
                 }});
             }});
         }});
