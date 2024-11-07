@@ -7,10 +7,7 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Bosses.Kraken;
 import NPCs.Interactable.GhostPirate;
-import Scripts.ShipwreckScripts.GhostPirateScript;
-import Scripts.ShipwreckScripts.ShipwreckExitScript;
-import Scripts.ShipwreckScripts.ShipwreckScript;
-import Scripts.StartIslandMap.KrakenScript;
+import Scripts.ShipwreckScripts.*;
 import Tilesets.*;
 
 public class ShipwreckMap extends Map{

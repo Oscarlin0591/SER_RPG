@@ -7,7 +7,12 @@ import NPCs.Bosses.Kraken;
 import NPCs.Interactable.Shipwreck;
 import Screens.PlayLevelScreen;
 import Scripts.SimpleTextScript;
+import Scripts.ShipwreckScripts.KrakenScript;
 import Scripts.ShipwreckScripts.ShipwreckScript;
+import Scripts.OceanMapScripts.ArcticScript;
+import Scripts.OceanMapScripts.AtlantisScript;
+import Scripts.OceanMapScripts.CaveScript;
+import Scripts.OceanMapScripts.IslandScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.MasterTileset;
 import Utils.Point;
@@ -49,6 +54,7 @@ public class OceanMap extends Map {
         npcs.add(shipwreck1);
 
         PirateShip pirateShip1 = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png");
+        // pirateShip1.setInteractScript(new PirateScript1());
         npcs.add(pirateShip1);
 
         //if kraken not killed, add it to npcs
@@ -99,7 +105,7 @@ public class OceanMap extends Map {
 
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Seafaring Humdrum.wav");
+        Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 

@@ -78,18 +78,12 @@ public class BattleScreen extends Screen{
                         hitbox.boxHit();
                         countBox();
                         keyLocker.lockKey(Key.SPACE);
-                        // System.out.println("Space locked");
                     }
-                    // keyPressTimer = 5;
                     
                 } else if (Keyboard.isKeyUp(Key.SPACE)) {
                     keyLocker.unlockKey(Key.SPACE);
-                    // System.out.println("Space unlocked");
-                     }
+                    }
 
-                // if (keyPressTimer > 0) {
-                //     keyPressTimer--;
-                // }
             }
         } else {
             box.setLocation(0, box.getY());

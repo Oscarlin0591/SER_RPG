@@ -4,11 +4,14 @@ import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.Map;
+import Level.Player;
 import Maps.TitleScreenMap;
+import Players.SpeedBoat;
 import Saves.ContinueState;
 import SpriteFont.SpriteFont;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -19,6 +22,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont continueFont;
     protected SpriteFont credits;
     protected Map background;
+    protected Player player;
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
@@ -43,6 +47,7 @@ public class MenuScreen extends Screen {
         credits.setOutlineThickness(3);
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
+        player = new SpeedBoat(720, 400, -1, -1, -1, -1);
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
@@ -50,7 +55,7 @@ public class MenuScreen extends Screen {
 
     public void update() {
         // update background map (to play tile animations)
-        background.update(null);
+        // background.update(null);
 
         // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
         if (Keyboard.isKeyDown(Key.S) && keyPressTimer == 0) {
@@ -97,6 +102,7 @@ public class MenuScreen extends Screen {
         if (Keyboard.isKeyUp(Key.E)) {
             keyLocker.unlockKey(Key.E);
         }
+
         if (!keyLocker.isKeyLocked(Key.E) && Keyboard.isKeyDown(Key.E)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
@@ -112,7 +118,9 @@ public class MenuScreen extends Screen {
 
     public void draw(GraphicsHandler graphicsHandler) {
         background.draw(graphicsHandler);
+        graphicsHandler.drawImage(ImageLoader.load("TitleScreen.png"), 0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight());
         playGame.draw(graphicsHandler);
+        player.draw(graphicsHandler);
         continueFont.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);

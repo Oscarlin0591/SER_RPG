@@ -5,6 +5,7 @@ import Level.Music;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Bosses.*;
+import NPCs.Interactable.BlueWitch;
 import NPCs.*;
 import Scripts.ArcticMapScripts.*;
 import Tilesets.ArcticTileset;
@@ -27,13 +28,16 @@ public class ArcticMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Yeti yeti = new Yeti(201, getMapTile(32,6).getLocation(), 100, 8,1,1);
+        Yeti yeti = new Yeti(201, getMapTile(38,6).getLocation(), 100, 8,1,1);
         yeti.setInteractScript(new YetiScript());
         npcs.add(yeti);
 
         Krampus krampus = new Krampus(202, getMapTile(45,41).getLocation(), 150, 10, 1, 1);
         krampus.setInteractScript(new KrampusScript());
         npcs.add(krampus);
+
+        BlueWitch blueWitch = new BlueWitch(203, getMapTile(5, 33).getLocation());
+        npcs.add(blueWitch);
 
         return npcs;
     }
@@ -54,7 +58,7 @@ public class ArcticMap extends Map{
 
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Sparkling_Rime16bit.wav");
+        Music.playMusic("Music/Sparkling_Rime16bit.wav");
     }
     
 }

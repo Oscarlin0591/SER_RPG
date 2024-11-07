@@ -48,7 +48,7 @@ public class BattleMap extends Map{
                 enemy = new Shrek(503, getMapTile(3,8).getLocation(), 10, 1, 1, 1);
                 break;
             default:
-                break;
+            break;
         }
         npcs.add(enemy);
 
@@ -91,6 +91,8 @@ public class BattleMap extends Map{
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krampusEnemy");
         }
 
+        enemy.stand(Direction.RIGHT);
+
         return npcs;
     }
 
@@ -99,28 +101,44 @@ public class BattleMap extends Map{
         return enemy;
     }
 
+    // public static void enemyHurtAnim() {
+    //     float enemyX = BattleMap.getEnemy().getX();
+    //     float enemyY = BattleMap.getEnemy().getY();
+
+    //     for (int count = 200; count > 0; count--) {
+    //         if(count%5==0) {
+    //             BattleMap.getEnemy().setLocation(enemyX-5, enemyY);
+    //             int newCount = 100;
+    //             while (newCount>0) {
+    //                 newCount--;
+    //             }
+    //             BattleMap.getEnemy().setLocation(enemyX+5, enemyY);
+    //         }
+    //     }
+    //     BattleMap.getEnemy().setLocation(enemyX, enemyY);
+    // }
+
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
         triggers.add(new Trigger(400, 288, 400, 300, new BattleScript(), "battleWon"));
-        System.out.println("DEBUG: Triggers loaded");
         return triggers;
     }
 
     @Override
     public void loadMusic() {
-        // Random rand = new Random();
-        // int randMusic = rand.nextInt(4);
-        // switch (randMusic) {
-        //     case 1:
-        //         Music.playMusic("Music/Fighting The Invisible.wav");
-        //         break;
-        //     case 2:
-        //         Music.playMusic("Music/Splash Thunder.wav");
-        //         break;
-        //     default:
-        //         Music.playMusic("Music/BossThemeOne16bit.wav");
-        //         break;
-        // }
+        Random rand = new Random();
+        int randMusic = rand.nextInt(4);
+        switch (randMusic) {
+            case 1:
+                Music.playMusic("Music/Fighting The Invisible.wav");
+                break;
+            case 2:
+                Music.playMusic("Music/Splash Thunder.wav");
+                break;
+            default:
+                Music.playMusic("Music/BossThemeOne16bit.wav");
+                break;
+        }
     }
 }

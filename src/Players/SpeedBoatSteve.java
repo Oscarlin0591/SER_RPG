@@ -35,13 +35,13 @@ public class SpeedBoatSteve extends Player {
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
                             .withScale(3)
-                            .withBounds(4, 5, 5, 10)
+                            .withBounds(2,0, 10,14)
                             .build()
             });
             put("STAND_RIGHT", new Frame[] {
                    new FrameBuilder(spriteSheet.getSprite(0, 0))
                            .withScale(3)
-                           .withBounds(4, 5, 5, 10)
+                           .withBounds(2,0, 10,14)
                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                            .build()
            });
@@ -49,11 +49,11 @@ public class SpeedBoatSteve extends Player {
             put("WALK_LEFT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
-                            .withBounds(4, 5, 5, 10)
+                            .withBounds(2,0, 10,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(3)
-                            .withBounds(4, 5, 5, 10)
+                            .withBounds(2,0, 10,14)
                             .build()
             });
 
@@ -61,12 +61,12 @@ public class SpeedBoatSteve extends Player {
                     new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 5, 5, 10)
+                            .withBounds(2,0, 10,14)
                             .build(),
                     new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
                             .withScale(3)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(4, 5, 5, 10)
+                            .withBounds(2,0, 10,14)
                             .build()
             });
         }};

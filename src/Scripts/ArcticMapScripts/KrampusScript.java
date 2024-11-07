@@ -16,6 +16,10 @@ public class KrampusScript extends Script{
 
         scriptActions.add(new NPCFacePlayerScriptAction());
 
+        // scriptActions.add(new ConditionalScriptAction() {{
+            
+        // }});
+
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
             addRequirement(new FlagRequirement("talkedToKrampus", false));
@@ -27,25 +31,23 @@ public class KrampusScript extends Script{
                 addText("All of them too young, too fresh to grasp the weight of their pursuit...");
                 addText("Ye come to me to have me taketh down the barrier, correct?", new String[] {"Can ye? It'd do me a favor"});
                 addText("HO HO HO! Favors? An old sage like me has seen what my favors had done");
-                addText("Y'know what, give me a second and I'll get right back to ye");
             }});
             
             addScriptAction(new ChangeFlagScriptAction("talkedToKrampus", true));
+            }});
+
         }});
-    }});
-    
+
+        scriptActions.add(new TextboxScriptAction() {{
+            addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
+        }});
+
         scriptActions.add(new ConditionalScriptAction() {{
         addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
             addRequirement(new FlagRequirement("talkedToKrampus", true));
-        
-        
-            addScriptAction(new TextboxScriptAction() {{
-            addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
-            }});
 
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
             addRequirement(new CustomRequirement() {
-
                 @Override
                 public boolean isRequirementMet() {
                     int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
@@ -82,6 +84,7 @@ public class KrampusScript extends Script{
         }});
     }});
 
+    scriptActions.add(new UnlockPlayerScriptAction());
         return scriptActions;
     }
     

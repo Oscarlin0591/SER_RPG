@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class Atlantis extends NPC {
 
     public Atlantis(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("atlantisIcon.png"), 39, 37), "STAND_RIGHT");
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Atlantis.png"), 16, 16), "STAND_RIGHT");
     }
 
     @Override

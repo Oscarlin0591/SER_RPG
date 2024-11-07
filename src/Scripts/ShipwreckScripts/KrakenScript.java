@@ -1,4 +1,4 @@
-package Scripts.StartIslandMap;
+package Scripts.ShipwreckScripts;
 
 import java.util.ArrayList;
 

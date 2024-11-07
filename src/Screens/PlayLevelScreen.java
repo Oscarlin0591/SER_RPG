@@ -416,6 +416,7 @@ public class PlayLevelScreen extends Screen {
             map.setFlagManager(flagManager);
             player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
             player.setMap(map);
+            player.unlock();
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             map.setPlayer(player);
             map.getTextbox().setInteractKey(player.getInteractKey());

@@ -1,4 +1,4 @@
-package Scripts.StartIslandMap;
+package Scripts.OceanMapScripts;
 
 import java.util.ArrayList;
 

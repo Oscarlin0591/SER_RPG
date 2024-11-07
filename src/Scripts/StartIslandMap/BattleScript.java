@@ -10,6 +10,7 @@ import Level.ScriptState;
 import ScriptActions.*;
 import Maps.BattleMap;
 import Game.ScreenCoordinator;
+import Utils.Direction;
 
 
 public class BattleScript extends Script {
@@ -148,8 +149,6 @@ public class BattleScript extends Script {
                     addScriptAction(new ScriptAction() {
                         @Override
                         public ScriptState execute() {
-                            System.out.println(PlayLevelScreen.battleScreen.returnMultiplier());
-                            
                             int damage = (int) Math.round(2 * Math.random() * PlayLevelScreen.battleScreen.returnMultiplier() * player.getStrength());
 
                             if (damage == 0) damage = 1;
@@ -161,10 +160,11 @@ public class BattleScript extends Script {
                                 BattleMap.getEnemy().attack(damage * 2);
                                 attackCrit = true;
                             }
+
                             return ScriptState.COMPLETED;
                         }
                     });
-            
+
                     //if last player attack crit, print message then reset attackCrit boolean
                     scriptActions.add(new ConditionalScriptAction() {{
                         addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
