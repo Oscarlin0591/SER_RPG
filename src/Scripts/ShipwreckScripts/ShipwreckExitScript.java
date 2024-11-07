@@ -33,7 +33,7 @@ public class ShipwreckExitScript extends Script{
                     }
                 });
 
-                addScriptAction(new ChangeFlagScriptAction("exitAtlantis", true));
+                addScriptAction(new ChangeFlagScriptAction("exitShipwreck", true));
             }});
 
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{

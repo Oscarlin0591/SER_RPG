@@ -7,13 +7,14 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Bosses.Kraken;
 import NPCs.Interactable.GhostPirate;
+import NPCs.Interactable.SwordGhost;
 import Scripts.ShipwreckScripts.*;
 import Tilesets.*;
 
 public class ShipwreckMap extends Map{
     public ShipwreckMap() {
         super("shipwreck_map.txt", new ShipwreckTileset());
-        this.playerStartPosition = getMapTile(10, 2).getLocation();
+        this.playerStartPosition = getMapTile(23, 3).getLocation();
     }
 
     @Override
@@ -24,7 +25,11 @@ public class ShipwreckMap extends Map{
         ghost.setInteractScript(new GhostPirateScript());
         npcs.add(ghost);
 
-        Kraken kraken = new Kraken(3, getMapTile(40, 40).getLocation(), -1, -1, -1, -1);
+        SwordGhost swordGhost = new SwordGhost(10, getMapTile(20,50).getLocation());
+        swordGhost.setInteractScript(new SwordGhostScript());
+        npcs.add(swordGhost);
+
+        Kraken kraken = new Kraken(3, getMapTile(52, 54).getLocation(), -1, -1, -1, -1);
         kraken.setExistenceFlag("krakenKilled");
         kraken.setInteractScript(new KrakenScript());
         npcs.add(kraken);
@@ -37,7 +42,7 @@ public class ShipwreckMap extends Map{
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        triggers.add(new Trigger(getMapTile(0, 6).getLocation().x, getMapTile(0, 6).getLocation().y, 15, 50, new ShipwreckExitScript()));
+        triggers.add(new Trigger(getMapTile(21, 0).getLocation().x, getMapTile(21, 0).getLocation().y, 15, 50, new ShipwreckExitScript()));
         return triggers;
     }
 }
