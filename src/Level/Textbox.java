@@ -6,6 +6,8 @@ import Engine.KeyLocker;
 import Engine.Keyboard;
 import Engine.ScreenManager;
 import SpriteFont.SpriteFont;
+import Engine.GameWindow;
+import Screens.PlayLevelScreen;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,15 +30,15 @@ public class Textbox {
     protected final int fontX = 35;
     protected final int fontBottomY = bottomY;
     protected final int fontTopY = 34;
-    protected final int width = ScreenManager.getScreenWidth();
+    protected int width = ScreenManager.getScreenWidth()-22;
     protected final int height = 125;
 
     // options textbox constants
     protected final int optionX = 22;
     protected final static int optionBottomY = bottomY - 110;
     protected final int optionTopY = 130;
-    protected final int optionWidth = width;
-    protected final int optionHeight = 100;
+    protected int optionWidth = width;
+    protected int optionHeight = 100;
     protected final int fontOptionX = optionX+50;
     protected final int fontOptionBottomYStart = optionBottomY + 10;
     protected final int fontOptionTopYStart = 145;
@@ -165,6 +167,16 @@ public class Textbox {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
+        //update widths based on gamePanel size
+        width = GameWindow.gamePanel.getWidth() - 42;
+        optionWidth = GameWindow.gamePanel.getWidth() - 42;
+
+        //update height of combat menu to fit all four options (temporary fix, eventually make based on number of options)
+        if (PlayLevelScreen.getMap().getMapFileName().equals("battle_map.txt"))
+            optionHeight = 200;
+        else
+            optionHeight = 100;
+
         // draw textbox
         // if camera is at bottom of screen, textbox is drawn at top of screen instead of the bottom like usual
         // to prevent it from covering the player
@@ -210,5 +222,4 @@ public class Textbox {
     public static int getOptionBottomY() {
         return optionBottomY;
     }
-
 }
