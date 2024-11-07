@@ -17,7 +17,7 @@ public class GirlScript extends Script {
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("hey there mister!");
-            addText("i think theres some creepy looking guy somewhere around here, i wonder what he wants...");
+            addText("i think some creepy guy lives\naround here in a shack, i wonder what he wants...");
         }});
 
         scriptActions.add(new ScriptAction() {

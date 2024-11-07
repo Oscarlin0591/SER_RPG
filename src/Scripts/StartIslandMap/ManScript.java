@@ -17,7 +17,8 @@ public class ManScript extends Script {
 
         scriptActions.add(new TextboxScriptAction() {{
             addText("....");
-            addText("heard there's some odd looking meat around here, apparently it's pretty good for you");
+            addText("heard there's some odd looking meat around here,\napparently it's pretty good for you");
+            addText("....");
         }});
 
         scriptActions.add(new ScriptAction() {
