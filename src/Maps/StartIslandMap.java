@@ -94,7 +94,7 @@ public class StartIslandMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(0, 0, 1000, 50, new Script() {
+        triggers.add(new Trigger(0, 0, 1000, 10, new Script() {
 
             @Override
             public ArrayList<ScriptAction> loadScriptActions() {
