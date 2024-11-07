@@ -77,32 +77,35 @@ public class PlayLevelScreen extends Screen {
         this.screenCoordinator = screenCoordinator;
         spawnInterval = rand.nextInt(10,15);
 
+        int shiftX = 100;
+        int shiftY = 200;
+
         //labels are still slightly off + not based fully on screensize, should be handled at some future point
-        pauseLabel = new SpriteFont("PAUSED", ScreenManager.getScreenWidth()/2 - 40, ScreenManager.getScreenHeight()/20, "Times New Roman", 24, Color.white);
+        pauseLabel = new SpriteFont("PAUSED", GameWindow.gamePanel.getWidth()/2 - 40 + shiftX, GameWindow.gamePanel.getHeight()/20 + shiftY, "Times New Roman", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(3f);
 
-        profileLabel = new SpriteFont("Speedboat Steve is a brave adventurer who is sailing across the world. He", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/6.5f, "Times New Roman", 20, Color.white);
+        profileLabel = new SpriteFont("Speedboat Steve is a brave adventurer who is sailing across the world. He", GameWindow.gamePanel.getWidth()/2.25f + shiftX, ScreenManager.getScreenHeight()/6.5f + shiftY, "Times New Roman", 20, Color.white);
         profileLabel.setOutlineColor(Color.black);
         profileLabel.setOutlineThickness(2f);
 
-        profileLabel2 = new SpriteFont("must find treasure, and navigate through the ocean. Watch out for enemies!", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/5.5f, "Times New Roman", 20, Color.white);
+        profileLabel2 = new SpriteFont("must find treasure, and navigate through the ocean. Watch out for enemies!", GameWindow.gamePanel.getWidth()/2.25f + shiftX, ScreenManager.getScreenHeight()/5.5f + shiftY, "Times New Roman", 20, Color.white);
         profileLabel2.setOutlineColor(Color.black);
         profileLabel2.setOutlineThickness(2f);
 
-		quitLabel = new SpriteFont("QUIT GAME", ScreenManager.getScreenWidth()/1.5f, ScreenManager.getScreenHeight()/1.3f, "Times New Roman", 28, Color.white);
+		quitLabel = new SpriteFont("QUIT GAME", GameWindow.gamePanel.getWidth()/1.5f + shiftX, GameWindow.gamePanel.getHeight()/1.3f + shiftY, "Times New Roman", 28, Color.white);
 		quitLabel.setOutlineColor(Color.black);
 		quitLabel.setOutlineThickness(2f);
 
-        returnLabel = new SpriteFont("RETURN", ScreenManager.getScreenWidth()/2f, ScreenManager.getScreenHeight()/1.3f, "Times New Roman", 28, Color.white);
+        returnLabel = new SpriteFont("RETURN", GameWindow.gamePanel.getWidth()/2f + shiftX, GameWindow.gamePanel.getHeight()/1.3f + shiftY, "Times New Roman", 28, Color.white);
 		returnLabel.setOutlineColor(Color.black);
 		returnLabel.setOutlineThickness(2f);
 
-        healthLabel = new SpriteFont("HEALTH:", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/3.5f, "Times New Roman", 36, Color.white);
+        healthLabel = new SpriteFont("HEALTH:", GameWindow.gamePanel.getWidth()/2.25f + shiftX, GameWindow.gamePanel.getHeight()/3.5f + shiftY, "Times New Roman", 36, Color.white);
         healthLabel.setOutlineColor(Color.black);
         healthLabel.setOutlineThickness(3f);
 
-        strengthLabel = new SpriteFont("STRENGTH: ", ScreenManager.getScreenWidth()/2.25f, ScreenManager.getScreenHeight()/2.3f, "Times New Roman", 36, Color.white);
+        strengthLabel = new SpriteFont("STRENGTH: ", GameWindow.gamePanel.getWidth()/2.25f + shiftX, GameWindow.gamePanel.getHeight()/2.3f + shiftY, "Times New Roman", 36, Color.white);
         strengthLabel.setOutlineColor(Color.black);
         strengthLabel.setOutlineThickness(3f);
     }
@@ -585,7 +588,7 @@ public class PlayLevelScreen extends Screen {
 
                 //veith npc visual
                 if (getMap().getFlagManager().isFlagSet("jdvdialogue"))
-                    graphicsHandler.drawImage(ImageLoader.load("CharacterPNGs/Captain_Jack_Veith.png"), ScreenManager.getScreenWidth()-400, Textbox.getOptionBottomY()-400, 400, 400);
+                    graphicsHandler.drawImage(ImageLoader.load("CharacterPNGs/Captain_Jack_Veith.png"), GameWindow.gamePanel.getWidth()-400, Textbox.getOptionBottomY()-400, 400, 400);
 
                 //health bars in combat - moved here from GamePanel
                 if (GamePanel.isInBattle) {
@@ -620,34 +623,34 @@ public class PlayLevelScreen extends Screen {
                 int currentStrength = Math.round(player.getStrength());
                 int hearts = currentHealth/10;
                 int swords = currentStrength/2;
-                int heartXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
-                int heartYPos = ScreenManager.getScreenHeight()/3;
-                int swordXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
-                int swordYPos = ScreenManager.getScreenHeight()/2;
+                int heartXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
+                int heartYPos = GameWindow.gamePanel.getHeight()/3 - 60;
+                int swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
+                int swordYPos = GameWindow.gamePanel.getHeight()/2 - 200;
 
                 int backgroundEdge = ScreenManager.getScreenWidth()/8+ScreenManager.getScreenWidth()-(ScreenManager.getScreenWidth()/8*2);
                 //still draw map
                 map.draw(player, graphicsHandler);
 
                 //draw pause menu overtop map
-                graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 200));                
+                graphicsHandler.drawFilledRectangle(0, 0, GameWindow.gamePanel.getWidth(), GameWindow.gamePanel.getHeight(), new Color(0, 0, 0, 200));                
            
-                graphicsHandler.drawImage(pauseBackground,ScreenManager.getScreenWidth()/8, ScreenManager.getScreenHeight()/8, ScreenManager.getScreenWidth()-(ScreenManager.getScreenWidth()/8*2),ScreenManager.getScreenHeight()-(ScreenManager.getScreenHeight()/8*2));
+                graphicsHandler.drawImage(pauseBackground,GameWindow.gamePanel.getWidth()/8 - 100, GameWindow.gamePanel.getHeight()/8, (GameWindow.gamePanel.getWidth()-(GameWindow.gamePanel.getWidth()/8*2)) + 200,GameWindow.gamePanel.getHeight()-(GameWindow.gamePanel.getHeight()/8*2));
             
-                graphicsHandler.drawImage(steve, ScreenManager.getScreenWidth()/6, ScreenManager.getScreenHeight()/6, ScreenManager.getScreenWidth()/4, ScreenManager.getScreenHeight()/2+ScreenManager.getScreenHeight()/7);
+                graphicsHandler.drawImage(steve, GameWindow.gamePanel.getWidth()/6 - 100, GameWindow.gamePanel.getHeight()/6, GameWindow.gamePanel.getWidth()/4 + 100, GameWindow.gamePanel.getHeight()/2+GameWindow.gamePanel.getHeight()/7);
                
                 
                 if (buttonHover == 0){
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2-8, ScreenManager.getScreenHeight()/2+220, 130,80, Color.BLACK);
+                    graphicsHandler.drawFilledRectangle(GameWindow.gamePanel.getWidth()/2 - 100, GameWindow.gamePanel.getHeight()/2 - 50, 130,80, Color.BLACK);
                 }else{
-                    graphicsHandler.drawFilledRectangle(ScreenManager.getScreenWidth()/2+235, ScreenManager.getScreenHeight()/2+220,170,80,Color.BLACK);
+                    graphicsHandler.drawFilledRectangle(GameWindow.gamePanel.getWidth()/2 + 45, GameWindow.gamePanel.getHeight()/2 - 50,170,80,Color.BLACK);
                 }
 
                 for(int i = 0; i < hearts; i++) {
                     graphicsHandler.drawImage(heart, heartXPos, heartYPos,50,50);
                     heartXPos += 55;
                     if (heartXPos > backgroundEdge - 55) {
-                        heartXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
+                        heartXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);
                         heartYPos += 55;
                     }
                 }
@@ -655,7 +658,7 @@ public class PlayLevelScreen extends Screen {
                 for(int i = 0; i <= swords+1; i++) {
                     graphicsHandler.drawImage(sword, swordXPos, swordYPos,50,50);
                     if (swordXPos > backgroundEdge - 70) {
-                        swordXPos = Math.round(ScreenManager.getScreenWidth()/2.25f);
+                        swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);
                         swordYPos += 55;
                     }
                     swordXPos += 55;

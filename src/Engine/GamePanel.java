@@ -75,7 +75,7 @@ public class GamePanel extends JPanel {
 
 	// this is called later after instantiation, and will initialize screenManager
 	public void setupGame() {
-		//setBackground(Colors.CORNFLOWER_BLUE);
+		setBackground(Color.black);
 		screenManager.initialize(new Rectangle(300, getY(), getWidth(), getHeight()));
 	}
 
