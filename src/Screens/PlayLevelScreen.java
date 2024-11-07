@@ -133,6 +133,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("exitAtlantis", false);
         flagManager.addFlag("toggleArctic", false);
         flagManager.addFlag("exitArctic", false);
+        flagManager.addFlag("toggleShipwreck", false);
 
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
@@ -393,6 +394,11 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("exitArctic")) {
             playerLoc = getPlayer().getLocation();
             teleport(new OceanMap(), "exitArctic", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
+        }
+
+        if(map.getFlagManager().isFlagSet("toggleShipwreck")){
+            playerLoc = getPlayer().getLocation();
+            teleport(new ShipwreckMap(), "toggleShipwreck", speedBoatSteve,  new ShipwreckMap().getPlayerStartPosition());
         }
 
         if (map.getFlagManager().isFlagSet("battlePanel")) {
