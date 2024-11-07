@@ -48,7 +48,6 @@ public class GamePanel extends JPanel {
 	public static String enemyHealthInfo = ("Enemy Health: " + enemyHealth);
 	// private static boolean battleInitiated = false;
 
-
 	// The JPanel and various important class instances are setup here
 	public GamePanel() {
 		super();

@@ -16,7 +16,7 @@ import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
-import Tilesets.CommonTileset;
+import Tilesets.StartTileset;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 public class StartIslandMap extends Map {
 
     public StartIslandMap() {
-        super("starting_map.txt", new CommonTileset());
+        super("starting_map.txt", new StartTileset());
         this.playerStartPosition = getMapTile(17, 20).getLocation();
     }
 
@@ -42,13 +42,9 @@ public class StartIslandMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(1, getMapTile(10, 24).getLocation().subtractY(40));
+        Walrus walrus = new Walrus(1, getMapTile(1, 24).getLocation());
         walrus.setInteractScript(new WalrusScript1());
         npcs.add(walrus);
-
-        Walrus walrus2 = new Walrus(2, getMapTile(15, 24).getLocation().subtractY(40));
-        walrus2.setInteractScript(new WalrusScript2());
-        npcs.add(walrus2);
 
         // Dinosaur dinosaur = new Dinosaur(3, getMapTile(13, 4).getLocation());
         // dinosaur.setExistenceFlag("hasTalkedToDinosaur");
@@ -61,35 +57,36 @@ public class StartIslandMap extends Map {
         // shrek.setInteractScript(new ShrekScript());
         // npcs.add(shrek);
 
-        // Portal portal = new Portal(6, getMapTile(16, 25).getLocation());
-        // // portal.setExistenceFlag("interactPortal");
-        // portal.setInteractScript(new PortalScript());
-        // npcs.add(portal);
+        Portal portal = new Portal(6, getMapTile(3, 20).getLocation());
+        npcs.add(portal);
 
-        CapJV capJDV = new CapJV(3,getMapTile(14, 16).getLocation().subtractX(20), -1, -1, -1, -1);
+        CapJV capJDV = new CapJV(3,getMapTile(23, 15).getLocation().subtractX(20), -1, -1, -1, -1);
         capJDV.setInteractScript(new TutorialScript());
         npcs.add(capJDV);
 
-        RedPotion potion = new RedPotion(7, getMapTile(13, 20).getLocation());
-        potion.setExistenceFlag("startIslandPotion");
-        potion.setInteractScript(new PotionScript());
-        npcs.add(potion);
-
-        Meat mysteryMeat = new Meat(9, getMapTile(16,5).getLocation());
+        Meat mysteryMeat = new Meat(9, getMapTile(26,3).getLocation());
         mysteryMeat.setInteractScript(new MeatScript());
         npcs.add(mysteryMeat);
 
-        MysteriousMan mysteryMan = new MysteriousMan(10,getMapTile(8, 2).getLocation());
+        MysteriousMan mysteryMan = new MysteriousMan(10,getMapTile(5, 20).getLocation());
         mysteryMan.setInteractScript(new ManScript());
         npcs.add(mysteryMan);
 
-        Girl girl = new Girl(12,getMapTile(9,9).getLocation());
+        Girl girl = new Girl(12,getMapTile(9,18).getLocation());
         girl.setInteractScript(new GirlScript());
         npcs.add(girl);
 
-        ExitPort port = new ExitPort(800, getMapTile(4, 27).getLocation(), "startingIslandPort.png");
-        port.setIsUncollidable(true);
-        npcs.add(port);
+ //       ExitPort port = new ExitPort(800, getMapTile(4, 27).getLocation(), "startingIslandPort.png");
+ //       port.setIsUncollidable(true);
+ //       npcs.add(port);
+
+        AppleTree tree = new AppleTree(17, getMapTile(19,7).getLocation());
+        tree.setInteractScript(new AppleTreeScript());
+        npcs.add(tree);
+
+        Farmer farmer = new Farmer(18,getMapTile(22,5).getLocation());
+        farmer.setInteractScript(new FarmerScript());
+        npcs.add(farmer);
 
         return npcs;
     }
@@ -97,7 +94,7 @@ public class StartIslandMap extends Map {
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(200, 1360, 200, 10, new Script() {
+        triggers.add(new Trigger(0, 0, 1000, 50, new Script() {
 
             @Override
             public ArrayList<ScriptAction> loadScriptActions() {
@@ -133,7 +130,7 @@ public class StartIslandMap extends Map {
                         addScriptAction(new ScriptAction() {
                             @Override
                             public ScriptState execute() {
-                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() - 10);
+                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() + 10);
                                 return ScriptState.COMPLETED;
                             }
                         });
