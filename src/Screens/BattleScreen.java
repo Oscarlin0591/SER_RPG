@@ -100,7 +100,7 @@ public class BattleScreen extends Screen{
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(ImageLoader.load("background.png"), 100, 100, 1280, 720);
+        graphicsHandler.drawImage(ImageLoader.load("background.png"), 0, 0, 1440, 1080);
         // player.draw(graphicsHandler);
         for (HitBox hitbox : hitboxes) {
             hitbox.draw(graphicsHandler);

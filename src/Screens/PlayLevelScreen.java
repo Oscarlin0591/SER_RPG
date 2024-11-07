@@ -116,7 +116,8 @@ public class PlayLevelScreen extends Screen {
         // setup state
         flagManager = new FlagManager();
         flagManager.addFlag("hasLostBall", false);
-        flagManager.addFlag("hasTalkedToWalrus", false);
+        flagManager.addFlag("hasTalkedToWalrus1", false);
+        flagManager.addFlag("hasTalkedToWalrus2", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("jdvdialogue", false);
@@ -161,6 +162,7 @@ public class PlayLevelScreen extends Screen {
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
+        flagManager.addFlag("krmapusQuest", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);

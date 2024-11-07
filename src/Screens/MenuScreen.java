@@ -21,6 +21,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont playGame;
     protected SpriteFont continueFont;
     protected SpriteFont credits;
+    protected SpriteFont title;
     protected Map background;
     protected Player player;
     protected int keyPressTimer;
@@ -45,6 +46,9 @@ public class MenuScreen extends Screen {
         credits = new SpriteFont("CREDITS", 200, 223, "Arial", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
+        title = new SpriteFont("A(u)RRRRRGH!",400, 100, "Lucida Calligraphy", 48, new Color(49, 207, 240));
+        title.setOutlineColor(new Color(255, 221, 0));
+        title.setOutlineThickness(3);
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         player = new SpeedBoat(720, 400, -1, -1, -1, -1);
@@ -123,6 +127,7 @@ public class MenuScreen extends Screen {
         player.draw(graphicsHandler);
         continueFont.draw(graphicsHandler);
         credits.draw(graphicsHandler);
+        title.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
     }
 }
