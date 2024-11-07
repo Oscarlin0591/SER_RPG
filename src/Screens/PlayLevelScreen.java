@@ -267,12 +267,16 @@ public class PlayLevelScreen extends Screen {
                     break;
                 case "cave_map.txt":
                     map = new CaveMap();
+                    break;
                 case "shipwreck_map.txt":
                     map = new ShipwreckMap();
+                    break;
                 case "atlantis_map.txt":
                     map = new AtlantisMap();
+                    break;
                 case "arctic_map.txt":
                     map = new ArcticMap();
+                    break;
                 default:
                     map = new StartIslandMap();
                     break;
@@ -453,6 +457,18 @@ public class PlayLevelScreen extends Screen {
                     break;
                 case "starting_map.txt":
                     returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
+                    break;
+                case "shipwreck_map.txt":
+                    returnToPrevMap(new ShipwreckMap(), playerLoc, getPlayer());
+                    break;
+                case "atlantis_map.txt":
+                    returnToPrevMap(new AtlantisMap(), playerLoc, getPlayer());
+                    break;
+                case "arctic_map.txt":
+                    returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
+                    break;
+                default:
+                    returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
                     break;
             }
             player.fullHealth();
