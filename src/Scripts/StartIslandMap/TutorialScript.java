@@ -78,8 +78,9 @@ public class TutorialScript extends Script{
                                     addText("Lets get to it then!");
                                     addText("To move around, ye can use wasd. Feel free to try it out.");
                                     addText("Not right now though I'm talking. Don't be rude.");
-                                    addText("Ye can also use e to interact, though ye may have figured that one out already.");
-                                    addText("Interacting with certain objects is how ye can sail the seas, or board an island.\nIt's even how ye can enter combat!");
+                                    addText("Ye can also use e to interact, though ye may have figured that one\nout already.");
+                                    addText("Interacting with certain objects is how ye can sail the seas, or\nboard an island.");
+                                    addText("It's even how ye can enter combat!");
                                 }});
 
                                 addScriptAction(new TextboxScriptAction() {{
@@ -187,10 +188,10 @@ public class TutorialScript extends Script{
                             });
 
                             addScriptAction(new TextboxScriptAction() {{
-                                addText("Of course I do! Not a single tar, lad, or seadog hasn’t heard of the fabled Nave d’Oro", new String[] { "Reckon you can tell me more?" });
-                                addText("Well it was said that the Nave d’Oro is hidden in the heart of the seven seas!\nSealed in a magical barrier.");
-                                addText("Only a courageous sea dog who’s sailed around the globe and slain the avatars of\nsafekeeping could that barrier fall.");
-                                addText("I ne’er seen anyone return. No matter if they sailed in a raft or a man o’ war.");
+                                addText("Of course I do! Not a single tar, lad, or seadog hasn’t heard of the\nfabled Nave d’Oro", new String[] { "Reckon you can tell me more?" });
+                                addText("Well it was said that the Nave d’Oro is hidden in the heart of\nthe seven seas! Sealed in a magical barrier.");
+                                addText("Only a courageous sea dog who’s sailed around the globe and slain\nthe avatars of safekeeping could that barrier fall.");
+                                addText("I ne’er seen anyone return. No matter if they sailed in a raft \nor a man o’ war.");
                                 addText("Perhaps you’re the exception, may Neptune’s blessings be upon ye.");
                             }});
                         }});

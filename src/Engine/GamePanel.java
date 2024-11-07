@@ -2,6 +2,7 @@ package Engine;
 
 import GameObject.Rectangle;
 import Level.Map;
+import Level.Textbox;
 import Maps.BattleMap;
 import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
@@ -10,6 +11,7 @@ import Utils.Colors;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 
 /*
@@ -73,8 +75,8 @@ public class GamePanel extends JPanel {
 
 	// this is called later after instantiation, and will initialize screenManager
 	public void setupGame() {
-		setBackground(Colors.CORNFLOWER_BLUE);
-		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
+		//setBackground(Colors.CORNFLOWER_BLUE);
+		screenManager.initialize(new Rectangle(300, getY(), getWidth(), getHeight()));
 	}
 
 	// this starts the timer (the game loop is started here)
@@ -98,6 +100,10 @@ public class GamePanel extends JPanel {
 		updateShowFPSState();
 		screenManager.update();
 
+		//update screen size based on map size, currently doesnt work, need to figure out how to resize camera independent of screen size
+		if (PlayLevelScreen.getMap() != null) {
+		 	GameWindow.gamePanel.setSize(PlayLevelScreen.getMap().getCamera().getWidth() * PlayLevelScreen.getMap().getTileset().getScaledSpriteWidth(), PlayLevelScreen.getMap().getCamera().getHeight() * PlayLevelScreen.getMap().getTileset().getScaledSpriteHeight());
+		}
 	}
 
 	private void updateShowFPSState() {

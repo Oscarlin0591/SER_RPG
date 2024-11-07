@@ -1,9 +1,11 @@
 package Level;
 
+import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.GameObject;
 import GameObject.Rectangle;
+import Screens.PlayLevelScreen;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -31,12 +33,28 @@ public class Camera extends Rectangle {
     private final int UPDATE_OFF_SCREEN_RANGE = 4;
 
     public Camera(int startX, int startY, int tileWidth, int tileHeight, Map map) {
-        super(startX, startY, ScreenManager.getScreenWidth() / tileWidth, ScreenManager.getScreenHeight() / tileHeight);
+        super(startX, startY, calculateMaxCameraWidth(map.getEndBoundX() / tileWidth, map), calculateMaxCameraHeight(map.getEndBoundY() / tileHeight, map));
         this.map = map;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.leftoverSpaceX = ScreenManager.getScreenWidth() % tileWidth;
         this.leftoverSpaceY = ScreenManager.getScreenHeight() % tileHeight;
+    }
+
+    private static int calculateMaxCameraWidth (int mapWidth, Map map) {
+        if (mapWidth > Config.GAME_WINDOW_WIDTH / map.getTileset().getScaledSpriteWidth()) {
+            return Config.GAME_WINDOW_WIDTH / map.getTileset().getScaledSpriteWidth();
+        } else {
+            return mapWidth;
+        }
+    }
+
+    private static int calculateMaxCameraHeight (int mapHeight, Map map) {
+        if (mapHeight > Config.GAME_WINDOW_HEIGHT / map.getTileset().getScaledSpriteHeight()) {
+            return Config.GAME_WINDOW_HEIGHT / map.getTileset().getScaledSpriteHeight();
+        } else {
+            return mapHeight;
+        }
     }
 
     // gets the tile index that the camera's x and y values are currently on (top left tile)

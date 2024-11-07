@@ -661,8 +661,6 @@ public class PlayLevelScreen extends Screen {
                 returnLabel.draw(graphicsHandler);
                 healthLabel.draw(graphicsHandler);
                 strengthLabel.draw(graphicsHandler);
-
-
         }
     }
 

@@ -92,6 +92,9 @@ public class Map {
         this.xMidPoint = ScreenManager.getScreenWidth() / 2;
         this.yMidPoint = (ScreenManager.getScreenHeight() / 2);
         this.playerStartPosition = new Point(0, 0);
+
+        //moved from setUpMap
+        this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
     }
 
     // sets up map by reading in the map file to create the tile map
@@ -119,7 +122,6 @@ public class Map {
 
         this.loadScripts();
 
-        this.camera = new Camera(0, 0, tileset.getScaledSpriteWidth(), tileset.getScaledSpriteHeight(), this);
         this.textbox = new Textbox(this);
 
         this.loadMusic();
