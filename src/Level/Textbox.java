@@ -112,7 +112,7 @@ public class Textbox {
             int fontY = !map.getCamera().isAtBottomOfMap() ? fontBottomY : fontTopY;
   
             // create text spritefont that will be drawn in textbox
-            text = new SpriteFont(currentTextItem.getText(), fontX, fontY, "Lucida Calligraphy", 30, Color.black);
+            text = new SpriteFont(currentTextItem.getText(), fontX, fontY, "Lucida Calligraphy", 24, Color.black);
 
             // if there are options associated with this text item, prepare option spritefont text to be drawn in options textbox
             if (currentTextItem.getOptions() != null) {
@@ -123,7 +123,7 @@ public class Textbox {
                 options = new ArrayList<>();
                 // for each option, crate option text spritefont that will be drawn in options textbox
                 for (int i = 0; i < currentTextItem.getOptions().size(); i++) {
-                    options.add(new SpriteFont(currentTextItem.options.get(i), fontOptionX, fontOptionY + (i *  fontOptionSpacing), "Lucida Calligraphy", 30, Color.black));
+                    options.add(new SpriteFont(currentTextItem.options.get(i), fontOptionX, fontOptionY + (i *  fontOptionSpacing), "Lucida Calligraphy", 24, Color.black));
                 }
                 selectedOptionIndex = 0;
             }

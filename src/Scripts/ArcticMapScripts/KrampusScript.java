@@ -78,8 +78,58 @@ public class KrampusScript extends Script{
                 addScriptAction(new TextboxScriptAction() {{
                     addText("Ye agree to help? What a surprise...");
                     addText("If thats the case, here what I need you to do...");
-                    addText("[Insert Quest Here]");
+                    addText("I lost my dear magic wand in a tussle I had with Saint Nicholas of the North Pole.");
+                    addText("There inhabits a witch here that might be able to make another");
+                    addText("The young lass is quite new here, and I think I frighten her with my appearance");
+                    addText("Ye need to converse with her and ask her to make me a new shiny wand!", new String[] {"But I can't talk to lasses!", "Sure thing, I'll see what I can do"});
                 }});
+
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+            
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 0;
+                            }
+                        });
+    
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("Well blow me down, then!");
+                            addText("Ye sailing the high seas, fightin through waves and monsters, and yet cannot converse with a lady?", new String[]{"Me have social anxiety, I'm afraid"});
+                            addText("Oh buzz off, social anxiety? Ye making that up!", new String[] {"It's very real I'm afraid"});
+                            addText("Ye know what my kind does for yer ailment?", new String[] {"...What do ye do?"});
+                            addText("We make the lad talk! Ye younguns so entranced in yer \"innovations\" that ye bunch can't hold\nno conversation with yer kin, ye don't think thats an issue?", new String[]{"You don't get it"});
+                            addText("Of course I get it! Both ye and the funny people looking in through the sky need to just toughen up and just talk! Ye hear?", new String[] {"Aye, I do...", "What people in the sky?"});
+                            addText("Anyways. Take this magical tome and go talk with the lass! I'm sure a witch like her would fancy trinkets like this.");
+                            addText("Now get a move on!");
+    
+                        }});
+                    }});
+    
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{   
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 1;
+                            }
+                        });
+    
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("Ye have me thanks, traveler.");
+                            addText("Here take this tome, a witch loves magical spells");
+                            addText("Now get a move on!");
+    
+                        }});
+    
+                    }});
+
+                }});
+
+
+                addScriptAction(new ChangeFlagScriptAction("krampusQuest", true));
                 }});
         }});
     }});

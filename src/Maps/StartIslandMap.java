@@ -4,6 +4,7 @@ import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.*;
 import NPCs.Interactable.Girl;
+import NPCs.Interactable.ExitPort;
 import NPCs.Interactable.MysteriousMan;
 import ScriptActions.ChangeFlagScriptAction;
 import ScriptActions.ConditionalScriptAction;
@@ -42,11 +43,11 @@ public class StartIslandMap extends Map {
         ArrayList<NPC> npcs = new ArrayList<>();
 
         Walrus walrus = new Walrus(1, getMapTile(10, 24).getLocation().subtractY(40));
-        walrus.setInteractScript(new WalrusScript());
+        walrus.setInteractScript(new WalrusScript1());
         npcs.add(walrus);
 
         Walrus walrus2 = new Walrus(2, getMapTile(15, 24).getLocation().subtractY(40));
-        walrus2.setInteractScript(new WalrusScript());
+        walrus2.setInteractScript(new WalrusScript2());
         npcs.add(walrus2);
 
         // Dinosaur dinosaur = new Dinosaur(3, getMapTile(13, 4).getLocation());
@@ -86,6 +87,10 @@ public class StartIslandMap extends Map {
         girl.setInteractScript(new GirlScript());
         npcs.add(girl);
 
+        ExitPort port = new ExitPort(800, getMapTile(4, 27).getLocation(), "startingIslandPort.png");
+        port.setIsUncollidable(true);
+        npcs.add(port);
+
         return npcs;
     }
 
@@ -113,15 +118,25 @@ public class StartIslandMap extends Map {
                             }
                         });
 
-                        addScriptAction(new ScriptAction() {
+                        addScriptAction(new ChangeFlagScriptAction("exitIsland", true));
+                    }});
+
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
                             @Override
-                            public ScriptState execute() {
-                                player.setLocation(player.getX(), player.getY() - 10);
-                                return ScriptState.COMPLETED;
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 1;
                             }
                         });
 
-                        addScriptAction(new ChangeFlagScriptAction("exitIsland", true));
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() - 10);
+                                return ScriptState.COMPLETED;
+                            }
+                        });
                     }});
 
                 }});

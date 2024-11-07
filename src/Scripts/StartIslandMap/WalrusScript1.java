@@ -7,7 +7,7 @@ import ScriptActions.*;
 
 // script for talking to walrus npc
 // checkout the documentation website for a detailed guide on how this script works
-public class WalrusScript extends Script {
+public class WalrusScript1 extends Script {
 
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
@@ -18,18 +18,19 @@ public class WalrusScript extends Script {
 
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new FlagRequirement("hasTalkedToWalrus", false));
+                addRequirement(new FlagRequirement("hasTalkedToWalrus1", false));
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("Hi Cat!");
-                    addText("...oh, you lost your ball?");
-                    addText("Hmmm...my walrus brain remembers seeing Dino with\nit last. Maybe you can check with him?");
+                    addText("Hey there partner!");
+                    addText("The names Ludwig Cornelius Streihauffer of Tuscany II, \nand over there is me wife, Linda.");
+                    addText("A beaut, ain't she? Such voluptuous blubber, \nain't ever seen anything like that.");
+                    addText("Ya better keep your oogling eyes off her!");
                 }});
-                addScriptAction(new ChangeFlagScriptAction("hasTalkedToWalrus", true));
+                addScriptAction(new ChangeFlagScriptAction("hasTalkedToWalrus1", true));
             }});
 
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new FlagRequirement("hasTalkedToWalrus", true));
-                addScriptAction(new TextboxScriptAction("I sure love doing walrus things!"));
+                addRequirement(new FlagRequirement("hasTalkedToWalrus1", true));
+                addScriptAction(new TextboxScriptAction("I love spending time with me wife Linda!"));
             }});
         }});
 

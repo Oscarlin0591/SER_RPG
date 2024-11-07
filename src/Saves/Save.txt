@@ -1,7 +1,7 @@
-628
-769
+816
+960
 starting_map.txt
 10
 4
-false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, true, false, false
-playerRoided, toggleArctic, jvSpokenTo, combatTriggered, exitIsland, startIslandPotion, beetleKilled, krakenEnemy, toggleAtlantis, toggleShipwreck, battleWon, oceanPotion, beetleEnemy, talkedToKrampus, battlePanel, exitAtlantis, hasTalkedToWalrus, talkedToYeti, battleLost, shrekEnemy, hasLostBall, bugEnemy, attackDodged, hasFoundBall, interactPortal, toggleIsland, krampusEnemy, exitArctic, krakenKilled, hasTalkedToDinosaur, jdvdialogue, toggleCave, yetiEnemy, gameOver, jvEnemy, jvBeaten, battleWonText, exitCave
+false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
+playerRoided, toggleArctic, jvSpokenTo, combatTriggered, exitIsland, startIslandPotion, beetleKilled, krakenEnemy, toggleAtlantis, toggleShipwreck, battleWon, oceanPotion, beetleEnemy, talkedToKrampus, battlePanel, exitAtlantis, talkedToYeti, battleLost, shrekEnemy, hasLostBall, bugEnemy, attackDodged, krmapusQuest, hasFoundBall, interactPortal, hasTalkedToWalrus2, toggleIsland, krampusEnemy, exitArctic, hasTalkedToWalrus1, krakenKilled, hasTalkedToDinosaur, jdvdialogue, toggleCave, yetiEnemy, gameOver, jvEnemy, jvBeaten, battleWonText, exitCave

@@ -119,7 +119,8 @@ public class PlayLevelScreen extends Screen {
         // setup state
         flagManager = new FlagManager();
         flagManager.addFlag("hasLostBall", false);
-        flagManager.addFlag("hasTalkedToWalrus", false);
+        flagManager.addFlag("hasTalkedToWalrus1", false);
+        flagManager.addFlag("hasTalkedToWalrus2", false);
         flagManager.addFlag("hasTalkedToDinosaur", false);
         flagManager.addFlag("hasFoundBall", false);
         flagManager.addFlag("jdvdialogue", false);
@@ -164,6 +165,7 @@ public class PlayLevelScreen extends Screen {
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
+        flagManager.addFlag("krmapusQuest", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -624,9 +626,9 @@ public class PlayLevelScreen extends Screen {
                 int hearts = currentHealth/10;
                 int swords = currentStrength/2;
                 int heartXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
-                int heartYPos = GameWindow.gamePanel.getHeight()/3 - 60;
+                int heartYPos = GameWindow.gamePanel.getHeight()/3 - 40;
                 int swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
-                int swordYPos = GameWindow.gamePanel.getHeight()/2 - 200;
+                int swordYPos = GameWindow.gamePanel.getHeight()/2 - 180;
 
                 int backgroundEdge = ScreenManager.getScreenWidth()/8+ScreenManager.getScreenWidth()-(ScreenManager.getScreenWidth()/8*2);
                 //still draw map
