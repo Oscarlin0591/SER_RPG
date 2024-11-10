@@ -32,6 +32,7 @@ public class BattleScreen extends Screen{
     protected int keyPressTimer = 0;
     protected float count;
     protected boolean battleFinished;
+    protected SpriteFont battleLabel; 
     protected KeyLocker keyLocker = new KeyLocker();
     
     private HitBox[] hitboxes;
@@ -42,6 +43,8 @@ public class BattleScreen extends Screen{
         box.setColor(Color.lightGray);
         box.setBorderColor(Color.black);
         box.setBorderThickness(2);
+
+        battleLabel = new SpriteFont("Press \"SPACE\" and hit the boxes!", ScreenManager.getScreenWidth()/2, 50, "Lucida Calligraphy", 48, Color.black);
 
         hitBox1 = new HitBox();
         hitboxes = new HitBox[8];
@@ -107,6 +110,7 @@ public class BattleScreen extends Screen{
             hitbox.draw(graphicsHandler);
         }
         box.draw(graphicsHandler);
+        battleLabel.draw(graphicsHandler);
     }
     private class HitBox extends Rectangle {
 

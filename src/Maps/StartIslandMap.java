@@ -17,6 +17,7 @@ import ScriptActions.UnlockPlayerScriptAction;
 import Scripts.SimpleTextScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.StartTileset;
+import Utils.Direction;
 
 import java.util.ArrayList;
 
@@ -42,9 +43,14 @@ public class StartIslandMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Walrus walrus = new Walrus(1, getMapTile(1, 24).getLocation());
-        walrus.setInteractScript(new WalrusScript1());
-        npcs.add(walrus);
+        Walrus walrus1 = new Walrus(1, getMapTile(1, 24).getLocation());
+        walrus1.setInteractScript(new WalrusScript1());
+        walrus1.stand(Direction.RIGHT);
+        npcs.add(walrus1);
+
+        Walrus walrus2 = new Walrus(1, getMapTile(24, 26).getLocation());
+        walrus2.setInteractScript(new WalrusScript2());
+        npcs.add(walrus2);
 
         // Dinosaur dinosaur = new Dinosaur(3, getMapTile(13, 4).getLocation());
         // dinosaur.setExistenceFlag("hasTalkedToDinosaur");
@@ -162,7 +168,7 @@ public class StartIslandMap extends Map {
     //all new maps must override
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
+        // Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
     }
 }
 

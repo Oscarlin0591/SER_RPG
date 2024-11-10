@@ -105,7 +105,7 @@ public class OceanMap extends Map {
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Seafaring Humdrum.wav");
+        // Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 

@@ -7,6 +7,7 @@ import Level.ScriptState;
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
 import ScriptActions.CustomRequirement;
+import ScriptActions.FlagRequirement;
 import ScriptActions.LockPlayerScriptAction;
 import ScriptActions.NPCChangeVisibilityScriptAction;
 import ScriptActions.ScriptAction;
@@ -20,9 +21,16 @@ public class FarmerScript extends Script {
         ArrayList<ScriptAction> scriptActions = new ArrayList<>();
         scriptActions.add(new LockPlayerScriptAction());
 
-        scriptActions.add(new TextboxScriptAction() {{
-            addText("hey there kiddo!");
-            addText("what do you think of my apple tree?", new String[] {"it's pretty cool!", "meh..."});
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("treeBroken", false));
+
+                addScriptAction(new TextboxScriptAction() {{
+                addText("hey there kiddo!");
+                addText("what do you think of my apple tree?", new String[] {"it's pretty cool!", "meh..."});
+            }});
+
+            }});
         }});
 
         scriptActions.add(new ConditionalScriptAction() {{
@@ -57,6 +65,20 @@ public class FarmerScript extends Script {
                 addScriptAction(new TextboxScriptAction() {{
                     addText("hey kiddo, learn some manners would you...");
                 }});
+            }});
+        }});
+
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("treeBroken", true));
+                
+                addScriptAction(new TextboxScriptAction() {{
+                addText("hey there kiddo!");
+                addText("what do you think of my-");
+                addText("My- le tree");
+                addText("You... le pirate, le broke me tree...", new String[]{"Oops gotta go!"});
+            }});
+
             }});
         }});
         

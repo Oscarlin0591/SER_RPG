@@ -166,7 +166,9 @@ public class PlayLevelScreen extends Screen {
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
-        flagManager.addFlag("krmapusQuest", false);
+        flagManager.addFlag("krampusQuest", false);
+        flagManager.addFlag("witchSpokenTo",false);
+        flagManager.addFlag("dateTriggered", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -175,6 +177,7 @@ public class PlayLevelScreen extends Screen {
         // misc flags
         flagManager.addFlag("playerRoided", false);
         flagManager.addFlag("attackDodged", false);
+        flagManager.addFlag("treeBroken", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -618,7 +621,7 @@ public class PlayLevelScreen extends Screen {
 
                 //veith npc visual
                 if (getMap().getFlagManager().isFlagSet("jdvdialogue"))
-                    graphicsHandler.drawImage(ImageLoader.load("CharacterPNGs/Captain_Jack_Veith.png"), GameWindow.gamePanel.getWidth()-400, Textbox.getOptionBottomY()-400, 400, 400);
+                    graphicsHandler.drawImage(ImageLoader.load("CharacterPNGs/Captain_Jack_Veith.png"), GameWindow.gamePanel.getWidth()-400, GameWindow.gamePanel.getHeight()-400, 400, 400);
 
                 //health bars in combat - moved here from GamePanel
                 if (GamePanel.isInBattle) {

@@ -13,14 +13,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-// import Engine.GamePanel;
-// import java.lang.Thread;
-
 public class BattleMap extends Map{
     // public static boolean battle = false;
     public static Enemy enemy;
     // public static float enemyHealth;
     // public static float playerHealth;
+    protected boolean beetle = false;
 
     public BattleMap() {
         super("battle_map.txt", new BattleMapTileset());
@@ -77,6 +75,7 @@ public class BattleMap extends Map{
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("beetleEnemy")) {
             enemy = new HolyBeetle(802, getMapTile(8,12).getLocation(), 50, 5, 1, 1);
             npcs.set(0,enemy);
+            beetle = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("beetleEnemy");
         }
 
@@ -128,18 +127,24 @@ public class BattleMap extends Map{
 
     @Override
     public void loadMusic() {
-        Random rand = new Random();
-        int randMusic = rand.nextInt(4);
-        switch (randMusic) {
-            case 1:
-                Music.playMusic("Music/Fighting The Invisible.wav");
-                break;
-            case 2:
-                Music.playMusic("Music/Splash Thunder.wav");
-                break;
-            default:
-                Music.playMusic("Music/BossThemeOne16bit.wav");
-                break;
-        }
+        // if (beetle == true) {
+        //     Music.playMusic("Music/Cave Boss.wav");
+        //     beetle = false;
+        // } else {
+        //     Random rand = new Random();
+        // int randMusic = rand.nextInt(4);
+        //     switch (randMusic) {
+        //         case 1:
+        //             Music.playMusic("Music/Fighting The Invisible.wav");
+        //             break;
+        //         case 2:
+        //             Music.playMusic("Music/Splash Thunder.wav");
+        //             break;
+        //         default:
+        //             Music.playMusic("Music/BossThemeOne16bit.wav");
+        //             break;
+        //     }
+        // }
+        
     }
 }

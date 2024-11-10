@@ -54,6 +54,8 @@ public class AppleTreeScript extends Script {
                 addScriptAction(new TextboxScriptAction() {{
                     addText("Oh no! The tree broke");
                 }});
+
+                addScriptAction(new ChangeFlagScriptAction("treeBroken", true));
             }});
         }});
 

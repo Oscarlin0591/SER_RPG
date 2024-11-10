@@ -6,6 +6,7 @@ import Level.NPC;
 import Level.Trigger;
 import NPCs.Bosses.*;
 import NPCs.Interactable.BlueWitch;
+import NPCs.Interactable.ExitPort;
 import NPCs.*;
 import Scripts.ArcticMapScripts.*;
 import Tilesets.ArcticTileset;
@@ -15,7 +16,7 @@ public class ArcticMap extends Map{
 
     public ArcticMap() {
         super("arctic_map.txt", new ArcticTileset());
-        this.playerStartPosition = getMapTile(12, 1).getLocation();
+        this.playerStartPosition = getMapTile(7, 2).getLocation();
     }
     // @Override
     // public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -37,7 +38,12 @@ public class ArcticMap extends Map{
         npcs.add(krampus);
 
         BlueWitch blueWitch = new BlueWitch(203, getMapTile(5, 33).getLocation());
+        blueWitch.setInteractScript(new BlueWitchScript());
         npcs.add(blueWitch);
+
+        ExitPort port = new ExitPort(999, getMapTile(6,1).getLocation(), "ArticPort.png");
+        port.setIsUncollidable(true);
+        npcs.add(port);
 
         return npcs;
     }
@@ -45,7 +51,7 @@ public class ArcticMap extends Map{
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(getMapTile(11, 0).getLocation().x, getMapTile(11, 0).getLocation().y, 144, 25, new ArcticExitScript()));
+        triggers.add(new Trigger(getMapTile(7, 3).getLocation().x, getMapTile(7, 3).getLocation().y+30, 100, 15, new ArcticExitScript()));
         return triggers;
     }
 
@@ -58,7 +64,7 @@ public class ArcticMap extends Map{
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Sparkling_Rime16bit.wav");
+        // Music.playMusic("Music/Sparkling_Rime16bit.wav");
     }
     
 }

@@ -45,7 +45,7 @@ public class ArcticExitScript extends Script {
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        player.setLocation(player.getX(), player.getY()+10);
+                        player.setLocation(player.getX(), player.getY()-10);
                         return ScriptState.COMPLETED;
                     }
                 });

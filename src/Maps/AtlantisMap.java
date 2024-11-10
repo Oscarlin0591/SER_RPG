@@ -45,7 +45,7 @@ public class AtlantisMap extends Map {
 
     @Override
     public void loadMusic() {
-        Music.playMusic("Music/Atlantis.wav");
+        // Music.playMusic("Music/Atlantis.wav");
     }
 }
 
