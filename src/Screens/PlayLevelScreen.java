@@ -77,35 +77,33 @@ public class PlayLevelScreen extends Screen {
         this.screenCoordinator = screenCoordinator;
         spawnInterval = rand.nextInt(10,15);
 
-        int shiftX = 100;
-        int shiftY = 200;
-
         //labels are still slightly off + not based fully on screensize, should be handled at some future point
-        pauseLabel = new SpriteFont("PAUSED", GameWindow.gamePanel.getWidth()/2 - 40 + shiftX, GameWindow.gamePanel.getHeight()/20 + shiftY, "Times New Roman", 24, Color.white);
+        //needed to be updated to reposition elements when map changed
+        pauseLabel = new SpriteFont("PAUSED", GameWindow.gamePanel.getWidth()/2 - 10, GameWindow.gamePanel.getHeight()/20, "Times New Roman", 24, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(3f);
 
-        profileLabel = new SpriteFont("Speedboat Steve is a brave adventurer who is sailing across the world. He", GameWindow.gamePanel.getWidth()/2.25f + shiftX, ScreenManager.getScreenHeight()/6.5f + shiftY, "Times New Roman", 20, Color.white);
+        profileLabel = new SpriteFont("Speedboat Steve is a brave adventurer who is sailing across the world. He", GameWindow.gamePanel.getWidth()/2.25f, GameWindow.gamePanel.getHeight()/5.5f, "Times New Roman", 20, Color.white);
         profileLabel.setOutlineColor(Color.black);
         profileLabel.setOutlineThickness(2f);
 
-        profileLabel2 = new SpriteFont("must find treasure, and navigate through the ocean. Watch out for enemies!", GameWindow.gamePanel.getWidth()/2.25f + shiftX, ScreenManager.getScreenHeight()/5.5f + shiftY, "Times New Roman", 20, Color.white);
+        profileLabel2 = new SpriteFont("must find treasure, and navigate through the ocean. Watch out for enemies!", GameWindow.gamePanel.getWidth()/2.25f, GameWindow.gamePanel.getHeight()/5.5f, "Times New Roman", 20, Color.white);
         profileLabel2.setOutlineColor(Color.black);
         profileLabel2.setOutlineThickness(2f);
 
-		quitLabel = new SpriteFont("QUIT GAME", GameWindow.gamePanel.getWidth()/1.5f + shiftX, GameWindow.gamePanel.getHeight()/1.3f + shiftY, "Times New Roman", 28, Color.white);
+		quitLabel = new SpriteFont("QUIT GAME", GameWindow.gamePanel.getWidth()/1.5f, GameWindow.gamePanel.getHeight()/1.3f, "Times New Roman", 28, Color.white);
 		quitLabel.setOutlineColor(Color.black);
 		quitLabel.setOutlineThickness(2f);
 
-        returnLabel = new SpriteFont("RETURN", GameWindow.gamePanel.getWidth()/2f + shiftX, GameWindow.gamePanel.getHeight()/1.3f + shiftY, "Times New Roman", 28, Color.white);
+        returnLabel = new SpriteFont("RETURN", GameWindow.gamePanel.getWidth()/2f, GameWindow.gamePanel.getHeight()/1.3f, "Times New Roman", 28, Color.white);
 		returnLabel.setOutlineColor(Color.black);
 		returnLabel.setOutlineThickness(2f);
 
-        healthLabel = new SpriteFont("HEALTH:", GameWindow.gamePanel.getWidth()/2.25f + shiftX, GameWindow.gamePanel.getHeight()/3.5f + shiftY, "Times New Roman", 36, Color.white);
+        healthLabel = new SpriteFont("HEALTH:", GameWindow.gamePanel.getWidth()/2.25f, GameWindow.gamePanel.getHeight()/3.5f, "Times New Roman", 36, Color.white);
         healthLabel.setOutlineColor(Color.black);
         healthLabel.setOutlineThickness(3f);
 
-        strengthLabel = new SpriteFont("STRENGTH: ", GameWindow.gamePanel.getWidth()/2.25f + shiftX, GameWindow.gamePanel.getHeight()/2.3f + shiftY, "Times New Roman", 36, Color.white);
+        strengthLabel = new SpriteFont("STRENGTH: ", GameWindow.gamePanel.getWidth()/2.25f, GameWindow.gamePanel.getHeight()/2.3f, "Times New Roman", 36, Color.white);
         strengthLabel.setOutlineColor(Color.black);
         strengthLabel.setOutlineThickness(3f);
     }
@@ -656,12 +654,22 @@ public class PlayLevelScreen extends Screen {
                 int currentStrength = Math.round(player.getStrength());
                 int hearts = currentHealth/10;
                 int swords = currentStrength/2;
-                int heartXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
-                int heartYPos = GameWindow.gamePanel.getHeight()/3 - 40;
-                int swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f) - 45;
-                int swordYPos = GameWindow.gamePanel.getHeight()/2 - 180;
+                int heartXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);
+                int heartYPos = GameWindow.gamePanel.getHeight()/3;
+                int swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);
+                int swordYPos = GameWindow.gamePanel.getHeight()/2;
 
                 int backgroundEdge = GameWindow.gamePanel.getWidth()/8+GameWindow.gamePanel.getWidth()-(GameWindow.gamePanel.getWidth()/8*2);
+
+                //update position of various pause menu labels
+                pauseLabel.setLocation(GameWindow.gamePanel.getWidth()/2 - 10, GameWindow.gamePanel.getHeight()/20);
+                profileLabel.setLocation(GameWindow.gamePanel.getWidth()/2.75f, GameWindow.gamePanel.getHeight()/5.5f);
+                profileLabel2.setLocation(GameWindow.gamePanel.getWidth()/2.75f, GameWindow.gamePanel.getHeight()/5f);
+                quitLabel.setLocation(GameWindow.gamePanel.getWidth()/1.5f, GameWindow.gamePanel.getHeight()/1.3f);
+                returnLabel.setLocation(GameWindow.gamePanel.getWidth()/2f, GameWindow.gamePanel.getHeight()/1.3f);
+                healthLabel.setLocation(GameWindow.gamePanel.getWidth()/2.25f, GameWindow.gamePanel.getHeight()/3.5f);
+                strengthLabel.setLocation(GameWindow.gamePanel.getWidth()/2.25f, GameWindow.gamePanel.getHeight()/2.3f);
+                
                 //still draw map
                 map.draw(player, graphicsHandler);
 
@@ -674,10 +682,14 @@ public class PlayLevelScreen extends Screen {
                
                 
                 if (buttonHover == 0){
-                    graphicsHandler.drawFilledRectangle(GameWindow.gamePanel.getWidth()/2 - 100, GameWindow.gamePanel.getHeight()/2 - 50, 130,80, Color.BLACK);
+                    graphicsHandler.drawFilledRectangle(Math.round(GameWindow.gamePanel.getWidth()/2f), Math.round(GameWindow.gamePanel.getHeight()/1.3f),130,80,Color.BLACK);
                 }else{
-                    graphicsHandler.drawFilledRectangle(GameWindow.gamePanel.getWidth()/2 + 45, GameWindow.gamePanel.getHeight()/2 - 50,170,80,Color.BLACK);
+                    graphicsHandler.drawFilledRectangle(Math.round(GameWindow.gamePanel.getWidth()/1.5f), Math.round(GameWindow.gamePanel.getHeight()/1.3f), 130,80, Color.BLACK);
                 }
+
+                //first recalculate starting heartXPos and heartYPos
+                heartXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);
+                heartYPos = GameWindow.gamePanel.getHeight()/3;
 
                 for(int i = 0; i < hearts; i++) {
                     graphicsHandler.drawImage(heart, heartXPos, heartYPos,50,50);
@@ -687,8 +699,12 @@ public class PlayLevelScreen extends Screen {
                         heartYPos += 55;
                     }
                 }
+                
+                //first recalculate starting heartXPos and heartYPos
+                swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);
+                swordYPos = GameWindow.gamePanel.getHeight()/2;
 
-                for(int i = 0; i <= swords+1; i++) {
+                for(int i = 0; i <= swords+1; i++) {                    
                     graphicsHandler.drawImage(sword, swordXPos, swordYPos,50,50);
                     if (swordXPos > backgroundEdge - 70) {
                         swordXPos = Math.round(GameWindow.gamePanel.getWidth()/2.25f);

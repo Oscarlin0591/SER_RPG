@@ -75,7 +75,7 @@ public class GamePanel extends JPanel {
 	// this is called later after instantiation, and will initialize screenManager
 	public void setupGame() {
 		setBackground(Color.black);
-		screenManager.initialize(new Rectangle(300, getY(), getWidth(), getHeight()));
+		screenManager.initialize(new Rectangle(300, getY(), GameWindow.gamePanel.getWidth(), GameWindow.gamePanel.getHeight()));
 	}
 
 	// this starts the timer (the game loop is started here)

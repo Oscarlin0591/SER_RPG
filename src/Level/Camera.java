@@ -6,6 +6,7 @@ import Engine.ScreenManager;
 import GameObject.GameObject;
 import GameObject.Rectangle;
 import Screens.PlayLevelScreen;
+import Engine.GameWindow;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -37,8 +38,8 @@ public class Camera extends Rectangle {
         this.map = map;
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
-        this.leftoverSpaceX = ScreenManager.getScreenWidth() % tileWidth;
-        this.leftoverSpaceY = ScreenManager.getScreenHeight() % tileHeight;
+        this.leftoverSpaceX = GameWindow.gamePanel.getWidth() % tileWidth;
+        this.leftoverSpaceY = GameWindow.gamePanel.getHeight() % tileHeight;
     }
 
     private static int calculateMaxCameraWidth (int mapWidth, Map map) {

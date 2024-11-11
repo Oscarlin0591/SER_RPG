@@ -1,6 +1,7 @@
 package Level;
 
 import Engine.Config;
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import GameObject.Rectangle;
@@ -89,8 +90,8 @@ public class Map {
         this.startBoundY = 0;
         this.endBoundX = width * tileset.getScaledSpriteWidth();
         this.endBoundY = height * tileset.getScaledSpriteHeight();
-        this.xMidPoint = ScreenManager.getScreenWidth() / 2;
-        this.yMidPoint = (ScreenManager.getScreenHeight() / 2);
+        this.xMidPoint = GameWindow.gamePanel.getWidth() / 2;
+        this.yMidPoint = (GameWindow.gamePanel.getHeight() / 2);
         this.playerStartPosition = new Point(0, 0);
 
         //moved from setUpMap
