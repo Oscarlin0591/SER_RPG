@@ -22,7 +22,6 @@ import Saves.ContinueState;
 import SpriteFont.SpriteFont;
 
 public class BattleScreen extends Screen{
-    protected ScreenCoordinator screenCoordinator;
     protected PlayLevelScreen playLevelScreen;
     protected SpeedBoatSteve player;
     protected Rectangle box;

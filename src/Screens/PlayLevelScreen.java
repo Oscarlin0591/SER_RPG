@@ -43,6 +43,7 @@ public class PlayLevelScreen extends Screen {
     protected WinScreen winScreen;
     protected GameOverScreen gameOverScreen;
     public static BattleScreen battleScreen;
+    public static DateScreen dateScreen;
     public static FlagManager flagManager; //chaged to public static from protected
     protected JPanel healthBar;
 	private int buttonHover = 0;
@@ -325,6 +326,8 @@ public class PlayLevelScreen extends Screen {
         winScreen = new WinScreen(this);
         gameOverScreen = new GameOverScreen(this);
         battleScreen = new BattleScreen(this);
+        // healScreen = new HealScreen(this);
+        dateScreen = new DateScreen(this);
     }
     
     public void update() {
@@ -359,7 +362,15 @@ public class PlayLevelScreen extends Screen {
                 break;
             case BATTLE:
                 battleScreen.update();
+                break;
+            case HEAL:
+
+                break;
+            case DATE:
+                dateScreen.update();
+                break;
             }
+
 
         // if flag is set at any point during gameplay, game is "lost"
         if (map.getFlagManager().isFlagSet("gameOver")) {
@@ -426,6 +437,7 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("battlePanel")) {
             battle();
             refreshBattle();
+            // date();
             map.getFlagManager().unsetFlag("battlePanel");
         }
 
@@ -649,6 +661,9 @@ public class PlayLevelScreen extends Screen {
                 map.draw(player, graphicsHandler);
                 battleScreen.draw(graphicsHandler);
                 break;
+            case DATE:
+                dateScreen.draw(graphicsHandler);
+                break;
             case PAUSED:
                 int currentHealth = Math.round(player.getHealth());
                 int currentStrength = Math.round(player.getStrength());
@@ -740,6 +755,10 @@ public class PlayLevelScreen extends Screen {
         setPlayLevelScreenState(PlayLevelScreenState.BATTLE);
     }
 
+    public static void date() {
+        setPlayLevelScreenState(PlayLevelScreenState.DATE);
+    }
+
     public void refreshBattle() {
         battleScreen = new BattleScreen(this);
     }
@@ -762,6 +781,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE
     }
 }
