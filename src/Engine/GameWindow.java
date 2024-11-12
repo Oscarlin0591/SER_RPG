@@ -13,7 +13,7 @@ import javax.swing.*;
  */
 public class GameWindow {
 	private JFrame gameWindow;
-	public static GamePanel gamePanel;
+	public static GamePanel gamePanel = new GamePanel();
 	private JPanel middlePanel;
 
 	public GameWindow() {
