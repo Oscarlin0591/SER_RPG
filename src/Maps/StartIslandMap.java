@@ -88,6 +88,7 @@ public class StartIslandMap extends Map {
 
         AppleTree tree = new AppleTree(17, getMapTile(19,7).getLocation());
         tree.setInteractScript(new AppleTreeScript());
+        tree.setExistenceFlag("treeBroken");
         npcs.add(tree);
 
         Farmer farmer = new Farmer(18,getMapTile(22,5).getLocation());

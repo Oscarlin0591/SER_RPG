@@ -168,6 +168,10 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("krampusQuest", false);
         flagManager.addFlag("witchSpokenTo",false);
         flagManager.addFlag("dateTriggered", false);
+        flagManager.addFlag("treeBroken", false);
+        flagManager.addFlag("atlantisTreeBroken", false);
+        flagManager.addFlag("treePocketed", false);
+        flagManager.addFlag("treeReplanted", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -176,7 +180,6 @@ public class PlayLevelScreen extends Screen {
         // misc flags
         flagManager.addFlag("playerRoided", false);
         flagManager.addFlag("attackDodged", false);
-        flagManager.addFlag("treeBroken", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
