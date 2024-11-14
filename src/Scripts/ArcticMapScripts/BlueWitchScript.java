@@ -41,30 +41,32 @@ public class BlueWitchScript extends Script{
 
                 addScriptAction(new ChangeFlagScriptAction("witchSpokenTo", true));
             }});
+
         }});
-
         scriptActions.add(new ConditionalScriptAction() {{
-            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new FlagRequirement("krampusQuest", true));
-                addRequirement(new FlagRequirement("witchSpokenTo", true));
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{ 
 
-                addScriptAction(new TextboxScriptAction() {{
-                    addText("So is it a yes or a no?", new String[] {"Uhh... sure", "Give me time to think, lass."});
+            addRequirement(new FlagRequirement("krampusQuest", true));
+            addRequirement(new FlagRequirement("witchSpokenTo", true));
+
+            addScriptAction(new TextboxScriptAction() {{
+                addText("That's not important... and also rude...");
+                addText("So is it a yes or a no?", new String[] {"Uhh... sure", "Give me time to think, lass."});
+            }});
+
+            // // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+            // //     addRequirement(new CustomRequirement() {
+            // //         public boolean isRequirementMet() {
+            // //             int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+            // //             return answer == 0;
+            // //         }
+            // //     });
+
+                addScriptAction(new TextboxScriptAction(){{
+                    addText("Great come with me.");
                 }});
-
-                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                    addRequirement(new CustomRequirement() {
-                        public boolean isRequirementMet() {
-                            int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                            return answer == 0;
-                        }
-                    });
-
-                    addScriptAction(new TextboxScriptAction(){{
-                        addText("Great come with me.");
-                    }});
-                    addScriptAction(new ChangeFlagScriptAction("dateTriggered", true));
-                }});
+                addScriptAction(new ChangeFlagScriptAction("blueWitchDate", true));
+                addScriptAction(new ChangeFlagScriptAction("dateTriggered", true));
             }});
         }});
 
@@ -80,13 +82,14 @@ public class BlueWitchScript extends Script{
                 addText("*Perhaps she'll open up if you ask something magic related*");
             }});
 
-            }});
-
         }});
+
+    }});
 
         scriptActions.add(new UnlockPlayerScriptAction());
 
         return scriptActions;
-    }
     
-}
+            }
+        
+    }

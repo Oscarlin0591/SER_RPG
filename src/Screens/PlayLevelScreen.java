@@ -12,6 +12,9 @@ import GameObject.SpriteSheet;
 import Level.*;
 import MapEditor.EditorMaps;
 import Maps.*;
+import NPCs.CapJV;
+import NPCs.Interactable.BlueWitch;
+
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
@@ -154,6 +157,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("datePanel", false);
         flagManager.addFlag("dateWon", false);
         flagManager.addFlag("dateLost", false);
+        flagManager.addFlag("blueWitchDate", false);
 
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
@@ -171,6 +175,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
         flagManager.addFlag("beetleKilled", false);
+        flagManager.addFlag("krampusKilled", false);
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
@@ -182,6 +187,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("treePocketed", false);
         flagManager.addFlag("treeReplanted", false);
         flagManager.addFlag("krampusQuestComplete",false);
+        flagManager.addFlag("beetleQuestComplete",false);
+        flagManager.addFlag("neptuneQuestComplete", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -340,7 +347,11 @@ public class PlayLevelScreen extends Screen {
         gameOverScreen = new GameOverScreen(this);
         battleScreen = new BattleScreen(this);
         // healScreen = new HealScreen(this);
-        dateScreen = new DateScreen(this);
+        dateScreen = new DateScreen(this, new CapJV(1));
+        if (flagManager.isFlagSet("blueWitchDate")) {
+        dateScreen = new DateScreen(this, new BlueWitch(0, new Point(ScreenManager.getScreenWidth()/2-100, ScreenManager.getScreenHeight())));
+        // flagManager.unsetFlag("blueWitchDate");
+        }
     }
     
     public void update() {
@@ -498,6 +509,8 @@ public class PlayLevelScreen extends Screen {
                 case "arctic_map.txt":
                     returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
                     break;
+                case "end_map.txt":
+                    returnToPrevMap(new EndMap(), playerLoc, getPlayer());
                 default:
                     returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
                     break;
@@ -508,6 +521,14 @@ public class PlayLevelScreen extends Screen {
         if (map.getChosenMap() != null) {
             teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
             map.setChosenMap(null);
+        }
+
+        if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("neptuneKilled")) {
+            // insert flag for bad ending
+        } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("neptuneQuestCompleted")) {
+            // insert flag for good ending
+        } else {
+            // neutral ending
         }
     }
 
