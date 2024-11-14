@@ -2,6 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.AppleTree;
+import NPCs.Bosses.Capricorn;
 import Scripts.AtlantisMapScripts.*;
 import Scripts.StartIslandMap.AppleTreeScript;
 import Tilesets.AtlantisTileset;
@@ -30,6 +31,11 @@ public class AtlantisMap extends Map {
         tree.setInteractScript(new AppleTreeScript());
         tree.setExistenceFlag("atlantisTreeBroken");
         npcs.add(tree);
+
+        Capricorn capricorn = new Capricorn(18, getMapTile(49,11).getLocation(),50,5,2,2);
+        capricorn.setInteractScript(new CapricornScript());
+        //tree.setExistenceFlag("atlantisTreeBroken");
+        npcs.add(capricorn);
 
         return npcs;
     }
