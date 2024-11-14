@@ -3,6 +3,7 @@ package Maps;
 import EnhancedMapTiles.PushableRock;
 import Level.*;
 import NPCs.*;
+import NPCs.Bosses.GoldenShip;
 import NPCs.Interactable.Girl;
 import NPCs.Interactable.ExitPort;
 import NPCs.Interactable.MysteriousMan;
