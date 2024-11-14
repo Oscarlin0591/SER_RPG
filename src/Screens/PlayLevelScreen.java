@@ -146,6 +146,15 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("battleLost", false);
         flagManager.addFlag("battlePanel",false);
 
+        // heal flag
+        flagManager.addFlag("healPanel",false);
+
+        // date flag
+        flagManager.addFlag("dateTriggered", false);
+        flagManager.addFlag("datePanel", false);
+        flagManager.addFlag("dateWon", false);
+        flagManager.addFlag("dateLost", false);
+
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
 
@@ -172,6 +181,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("atlantisTreeBroken", false);
         flagManager.addFlag("treePocketed", false);
         flagManager.addFlag("treeReplanted", false);
+        flagManager.addFlag("krampusQuestComplete",false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -442,6 +452,11 @@ public class PlayLevelScreen extends Screen {
             refreshBattle();
             // date();
             map.getFlagManager().unsetFlag("battlePanel");
+        }
+
+        if (map.getFlagManager().isFlagSet("dateTriggered")) {
+            date();
+            map.getFlagManager().unsetFlag("dateTriggered");
         }
 
         // if flag is set for being in combat PRINT DEBUG

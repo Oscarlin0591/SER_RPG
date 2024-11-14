@@ -47,7 +47,7 @@ public class ArcticTileset extends Tileset{
 
         ArcticTiles = new ArrayList<>();
 
-        for (int row = 0; row <16; row++) {
+        for (int row = 0; row <19; row++) {
             for (int col = 0; col < 16; col++) {
                 if ((index >=0 && index <74)){
                     Frame arcticFrame = new FrameBuilder(getSubImage(row, col))
@@ -146,9 +146,33 @@ public class ArcticTileset extends Tileset{
                     ArcticTiles.add(arcticTile);
                 }
 
+                if ((index >=248 && index <304)){
+                    Frame arcticFrame = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder arcticTile = new MapTileBuilder(arcticFrame)
+                    .withTileType(TileType.NOT_PASSABLE);  // Adjust tile type if needed
+                    
+
+                    ArcticTiles.add(arcticTile);
+                }
+
                 index++;
             }
         }
+
+        Frame arcticFrame = new FrameBuilder(getSubImage(16, 6))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder arcticTile = new MapTileBuilder(arcticFrame)
+                    .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                    
+
+                    ArcticTiles.set(262,arcticTile);
 
         return ArcticTiles;
     }

@@ -5,6 +5,7 @@ import Maps.ArcticMap;
 import Maps.AtlantisMap;
 import Maps.BattleMap;
 import Maps.CaveMap;
+import Maps.EndMap;
 import Maps.OceanMap;
 import Maps.ShipwreckMap;
 import Maps.StartIslandMap;
@@ -23,6 +24,7 @@ public class EditorMaps {
             add("AtlantisMap");
             add("ArcticMap");
             add("ShipwreckMap");
+            add("EndMap");
         }};
     }
 
@@ -44,6 +46,8 @@ public class EditorMaps {
                 return new ArcticMap();
             case "ShipwreckMap":
                 return new ShipwreckMap();
+            case "EndMap":
+                return new EndMap();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
