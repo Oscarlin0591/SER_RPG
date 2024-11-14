@@ -1,7 +1,9 @@
 package Maps;
 
 import Level.*;
+import NPCs.AppleTree;
 import Scripts.AtlantisMapScripts.*;
+import Scripts.StartIslandMap.AppleTreeScript;
 import Tilesets.AtlantisTileset;
 import java.util.ArrayList;
 
@@ -23,6 +25,11 @@ public class AtlantisMap extends Map {
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
+
+        AppleTree tree = new AppleTree(17, getMapTile(45,45).getLocation());
+        tree.setInteractScript(new AppleTreeScript());
+        tree.setExistenceFlag("atlantisTreeBroken");
+        npcs.add(tree);
 
         return npcs;
     }

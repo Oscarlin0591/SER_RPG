@@ -14,9 +14,6 @@ import Utils.Point;
 public class AppleTree extends NPC { 
     public AppleTree(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/appletree.png"),24, 24), "STAND_RIGHT");
-        File file = new File("appletree.png");
-        System.out.println("Exists: " + file.exists() + ", Path: " + file.getAbsolutePath());
-
     }
 
     @Override

@@ -17,7 +17,7 @@ public class GameWindow {
 	private JPanel middlePanel;
 
 	public GameWindow() {
-		gameWindow = new JFrame("Game");
+		gameWindow = new JFrame("A(u)rrrrrgh");
 
 		middlePanel = new JPanel();
 		middlePanel.setLayout(null);
