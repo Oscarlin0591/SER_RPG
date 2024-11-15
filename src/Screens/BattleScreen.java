@@ -16,14 +16,12 @@ import Game.ScreenCoordinator;
 import GameObject.Rectangle;
 import Level.Map;
 import Level.Player;
-import Maps.TitleScreenMap;
-import Players.SpeedBoatSteve;
 import Saves.ContinueState;
 import SpriteFont.SpriteFont;
 
 public class BattleScreen extends Screen{
     protected PlayLevelScreen playLevelScreen;
-    protected SpeedBoatSteve player;
+    // protected SpeedBoatSteve player;
     protected Rectangle box;
     protected Rectangle hitBox1;
     protected int xVel = 8;

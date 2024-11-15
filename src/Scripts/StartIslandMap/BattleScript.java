@@ -76,7 +76,7 @@ public class BattleScript extends Script {
 
                 addScriptAction(new TextboxScriptAction(){{
                     addText("You defeated the enemy!");
-                    addText("You earned:\n3 doubloons and a mysterious scroll.");
+                    // addText("You earned:\n3 doubloons and a mysterious scroll.");
                 }});
 
                 addScriptAction(new ScriptAction() {

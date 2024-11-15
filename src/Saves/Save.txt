@@ -1,7 +1,7 @@
-2226
-2183
-atlantis_map.txt
-15
+392
+76
+Date_map.txt
+10
 4
-false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false
-playerRoided, toggleArctic, atlantisTreeBroken, jvSpokenTo, combatTriggered, exitIsland, startIslandPotion, beetleKilled, krakenEnemy, toggleAtlantis, toggleShipwreck, battleWon, treeBroken, oceanPotion, beetleEnemy, talkedToKrampus, battlePanel, dateTriggered, exitAtlantis, talkedToYeti, battleLost, shrekEnemy, hasLostBall, bugEnemy, attackDodged, exitShipwreck, hasFoundBall, interactPortal, hasTalkedToWalrus2, toggleIsland, krampusEnemy, exitArctic, hasTalkedToWalrus1, krakenKilled, hasTalkedToDinosaur, jdvdialogue, toggleCave, yetiEnemy, gameOver, jvEnemy, krampusQuest, jvBeaten, witchSpokenTo, treePocketed, battleWonText, treeReplanted, exitCave
+false, false, false, false, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, true, false, false, false, false, false, false, false, false, false, true, false, false, false, false
+playerRoided, toggleArctic, atlantisTreeBroken, exitIsland, blueWitchDate, startIslandPotion, beetleKilled, dateWon, krakenEnemy, toggleShipwreck, treeBroken, oceanPotion, beetleEnemy, dateTriggered, battleLost, hasLostBall, attackDodged, exitShipwreck, hasFoundBall, interactPortal, hasTalkedToWalrus2, toggleIsland, dateLost, beetleQuestComplete, exitArctic, hasTalkedToWalrus1, jdvdialogue, toggleCave, yetiEnemy, neptuneQuestComplete, jvEnemy, krampusKilled, witchSpokenTo, datePanel, treeReplanted, exitCave, healPanel, jvSpokenTo, combatTriggered, toggleAtlantis, battleWon, talkedToKrampus, battlePanel, exitAtlantis, talkedToYeti, shrekEnemy, bugEnemy, krampusEnemy, krakenKilled, hasTalkedToDinosaur, gameOver, krampusQuest, jvBeaten, treePocketed, battleWonText, krampusQuestComplete
