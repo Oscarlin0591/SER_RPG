@@ -171,6 +171,13 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("atlantisTreeBroken", false);
         flagManager.addFlag("treePocketed", false);
         flagManager.addFlag("treeReplanted", false);
+        flagManager.addFlag("goodShipEncountered", false);
+        flagManager.addFlag("badShipEncountered", false);
+        flagManager.addFlag("goodShipInformed", false);
+        flagManager.addFlag("goodShipMoved", false);
+        flagManager.addFlag("badShipUltimatum", false);
+        flagManager.addFlag("goodShipPloy", false);
+        flagManager.addFlag("shipDiscussion", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);

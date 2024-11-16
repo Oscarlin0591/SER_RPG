@@ -11,7 +11,9 @@ import Scripts.ShipwreckScripts.KrakenScript;
 import Scripts.ShipwreckScripts.ShipwreckScript;
 import Scripts.OceanMapScripts.ArcticScript;
 import Scripts.OceanMapScripts.AtlantisScript;
+import Scripts.OceanMapScripts.BadShipOfTheseusScript;
 import Scripts.OceanMapScripts.CaveScript;
+import Scripts.OceanMapScripts.GoodShipOfTheseusScript;
 import Scripts.OceanMapScripts.IslandScript;
 import Scripts.StartIslandMap.*;
 import Tilesets.MasterTileset;
@@ -22,7 +24,9 @@ import Screens.PlayLevelScreen;
 
 // Represents a test map to be used in a level
 public class OceanMap extends Map {
-
+    protected int goodShipXPosition;
+    protected int goodShipYPosition;
+    
     public OceanMap() {
         super("game_map.txt", new MasterTileset());
         this.playerStartPosition = getMapTile(13, 6).getLocation();
@@ -56,12 +60,6 @@ public class OceanMap extends Map {
         PirateShip pirateShip1 = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png");
         // pirateShip1.setInteractScript(new PirateScript1());
         npcs.add(pirateShip1);
-
-        //if kraken not killed, add it to npcs
-        /*Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1, -1, -1);
-        kraken.setExistenceFlag("krakenKilled");
-        kraken.setInteractScript(new KrakenScript());
-        npcs.add(kraken);*/
         
         Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
         cave.setInteractScript(new CaveScript());
@@ -79,6 +77,25 @@ public class OceanMap extends Map {
         BluePotion bluePotion = new BluePotion(11,getMapTile(1,5).getLocation());
         bluePotion.setInteractScript(new SuperPotionScript());
         npcs.add(bluePotion);
+
+        //determine position of good ship based on quest progression
+        if (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
+            this.goodShipXPosition = 6;
+            this.goodShipYPosition = 35;
+        } else if (PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
+            this.goodShipYPosition = 33;
+        } else {
+            this.goodShipXPosition = 39;
+            this.goodShipYPosition = 8;
+        }
+
+        ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), "LEFT");
+        goodShipOfTheseus.setInteractScript(new GoodShipOfTheseusScript());
+        npcs.add(goodShipOfTheseus);
+
+        ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT");
+        badShipOfTheseus.setInteractScript(new BadShipOfTheseusScript());
+        npcs.add(badShipOfTheseus);
 
         return npcs;
     }

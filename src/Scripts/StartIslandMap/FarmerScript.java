@@ -119,7 +119,7 @@ public class FarmerScript extends Script {
                                         
                                         addScriptAction(new TextboxScriptAction() {{
                                             addText("You, le pirate...");
-                                            addText("Le fixed me tree ;')");
+                                            addText("le fixed me tree ;')");
                                         }});
                                     }});
                                 }});
