@@ -26,6 +26,8 @@ import Screens.PlayLevelScreen;
 public class OceanMap extends Map {
     protected int goodShipXPosition;
     protected int goodShipYPosition;
+    protected String goodShipAnimation;
+    protected String badShipExistenceFlag;
     
     public OceanMap() {
         super("game_map.txt", new MasterTileset());
@@ -78,23 +80,33 @@ public class OceanMap extends Map {
         bluePotion.setInteractScript(new SuperPotionScript());
         npcs.add(bluePotion);
 
-        //determine position of good ship based on quest progression
+        //determine various ship of theseus quest variable values based on quest progression
+        this.goodShipAnimation = "LEFT";
+        this.badShipExistenceFlag = "";
+
         if (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
             this.goodShipXPosition = 6;
             this.goodShipYPosition = 35;
-        } else if (PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
+        } else if (PlayLevelScreen.flagManager.isFlagSet("goodShipPloy") && !PlayLevelScreen.flagManager.isFlagSet("shipDiscussion")) {
+            this.goodShipXPosition = 6;
             this.goodShipYPosition = 33;
+        } else if (PlayLevelScreen.flagManager.isFlagSet("shipDiscussion")) {
+            this.goodShipXPosition = 6;
+            this.goodShipYPosition = 31;
+            this.goodShipAnimation = "RIGHT";
+            this.badShipExistenceFlag = "shipDiscussion";
         } else {
             this.goodShipXPosition = 39;
             this.goodShipYPosition = 8;
         }
 
-        ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), "LEFT");
+        ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), this.goodShipAnimation);
         goodShipOfTheseus.setInteractScript(new GoodShipOfTheseusScript());
         npcs.add(goodShipOfTheseus);
 
         ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT");
         badShipOfTheseus.setInteractScript(new BadShipOfTheseusScript());
+        badShipOfTheseus.setExistenceFlag(this.badShipExistenceFlag);
         npcs.add(badShipOfTheseus);
 
         return npcs;

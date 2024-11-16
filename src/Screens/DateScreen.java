@@ -3,45 +3,37 @@ package Screens;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
-import Engine.GameWindow;
-import Engine.GraphicsHandler;
-import Engine.ImageLoader;
-import Engine.Key;
-import Engine.KeyLocker;
-import Engine.Keyboard;
-import Engine.Screen;
-import Engine.ScreenManager;
+import Engine.*;
 import Game.GameState;
 import Game.ScreenCoordinator;
 import GameObject.Rectangle;
 import Level.Map;
+import Level.NPC;
 import Level.Player;
 import Saves.ContinueState;
 import SpriteFont.SpriteFont;
 
-public class BattleScreen extends Screen{
+public class DateScreen extends Screen{
     protected PlayLevelScreen playLevelScreen;
-    // protected SpeedBoatSteve player;
     protected Rectangle box;
     protected Rectangle hitBox1;
     protected int xVel = 8;
     protected int yVel = 0;
-    protected int keyPressTimer = 0;
     protected float count;
     protected boolean battleFinished;
-    protected SpriteFont battleLabel; 
+    protected SpriteFont dateLabel; 
     protected KeyLocker keyLocker = new KeyLocker();
     
     private HitBox[] hitboxes;
 
-    public BattleScreen(PlayLevelScreen playLevelScreen) {
+    public DateScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
         box = new Rectangle(0, GameWindow.gamePanel.getHeight()/2, 10, 120);
         box.setColor(Color.lightGray);
         box.setBorderColor(Color.black);
         box.setBorderThickness(2);
 
-        battleLabel = new SpriteFont("Press \"SPACE\" and hit the boxes!", ScreenManager.getScreenWidth()/2, 50, "Lucida Calligraphy", 48, Color.black);
+        dateLabel = new SpriteFont("Charm your partner!", 150, 50, "Lucida Calligraphy", 30, Color.BLACK);
 
         hitBox1 = new HitBox();
         hitboxes = new HitBox[8];
@@ -74,7 +66,6 @@ public class BattleScreen extends Screen{
 
             for (HitBox hitbox : hitboxes) {
                 if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
-                // && keyPressTimer == 0) {
                     if (box.intersects(hitbox) && !hitbox.isBoxHit()) {
                         hitbox.boxHit();
                         countBox();
@@ -93,7 +84,7 @@ public class BattleScreen extends Screen{
     }
 
     public float returnMultiplier() {
-        return count;
+        return count*20;
     }
 
     public boolean battleFinished() {
@@ -101,13 +92,13 @@ public class BattleScreen extends Screen{
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(ImageLoader.load("background.png"), 0, 0, 1440, 1080);
+        graphicsHandler.drawImage(ImageLoader.load("datescreen.png"), 0, 0, 1440, 1080);
         // player.draw(graphicsHandler);
         for (HitBox hitbox : hitboxes) {
             hitbox.draw(graphicsHandler);
         }
         box.draw(graphicsHandler);
-        battleLabel.draw(graphicsHandler);
+        dateLabel.draw(graphicsHandler);
     }
     private class HitBox extends Rectangle {
 
@@ -115,14 +106,14 @@ public class BattleScreen extends Screen{
 
         public HitBox() {
             super((float) (Math.random()*GameWindow.gamePanel.getWidth())-25, (GameWindow.gamePanel.getHeight()/2)-10, 40, 150);
-            this.setColor(new Color(255, 0, 0, 255));
+            this.setColor(Color.BLUE);
             this.setBorderColor(Color.black);
             this.setBorderThickness(2);
         }
 
         public void boxHit() {
             isHit = true;
-            this.setColor(Color.GREEN);
+            this.setColor(Color.PINK);
         }
 
         public boolean isBoxHit() {
@@ -131,4 +122,5 @@ public class BattleScreen extends Screen{
     
     }
 }
+
 

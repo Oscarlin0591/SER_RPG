@@ -57,7 +57,7 @@ public class BadShipOfTheseusScript extends Script {
                     addRequirement(new CustomRequirement() {
                         @Override
                         public boolean isRequirementMet() {
-                            return PlayLevelScreen.getMap().getFlagManager().isFlagSet("goodShipMoved");
+                            return (PlayLevelScreen.getMap().getFlagManager().isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum"));
                         }
                     });
 
@@ -102,36 +102,60 @@ public class BadShipOfTheseusScript extends Script {
                                 addText("Get sailin'");
                             }});
                         }});
+                    }});
+                }});
+
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
+                    addRequirement(new CustomRequirement() {
+                        @Override
+                        public boolean isRequirementMet() {
+                            return PlayLevelScreen.flagManager.isFlagSet("goodShipPloy");
+                        }
+                    });
+
+                    addScriptAction(new TextboxScriptAction(){{
+                        addText("...");
+                        addText("May be a silly question... but humor me.");
+                        addText("You're a ship too, ain't yeh?", new String[] {"Yes, I am a ship.", "No, I'm a captain of a ship."});
+                    }});
+
+                    scriptActions.add(new ConditionalScriptAction(){{
+                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
+                            addRequirement(new CustomRequirement() {
+                                @Override
+                                public boolean isRequirementMet() {
+                                    int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                    return answer == 0;
+                                }
+                            });
+
+                            addScriptAction(new TextboxScriptAction(){{
+                                addText("Aye, I sensed that might be the case.");
+                                addText("What... are we? Why were we born?");
+                                addText("I think I was many people, once.");
+                                addText("What am I now?", new String[] {"The Ship of Theseus."});
+                                addText("Don't hate the sound of that.");
+                            }});
+                        }});
 
                         addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
                             addRequirement(new CustomRequirement() {
                                 @Override
                                 public boolean isRequirementMet() {
-                                    return PlayLevelScreen.flagManager.isFlagSet("shipDiscussion");
+                                    int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                    return answer == 1;
                                 }
                             });
 
                             addScriptAction(new TextboxScriptAction(){{
-                                addText("...");
-                                addText("This may be a silly question... but humor me.");
-                                addText("You're a ship too, ain't yeh?", new String[] {"Yes, I am a ship.", "No, I'm a captain."});
-                            }});
-
-                            scriptActions.add(new ConditionalScriptAction(){{
-                                addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
-                                    addRequirement(new CustomRequirement() {
-                                        @Override
-                                        public boolean isRequirementMet() {
-                                            int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                                            return answer == 0;
-                                        }
-                                    });
-
-                                    
-                                }});
+                                addText("T'would seem I'm more alone in this world than I'd thought.");
+                                addText("Whatever you are, and whatever I am...");
+                                addText("Ach, forget it. A strange mood's come over me.");
                             }});
                         }});
                     }});
+
+                    addScriptAction(new ChangeFlagScriptAction("shipDiscussion", true));
                 }});
             }});
         }});

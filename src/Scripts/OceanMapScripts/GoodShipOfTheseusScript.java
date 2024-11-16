@@ -51,7 +51,8 @@ public class GoodShipOfTheseusScript extends Script {
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
-                                return (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum"));
+                                //if goodShipMove flag tripped and ship physically moved and badShipUltimatum not yet tripped
+                                return (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && (PlayLevelScreen.getMap().getNPCById(999).getLocation().y == 1680.0) && !PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum"));
                             }
                         });
 
@@ -66,7 +67,7 @@ public class GoodShipOfTheseusScript extends Script {
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
-                                return (PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum") && !PlayLevelScreen.flagManager.isFlagSet("shipDiscussion"));
+                                return (PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum") && !PlayLevelScreen.flagManager.isFlagSet("goodShipPloy"));
                             }
                         });
 
@@ -85,18 +86,33 @@ public class GoodShipOfTheseusScript extends Script {
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
-                                return (PlayLevelScreen.flagManager.isFlagSet("shipDiscussion"));
+                                return (PlayLevelScreen.flagManager.isFlagSet("goodShipPloy") && (PlayLevelScreen.getMap().getNPCById(999).getLocation().y == 1488.0) && !PlayLevelScreen.flagManager.isFlagSet("shipDiscussion"));
                             }
                         });
 
                         addScriptAction(new TextboxScriptAction(){{
                             addText("We managed to talk it all out, believe it or not.");
-                            addText("Yer not gonna believe what happened.");
-                            addText("Almost didn't believe it myself.");
+                            addText("Big misunderstandin. Yer not gonna believe what happened.");
+                            addText("...");
                             addText("These really do be strange seas indeed.");
                         }});
+                    }});
 
-                        addScriptAction(new ChangeFlagScriptAction("goodShipPloy", true));
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                System.out.println("DEBUG2: " + PlayLevelScreen.getMap().getNPCById(666).getLocation().y);
+                                return (PlayLevelScreen.flagManager.isFlagSet("shipDiscussion") && (!PlayLevelScreen.getMap().getNPCById(666).exists()));
+                            }
+                        });
+
+                        addScriptAction(new TextboxScriptAction(){{
+                            addText("Guess he's gone.");
+                            addText("Still don't know what teh think.");
+                            addText("The ghosts of bastards are still bastards, ay?");
+                            addText("Though its still a fine ship.");
+                        }});
                     }});
 
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
