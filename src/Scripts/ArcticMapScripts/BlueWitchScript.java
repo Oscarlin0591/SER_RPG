@@ -18,6 +18,7 @@ public class BlueWitchScript extends Script{
 
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("blueWitchDated", false));
                 addRequirement(new FlagRequirement("krampusQuest", true));
 
                 addScriptAction(new TextboxScriptAction() {{
@@ -45,7 +46,7 @@ public class BlueWitchScript extends Script{
         }});
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{ 
-
+            addRequirement(new FlagRequirement("blueWitchDated", false));
             addRequirement(new FlagRequirement("krampusQuest", true));
             addRequirement(new FlagRequirement("witchSpokenTo", true));
 
@@ -54,14 +55,6 @@ public class BlueWitchScript extends Script{
                 addText("So is it a yes or a no?", new String[] {"Uhh... sure", "Give me time to think, lass."});
             }});
 
-            // // addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-            // //     addRequirement(new CustomRequirement() {
-            // //         public boolean isRequirementMet() {
-            // //             int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-            // //             return answer == 0;
-            // //         }
-            // //     });
-
                 addScriptAction(new TextboxScriptAction(){{
                     addText("Great come with me.");
                 }});
@@ -69,6 +62,22 @@ public class BlueWitchScript extends Script{
                 addScriptAction(new ChangeFlagScriptAction("dateTriggered", true));
             }});
         }});
+
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("blueWitchDated", true));
+
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("Wow...");
+                    addText("This was actually pretty fun");
+                    addText("I wouldn't mind going on a date with you again");
+                    addText("However, I gotta study more magic now, there a mage exam coming up soon");
+                    addText("Here's the wand! See ya around!");
+                }});
+
+                addScriptAction(new ChangeFlagScriptAction("krampusQuestComplete", true));
+        }});
+    }});
 
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
@@ -86,10 +95,9 @@ public class BlueWitchScript extends Script{
 
     }});
 
-        scriptActions.add(new UnlockPlayerScriptAction());
+    scriptActions.add(new UnlockPlayerScriptAction());
 
-        return scriptActions;
-    
-            }
+    return scriptActions;
+        }
         
     }

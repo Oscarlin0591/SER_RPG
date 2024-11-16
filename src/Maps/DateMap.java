@@ -16,7 +16,8 @@ import java.util.Random;
 
 public class DateMap extends Map{
     // public static boolean Date = false;
-
+public static NPC datePartner;
+public NPC defaultNPC;
 
     public DateMap() {
         super("Date_map.txt", new BattleMapTileset());
@@ -27,8 +28,16 @@ public class DateMap extends Map{
     @Override
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
-        BlueWitch blueWitch = new BlueWitch(801,getMapTile(7, 7).getLocation());
-        npcs.add(blueWitch);
+        defaultNPC = new BlueWitch(501,getMapTile(7, 7).getLocation());
+
+        datePartner = defaultNPC;
+        npcs.add(datePartner);
+
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("blueWitchDate")) {
+        datePartner = new BlueWitch(501,getMapTile(7, 7).getLocation());
+        npcs.set(0,datePartner);
+        }
+
         return npcs;
     }
 

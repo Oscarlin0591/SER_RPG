@@ -1,7 +1,7 @@
 package Scripts.StartIslandMap;
 
 import Level.*;
-import Maps.BattleMap;
+import Maps.DateMap;
 import NPCs.*;
 import NPCs.Bosses.*;
 import Screens.PlayLevelScreen;
@@ -67,6 +67,20 @@ public class DateScript extends Script {
                         PlayLevelScreen.isDating = false;
                             return ScriptState.COMPLETED;
                         }
+                });
+                addScriptAction(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        if (DateMap.datePartner == PlayLevelScreen.getMap().getNPCById(501)) {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("blueWitchDated");
+                            PlayLevelScreen.getMap().getFlagManager().unsetFlag("blueWitchDate");
+                        }
+                        // if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101)) {
+                        //     PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
+                        // }
+
+                        return ScriptState.COMPLETED;
+                    }
                 });
                 addScriptAction(new ChangeFlagScriptAction("dateWon", true));
             }});

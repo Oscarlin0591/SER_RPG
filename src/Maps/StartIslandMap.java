@@ -7,11 +7,13 @@ import NPCs.Bosses.GoldenShip;
 import NPCs.Interactable.Girl;
 import NPCs.Interactable.ExitPort;
 import NPCs.Interactable.MysteriousMan;
+import NPCs.Interactable.SkullTorch;
 import ScriptActions.ChangeFlagScriptAction;
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
 import ScriptActions.CustomRequirement;
 import ScriptActions.LockPlayerScriptAction;
+import ScriptActions.NPCStandScriptAction;
 import ScriptActions.ScriptAction;
 import ScriptActions.TextboxScriptAction;
 import ScriptActions.UnlockPlayerScriptAction;
@@ -95,6 +97,26 @@ public class StartIslandMap extends Map {
         Farmer farmer = new Farmer(18,getMapTile(22,5).getLocation());
         farmer.setInteractScript(new FarmerScript());
         npcs.add(farmer);
+
+        SkullTorch torch1 = new SkullTorch(19, getMapTile(24,18).getLocation());
+        torch1.setInteractScript(new Script() {
+            
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+
+                scriptActions.add(new NPCStandScriptAction(Direction.RIGHT));
+                scriptActions.add(new ScriptAction() {
+                   @Override
+                   public ScriptState execute() {
+                    torch1.lightTorch();
+                    return ScriptState.COMPLETED;
+                }
+                });
+                return scriptActions;
+            }
+        });
+        npcs.add(torch1);
 
         return npcs;
     }

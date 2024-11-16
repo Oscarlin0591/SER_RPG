@@ -158,10 +158,11 @@ public class PlayLevelScreen extends Screen {
         // date flag
         flagManager.addFlag("dateTriggered", false);
         flagManager.addFlag("datePanel", false);
-        flagManager.addFlag("dateWonText");
+        flagManager.addFlag("dateWonText", false);
         flagManager.addFlag("dateWon", false);
         flagManager.addFlag("dateLost", false);
         flagManager.addFlag("blueWitchDate", false);
+        flagManager.addFlag("blueWitchDated", false);
 
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
