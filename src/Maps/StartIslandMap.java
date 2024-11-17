@@ -98,26 +98,6 @@ public class StartIslandMap extends Map {
         farmer.setInteractScript(new FarmerScript());
         npcs.add(farmer);
 
-        SkullTorch torch1 = new SkullTorch(19, getMapTile(24,18).getLocation());
-        torch1.setInteractScript(new Script() {
-            
-            @Override
-            public ArrayList<ScriptAction> loadScriptActions() {
-                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
-
-                scriptActions.add(new NPCStandScriptAction(Direction.RIGHT));
-                scriptActions.add(new ScriptAction() {
-                   @Override
-                   public ScriptState execute() {
-                    torch1.lightTorch();
-                    return ScriptState.COMPLETED;
-                }
-                });
-                return scriptActions;
-            }
-        });
-        npcs.add(torch1);
-
         return npcs;
     }
 

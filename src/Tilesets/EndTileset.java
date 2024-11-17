@@ -80,7 +80,8 @@ public class EndTileset extends Tileset{
         static Frame endWater;
     
         public EndTileset2() {
-            super(ImageLoader.load("TilesetPNGs/IslandTileset2.png"), 16, 16, 3);
+            super(ImageLoader.load("TilesetPNGs/IslandTileset2.png"), 16, 16, 2);
+            
         }
     
         @Override
