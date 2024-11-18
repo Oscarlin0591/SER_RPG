@@ -8,6 +8,7 @@ import NPCs.Interactable.Girl;
 import NPCs.Interactable.ExitPort;
 import NPCs.Interactable.MysteriousMan;
 import NPCs.Interactable.SkullTorch;
+import Screens.PlayLevelScreen;
 import ScriptActions.ChangeFlagScriptAction;
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
@@ -88,6 +89,9 @@ public class StartIslandMap extends Map {
  //       ExitPort port = new ExitPort(800, getMapTile(4, 27).getLocation(), "startingIslandPort.png");
  //       port.setIsUncollidable(true);
  //       npcs.add(port);
+
+        if (PlayLevelScreen.flagManager.isFlagSet("treeHaunted"))
+            PlayLevelScreen.flagManager.setFlag("reunitedAtLast");
 
         AppleTree tree = new AppleTree(17, getMapTile(19,7).getLocation());
         tree.setInteractScript(new AppleTreeScript());

@@ -201,6 +201,13 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("krampusQuestComplete",false);
         flagManager.addFlag("beetleQuestComplete",false);
         flagManager.addFlag("neptuneQuestComplete", false);
+        flagManager.addFlag("boo", false);
+        flagManager.addFlag("finishedBusiness?", false);
+        flagManager.addFlag("sonReveal", false);
+        flagManager.addFlag("appleGiven", false);
+        flagManager.addFlag("appleHaunted", false);
+        flagManager.addFlag("treeHaunted", false);
+        flagManager.addFlag("reunitedAtLast", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);

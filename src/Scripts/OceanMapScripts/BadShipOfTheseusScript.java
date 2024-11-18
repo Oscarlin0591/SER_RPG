@@ -57,7 +57,7 @@ public class BadShipOfTheseusScript extends Script {
                     addRequirement(new CustomRequirement() {
                         @Override
                         public boolean isRequirementMet() {
-                            return (PlayLevelScreen.getMap().getFlagManager().isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum"));
+                            return (PlayLevelScreen.getMap().getFlagManager().isFlagSet("goodShipMoved") && (PlayLevelScreen.getMap().getNPCById(999).getLocation().y == 1680.0) && !PlayLevelScreen.flagManager.isFlagSet("badShipUltimatum"));
                         }
                     });
 

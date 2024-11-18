@@ -23,9 +23,10 @@ public class ShipwreckMap extends Map{
 
         GhostPirate ghost = new GhostPirate(10, getMapTile(5,20).getLocation());
         ghost.setInteractScript(new GhostPirateScript());
+        ghost.setExistenceFlag("appleHaunted");
         npcs.add(ghost);
 
-        SwordGhost swordGhost = new SwordGhost(10, getMapTile(20,50).getLocation());
+        SwordGhost swordGhost = new SwordGhost(11, getMapTile(20,50).getLocation());
         swordGhost.setInteractScript(new SwordGhostScript());
         npcs.add(swordGhost);
 

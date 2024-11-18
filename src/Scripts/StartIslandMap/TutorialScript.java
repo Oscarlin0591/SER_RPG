@@ -77,7 +77,7 @@ public class TutorialScript extends Script{
                                 addScriptAction(new TextboxScriptAction() {{
                                     addText("Lets get to it then!");
                                     addText("To move around, ye can use wasd. Feel free to try it out.");
-                                    addText("Not right now though I'm talking. Don't be rude.");
+                                    addText("Not right now though, I'm talking. Don't be rude.");
                                     addText("Ye can also use e to interact, though ye may have figured that one\nout already.");
                                     addText("Interacting with certain objects is how ye can sail the seas, or\nboard an island.");
                                     addText("It's even how ye can enter combat!");

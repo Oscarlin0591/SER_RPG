@@ -166,12 +166,30 @@ public class AppleTreeScript extends Script {
                 addRequirement(new CustomRequirement() {
                     @Override
                     public boolean isRequirementMet() {
-                        return (PlayLevelScreen.flagManager.isFlagSet("treeReplanted"));
+                        return (PlayLevelScreen.flagManager.isFlagSet("treeReplanted") && !PlayLevelScreen.flagManager.isFlagSet("reunitedAtLast"));
                     }
                 });
             
                 scriptActions.add(new TextboxScriptAction() {{
                     addText("Admire the tree?", new String[] {"Yes", "Yes"});
+                }});
+            }});
+
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        return (PlayLevelScreen.flagManager.isFlagSet("reunitedAtLast"));
+                    }
+                });
+            
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("...");
+                    addText("So yer not gonna believe this, laddy...");
+                    addText("I totally haunted that apple pops had yeh give me.");
+                    addText("Didn't know it would wind up like this though.");
+                    addText("Yeh finally look spooked, heh heh. Boo!");
+                    addText("I love being a tree!");
                 }});
             }});
         }});

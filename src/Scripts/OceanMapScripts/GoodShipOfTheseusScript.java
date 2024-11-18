@@ -91,7 +91,7 @@ public class GoodShipOfTheseusScript extends Script {
                         });
 
                         addScriptAction(new TextboxScriptAction(){{
-                            addText("We managed to talk it all out, believe it or not.");
+                            addText("We actually managed to talk it all out, believe it or not.");
                             addText("Big misunderstandin. Yer not gonna believe what happened.");
                             addText("...");
                             addText("These really do be strange seas indeed.");
@@ -108,10 +108,10 @@ public class GoodShipOfTheseusScript extends Script {
                         });
 
                         addScriptAction(new TextboxScriptAction(){{
-                            addText("Guess he's gone.");
+                            addText("Guess it's gone.");
                             addText("Still don't know what teh think.");
                             addText("The ghosts of bastards are still bastards, ay?");
-                            addText("Though its still a fine ship.");
+                            addText("Still a fine ship, though...");
                         }});
                     }});
 
