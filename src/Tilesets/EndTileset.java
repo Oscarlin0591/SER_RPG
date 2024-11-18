@@ -16,7 +16,7 @@ public class EndTileset extends Tileset{
     static Frame endWater;
 
     public EndTileset() {
-        super(ImageLoader.load("TilesetPNGs/IslandTileset.png"), 16, 16, 2);
+        super(ImageLoader.load("TilesetPNGs/IslandTileset.png"), 16, 16, 3);
     }
 
     @Override
@@ -46,6 +46,27 @@ public class EndTileset extends Tileset{
                 
                 // Add tile to RPGTiles or mapTiles
                 EndTiles.add(endTile);
+
+                if (index == 0) {// Define the tile type (passable/not passable)
+                MapTileBuilder endPassTile = new MapTileBuilder(endFloor1)
+                .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                
+                // Add tile to RPGTiles or mapTiles
+                EndTiles.set(index,endPassTile);
+                }
+
+                if (index == 281 || (index >=704 && index <709)) {
+                    Frame endPassFrame = new FrameBuilder(getSubImage(row, col))
+                .withScale(tileScale)
+                .build();
+
+                // Define the tile type (passable/not passable)
+                MapTileBuilder endPassTile = new MapTileBuilder(endPassFrame)
+                .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                
+                // Add tile to RPGTiles or mapTiles
+                EndTiles.set(index,endPassTile);
+                }
 
                 if ((index >= 364 && index < 368) || (index >= (364+31) && index < (368+31)) || (index >= (364+62) && index < (368+62))) {
                 Frame endPassFrame = new FrameBuilder(getSubImage(row, col))
@@ -80,7 +101,7 @@ public class EndTileset extends Tileset{
         static Frame endWater;
     
         public EndTileset2() {
-            super(ImageLoader.load("TilesetPNGs/IslandTileset2.png"), 16, 16, 2);
+            super(ImageLoader.load("TilesetPNGs/IslandTileset2.png"), 16, 16, 3);
             
         }
     

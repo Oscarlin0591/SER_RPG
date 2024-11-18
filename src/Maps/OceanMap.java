@@ -4,18 +4,13 @@ package Maps;
 import Level.*;
 import NPCs.*;
 import NPCs.Bosses.Kraken;
-import NPCs.Interactable.Shipwreck;
+import NPCs.Islands.*;
 import Screens.PlayLevelScreen;
 import Scripts.SimpleTextScript;
-import Scripts.ShipwreckScripts.KrakenScript;
-import Scripts.ShipwreckScripts.ShipwreckScript;
-import Scripts.OceanMapScripts.ArcticScript;
-import Scripts.OceanMapScripts.AtlantisScript;
-import Scripts.OceanMapScripts.BadShipOfTheseusScript;
-import Scripts.OceanMapScripts.CaveScript;
-import Scripts.OceanMapScripts.GoodShipOfTheseusScript;
-import Scripts.OceanMapScripts.IslandScript;
+import Scripts.ShipwreckScripts.*;
+import Scripts.OceanMapScripts.*;
 import Scripts.StartIslandMap.*;
+import ScriptActions.*;
 import Tilesets.MasterTileset;
 import Utils.Point;
 
@@ -51,11 +46,11 @@ public class OceanMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Island island = new Island(2, getMapTile(13, 4).getLocation());
+        MainIsland island = new MainIsland(2, getMapTile(13, 4).getLocation());
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
-        Shipwreck shipwreck1 = new Shipwreck(5, getMapTile(5,20).getLocation(),"Shipwreck.png");
+        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(5,20).getLocation(),"Shipwreck.png");
         shipwreck1.setInteractScript(new ShipwreckScript()/*SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls...")*/);
         npcs.add(shipwreck1);
 
@@ -63,13 +58,62 @@ public class OceanMap extends Map {
         // pirateShip1.setInteractScript(new PirateScript1());
         npcs.add(pirateShip1);
         
-        Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
+        Cave cave = new Cave(4, getMapTile(2, 13).getLocation());
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
         Atlantis atlantis = new Atlantis(5, getMapTile(36, 18).getLocation());
         atlantis.setInteractScript(new AtlantisScript());
         npcs.add(atlantis);
+
+        EndIsland endIsland = new EndIsland(7, getMapTile(24,24).getLocation());
+        endIsland.setInteractScript(new Script() {
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+                scriptActions.add(new LockPlayerScriptAction());
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Enter Island?", new String[] { "Yes", "No" });
+                }});
+
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 0;
+                            }
+                        });
+
+                        addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
+                    }});
+
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 1;
+                            }
+                        });
+
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() + 10);
+                                return ScriptState.COMPLETED;
+                            }
+                        });
+                    }});
+
+                }});
+                scriptActions.add(new UnlockPlayerScriptAction());
+
+                return scriptActions;
+        }});
+        npcs.add(endIsland);
 
         RedPotion potion = new RedPotion(77, getMapTile(2,10).getLocation());
         potion.setExistenceFlag("oceanPotion");

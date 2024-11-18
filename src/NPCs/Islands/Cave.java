@@ -1,4 +1,4 @@
-package NPCs;
+package NPCs.Islands;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
@@ -12,10 +12,10 @@ import Utils.Point;
 import java.util.HashMap;
 
 // This class is for the walrus NPC
-public class Atlantis extends NPC {
+public class Cave extends NPC {
 
-    public Atlantis(int id, Point location) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Atlantis.png"), 16, 16), "STAND_RIGHT");
+    public Cave(int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CaveIsland.png"), 16, 16), "STAND_RIGHT");
     }
 
     @Override

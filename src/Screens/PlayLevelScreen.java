@@ -14,6 +14,7 @@ import MapEditor.EditorMaps;
 import Maps.*;
 import NPCs.CapJV;
 import NPCs.Interactable.BlueWitch;
+import NPCs.Islands.EndIsland;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -144,6 +145,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("exitArctic", false);
         flagManager.addFlag("toggleShipwreck", false);
         flagManager.addFlag("exitShipwreck", false);
+        flagManager.addFlag("toggleEndIsland", false);
+        flagManager.addFlag("exitEndIsland", false);
 
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
@@ -469,6 +472,16 @@ public class PlayLevelScreen extends Screen {
         if (map.getFlagManager().isFlagSet("exitShipwreck")) {
             playerLoc = getPlayer().getLocation();
             teleport(new OceanMap(), "exitShipwreck", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
+        }
+
+        if (map.getFlagManager().isFlagSet("toggleEndIsland")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new EndMap(), "toggleEndIsland", speedBoatSteve, new EndMap().getPlayerStartPosition());
+        }
+
+        if (map.getFlagManager().isFlagSet("exitEndIsland")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new OceanMap(), "exitEndIsland", speedBoat, prevLoc);
         }
 
         if (map.getFlagManager().isFlagSet("battlePanel")) {
