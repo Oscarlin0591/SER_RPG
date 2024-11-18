@@ -1,4 +1,4 @@
-package NPCs.Interactable;
+package NPCs.Islands;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
@@ -8,11 +8,14 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
 import Utils.Point;
+
 import java.util.HashMap;
 
-public class Shipwreck extends NPC{
-    public Shipwreck(int id, Point location, String imageFile) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load(imageFile), 16, 16), "STAND_RIGHT");
+// This class is for the walrus NPC
+public class EndIsland extends NPC {
+
+    public EndIsland(int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("endIsland.png"), 32, 32), "STAND_LEFT");
     }
 
     @Override
@@ -20,17 +23,10 @@ public class Shipwreck extends NPC{
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(5)
-                            .withBounds(0, 0, 16, 12)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withScale(3)
+                            .withBounds(0, 0, 18, 16)
                             .build()
             });
-            put("STAND_RIGHT", new Frame[] {
-                   new FrameBuilder(spriteSheet.getSprite(0, 0))
-                           .withScale(5)
-                           .withBounds(0, 0, 16, 12)
-                           .build()
-           });
         }};
     }
 

@@ -1,18 +1,11 @@
 package Maps;
 
-import Level.Map;
-import Level.Music;
-import Level.NPC;
-import Level.Script;
-import Level.ScriptState;
-import Level.Trigger;
-import NPCs.Bosses.*;
-import NPCs.Interactable.BlueWitch;
-import NPCs.Interactable.ExitPort;
-import NPCs.Interactable.SkullTorch;
-import ScriptActions.NPCStandScriptAction;
-import ScriptActions.ScriptAction;
 import NPCs.*;
+import NPCs.Bosses.*;
+import NPCs.Decoration.*;
+import Level.*;
+import NPCs.Interactable.*;
+import ScriptActions.*;
 // import Scripts.EndMapScripts.*;
 import Tilesets.EndTileset;
 import Utils.Direction;
@@ -23,7 +16,7 @@ public class EndMap extends Map{
 
     public EndMap() {
         super("end_map.txt", new EndTileset());
-        this.playerStartPosition = getMapTile(7, 2).getLocation();
+        this.playerStartPosition = getMapTile(11, 1).getLocation();
     }
     // @Override
     // public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -77,7 +70,7 @@ public class EndMap extends Map{
         npcs.add(torch2);
 
         SkullTorch torch3 = new SkullTorch(983, getMapTile(27,20).getLocation());
-        torch3.setLocation(torch3.getX()-18, torch3.getY());
+        torch3.setLocation(torch3.getX()+16, torch3.getY());
         torch3.setInteractScript(new Script() {
             
             @Override
@@ -97,6 +90,12 @@ public class EndMap extends Map{
         });
         npcs.add(torch3);
 
+        DeadTree1 deadTree1 = new DeadTree1(984, getMapTile(3, 32).getLocation());
+        npcs.add(deadTree1);
+
+        DeadTree2 deadTree2 = new DeadTree2(984, getMapTile(14, 15).getLocation());
+        deadTree2.stand(Direction.LEFT);
+        npcs.add(deadTree2);
 
         return npcs;
     }
@@ -104,7 +103,52 @@ public class EndMap extends Map{
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        // triggers.add(new Trigger(getMapTile(7, 3).getLocation().x, getMapTile(7, 3).getLocation().y+30, 100, 15, new EndExitScript()));
+        triggers.add(new Trigger(getMapTile(10, 0).getLocation().x, getMapTile(10, 0).getLocation().y+30, 100, 15, new Script() {
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+                scriptActions.add(new LockPlayerScriptAction());
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Exit Island?", new String[] { "Yes", "No" });
+                }});
+
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 0;
+                            }
+                        });
+
+                        addScriptAction(new ChangeFlagScriptAction("exitEndIsland", true));
+                    }});
+
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 1;
+                            }
+                        });
+
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() + 10);
+                                return ScriptState.COMPLETED;
+                            }
+                        });
+                    }});
+
+                }});
+                scriptActions.add(new UnlockPlayerScriptAction());
+
+                return scriptActions;
+        }}));
         return triggers;
     }
 
