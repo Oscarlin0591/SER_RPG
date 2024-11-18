@@ -34,8 +34,13 @@ public NPC defaultNPC;
         npcs.add(datePartner);
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("blueWitchDate")) {
-        datePartner = new BlueWitch(501,getMapTile(7, 7).getLocation());
-        npcs.set(0,datePartner);
+            datePartner = new BlueWitch(501,getMapTile(7, 7).getLocation());
+            npcs.set(0,datePartner);
+        }
+
+        if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("jvDate")) {
+            datePartner = new CapJV(502,getMapTile(7, 7).getLocation());
+            npcs.set(0,datePartner);
         }
 
         return npcs;

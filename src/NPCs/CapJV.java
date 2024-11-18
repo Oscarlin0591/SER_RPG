@@ -16,8 +16,8 @@ public class CapJV extends Enemy {
     public CapJV(int id, Point location, int health, int strength, float newCritChance, float newDodgeChance) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/captainJackVeith.png"), 14, 17), "STAND_LEFT", health, strength, newCritChance, newDodgeChance);
     }
-    public CapJV (int id) {
-        super(id, 0, 0, new SpriteSheet(ImageLoader.load("CharacterPNGs/captainJackVeith.png"),14, 17), "STAND_LEFT", -1, -1, 1, 1);
+    public CapJV (int id, Point location) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("CharacterPNGs/captainJackVeith.png"),14, 17), "STAND_LEFT", -1, -1, 1, 1);
     }
 
     @Override

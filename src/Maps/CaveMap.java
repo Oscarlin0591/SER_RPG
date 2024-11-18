@@ -2,7 +2,7 @@ package Maps;
 
 import Level.*;
 import NPCs.Bug;
-import NPCs.Island;
+// import NPCs.Island;
 import NPCs.Bosses.HolyBeetle;
 import NPCs.Interactable.Spider;
 import Scripts.SimpleTextScript;

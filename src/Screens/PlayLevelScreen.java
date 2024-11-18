@@ -187,6 +187,8 @@ public class PlayLevelScreen extends Screen {
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
+        flagManager.addFlag("jvDate", false);
+        flagManager.addFlag("jvDated", false);
         flagManager.addFlag("krampusQuest", false);
         flagManager.addFlag("witchSpokenTo",false);
         flagManager.addFlag("dateTriggered", false);

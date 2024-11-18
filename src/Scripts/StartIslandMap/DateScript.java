@@ -79,6 +79,12 @@ public class DateScript extends Script {
                         //     PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
                         // }
 
+                        if (DateMap.datePartner == PlayLevelScreen.getMap().getNPCById(502)) {
+                            PlayLevelScreen.getMap().getFlagManager().unsetFlag("jdvdialogue");
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("jvDated");
+                            PlayLevelScreen.getMap().getFlagManager().unsetFlag("jvDate");
+                        }
+
                         return ScriptState.COMPLETED;
                     }
                 });
