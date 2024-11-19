@@ -205,6 +205,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("shipDiscussion", false);
         flagManager.addFlag("krampusQuestComplete",false);
         flagManager.addFlag("beetleQuestComplete",false);
+        flagManager.addFlag("beetleBeaten",false);
         flagManager.addFlag("neptuneQuestComplete", false);
         flagManager.addFlag("boo", false);
         flagManager.addFlag("finishedBusiness?", false);

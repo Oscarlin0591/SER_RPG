@@ -326,7 +326,7 @@ public class TutorialScript extends Script{
                         addScriptAction(new TextboxScriptAction(){{
                             addText("That date was incredible!");
                             addText("Definitely the best date I've had in a long time.");
-                            addText("I love you so much lets have babies and get married the end.");
+                            addText("I love you so much lets have babies and get married the end fade to black you win the game.");
                         }});
                     }});
                 }});

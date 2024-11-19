@@ -82,12 +82,17 @@ public class BattleScript extends Script {
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801)) {
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
                             PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
-                        }
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101)) {
+                        
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101))
                             PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
-                        }
+                        
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(802))
+                            if (PlayLevelScreen.flagManager.isFlagSet("beetleQuestComplete"))
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("beetleBeaten");
+                            else
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("beetleKilled"); 
 
                         return ScriptState.COMPLETED;
                     }
