@@ -3,6 +3,7 @@ package Maps;
 import java.util.ArrayList;
 
 import Level.Map;
+import Level.Music;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.Bosses.Kraken;
@@ -44,5 +45,9 @@ public class ShipwreckMap extends Map{
 
         triggers.add(new Trigger(getMapTile(21, 0).getLocation().x, getMapTile(21, 0).getLocation().y, 15, 50, new ShipwreckExitScript()));
         return triggers;
+    }
+
+    public void loadMusic() {
+        Music.playMusic("Music/Sinking Feeling.wav");
     }
 }
