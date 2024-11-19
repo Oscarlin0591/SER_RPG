@@ -1,4 +1,4 @@
-package NPCs;
+package NPCs.Islands;
 
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
@@ -12,9 +12,9 @@ import Utils.Point;
 import java.util.HashMap;
 
 // This class is for the walrus NPC
-public class Island extends NPC {
+public class MainIsland extends NPC {
 
-    public Island(int id, Point location) {
+    public MainIsland(int id, Point location) {
         super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("Island.png"), 16, 16), "STAND_LEFT");
     }
 

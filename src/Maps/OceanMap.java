@@ -4,16 +4,13 @@ package Maps;
 import Level.*;
 import NPCs.*;
 import NPCs.Bosses.Kraken;
-import NPCs.Interactable.Shipwreck;
+import NPCs.Islands.*;
 import Screens.PlayLevelScreen;
 import Scripts.SimpleTextScript;
-import Scripts.ShipwreckScripts.KrakenScript;
-import Scripts.ShipwreckScripts.ShipwreckScript;
-import Scripts.OceanMapScripts.ArcticScript;
-import Scripts.OceanMapScripts.AtlantisScript;
-import Scripts.OceanMapScripts.CaveScript;
-import Scripts.OceanMapScripts.IslandScript;
+import Scripts.ShipwreckScripts.*;
+import Scripts.OceanMapScripts.*;
 import Scripts.StartIslandMap.*;
+import ScriptActions.*;
 import Tilesets.MasterTileset;
 import Utils.Point;
 
@@ -22,7 +19,11 @@ import Screens.PlayLevelScreen;
 
 // Represents a test map to be used in a level
 public class OceanMap extends Map {
-
+    protected int goodShipXPosition;
+    protected int goodShipYPosition;
+    protected String goodShipAnimation;
+    protected String badShipExistenceFlag;
+    
     public OceanMap() {
         super("game_map.txt", new MasterTileset());
         this.playerStartPosition = getMapTile(13, 6).getLocation();
@@ -45,31 +46,74 @@ public class OceanMap extends Map {
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        Island island = new Island(2, getMapTile(13, 4).getLocation());
+        MainIsland island = new MainIsland(2, getMapTile(13, 4).getLocation());
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
-        Shipwreck shipwreck1 = new Shipwreck(5, getMapTile(5,20).getLocation(),"Shipwreck.png");
+        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(5,20).getLocation(),"Shipwreck.png");
         shipwreck1.setInteractScript(new ShipwreckScript()/*SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls...")*/);
         npcs.add(shipwreck1);
 
         PirateShip pirateShip1 = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png");
         // pirateShip1.setInteractScript(new PirateScript1());
         npcs.add(pirateShip1);
-
-        //if kraken not killed, add it to npcs
-        /*Kraken kraken = new Kraken(3, getMapTile(20, 16).getLocation(), -1, -1, -1, -1);
-        kraken.setExistenceFlag("krakenKilled");
-        kraken.setInteractScript(new KrakenScript());
-        npcs.add(kraken);*/
         
-        Cave cave = new Cave(3, getMapTile(2, 13).getLocation());
+        Cave cave = new Cave(4, getMapTile(2, 13).getLocation());
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
         Atlantis atlantis = new Atlantis(5, getMapTile(36, 18).getLocation());
         atlantis.setInteractScript(new AtlantisScript());
         npcs.add(atlantis);
+
+        EndIsland endIsland = new EndIsland(7, getMapTile(24,24).getLocation());
+        endIsland.setInteractScript(new Script() {
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+                scriptActions.add(new LockPlayerScriptAction());
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Enter Island?", new String[] { "Yes", "No" });
+                }});
+
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 0;
+                            }
+                        });
+
+                        addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
+                    }});
+
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new CustomRequirement() {
+                            @Override
+                            public boolean isRequirementMet() {
+                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                                return answer == 1;
+                            }
+                        });
+
+                        addScriptAction(new ScriptAction() {
+                            @Override
+                            public ScriptState execute() {
+                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() + 10);
+                                return ScriptState.COMPLETED;
+                            }
+                        });
+                    }});
+
+                }});
+                scriptActions.add(new UnlockPlayerScriptAction());
+
+                return scriptActions;
+        }});
+        npcs.add(endIsland);
 
         RedPotion potion = new RedPotion(77, getMapTile(2,10).getLocation());
         potion.setExistenceFlag("oceanPotion");
@@ -79,6 +123,35 @@ public class OceanMap extends Map {
         BluePotion bluePotion = new BluePotion(11,getMapTile(1,5).getLocation());
         bluePotion.setInteractScript(new SuperPotionScript());
         npcs.add(bluePotion);
+
+        //determine various ship of theseus quest variable values based on quest progression
+        this.goodShipAnimation = "LEFT";
+        this.badShipExistenceFlag = "";
+
+        if (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
+            this.goodShipXPosition = 6;
+            this.goodShipYPosition = 35;
+        } else if (PlayLevelScreen.flagManager.isFlagSet("goodShipPloy") && !PlayLevelScreen.flagManager.isFlagSet("shipDiscussion")) {
+            this.goodShipXPosition = 6;
+            this.goodShipYPosition = 33;
+        } else if (PlayLevelScreen.flagManager.isFlagSet("shipDiscussion")) {
+            this.goodShipXPosition = 6;
+            this.goodShipYPosition = 31;
+            this.goodShipAnimation = "RIGHT";
+            this.badShipExistenceFlag = "shipDiscussion";
+        } else {
+            this.goodShipXPosition = 39;
+            this.goodShipYPosition = 8;
+        }
+
+        ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), this.goodShipAnimation);
+        goodShipOfTheseus.setInteractScript(new GoodShipOfTheseusScript());
+        npcs.add(goodShipOfTheseus);
+
+        ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT");
+        badShipOfTheseus.setInteractScript(new BadShipOfTheseusScript());
+        badShipOfTheseus.setExistenceFlag(this.badShipExistenceFlag);
+        npcs.add(badShipOfTheseus);
 
         return npcs;
     }

@@ -14,6 +14,7 @@ import MapEditor.EditorMaps;
 import Maps.*;
 import NPCs.CapJV;
 import NPCs.Interactable.BlueWitch;
+import NPCs.Islands.EndIsland;
 
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
@@ -52,6 +53,9 @@ public class PlayLevelScreen extends Screen {
     protected JPanel healthBar;
 	private int buttonHover = 0;
     private KeyLocker keyLocker = new KeyLocker();
+    public static boolean isDating = false;
+    public static int loveLevel;
+    public static int loveGoal = 300;
 
     private final Key enterKey = Key.E;
     private final Key leftKey = Key.A;
@@ -142,6 +146,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("exitArctic", false);
         flagManager.addFlag("toggleShipwreck", false);
         flagManager.addFlag("exitShipwreck", false);
+        flagManager.addFlag("toggleEndIsland", false);
+        flagManager.addFlag("exitEndIsland", false);
 
         // in combat flag (to be toggled by Enemy NPCs)
         flagManager.addFlag("combatTriggered", false);
@@ -156,9 +162,11 @@ public class PlayLevelScreen extends Screen {
         // date flag
         flagManager.addFlag("dateTriggered", false);
         flagManager.addFlag("datePanel", false);
+        flagManager.addFlag("dateWonText", false);
         flagManager.addFlag("dateWon", false);
         flagManager.addFlag("dateLost", false);
         flagManager.addFlag("blueWitchDate", false);
+        flagManager.addFlag("blueWitchDated", false);
 
         // kraken puzzle flag
         flagManager.addFlag("krakenPuzzleTriggered");
@@ -183,6 +191,8 @@ public class PlayLevelScreen extends Screen {
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
+        flagManager.addFlag("jvDate", false);
+        flagManager.addFlag("jvDated", false);
         flagManager.addFlag("krampusQuest", false);
         flagManager.addFlag("witchSpokenTo",false);
         flagManager.addFlag("dateTriggered", false);
@@ -190,9 +200,24 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("atlantisTreeBroken", false);
         flagManager.addFlag("treePocketed", false);
         flagManager.addFlag("treeReplanted", false);
+        flagManager.addFlag("goodShipEncountered", false);
+        flagManager.addFlag("badShipEncountered", false);
+        flagManager.addFlag("goodShipInformed", false);
+        flagManager.addFlag("goodShipMoved", false);
+        flagManager.addFlag("badShipUltimatum", false);
+        flagManager.addFlag("goodShipPloy", false);
+        flagManager.addFlag("shipDiscussion", false);
         flagManager.addFlag("krampusQuestComplete",false);
         flagManager.addFlag("beetleQuestComplete",false);
+        flagManager.addFlag("beetleBeaten",false);
         flagManager.addFlag("neptuneQuestComplete", false);
+        flagManager.addFlag("boo", false);
+        flagManager.addFlag("finishedBusiness?", false);
+        flagManager.addFlag("sonReveal", false);
+        flagManager.addFlag("appleGiven", false);
+        flagManager.addFlag("appleHaunted", false);
+        flagManager.addFlag("treeHaunted", false);
+        flagManager.addFlag("reunitedAtLast", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -352,11 +377,12 @@ public class PlayLevelScreen extends Screen {
         battleScreen = new BattleScreen(this);
         krakenPuzzleScreen = new KrakenPuzzleScreen(this);
         // healScreen = new HealScreen(this);
-        dateScreen = new DateScreen(this, new CapJV(1));
-        if (flagManager.isFlagSet("blueWitchDate")) {
-        dateScreen = new DateScreen(this, new BlueWitch(0, new Point(ScreenManager.getScreenWidth()/2-100, ScreenManager.getScreenHeight())));
-        // flagManager.unsetFlag("blueWitchDate");
-        }
+        dateScreen = new DateScreen(this);
+        // dateScreen = new DateScreen(this, new CapJV(1));
+        // if (flagManager.isFlagSet("blueWitchDate")) {
+        // dateScreen = new DateScreen(this, new BlueWitch(0, new Point(ScreenManager.getScreenWidth()/2-100, ScreenManager.getScreenHeight())));
+        // // flagManager.unsetFlag("blueWitchDate");
+        // }
     }
     
     public void update() {
@@ -466,6 +492,16 @@ public class PlayLevelScreen extends Screen {
             teleport(new OceanMap(), "exitShipwreck", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
         }
 
+        if (map.getFlagManager().isFlagSet("toggleEndIsland")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new EndMap(), "toggleEndIsland", speedBoatSteve, new EndMap().getPlayerStartPosition());
+        }
+
+        if (map.getFlagManager().isFlagSet("exitEndIsland")) {
+            playerLoc = getPlayer().getLocation();
+            teleport(new OceanMap(), "exitEndIsland", speedBoat, prevLoc);
+        }
+
         if (map.getFlagManager().isFlagSet("battlePanel")) {
             battle();
             refreshBattle();
@@ -473,14 +509,11 @@ public class PlayLevelScreen extends Screen {
             map.getFlagManager().unsetFlag("battlePanel");
         }
 
-        if (map.getFlagManager().isFlagSet("dateTriggered")) {
-            date();
-            map.getFlagManager().unsetFlag("dateTriggered");
-        }
 
-        if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
-            krakenPuzzle();
-            map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
+        if (map.getFlagManager().isFlagSet("datePanel")) {
+            date();
+            refreshDate();
+            map.getFlagManager().unsetFlag("datePanel");
         }
 
         // if flag is set for being in combat PRINT DEBUG
@@ -529,6 +562,52 @@ public class PlayLevelScreen extends Screen {
                     break;
             }
             player.fullHealth();
+        }
+
+        // date logic
+        if (map.getFlagManager().isFlagSet("dateTriggered")) {
+            //add logic to pull up combat menu here 
+            prevMap = getMap();
+            playerLoc = getPlayer().getLocation();
+            map = new DateMap();
+            map.setFlagManager(flagManager);
+            player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            player.setMap(map);
+            player.unlock();
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+            map.setPlayer(player);
+            map.getTextbox().setInteractKey(player.getInteractKey());
+            map.getFlagManager().unsetFlag("dateTriggered");
+            isDating = true;
+        }
+
+        if (map.getFlagManager().isFlagSet("dateWon")) {
+            switch(prevMap.getMapFileName()) {
+                case "cave_map.txt":
+                    returnToPrevMap(new CaveMap(), playerLoc, getPlayer());
+                    break;
+                case "game_map.txt":
+                    returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
+                    break;
+                case "starting_map.txt":
+                    returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
+                    break;
+                case "shipwreck_map.txt":
+                    returnToPrevMap(new ShipwreckMap(), playerLoc, getPlayer());
+                    break;
+                case "atlantis_map.txt":
+                    returnToPrevMap(new AtlantisMap(), playerLoc, getPlayer());
+                    break;
+                case "arctic_map.txt":
+                    returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
+                    break;
+                case "end_map.txt":
+                    returnToPrevMap(new EndMap(), playerLoc, getPlayer());
+                    break;
+                default:
+                    returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
+                    break;
+            }
         }
         
         if (map.getChosenMap() != null) {
@@ -637,6 +716,7 @@ public class PlayLevelScreen extends Screen {
         map.getFlagManager().unsetFlag("battleWon");
         map.getFlagManager().unsetFlag("battleWonText");
         map.getFlagManager().unsetFlag("battleLost");
+        map.getFlagManager().unsetFlag("dateWon");
         
     }
 
@@ -702,6 +782,11 @@ public class PlayLevelScreen extends Screen {
 			        graphicsHandler.drawFilledRectangleWithBorder(45, GameWindow.gamePanel.getHeight() - 100, enemyHealthPercent, 75, Color.RED, Color.LIGHT_GRAY, 2);
 			        GamePanel.enemyHealthLabel.draw(graphicsHandler);
 			    }
+
+                if (isDating) {
+                    graphicsHandler.drawFilledRectangleWithBorder(GameWindow.gamePanel.getWidth()/2-150, GameWindow.gamePanel.getHeight()-100, 300, 75, Color.LIGHT_GRAY, Color.LIGHT_GRAY, 2);
+                    graphicsHandler.drawFilledRectangleWithBorder(GameWindow.gamePanel.getWidth()/2-150, GameWindow.gamePanel.getHeight()-100, loveLevel, 75, Color.PINK, Color.LIGHT_GRAY, 2);
+                };
                 break;
             case LEVEL_COMPLETED:
                 winScreen.draw(graphicsHandler);
@@ -714,6 +799,7 @@ public class PlayLevelScreen extends Screen {
                 battleScreen.draw(graphicsHandler);
                 break;
             case DATE:
+                map.draw(player, graphicsHandler);
                 dateScreen.draw(graphicsHandler);
                 break;
             case KRAKEN_PUZZLE:
@@ -809,17 +895,17 @@ public class PlayLevelScreen extends Screen {
     public static void battle() {
         setPlayLevelScreenState(PlayLevelScreenState.BATTLE);
     }
+    
+    public void refreshBattle() {
+        battleScreen = new BattleScreen(this);
+    }
 
     public static void date() {
         setPlayLevelScreenState(PlayLevelScreenState.DATE);
     }
 
-    public static void krakenPuzzle(){
-        setPlayLevelScreenState(PlayLevelScreenState.KRAKEN_PUZZLE);
-    }
-
-    public void refreshBattle() {
-        battleScreen = new BattleScreen(this);
+    public void refreshDate() {
+        dateScreen = new DateScreen(this);
     }
 
     public static void running() {

@@ -5,68 +5,122 @@ import java.awt.image.BufferedImage;
 
 import Engine.*;
 import Game.GameState;
+import Game.ScreenCoordinator;
 import GameObject.Rectangle;
+import Level.Map;
 import Level.NPC;
 import Level.Player;
-import NPCs.Interactable.BlueWitch;
+import Saves.ContinueState;
 import SpriteFont.SpriteFont;
-import Utils.Point;
 
-public class DateScreen extends Screen {
+public class DateScreen extends Screen{
     protected PlayLevelScreen playLevelScreen;
-    protected Rectangle healthBar;
-    protected Rectangle dateBarBG;
-    protected int xVel = 5; // Example speed variable for movement
-    protected int timer = 0;
-    protected boolean dateFinished;
+    protected Rectangle box;
+    protected Rectangle hitBox1;
+    protected int xVel = 8;
+    protected int yVel = 0;
+    protected float count;
+    protected boolean battleFinished;
     protected SpriteFont dateLabel; 
     protected KeyLocker keyLocker = new KeyLocker();
-    protected NPC dateNPC;
-    // protected BlueWitch blueWitch = new NPCs.Interactable.BlueWitch(1, new Point(ScreenManager.getScreenWidth()/2-100, ScreenManager.getScreenHeight()));
+    
+    private HitBox[] hitboxes;
 
-    public DateScreen(PlayLevelScreen playLevelScreenn, NPC npc) {
+    public DateScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
-        dateFinished = false;
-        dateBarBG = new Rectangle(ScreenManager.getScreenWidth()/2-100, 400, 210, 30);
-        dateBarBG.setColor(Color.lightGray);
-        dateBarBG.setBorderThickness(2);
-        dateBarBG.setBorderColor(Color.BLACK);
-        healthBar = new Rectangle(ScreenManager.getScreenWidth()/2-100, 405, 0, 20); // Initialize health bar size and position
-        healthBar.setColor(Color.PINK); // Example color for affection or timer bar
-        healthBar.setLocation(ScreenManager.getScreenWidth()/2-100, 400);
-        dateLabel = new SpriteFont("Date Screen", 150, 50, "Comic Sans", 30, Color.BLACK);
-        dateNPC = npc;
-        dateNPC.setLocation(ScreenManager.getScreenWidth()/2, ScreenManager.getScreenHeight()/2);
+        box = new Rectangle(0, GameWindow.gamePanel.getHeight()/2, 10, 120);
+        box.setColor(Color.lightGray);
+        box.setBorderColor(Color.black);
+        box.setBorderThickness(2);
+
+        dateLabel = new SpriteFont("Charm your partner!", 150, 50, "Lucida Calligraphy", 30, Color.BLACK);
+
+        hitBox1 = new HitBox();
+        hitboxes = new HitBox[8];
+        for (int i = 0; i < hitboxes.length; i++) {
+            hitboxes[i] = new HitBox();
+            if (i > 0 && hitboxes[i].intersects(hitboxes[i-1])) {
+                hitboxes[i] = new HitBox();
+            }
+        }
+        count = 0;
+        // battleFinished = false;
+    }
+
+    public void countBox() {
+        count+=0.4;
     }
 
     @Override
     public void initialize() {
+        // background = ImageLoader.load("background.png");
+        for (int i = 0; i < hitboxes.length; i++) {
+            hitboxes[i] = new HitBox();
+        }
     }
-
-    @Override
+    
     public void update() {
-        if (!dateFinished) {
-            if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
-                keyLocker.lockKey(Key.SPACE);
-                // Example action that reduces the health bar (affection level)
-                healthBar.setWidth(healthBar.getWidth() + 20);
-                if (healthBar.getWidth() >= 200) {
-                    dateFinished = true;
-                    PlayLevelScreen.running();
-                }
+        box.update();
+        if(box.getX()+25 < GameWindow.gamePanel.getWidth()) {
+            box.moveRight(xVel);
+
+            for (HitBox hitbox : hitboxes) {
+                if (Keyboard.isKeyDown(Key.SPACE) && !keyLocker.isKeyLocked(Key.SPACE)) {
+                    if (box.intersects(hitbox) && !hitbox.isBoxHit()) {
+                        hitbox.boxHit();
+                        countBox();
+                        keyLocker.lockKey(Key.SPACE);
+                    }
+                    
+                } else if (Keyboard.isKeyUp(Key.SPACE)) {
+                    keyLocker.unlockKey(Key.SPACE);
+                    }
+
             }
-            if (Keyboard.isKeyUp(Key.SPACE)) {
-                keyLocker.unlockKey(Key.SPACE);
-            }
+        } else {
+            box.setLocation(0, box.getY());
+            PlayLevelScreen.running();
         }
     }
 
-    @Override
+    public float returnMultiplier() {
+        return count*20;
+    }
+
+    public boolean battleFinished() {
+        return battleFinished;
+    }
+
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawImage(ImageLoader.load("datescreen.jpg"),0,0,ScreenManager.getScreenWidth(),ScreenManager.getScreenHeight());
-        dateBarBG.draw(graphicsHandler);
-        healthBar.draw(graphicsHandler); // Draw health/affection bar
-        dateLabel.draw(graphicsHandler); // Display the title text
-        dateNPC.draw(graphicsHandler);
+        graphicsHandler.drawImage(ImageLoader.load("datescreen.png"), 0, 0, 1440, 1080);
+        // player.draw(graphicsHandler);
+        for (HitBox hitbox : hitboxes) {
+            hitbox.draw(graphicsHandler);
+        }
+        box.draw(graphicsHandler);
+        dateLabel.draw(graphicsHandler);
+    }
+    private class HitBox extends Rectangle {
+
+        private boolean isHit = false;
+
+        public HitBox() {
+            super((float) (Math.random()*GameWindow.gamePanel.getWidth())-25, (GameWindow.gamePanel.getHeight()/2)-10, 40, 150);
+            this.setColor(Color.BLUE);
+            this.setBorderColor(Color.black);
+            this.setBorderThickness(2);
+        }
+
+        public void boxHit() {
+            isHit = true;
+            this.setColor(Color.PINK);
+        }
+
+        public boolean isBoxHit() {
+            return isHit;
+        }
+    
     }
 }
+
+

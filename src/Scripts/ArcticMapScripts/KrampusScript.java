@@ -3,9 +3,12 @@ package Scripts.ArcticMapScripts;
 import java.util.ArrayList;
 
 import Level.Script;
+import Screens.PlayLevelScreen;
 import ScriptActions.*;
 
 public class KrampusScript extends Script{
+
+    protected boolean done = false;
 
     @Override
     public ArrayList<ScriptAction> loadScriptActions() {
@@ -16,12 +19,32 @@ public class KrampusScript extends Script{
 
         scriptActions.add(new NPCFacePlayerScriptAction());
 
-        // scriptActions.add(new ConditionalScriptAction() {{
-            
-        // }});
-
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+            addRequirement(new FlagRequirement("krampusQuestComplete", true));
+            if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krampusQuestComplete")) {
+                done = true;
+            }
+    
+            addScriptAction(new TextboxScriptAction() {{
+                addText("My wand!");
+                addText("I suppose I should return the favor since you helped me", new String[] {"Is the Nave d'Oro that dangerous for you to guard it so fiercely?"});
+                addText("The Nave d'Oro? Its not the ship but whats within...", new String[] {"What is inside?", "The King Midas corpse?"});
+                addText("The King Midas corpse...");
+                addText("That wicked king terrorized neighboring lands just so he can get more gold");
+                addText("But honestly that is not even why I keep people out", new String[] {"Why do you keep people out then?"});
+                addText("There was another young man once that sailed here in search of the Nave d'Oro");
+                addText("I let him through hoping he'd be able to destroy the ship");
+                addText("But alas! He never returned...");
+                addText("Please, destroy the ship. I wish you best of luck...");
+                }});
+            }});
+        }});
+
+        // if (!done) {
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+            addRequirement(new FlagRequirement("krampusQuestComplete", false));
             addRequirement(new FlagRequirement("talkedToKrampus", false));
 
             addScriptAction(new TextboxScriptAction() {{
@@ -38,23 +61,43 @@ public class KrampusScript extends Script{
 
         }});
 
-        scriptActions.add(new TextboxScriptAction() {{
-            addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
-        }});
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("krampusQuestComplete", false));
+                addRequirement(new FlagRequirement("krampusQuest", true));
+                
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("Well what are ye waiting for? Ye have maidens to charm!");
+                }});
+            }});
+            
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("krampusQuest", false));
+                
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
+                }});
+        //     }});
+        // }});
+
+        // scriptActions.add(new TextboxScriptAction() {{
+        //     addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
+        // }});
 
         scriptActions.add(new ConditionalScriptAction() {{
         addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+            addRequirement(new FlagRequirement("krampusQuest", false));
             addRequirement(new FlagRequirement("talkedToKrampus", true));
-
+            
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
             addRequirement(new CustomRequirement() {
                 @Override
                 public boolean isRequirementMet() {
                     int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                    System.out.println(PlayLevelScreen.getMap().getFlagManager().isFlagSet("krampusQuest"));
                     return answer == 0;
                 }
             });
-
             addScriptAction(new TextboxScriptAction() {{
                 addText("Ah, I see how ye is...");
                 addText("Always eager to defer to yer blades and guns");
@@ -66,8 +109,8 @@ public class KrampusScript extends Script{
             }});
 
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new FlagRequirement("krampusQuest", false));
                 addRequirement(new CustomRequirement() {
-    
                     @Override
                     public boolean isRequirementMet() {
                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
@@ -86,8 +129,8 @@ public class KrampusScript extends Script{
 
                 scriptActions.add(new ConditionalScriptAction() {{
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("krampusQuestComplete", false));
                         addRequirement(new CustomRequirement() {
-            
                             @Override
                             public boolean isRequirementMet() {
                                 int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
@@ -104,11 +147,11 @@ public class KrampusScript extends Script{
                             addText("Of course I get it! Both ye and the funny people looking in through the sky need to just toughen up and just talk! Ye hear?", new String[] {"Aye, I do...", "What people in the sky?"});
                             addText("Anyways. Take this magical tome and go talk with the lass! I'm sure a witch like her would fancy trinkets like this.");
                             addText("Now get a move on!");
-    
                         }});
                     }});
     
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{   
+                        addRequirement(new FlagRequirement("krampusQuestComplete", false));
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
@@ -127,15 +170,18 @@ public class KrampusScript extends Script{
                     }});
 
                 }});
-
-
                 addScriptAction(new ChangeFlagScriptAction("krampusQuest", true));
+            }});
+        }});
                 }});
         }});
     }});
+    // }
+    
 
     scriptActions.add(new UnlockPlayerScriptAction());
-        return scriptActions;
+
+    return scriptActions;
     }
     
 }
