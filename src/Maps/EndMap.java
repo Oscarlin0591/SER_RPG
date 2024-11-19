@@ -97,6 +97,27 @@ public class EndMap extends Map{
         deadTree2.stand(Direction.LEFT);
         npcs.add(deadTree2);
 
+        LichSkeleton bigSkeleton = new LichSkeleton(985, getMapTile(38, 2).getLocation());
+        npcs.add(bigSkeleton);
+
+        Rib1 rib1 = new Rib1(986,getMapTile(40,10).getLocation());
+        npcs.add(rib1);
+
+        Rib1 rib2 = new Rib1(986, getMapTile(46, 10).getLocation());
+        rib2.stand(Direction.LEFT);
+        npcs.add(rib2);
+
+        BoneTree boneTree = new BoneTree(987, getMapTile(56,14).getLocation());
+        boneTree.stand(Direction.LEFT);
+        npcs.add(boneTree);
+
+        Ruins1 ruins1 = new Ruins1(988, getMapTile(18,26).getLocation());
+        npcs.add(ruins1);
+
+        BossShrine shrine = new BossShrine(990, getMapTile(39, 35).getLocation());
+        npcs.add(shrine);
+
+
         return npcs;
     }
 
