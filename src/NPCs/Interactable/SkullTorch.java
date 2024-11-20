@@ -9,6 +9,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.NPC;
+import Screens.PlayLevelScreen;
 import Utils.Direction;
 import Utils.Point;
 
@@ -65,7 +66,8 @@ public class SkullTorch extends NPC {
         return torchLit;
     }
 
-    public void lightTorch() {
+    public void lightTorch(String flag) {
+        PlayLevelScreen.getMap().getFlagManager().setFlag(flag);
         torchLit = true;
     }
 }

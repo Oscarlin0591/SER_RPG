@@ -219,6 +219,9 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("treeHaunted", false);
         flagManager.addFlag("reunitedAtLast", false);
 
+        flagManager.addFlag("bossUnlocked",false);
+        flagManager.addFlag("finalBoss", false);
+
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
         flagManager.addFlag("oceanPotion", false);
@@ -226,6 +229,9 @@ public class PlayLevelScreen extends Screen {
         // misc flags
         flagManager.addFlag("playerRoided", false);
         flagManager.addFlag("attackDodged", false);
+        flagManager.addFlag("torch1", false);
+        flagManager.addFlag("torch2", false);
+        flagManager.addFlag("torch3", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -509,6 +515,9 @@ public class PlayLevelScreen extends Screen {
             map.getFlagManager().unsetFlag("battlePanel");
         }
 
+        if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
+            map.getFlagManager().setFlag("bossUnlocked");
+        }
 
         if (map.getFlagManager().isFlagSet("datePanel")) {
             date();

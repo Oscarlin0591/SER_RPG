@@ -6,6 +6,7 @@ import NPCs.Decoration.*;
 import Level.*;
 import NPCs.Interactable.*;
 import ScriptActions.*;
+import Scripts.EndMapScripts.ShrineScript;
 // import Scripts.EndMapScripts.*;
 import Tilesets.EndTileset;
 import Utils.Direction;
@@ -40,7 +41,7 @@ public class EndMap extends Map{
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
-                    torch1.lightTorch();
+                    torch1.lightTorch("torch1");
                     return ScriptState.COMPLETED;
                 }
                 });
@@ -60,7 +61,7 @@ public class EndMap extends Map{
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
-                    torch2.lightTorch();
+                    torch2.lightTorch("torch2");
                     return ScriptState.COMPLETED;
                 }
                 });
@@ -81,7 +82,7 @@ public class EndMap extends Map{
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
-                    torch3.lightTorch();
+                    torch3.lightTorch("torch3");
                     return ScriptState.COMPLETED;
                 }
                 });
@@ -115,6 +116,7 @@ public class EndMap extends Map{
         npcs.add(ruins1);
 
         BossShrine shrine = new BossShrine(990, getMapTile(39, 35).getLocation());
+        shrine.setInteractScript(new ShrineScript());
         npcs.add(shrine);
 
 
