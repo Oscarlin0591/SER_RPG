@@ -16,7 +16,7 @@ public class ShipwreckTileset extends Tileset{
     protected static int[] nonPassTiles;
 
     public ShipwreckTileset() {
-        super(ImageLoader.load("TilesetPNGs/Shipwreck.png"), 32,32, 1);
+        super(ImageLoader.load("TilesetPNGs/ShipwreckDark.png"), 32,32, 1);
     }
 
     @Override

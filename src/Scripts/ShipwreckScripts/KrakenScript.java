@@ -14,21 +14,44 @@ public class KrakenScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("urrrghhhh...");
-            addText("...");
-            addText("urrgghh...");
-            addText("...");
-            addText("alright lets do this");
-            addText("take these steroids first tho (PLAYER STRENGTH BOOST TO MAKE FIGHT WINNABLE)");
+            addText(".....");
+            addText("Is that your measly ship over there?", new String[] { "Combat", "Puzzle" });
         }});
 
-        //toggle player upgrade flag
-        scriptActions.add(new ChangeFlagScriptAction("playerRoided", true));
+        scriptActions.add(new ConditionalScriptAction() {{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                        return answer == 0;
+                    }
+                });
+
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("Well I think I should just pluck it out of the water and\n add it to my collection.");
+                    scriptActions.add(new ChangeFlagScriptAction("krakenEnemy", true));
+                    scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
+                }});
+            }});
+
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {
+                        int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                        return answer == 1;
+                    }
+                });
+                
+                addScriptAction(new TextboxScriptAction() {{
+                    scriptActions.add(new ChangeFlagScriptAction("krakenPuzzleTriggered", true));
+                }});
+            }});
+        }});
         
         scriptActions.add(new UnlockPlayerScriptAction());
-        //toggle combat flag
-        scriptActions.add(new ChangeFlagScriptAction("krakenEnemy", true));
-        scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
+        
 
         return scriptActions;
     }

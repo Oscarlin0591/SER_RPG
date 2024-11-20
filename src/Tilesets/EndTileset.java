@@ -74,8 +74,7 @@ public class EndTileset extends Tileset{
                 .build();
 
                 // Define the tile type (passable/not passable)
-                MapTileBuilder endPassTile = new MapTileBuilder(endFloor1)
-                .withTopLayer(endPassFrame)
+                MapTileBuilder endPassTile = new MapTileBuilder(endPassFrame)
                 .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
                 
                 // Add tile to RPGTiles or mapTiles
@@ -112,8 +111,10 @@ public class EndTileset extends Tileset{
             endWater = new FrameBuilder(getSubImage(0, 0))
             .withScale(tileScale)
             .build();
+
+            int index=0;
     
-            for (int row = 0; row < 8; row++) {
+            for (int row = 0; row < 10; row++) {
                 for (int col = 0; col < 16; col++) {
                     Frame endFrame2 = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
@@ -126,6 +127,21 @@ public class EndTileset extends Tileset{
                     
                     // Add tile to RPGTiles or mapTiles
                     EndTiles2.add(endTile2);
+
+                    if (index >=126 && index < (126+31)) {
+                        Frame endFrame = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+    
+                    // Define the tile type (passable/not passable)
+                    MapTileBuilder endTile = new MapTileBuilder(endFrame)
+                    .withTileType(TileType.PASSABLE);  // Adjust tile type if needed
+                    
+                    // Add tile to RPGTiles or mapTiles
+                    EndTiles2.set(index, endTile);
+                    }
+
+                    index++;
                 }
             }
             return EndTiles2;

@@ -48,6 +48,7 @@ public class PlayLevelScreen extends Screen {
     protected GameOverScreen gameOverScreen;
     public static BattleScreen battleScreen;
     public static DateScreen dateScreen;
+    public static KrakenPuzzleScreen krakenPuzzleScreen;
     public static FlagManager flagManager; //chaged to public static from protected
     protected JPanel healthBar;
 	private int buttonHover = 0;
@@ -167,6 +168,9 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("blueWitchDate", false);
         flagManager.addFlag("blueWitchDated", false);
 
+        // kraken puzzle flag
+        flagManager.addFlag("krakenPuzzleTriggered");
+
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
 
@@ -217,6 +221,9 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("treeHaunted", false);
         flagManager.addFlag("reunitedAtLast", false);
 
+        flagManager.addFlag("bossUnlocked",false);
+        flagManager.addFlag("finalBoss", false);
+
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
         flagManager.addFlag("oceanPotion", false);
@@ -224,6 +231,9 @@ public class PlayLevelScreen extends Screen {
         // misc flags
         flagManager.addFlag("playerRoided", false);
         flagManager.addFlag("attackDodged", false);
+        flagManager.addFlag("torch1", false);
+        flagManager.addFlag("torch2", false);
+        flagManager.addFlag("torch3", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -373,6 +383,7 @@ public class PlayLevelScreen extends Screen {
         winScreen = new WinScreen(this);
         gameOverScreen = new GameOverScreen(this);
         battleScreen = new BattleScreen(this);
+        krakenPuzzleScreen = new KrakenPuzzleScreen(this);
         // healScreen = new HealScreen(this);
         dateScreen = new DateScreen(this);
         // dateScreen = new DateScreen(this, new CapJV(1));
@@ -420,6 +431,9 @@ public class PlayLevelScreen extends Screen {
                 break;
             case DATE:
                 dateScreen.update();
+                break;
+            case KRAKEN_PUZZLE:
+                krakenPuzzleScreen.update();
                 break;
             }
 
@@ -503,6 +517,9 @@ public class PlayLevelScreen extends Screen {
             map.getFlagManager().unsetFlag("battlePanel");
         }
 
+        if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
+            map.getFlagManager().setFlag("bossUnlocked");
+        }
 
         if (map.getFlagManager().isFlagSet("datePanel")) {
             date();
@@ -796,6 +813,9 @@ public class PlayLevelScreen extends Screen {
                 map.draw(player, graphicsHandler);
                 dateScreen.draw(graphicsHandler);
                 break;
+            case KRAKEN_PUZZLE:
+                krakenPuzzleScreen.draw(graphicsHandler);
+                break;
             case PAUSED:
                 int currentHealth = Math.round(player.getHealth());
                 int currentStrength = Math.round(player.getStrength());
@@ -917,6 +937,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE
     }
 }

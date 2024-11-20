@@ -14,11 +14,12 @@ import java.util.Random;
 
 
 public class BattleMap extends Map{
-    // public static boolean battle = false;
     public static Enemy enemy;
-    // public static float enemyHealth;
-    // public static float playerHealth;
     protected boolean beetle = false;
+    protected boolean krampus = false;
+    protected boolean boss = false;
+    protected boolean kraken = false;
+    protected boolean capricorn = false;
 
     public BattleMap() {
         super("battle_map.txt", new BattleMapTileset());
@@ -69,6 +70,7 @@ public class BattleMap extends Map{
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
             enemy = new Kraken(801, getMapTile(8,12).getLocation(), 20, 6, 1, 1);
             npcs.set(0,enemy);
+            kraken = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
         }
 
@@ -88,7 +90,14 @@ public class BattleMap extends Map{
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("krampusEnemy")) {
             enemy = new Krampus(804, getMapTile(8,12).getLocation(), 150, 10, 1, 1);
             npcs.set(0,enemy);
+            krampus = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krampusEnemy");
+        }
+
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("finalBoss")) {
+            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 200, 15, 1, 1);
+            boss = true;
+            npcs.set(0, enemy);
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("badShipEnemy")) {
@@ -106,23 +115,6 @@ public class BattleMap extends Map{
     public static Enemy getEnemy() {
         return enemy;
     }
-
-    // public static void enemyHurtAnim() {
-    //     float enemyX = BattleMap.getEnemy().getX();
-    //     float enemyY = BattleMap.getEnemy().getY();
-
-    //     for (int count = 200; count > 0; count--) {
-    //         if(count%5==0) {
-    //             BattleMap.getEnemy().setLocation(enemyX-5, enemyY);
-    //             int newCount = 100;
-    //             while (newCount>0) {
-    //                 newCount--;
-    //             }
-    //             BattleMap.getEnemy().setLocation(enemyX+5, enemyY);
-    //         }
-    //     }
-    //     BattleMap.getEnemy().setLocation(enemyX, enemyY);
-    // }
 
     @Override
     public ArrayList<Trigger> loadTriggers() {
