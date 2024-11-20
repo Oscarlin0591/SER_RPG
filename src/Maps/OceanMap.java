@@ -54,9 +54,9 @@ public class OceanMap extends Map {
         shipwreck1.setInteractScript(new ShipwreckScript()/*SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls...")*/);
         npcs.add(shipwreck1);
 
-        PirateShip pirateShip1 = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png");
-        // pirateShip1.setInteractScript(new PirateScript1());
-        npcs.add(pirateShip1);
+        PirateShip pirateShip = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png", -1, -1, -1, -1);
+        pirateShip.setInteractScript(new PirateScript());
+        npcs.add(pirateShip);
         
         Cave cave = new Cave(4, getMapTile(2, 13).getLocation());
         cave.setInteractScript(new CaveScript());

@@ -183,6 +183,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("yetiEnemy", false);
         flagManager.addFlag("krampusEnemy", false);
         flagManager.addFlag("badShipEnemy", false);
+        flagManager.addFlag("pirateEnemy", false);
 
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
@@ -190,6 +191,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("beetleKilled", false);
         flagManager.addFlag("krampusKilled", false);
         flagManager.addFlag("badShipKilled", false);
+        flagManager.addFlag("pirateBeaten", false);
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);

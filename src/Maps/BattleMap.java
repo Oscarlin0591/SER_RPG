@@ -101,9 +101,15 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("badShipEnemy")) {
-            enemy = new ShipOfTheseus(805, getMapTile(8,12).getLocation(), "RIGHT", 25, 3, 1, 2);
+            enemy = new ShipOfTheseus(806, getMapTile(8,12).getLocation(), "RIGHT", 25, 3, 1, 2);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("badShipEnemy");
+        }
+
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("pirateEnemy")) {
+            enemy = new PirateShip(807, getMapTile(8,12).getLocation(), "pirateShip.png", 30, 2, 2, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("pirateEnemy");
         }
 
         //enemy.stand(Direction.RIGHT);
