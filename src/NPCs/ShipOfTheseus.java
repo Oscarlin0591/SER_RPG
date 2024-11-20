@@ -8,15 +8,16 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.NPC;
+import Level.Enemy;
 import Level.Player;
 import Screens.PlayLevelScreen;
 import Utils.Point;
 
-public class ShipOfTheseus extends NPC {
+public class ShipOfTheseus extends Enemy {
+    public static int rageCounter = 0;
     
-    public ShipOfTheseus(int id, Point location, String startAnimation) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("ShipOfTheseus.png"), 80, 60), "ShipOfTheseus_" + startAnimation);
+    public ShipOfTheseus(int id, Point location, String startAnimation, int health, int strength, int critChance, int dodgeChance) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load("ShipOfTheseus.png"), 80, 60), "ShipOfTheseus_" + startAnimation, health, strength, critChance, dodgeChance);
     }
 
     @Override

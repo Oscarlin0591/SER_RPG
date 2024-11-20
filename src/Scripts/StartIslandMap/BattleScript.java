@@ -94,9 +94,27 @@ public class BattleScript extends Script {
                             else
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleKilled"); 
 
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(805)) {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("badShipKilled");
+
+                            player.setMaxHealth(player.getMaxHealth()+5);
+                            System.out.println("Max: " + player.getMaxHealth());
+                            System.out.println("Health: " + player.getHealth());
+                        }
+
                         return ScriptState.COMPLETED;
                     }
                 });
+
+                scriptActions.add(new ConditionalScriptAction(){{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
+                        addRequirement(new FlagRequirement("badShipKilled", true));
+                    }});
+
+                    addScriptAction(new TextboxScriptAction(){{
+                        addText("As promised, my life is yours.");
+                    }});
+                }});
 
                 addScriptAction(new ChangeFlagScriptAction("battleWon", true));
 

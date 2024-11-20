@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import ScriptActions.*;
 import Level.Script;
+import Level.ScriptState;
+import NPCs.ShipOfTheseus;
 import Screens.PlayLevelScreen;
 
 public class BadShipOfTheseusScript extends Script {
@@ -100,6 +102,51 @@ public class BadShipOfTheseusScript extends Script {
                                 addText("Heh.");
                                 addText("You've got nerve, kid, I'll give ya that.");
                                 addText("Get sailin'");
+                            }});
+
+                            addScriptAction(new ScriptAction() {
+                                @Override
+                                public ScriptState execute() {
+                                    ShipOfTheseus.rageCounter++;
+                                    return ScriptState.COMPLETED;
+                                }
+                            });
+
+                            scriptActions.add(new ConditionalScriptAction(){{
+                                addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
+                                    addRequirement(new CustomRequirement() {
+                                        @Override
+                                        public boolean isRequirementMet() {
+                                            return ShipOfTheseus.rageCounter >= 3;
+                                        }
+                                    });
+
+                                    addScriptAction(new TextboxScriptAction(){{
+                                        addText("...");
+                                        addText("Yknow what, never mind.");
+                                        addText("On my life I'll sink that ship of yours.\nYou can have whats left of it if I lose, for all I care.");
+                                        addText("This is what you wanted, isn't it?");
+                                    }});
+        
+                                    scriptActions.add(new UnlockPlayerScriptAction());
+                                    
+                                    scriptActions.add(new ChangeFlagScriptAction("badShipEnemy", true));
+                                    scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
+                                }});
+
+                                addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
+                                    addRequirement(new CustomRequirement() {
+                                        @Override
+                                        public boolean isRequirementMet() {
+                                            return ShipOfTheseus.rageCounter == 2;
+                                        }
+                                    });
+
+                                    addScriptAction(new TextboxScriptAction(){{
+                                        addText("I've said it twice now.");
+                                        addText("Get. Sailin.");
+                                    }});
+                                }});
                             }});
                         }});
                     }});

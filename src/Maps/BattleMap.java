@@ -80,18 +80,24 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("yetiEnemy")) {
-            enemy = new Yeti(802, getMapTile(8,12).getLocation(), 100, 8, 1, 1);
+            enemy = new Yeti(803, getMapTile(8,12).getLocation(), 100, 8, 1, 1);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("yetiEnemy");
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("krampusEnemy")) {
-            enemy = new Krampus(802, getMapTile(8,12).getLocation(), 150, 10, 1, 1);
+            enemy = new Krampus(804, getMapTile(8,12).getLocation(), 150, 10, 1, 1);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krampusEnemy");
         }
 
-        enemy.stand(Direction.RIGHT);
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("badShipEnemy")) {
+            enemy = new ShipOfTheseus(805, getMapTile(8,12).getLocation(), "RIGHT", 25, 3, 1, 2);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("badShipEnemy");
+        }
+
+        //enemy.stand(Direction.RIGHT);
 
         return npcs;
     }
