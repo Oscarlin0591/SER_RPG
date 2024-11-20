@@ -182,6 +182,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("beetleEnemy", false);
         flagManager.addFlag("yetiEnemy", false);
         flagManager.addFlag("krampusEnemy", false);
+        flagManager.addFlag("capricornEnemy", false);
         flagManager.addFlag("badShipEnemy", false);
 
         // boss / enemy kill flags
@@ -189,6 +190,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("krakenKilled", false);
         flagManager.addFlag("beetleKilled", false);
         flagManager.addFlag("krampusKilled", false);
+        flagManager.addFlag("capricornKilled", false);
         flagManager.addFlag("badShipKilled", false);
 
         // quest / npc progression flags
@@ -212,7 +214,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("krampusQuestComplete",false);
         flagManager.addFlag("beetleQuestComplete",false);
         flagManager.addFlag("beetleBeaten",false);
-        flagManager.addFlag("neptuneQuestComplete", false);
+        flagManager.addFlag("capricornQuestComplete", false);
+        flagManager.addFlag("capricornBeaten", false);
         flagManager.addFlag("boo", false);
         flagManager.addFlag("finishedBusiness?", false);
         flagManager.addFlag("sonReveal", false);
