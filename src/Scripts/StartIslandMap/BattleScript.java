@@ -93,6 +93,12 @@ public class BattleScript extends Script {
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleBeaten");
                             else
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleKilled"); 
+                        if(BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(666)){
+                            if(PlayLevelScreen.flagManager.isFlagSet("capricornQuestComplete"));
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("capricornBeaten");
+                        } else {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("capricornKilled");
+                        }
 
                         if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(806)) {
                             PlayLevelScreen.getMap().getFlagManager().setFlag("badShipKilled");

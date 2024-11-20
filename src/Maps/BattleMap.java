@@ -94,6 +94,12 @@ public class BattleMap extends Map{
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krampusEnemy");
         }
 
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("capricornEnemy")){
+            enemy = new Capricorn(666, getMapTile(8,12).getLocation(), 150, 10, 1, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("capricornEnemy");
+        }
+
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("finalBoss")) {
             enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 200, 15, 1, 1);
             boss = true;
