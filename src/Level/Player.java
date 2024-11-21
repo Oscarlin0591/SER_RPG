@@ -321,7 +321,7 @@ public abstract class Player extends GameObject {
         return strength;
     }
 
-    public void setStrength(float newStrength) {
+    public static void setStrength(float newStrength) {
         strength = newStrength;
     }
 
@@ -364,7 +364,7 @@ public abstract class Player extends GameObject {
         System.out.println("Healed: " + (health + max_health*.4));
     }
 
-    public void setMaxHealth(float maxHealth) {
+    public static void setMaxHealth(float maxHealth) {
         max_health = maxHealth;
         setHealth(max_health);
     }

@@ -82,17 +82,18 @@ public class BattleScript extends Script {
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801))
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(801)){
                             PlayLevelScreen.getMap().getFlagManager().setFlag("krakenKilled");
-                        
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101))
+                        }
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(101)){
                             PlayLevelScreen.getMap().getFlagManager().setFlag("jvBeaten"); 
-                        
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(802))
+                        }
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(802)){
                             if (PlayLevelScreen.flagManager.isFlagSet("beetleQuestComplete"))
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleBeaten");
                             else
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleKilled"); 
+                        }
                         if(BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(666)){
                             if(PlayLevelScreen.flagManager.isFlagSet("capricornQuestComplete"));
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("capricornBeaten");
@@ -102,15 +103,19 @@ public class BattleScript extends Script {
 
                         if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(806)) {
                             PlayLevelScreen.getMap().getFlagManager().setFlag("badShipKilled");
-
                             player.setMaxHealth(player.getMaxHealth()+5);
-                            System.out.println("Max: " + player.getMaxHealth());
-                            System.out.println("Health: " + player.getHealth());
                         }
 
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(807))
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(807)) {
                             PlayLevelScreen.getMap().getFlagManager().setFlag("pirateBeaten"); 
+                        }
 
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(803)){
+                        PlayLevelScreen.getMap().getFlagManager().setFlag("yetiBeaten"); 
+                        }
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(805)){
+                            PlayLevelScreen.win();
+                            }
                         return ScriptState.COMPLETED;
                     }
                 });

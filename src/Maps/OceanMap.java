@@ -166,7 +166,7 @@ public class OceanMap extends Map {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        triggers.add(new Trigger(930, 2285, 300, 20, new ArcticScript()));
+        triggers.add(new Trigger(930, 2200, 300, 20, new ArcticScript()));
         return triggers;
     }
 
@@ -183,7 +183,7 @@ public class OceanMap extends Map {
 
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Seafaring Humdrum.wav");
+        Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 

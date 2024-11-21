@@ -28,7 +28,7 @@ public class CaveTileset extends Tileset {
             .build();
         
         int index = 0;
-        int[] nonPass = new int[]{39,40,41,42,47,48,49,50,54,55,56,57,58,81,83,85,87,89,91,131,132,142,143,155,156,166,167,178,179,190,191,214,215,222,223,230,231,234,235,238,239};
+        int[] nonPass = new int[]{39,40,41,42,47,48,49,50,54,55,56,57,58,81,83,85,87,89,91,110,131,132,142,143,155,156,166,167,178,179,190,191,214,215,222,223,230,231,234,235,238,239,-1};
         int nonPassIndex = 0;
         for (int row = 0; row < 12; row++) {
             for (int col = 0; col < 20; col++) {
@@ -43,6 +43,16 @@ public class CaveTileset extends Tileset {
                 // Add tile to RPGTiles or mapTiles
                 CaveTiles.add(caveTile);
                 
+                if ((index >= 2 && index < 20) || (index >= 26 && index < 35) || (index >=192 && index <208)) {
+                    Frame nonPassFrame = new FrameBuilder(getSubImage(row, col))
+                    .withScale(tileScale)
+                    .build();
+                    
+                    MapTileBuilder nonPassTile = new MapTileBuilder(nonPassFrame)
+                    .withTileType(TileType.NOT_PASSABLE);
+                    
+                    CaveTiles.set(index, nonPassTile);
+                }
 
                 
                 if ((index >= 35 && index < 59) || (index >= 120 && index < 192) || (index >=208 && index <=239)||(index>=80 && index <92)) {
@@ -56,7 +66,7 @@ public class CaveTileset extends Tileset {
                     
                     CaveTiles.set(index, mushroomTreeBigTopTile);
                 }
-                if (index == nonPass[nonPassIndex]) {
+                if (index == nonPass[nonPassIndex] && nonPassIndex < nonPass.length - 1) {
                     Frame nonPassFrame = new FrameBuilder(getSubImage(row, col))
                     .withScale(tileScale)
                     .build();
@@ -78,7 +88,6 @@ public class CaveTileset extends Tileset {
                     .withTileType(TileType.NOT_PASSABLE);
                     
                     CaveTiles.set(index, nonPassTile);
-                    nonPassIndex++;
                 }
                 index++;
             }
