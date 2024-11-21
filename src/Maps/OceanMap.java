@@ -73,12 +73,25 @@ public class OceanMap extends Map {
                 ArrayList<ScriptAction> scriptActions = new ArrayList<>();
                 scriptActions.add(new LockPlayerScriptAction());
 
-                scriptActions.add(new TextboxScriptAction() {{
-                    addText("Enter Island?", new String[] { "Yes", "No" });
-                }});
-
                 scriptActions.add(new ConditionalScriptAction() {{
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("endIslandUnlocked", false));
+
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("There is a magical barrier preventing you from entering...");
+                        }});
+                    }});
+                
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("endIslandUnlocked", true));
+
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("Enter Island?", new String[] { "Yes", "No" });
+                        }});
+                        
+                    }});
+                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("endIslandUnlocked", true));
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
@@ -86,10 +99,10 @@ public class OceanMap extends Map {
                                 return answer == 0;
                             }
                         });
-
+    
                         addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
                     }});
-
+    
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                         addRequirement(new CustomRequirement() {
                             @Override
@@ -98,7 +111,7 @@ public class OceanMap extends Map {
                                 return answer == 1;
                             }
                         });
-
+    
                         addScriptAction(new ScriptAction() {
                             @Override
                             public ScriptState execute() {
@@ -107,8 +120,7 @@ public class OceanMap extends Map {
                             }
                         });
                     }});
-
-                }});
+            }});
                 scriptActions.add(new UnlockPlayerScriptAction());
 
                 return scriptActions;

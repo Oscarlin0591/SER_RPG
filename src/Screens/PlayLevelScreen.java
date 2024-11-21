@@ -236,6 +236,7 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("treeHaunted", false);
             flagManager.addFlag("reunitedAtLast", false);
             flagManager.addFlag("krakenQuestCompleted", false);
+            flagManager.addFlag("endIslandUnlocked", false);
 
             flagManager.addFlag("bossUnlocked",false);
             flagManager.addFlag("finalBoss", false);
@@ -667,6 +668,10 @@ public class PlayLevelScreen extends Screen {
             } else {
                 // neutral ending
                 getMap().getFlagManager().setFlag("neutralEnding");
+            }
+
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted")) && (flagManager.isFlagSet("neptuneKilled")|| flagManager.isFlagSet("neptuneQuestCompleted"))) {
+                getMap().getFlagManager().setFlag("endIslandUnlocked");
             }
         }
         
