@@ -6,6 +6,7 @@ import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import GameObject.Frame;
+import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Enemy;
 import Utils.Point;
@@ -21,10 +22,16 @@ public class GoldenShip extends Enemy{
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
             put("STAND_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2/1)
-                            .build(),
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                    .withScale(2/1)
+                    .build()
            });
+           put("STAND_RIGHT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSprite(0, 0))
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                    .withScale(2/1)
+                    .build()
+            });
         }};
     }
 

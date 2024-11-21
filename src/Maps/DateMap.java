@@ -13,6 +13,8 @@ import Utils.Direction;
 import java.util.ArrayList;
 import java.util.Random;
 
+import Engine.GameWindow;
+
 
 public class DateMap extends Map{
     // public static boolean Date = false;
@@ -49,7 +51,7 @@ public NPC defaultNPC;
     @Override
     public ArrayList<Trigger> loadTriggers() {
         ArrayList<Trigger> triggers = new ArrayList<>();
-        triggers.add(new Trigger(getMapTile(0,0).getLocation().x, getMapTile(0,0).getLocation().y, 400, 300, new DateScript(), "DateWon"));
+        triggers.add(new Trigger(getMapTile(0,0).getLocation().x, getMapTile(0,0).getLocation().y, 1000, 1000, new DateScript(), "DateWon"));
         return triggers;
     }
 

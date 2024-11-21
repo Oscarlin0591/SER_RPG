@@ -37,7 +37,6 @@ public class CaveMap extends Map {
         HolyBeetle beetleBoss = new HolyBeetle(5, getMapTile(40,11).getLocation(), 50, 5, 1, 1);
         beetleBoss.setExistenceFlag("beetleKilled");
         beetleBoss.setInteractScript(new BossBeetleScript());
-        // beetleBoss.setIsHidden(true);
         npcs.add(beetleBoss);
 
         Spider spider = new Spider(6, getMapTile(30,10).getLocation());

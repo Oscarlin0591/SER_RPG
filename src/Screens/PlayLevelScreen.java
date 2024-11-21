@@ -185,11 +185,18 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("yetiEnemy", false);
         flagManager.addFlag("krampusEnemy", false);
         flagManager.addFlag("cannibalEnemy", false);
+        flagManager.addFlag("capricornEnemy", false);
+        flagManager.addFlag("badShipEnemy", false);
+        flagManager.addFlag("pirateEnemy", false);
+
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
         flagManager.addFlag("beetleKilled", false);
         flagManager.addFlag("krampusKilled", false);
+        flagManager.addFlag("capricornKilled", false);
+        flagManager.addFlag("badShipKilled", false);
+        flagManager.addFlag("pirateBeaten", false);
 
         // quest / npc progression flags
         flagManager.addFlag("jvSpokenTo", false);
@@ -212,7 +219,8 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("krampusQuestComplete",false);
         flagManager.addFlag("beetleQuestComplete",false);
         flagManager.addFlag("beetleBeaten",false);
-        flagManager.addFlag("neptuneQuestComplete", false);
+        flagManager.addFlag("capricornQuestComplete", false);
+        flagManager.addFlag("capricornBeaten", false);
         flagManager.addFlag("boo", false);
         flagManager.addFlag("finishedBusiness?", false);
         flagManager.addFlag("sonReveal", false);
@@ -222,6 +230,9 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("reunitedAtLast", false);
         flagManager.addFlag("krakenQuestCompleted", false);
 
+        flagManager.addFlag("bossUnlocked",false);
+        flagManager.addFlag("finalBoss", false);
+
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
         flagManager.addFlag("oceanPotion", false);
@@ -229,6 +240,9 @@ public class PlayLevelScreen extends Screen {
         // misc flags
         flagManager.addFlag("playerRoided", false);
         flagManager.addFlag("attackDodged", false);
+        flagManager.addFlag("torch1", false);
+        flagManager.addFlag("torch2", false);
+        flagManager.addFlag("torch3", false);
 
         // define/setup map - may need to replicate for all maps
         int playerContX = 0;
@@ -517,6 +531,10 @@ public class PlayLevelScreen extends Screen {
             map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
         }
         
+        if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
+            map.getFlagManager().setFlag("bossUnlocked");
+        }
+
         if (map.getFlagManager().isFlagSet("datePanel")) {
             date();
             refreshDate();

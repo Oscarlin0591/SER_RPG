@@ -6,6 +6,7 @@ import NPCs.Decoration.*;
 import Level.*;
 import NPCs.Interactable.*;
 import ScriptActions.*;
+import Scripts.EndMapScripts.ShrineScript;
 // import Scripts.EndMapScripts.*;
 import Tilesets.EndTileset;
 import Utils.Direction;
@@ -40,7 +41,7 @@ public class EndMap extends Map{
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
-                    torch1.lightTorch();
+                    torch1.lightTorch("torch1");
                     return ScriptState.COMPLETED;
                 }
                 });
@@ -60,7 +61,7 @@ public class EndMap extends Map{
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
-                    torch2.lightTorch();
+                    torch2.lightTorch("torch2");
                     return ScriptState.COMPLETED;
                 }
                 });
@@ -81,7 +82,7 @@ public class EndMap extends Map{
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
-                    torch3.lightTorch();
+                    torch3.lightTorch("torch3");
                     return ScriptState.COMPLETED;
                 }
                 });
@@ -96,6 +97,28 @@ public class EndMap extends Map{
         DeadTree2 deadTree2 = new DeadTree2(984, getMapTile(14, 15).getLocation());
         deadTree2.stand(Direction.LEFT);
         npcs.add(deadTree2);
+
+        LichSkeleton bigSkeleton = new LichSkeleton(985, getMapTile(38, 2).getLocation());
+        npcs.add(bigSkeleton);
+
+        Rib1 rib1 = new Rib1(986,getMapTile(40,10).getLocation());
+        npcs.add(rib1);
+
+        Rib1 rib2 = new Rib1(986, getMapTile(46, 10).getLocation());
+        rib2.stand(Direction.LEFT);
+        npcs.add(rib2);
+
+        BoneTree boneTree = new BoneTree(987, getMapTile(56,14).getLocation());
+        boneTree.stand(Direction.LEFT);
+        npcs.add(boneTree);
+
+        Ruins1 ruins1 = new Ruins1(988, getMapTile(18,26).getLocation());
+        npcs.add(ruins1);
+
+        BossShrine shrine = new BossShrine(990, getMapTile(39, 35).getLocation());
+        shrine.setInteractScript(new ShrineScript());
+        npcs.add(shrine);
+
 
         return npcs;
     }

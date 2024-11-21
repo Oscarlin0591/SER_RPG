@@ -23,7 +23,7 @@ public class CapricornScript extends Script{
             addText("What bring ye down 'ere to atlantis \n I apologize but it be not what it once been", new String[] {"I need ye to remove the barrier"});
             addText("Ah the barrier ye say, I could do suc a thing", new String[] {"Ye could?", "screw this fight me"});
         }});
-            //ye could reponse 
+
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                 addRequirement(new CustomRequirement() {
@@ -33,6 +33,7 @@ public class CapricornScript extends Script{
                         return answer == 0;
                     }
                 });
+
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("Yes I can");
@@ -42,8 +43,33 @@ public class CapricornScript extends Script{
                     addText("Well ye would have to do something for me though \n all I need ye to do is 'elp me get my pic tures of the stars \nback into order");
                     addText("they go all mixed up at somepoint an' I can't really seem to fix it \nThe waves tend to mess up the clarity of the night sky", new String[]{"Aye I can", "No prepare to die"});
                 }});
-            }});
-            //aye I can reponse 
+
+                //Screw this fight me response
+             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addRequirement(new CustomRequirement() {
+                    @Override
+                    public boolean isRequirementMet() {                       
+                         int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                         return answer == 1;
+                    }
+                });
+                   
+                addScriptAction(new TextboxScriptAction() {{
+                    addText("Alright then, be prepared");
+                    addText("I won't go down easily...");
+                }});
+                   
+                    addScriptAction(new UnlockPlayerScriptAction());
+    
+    
+                    addScriptAction(new ChangeFlagScriptAction("capricornEnemy", true));
+                    addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
+                }});
+            
+           
+                
+
+            //aye I can reponse
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                 addRequirement(new CustomRequirement() {
@@ -54,62 +80,49 @@ public class CapricornScript extends Script{
                     }
                 });
 
+
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("Ah perfect thank you so much");
+                    addText("Ah perfect thank ye so much");
                     addText("I'll show them to you and you give me their name");
                     addText("Now truth be told I figured all but 5 of them out \nThe ones still mized up are: \nAries, Taurus, Leo, Cancer, and Capricorn");
-                    
+                   
                 }});
+                //mini game code starts here
 
-                addScriptAction(new UnlockPlayerScriptAction());               
-            }});
 
-            //nay fight response 
-            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                        return answer == 1;
-                    }
-                });
+
+
                 
-                addScriptAction(new TextboxScriptAction() {{
-                    addText("Alright then, be prepared");
-                    addText("I won't go down easily...");
+                //no prepare to die reponse 
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new CustomRequirement() {
+                        @Override
+                        public boolean isRequirementMet() {
+                            int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
+                            return answer == 1;
+                        }
+                    });
+                   
+                    addScriptAction(new TextboxScriptAction() {{
+                        addText("Alright then, be prepared");
+                        addText("I won't go down easily...");
+                    }});
+                   
+                    addScriptAction(new UnlockPlayerScriptAction());
+    
+    
+                    addScriptAction(new ChangeFlagScriptAction("capricornEnemy", true));
+                    addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
                 }});
-                
-                addScriptAction(new UnlockPlayerScriptAction());
-
-              //  addScriptAction(new ChangeFlagScriptAction("beetleEnemy", true));
-               // addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
             
-        }});
-               // addScriptAction(new UnlockPlayerScriptAction());               
+     
             }});
-
-            //screw this fight me reponse 
-            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                        return answer == 1;
-                    }
-                });
-                
-                addScriptAction(new TextboxScriptAction() {{
-                    addText("Alright then, be prepared");
-                    addText("I won't go down easily...");
-                }});
-                
-                addScriptAction(new UnlockPlayerScriptAction());
-
-              //  addScriptAction(new ChangeFlagScriptAction("beetleEnemy", true));
-               // addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
-            }});
-        }});
-
+                }});// end of scriptActions.add(new ConditionalScriptAction()
+            
+            }});// end of addConditionalScriptActionGroup(new ConditionalScriptActionGroup()
+        
+        }}); //end of ArrayList<ScriptAction> loadScriptActions()
+      
         scriptActions.add(new UnlockPlayerScriptAction());
 
         return scriptActions;

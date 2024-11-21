@@ -93,10 +93,37 @@ public class BattleScript extends Script {
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleBeaten");
                             else
                                 PlayLevelScreen.getMap().getFlagManager().setFlag("beetleKilled"); 
+                        if(BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(666)){
+                            if(PlayLevelScreen.flagManager.isFlagSet("capricornQuestComplete"));
+                                PlayLevelScreen.getMap().getFlagManager().setFlag("capricornBeaten");
+                        } else {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("capricornKilled");
+                        }
+
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(806)) {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("badShipKilled");
+
+                            player.setMaxHealth(player.getMaxHealth()+5);
+                            System.out.println("Max: " + player.getMaxHealth());
+                            System.out.println("Health: " + player.getHealth());
+                        }
+
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(807))
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("pirateBeaten"); 
 
                         return ScriptState.COMPLETED;
                     }
                 });
+
+                scriptActions.add(new ConditionalScriptAction(){{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup(){{
+                        addRequirement(new FlagRequirement("badShipKilled", true));
+                    
+                        addScriptAction(new TextboxScriptAction(){{
+                            addText("As promised, my life is yours.");
+                        }});
+                    }});
+                }});
 
                 addScriptAction(new ChangeFlagScriptAction("battleWon", true));
 
@@ -229,6 +256,7 @@ public class BattleScript extends Script {
                                 }
                             });                    
                         }});
+                    }});
                 
                     //enemy death script
                     scriptActions.add(new ConditionalScriptAction() {{
@@ -707,12 +735,11 @@ public class BattleScript extends Script {
                     }});
                 }}); 
             }});
-        }});
-    }
+        }
 
-    // scriptActions.add(new ChangeFlagScriptAction("isInCombat", true));
-    scriptActions.add(new UnlockPlayerScriptAction());
+        // scriptActions.add(new ChangeFlagScriptAction("isInCombat", true));
+        scriptActions.add(new UnlockPlayerScriptAction());
 
-    return scriptActions;
+        return scriptActions;
     }
 }

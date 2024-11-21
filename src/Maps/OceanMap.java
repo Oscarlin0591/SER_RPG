@@ -54,9 +54,9 @@ public class OceanMap extends Map {
         shipwreck1.setInteractScript(new ShipwreckScript()/*SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls...")*/);
         npcs.add(shipwreck1);
 
-        PirateShip pirateShip1 = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png");
-        // pirateShip1.setInteractScript(new PirateScript1());
-        npcs.add(pirateShip1);
+        PirateShip pirateShip = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png", -1, -1, -1, -1);
+        pirateShip.setInteractScript(new PirateScript());
+        npcs.add(pirateShip);
         
         Cave cave = new Cave(4, getMapTile(2, 13).getLocation());
         cave.setInteractScript(new CaveScript());
@@ -128,7 +128,12 @@ public class OceanMap extends Map {
         this.goodShipAnimation = "LEFT";
         this.badShipExistenceFlag = "";
 
-        if (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
+        if (PlayLevelScreen.flagManager.isFlagSet("badShipKilled")) {
+            this.goodShipXPosition = 39;
+            this.goodShipYPosition = 8;
+            this.goodShipAnimation = "LEFT";
+            this.badShipExistenceFlag = "badShipKilled";
+        } else if (PlayLevelScreen.flagManager.isFlagSet("goodShipMoved") && !PlayLevelScreen.flagManager.isFlagSet("goodShipPloy")) {
             this.goodShipXPosition = 6;
             this.goodShipYPosition = 35;
         } else if (PlayLevelScreen.flagManager.isFlagSet("goodShipPloy") && !PlayLevelScreen.flagManager.isFlagSet("shipDiscussion")) {
@@ -144,11 +149,11 @@ public class OceanMap extends Map {
             this.goodShipYPosition = 8;
         }
 
-        ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), this.goodShipAnimation);
+        ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), this.goodShipAnimation, -1, -1, -1, -1);
         goodShipOfTheseus.setInteractScript(new GoodShipOfTheseusScript());
         npcs.add(goodShipOfTheseus);
 
-        ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT");
+        ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT", -1, -1, -1, -1);
         badShipOfTheseus.setInteractScript(new BadShipOfTheseusScript());
         badShipOfTheseus.setExistenceFlag(this.badShipExistenceFlag);
         npcs.add(badShipOfTheseus);
