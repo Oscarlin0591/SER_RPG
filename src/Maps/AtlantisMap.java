@@ -2,9 +2,11 @@ package Maps;
 
 import Level.*;
 import NPCs.AppleTree;
+import NPCs.BluePotion;
 import NPCs.Bosses.Capricorn;
 import Scripts.AtlantisMapScripts.*;
 import Scripts.StartIslandMap.AppleTreeScript;
+import Scripts.StartIslandMap.SuperPotionScript;
 import Tilesets.AtlantisTileset;
 import java.util.ArrayList;
 
@@ -34,8 +36,11 @@ public class AtlantisMap extends Map {
 
         Capricorn capricorn = new Capricorn(18, getMapTile(49,11).getLocation(),50,5,2,2);
         capricorn.setInteractScript(new CapricornScript());
-        //tree.setExistenceFlag("atlantisTreeBroken");
         npcs.add(capricorn);
+
+        BluePotion bluePotion = new BluePotion(11,getMapTile(35,45).getLocation());
+        bluePotion.setInteractScript(new SuperPotionScript());
+        npcs.add(bluePotion);
 
         return npcs;
     }

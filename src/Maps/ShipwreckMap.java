@@ -7,6 +7,7 @@ import Level.Music;
 import Level.NPC;
 import Level.Trigger;
 import NPCs.GreenGem;
+import NPCs.RedPotion;
 import NPCs.Bosses.Kraken;
 import NPCs.Interactable.Cannibal;
 import NPCs.Interactable.CannibalGhost;
@@ -15,6 +16,7 @@ import NPCs.Interactable.GhostPirate;
 import NPCs.Interactable.SwordGhost;
 import Scripts.ShipwreckScripts.*;
 import Scripts.StartIslandMap.GreenGemScript;
+import Scripts.StartIslandMap.PotionScript;
 import Tilesets.*;
 
 public class ShipwreckMap extends Map{
@@ -58,6 +60,11 @@ public class ShipwreckMap extends Map{
         gem.setExistenceFlag("greenGem");
         gem.setInteractScript(new GreenGemScript());
         npcs.add(gem);
+
+        RedPotion potion = new RedPotion(77, getMapTile(8,10).getLocation());
+        potion.setExistenceFlag("oceanPotion");
+        potion.setInteractScript(new PotionScript());
+        npcs.add(potion);
 
         return npcs;
     }

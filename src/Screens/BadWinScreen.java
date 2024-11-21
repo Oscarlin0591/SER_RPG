@@ -6,14 +6,14 @@ import SpriteFont.SpriteFont;
 import java.awt.*;
 
 // This class is for the win level screen
-public class WinScreen extends Screen {
+public class BadWinScreen extends Screen {
     protected SpriteFont winMessage;
     protected SpriteFont lore;
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
 
-    public WinScreen(PlayLevelScreen playLevelScreen) {
+    public BadWinScreen(PlayLevelScreen playLevelScreen) {
         this.playLevelScreen = playLevelScreen;
         initialize();
     }
@@ -21,7 +21,7 @@ public class WinScreen extends Screen {
     @Override
     public void initialize() {
         winMessage = new SpriteFont("You win!", 350, 239, "Lucida Calligraphy", 30, Color.white);
-        lore = new SpriteFont("You vanquished the spirit that possessed the Nave d'Oro and now owns the golden vessel.\nHowever, something still bothers you in the back of your mind, as if something isn't right about this situation.\nYou push these thoughts aside and sail away with your new found riches", 0, 0, "Lucida Calligraphy", 20, Color.white);
+        lore = new SpriteFont("Bruised and battered, you stumble into the Nave d'Oro to take it home\n as you sail, however, your injuries proven too much and you pass out on board, unaware that you're about\nto collide into the rocks by an island.\nYou crash and something flew out of the ship, it is the corpse of King Midas.\nThe moment his corpse touched the ocean, you see a glimmer, the water begins to transform.\nAt first you watched in awe but it quickly turns to horror as the spread of the gold does not stop.\nAs the oceans turn to gold, you can only slowly accept this cruel fate you brought upon the world...", 0, 0, "Lucida Calligraphy", 20, Color.white);
         instructions = new SpriteFont("Press Space to play again or Escape to go back to the main menu", 120, 279,"Lucida Calligraphy", 20, Color.white);
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);

@@ -98,6 +98,16 @@ public class CaveMap extends Map {
 
             scriptActions.add(new ConditionalScriptAction() {{
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new FlagRequirement("chestOpened", true));
+
+                    addScriptAction(new TextboxScriptAction() {{
+                        addText("You already looted this chest");
+                    }});
+                }});
+            }});
+
+            scriptActions.add(new ConditionalScriptAction() {{
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                     addRequirement(new FlagRequirement("chestOpened", false));
                     addRequirement(new CustomRequirement() {
                         @Override
@@ -109,7 +119,7 @@ public class CaveMap extends Map {
                     addScriptAction(new TextboxScriptAction() {{
                         addText("The chest creaks open, revealing some old rubbish.");
                         addText("But among the junk you find some ship armor");
-                        addText("You gained 20 health!");
+                        addText("You gained 20 health and 1 strength!");
                     }});
 
                     addScriptAction(new ScriptAction() {
@@ -139,15 +149,7 @@ public class CaveMap extends Map {
                     
                 }});
             }});
-            scriptActions.add(new ConditionalScriptAction() {{
-                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                    addRequirement(new FlagRequirement("chestOpened", true));
-
-                    addScriptAction(new TextboxScriptAction() {{
-                        addText("You already looted this chest");
-                    }});
-                }});
-            }});
+            
             scriptActions.add(new UnlockPlayerScriptAction());
     
             return scriptActions;

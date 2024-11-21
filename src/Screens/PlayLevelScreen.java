@@ -48,6 +48,8 @@ public class PlayLevelScreen extends Screen {
         private static Point prevLoc;
         protected static PlayLevelScreenState playLevelScreenState;
         protected WinScreen winScreen;
+        protected GoodWinScreen goodWinScreen;
+        protected BadWinScreen badWinScreen;
         protected GameOverScreen gameOverScreen;
         public static BattleScreen battleScreen;
         public static DateScreen dateScreen;
@@ -84,9 +86,7 @@ public class PlayLevelScreen extends Screen {
     
         protected static int[] tier = new int[] {0,1,2,3,4};
         protected static int tierCount = 0;
-        
-            //private boolean pressedContinue = true;
-        
+
         public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
             this.screenCoordinator = screenCoordinator;
             spawnInterval = rand.nextInt(10,15);
@@ -255,6 +255,9 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("tier4");
             flagManager.addFlag("tier5");
             flagManager.addFlag("chestOpened",false);
+            flagManager.addFlag("goodEnding",false);
+            flagManager.addFlag("neutralEnding",false);
+            flagManager.addFlag("badEnding",false);
             
                     // define/setup map - may need to replicate for all maps
                     int playerContX = 0;
@@ -406,16 +409,12 @@ public class PlayLevelScreen extends Screen {
                     map.preloadScripts();
             
                     winScreen = new WinScreen(this);
+                    goodWinScreen = new GoodWinScreen(this);
+                    badWinScreen = new BadWinScreen(this);
                     gameOverScreen = new GameOverScreen(this);
                     battleScreen = new BattleScreen(this);
                     krakenPuzzleScreen = new KrakenPuzzleScreen(this);
-                    // healScreen = new HealScreen(this);
                     dateScreen = new DateScreen(this);
-                    // dateScreen = new DateScreen(this, new CapJV(1));
-                    // if (flagManager.isFlagSet("blueWitchDate")) {
-                    // dateScreen = new DateScreen(this, new BlueWitch(0, new Point(ScreenManager.getScreenWidth()/2-100, ScreenManager.getScreenHeight())));
-                    // // flagManager.unsetFlag("blueWitchDate");
-                    // }
             
             
             }
@@ -660,10 +659,13 @@ if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
         
                 if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("neptuneKilled")) {
                     // insert flag for bad ending
+                    getMap().getFlagManager().setFlag("goodEnding");
                 } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("neptuneQuestCompleted")) {
                     // insert flag for good ending
+                    getMap().getFlagManager().setFlag("badEnding");
                 } else {
                     // neutral ending
+                    getMap().getFlagManager().setFlag("neutralEnding");
                 }
             }
         
@@ -866,7 +868,13 @@ if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
                     };
                     break;
                 case LEVEL_COMPLETED:
+                    if (getMap().getFlagManager().isFlagSet("goodEnding")) {
+                        goodWinScreen.draw(graphicsHandler);
+                    } else if (getMap().getFlagManager().isFlagSet("badEnding")) {
+                        badWinScreen.draw(graphicsHandler);
+                    } else {
                     winScreen.draw(graphicsHandler);
+                    }
                     break;
                 case GAME_OVER:
                     gameOverScreen.draw(graphicsHandler);
