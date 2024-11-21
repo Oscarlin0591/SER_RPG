@@ -3,6 +3,7 @@ package Maps;
 import Level.*;
 import NPCs.*;
 import NPCs.Bosses.*;
+import NPCs.Interactable.Cannibal;
 import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.BattleMapTileset;
@@ -90,7 +91,13 @@ public class BattleMap extends Map{
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krampusEnemy");
         }
-
+        
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("cannibalEnemy")){
+            enemy = new Cannibal(803, getMapTile(8,12).getLocation(), 50, 10, 1, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("cannibalEnemy");
+        }
+        
         enemy.stand(Direction.RIGHT);
 
         return npcs;

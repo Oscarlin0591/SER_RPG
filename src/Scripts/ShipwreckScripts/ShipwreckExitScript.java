@@ -48,7 +48,7 @@ public class ShipwreckExitScript extends Script{
                 addScriptAction(new ScriptAction() {
                     @Override
                     public ScriptState execute() {
-                        player.setLocation(player.getX()+10, player.getY());
+                        player.setLocation(player.getX(), player.getY()+10);
                         return ScriptState.COMPLETED;
                     }
                 });

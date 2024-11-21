@@ -20,15 +20,15 @@ public class KrakenPuzzleScreen extends Screen{
     protected SpriteFont last;
     protected int keyPressTimer;
     protected int hoverX, hoverY;
-    protected int[] answer = {0,1,2,3};
+    protected int[] answer = {1,2,0,3};
     protected int[] input = {-1,-1,-1,-1};
     protected KeyLocker keyLocker = new KeyLocker();
     protected BufferedImage swordGhost = ImageLoader.load("CharacterPNGs/swordGhost.png");
     protected BufferedImage pirateGhost = ImageLoader.load("ghostPirate.png");
+    protected BufferedImage flintlockGhost = ImageLoader.load("CharacterPNGs/flintlockGhost.png");
+    protected BufferedImage cannibalGhost = ImageLoader.load("CharacterPNGs/ghostCannibal.png");
     protected BufferedImage backspace = ImageLoader.load("backspace.png");
 
-    //constants
-    
     
     public KrakenPuzzleScreen(PlayLevelScreen playLevelScreen){
         this.playLevelScreen = playLevelScreen;
@@ -80,7 +80,8 @@ public class KrakenPuzzleScreen extends Screen{
             }else if(currHovered == 5){
                 //check if correct
                 if(check()){
-                    //do something
+                    //System.out.println("CORRECT");
+                    PlayLevelScreen.flagManager.setFlag("krakenQuestCompleted");
                 }
                 PlayLevelScreen.running();
             }else if(currHovered < 4 && currInput != 4){
@@ -101,69 +102,72 @@ public class KrakenPuzzleScreen extends Screen{
         first.draw(graphicsHandler);
         last.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangle(hoverX, hoverY, 100, 100, Color.DARK_GRAY);
-        graphicsHandler.drawImage(swordGhost, 105, 405,90,90);
-        graphicsHandler.drawImage(pirateGhost, 205, 405,90,90);
+        graphicsHandler.drawImage(flintlockGhost, 105, 405,90,90);
+        graphicsHandler.drawImage(swordGhost, 205, 405,90,90);
+        graphicsHandler.drawImage(pirateGhost, 305, 405,90,90);
+        graphicsHandler.drawImage(cannibalGhost, 405, 405,90,90);
         graphicsHandler.drawImage(backspace, 505, 405, 90, 90);
+        //graphicsHandler.drawFilledRectangleWithBorder(0, 0, Screen., currInput, null, null, currHovered);
         switch (input[0]) {
             case 0:
-                graphicsHandler.drawImage(swordGhost, 100, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 100, 250, 90, 90);
                 break;
             case 1:
-                graphicsHandler.drawImage(pirateGhost, 100, 250, 90, 90);
+                graphicsHandler.drawImage(swordGhost, 100, 250, 90, 90);
                 break;
             case 2:
-                //graphicsHandler.drawImage(swordGhost, 100, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 100, 250, 90, 90);
                 break;
             case 3:
-                //graphicsHandler.drawImage(swordGhost, 100, 250, 90, 90);
+                graphicsHandler.drawImage(cannibalGhost, 100, 250, 90, 90);
                 break;
             default:
                 break;
         }
         switch (input[1]) {
             case 0:
-                graphicsHandler.drawImage(swordGhost, 200, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 200, 250, 90, 90);
                 break;
             case 1:
-                graphicsHandler.drawImage(pirateGhost, 200, 250, 90, 90);
+                graphicsHandler.drawImage(swordGhost, 200, 250, 90, 90);
                 break;
             case 2:
-                //graphicsHandler.drawImage(swordGhost, 200, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 200, 250, 90, 90);
                 break;
             case 3:
-                //graphicsHandler.drawImage(swordGhost, 200, 250, 90, 90);
+                graphicsHandler.drawImage(cannibalGhost, 200, 250, 90, 90);
                 break;
             default:
                 break;
         }
         switch (input[2]) {
             case 0:
-                graphicsHandler.drawImage(swordGhost, 300, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 300, 250, 90, 90);
                 break;
             case 1:
-                graphicsHandler.drawImage(pirateGhost, 300, 250, 90, 90);
+                graphicsHandler.drawImage(swordGhost, 300, 250, 90, 90);
                 break;
             case 2:
-                //graphicsHandler.drawImage(swordGhost, 300, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 300, 250, 90, 90);
                 break;
             case 3:
-                //graphicsHandler.drawImage(swordGhost, 300, 250, 90, 90);
+                graphicsHandler.drawImage(cannibalGhost, 300, 250, 90, 90);
                 break;
             default:
                 break;
         }
         switch (input[3]) {
             case 0:
-                graphicsHandler.drawImage(swordGhost, 400, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 400, 250, 90, 90);
                 break;
             case 1:
-                graphicsHandler.drawImage(pirateGhost, 400, 250, 90, 90);
+                graphicsHandler.drawImage(swordGhost, 400, 250, 90, 90);
                 break;
             case 2:
-                //graphicsHandler.drawImage(swordGhost, 400, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 400, 250, 90, 90);
                 break;
             case 3:
-                //graphicsHandler.drawImage(swordGhost, 400, 250, 90, 90);
+                graphicsHandler.drawImage(cannibalGhost, 400, 250, 90, 90);
                 break;
             default:
                 break;

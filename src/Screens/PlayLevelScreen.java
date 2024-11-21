@@ -169,8 +169,10 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("blueWitchDated", false);
 
         // kraken puzzle flag
-        flagManager.addFlag("krakenPuzzleTriggered");
-
+        flagManager.addFlag("krakenPuzzleTriggered", false);
+        flagManager.addFlag("krakenFirstTalk", false);
+        flagManager.addFlag("doneWithCannibal", false);
+        flagManager.addFlag("cannibalGhost", true);
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
 
@@ -182,7 +184,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("beetleEnemy", false);
         flagManager.addFlag("yetiEnemy", false);
         flagManager.addFlag("krampusEnemy", false);
-
+        flagManager.addFlag("cannibalEnemy", false);
         // boss / enemy kill flags
         flagManager.addFlag("jvBeaten", false);
         flagManager.addFlag("krakenKilled", false);
@@ -218,6 +220,7 @@ public class PlayLevelScreen extends Screen {
         flagManager.addFlag("appleHaunted", false);
         flagManager.addFlag("treeHaunted", false);
         flagManager.addFlag("reunitedAtLast", false);
+        flagManager.addFlag("krakenQuestCompleted", false);
 
         // item picked up flags
         flagManager.addFlag("startIslandPotion", false);
@@ -509,7 +512,11 @@ public class PlayLevelScreen extends Screen {
             map.getFlagManager().unsetFlag("battlePanel");
         }
 
-
+        if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
+            krakenPuzzle();
+            map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
+        }
+        
         if (map.getFlagManager().isFlagSet("datePanel")) {
             date();
             refreshDate();
@@ -731,6 +738,7 @@ public class PlayLevelScreen extends Screen {
         playLevelScreenState = PlayLevelScreenState.RUNNING;
         map.setPlayer(player);
         map.getTextbox().setInteractKey(player.getInteractKey());
+        map.preloadScripts();
     }
     
     public void teleport(Map newMap, String flag, Player newPlayer, Point location) {
@@ -902,6 +910,10 @@ public class PlayLevelScreen extends Screen {
 
     public static void date() {
         setPlayLevelScreenState(PlayLevelScreenState.DATE);
+    }
+    
+    public static void krakenPuzzle(){
+        setPlayLevelScreenState(PlayLevelScreenState.KRAKEN_PUZZLE);
     }
 
     public void refreshDate() {

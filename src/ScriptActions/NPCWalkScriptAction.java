@@ -5,6 +5,7 @@ import Level.ScriptState;
 import Utils.Direction;
 
 public class NPCWalkScriptAction extends ScriptAction {
+    protected int npcId;
     protected NPC npc;
     protected Direction direction;
     protected float distance;
@@ -18,7 +19,7 @@ public class NPCWalkScriptAction extends ScriptAction {
     }
 
     public NPCWalkScriptAction(int npcId, Direction direction, float distance, float speed) {
-        this.npc = map.getNPCById(npcId);
+        this.npcId = npcId;
         this.direction = direction;
         this.distance = distance;
         this.speed = speed;
@@ -26,7 +27,10 @@ public class NPCWalkScriptAction extends ScriptAction {
 
     @Override
     public void setup() {
-        if (this.npc == null) {
+        if (entity == null) {
+            this.npc = map.getNPCById(npcId);
+        }
+        else {
             this.npc = (NPC)entity;
         }
         amountMoved = 0;
