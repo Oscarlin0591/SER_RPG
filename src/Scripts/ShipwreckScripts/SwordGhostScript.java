@@ -15,12 +15,11 @@ public class SwordGhostScript extends Script{
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("Sword");
-            addText("Sword");
-            addText("SwordSwordSwordSwordSwordSwordSword");
-            addText("Oh hello, didn't notice you there.");
-            addText("...");
-            addText("I'm going to go back to admiring my sword now");
+            addText("*Swings sword at you*", new String[] {"AHHH(rg)"});
+            addText("Ye be afraid?");
+            addText("Ha! Haven't got a spook like that in years.");
+            addText("That lad with the eyepatch over there, 'told 'im that we have to do that!");
+            addText("Hahahaha, it's fun messin with the greenbeards.");
         }});
 
         scriptActions.add(new UnlockPlayerScriptAction());

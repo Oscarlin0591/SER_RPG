@@ -70,7 +70,7 @@ public class EndMap extends Map{
         });
         npcs.add(torch2);
 
-        SkullTorch torch3 = new SkullTorch(983, getMapTile(27,20).getLocation());
+        SkullTorch torch3 = new SkullTorch(983, getMapTile(51,28).getLocation());
         torch3.setLocation(torch3.getX()+16, torch3.getY());
         torch3.setInteractScript(new Script() {
             
