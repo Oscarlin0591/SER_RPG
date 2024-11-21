@@ -170,9 +170,11 @@ public class PlayLevelScreen extends Screen {
 
         // kraken puzzle flag
         flagManager.addFlag("krakenPuzzleTriggered", false);
+        flagManager.addFlag("saidYesToPuzzle", false);
         flagManager.addFlag("krakenFirstTalk", false);
         flagManager.addFlag("doneWithCannibal", false);
         flagManager.addFlag("cannibalGhost", true);
+
         // flag to determine if game is lost
         flagManager.addFlag("gameOver", false);
 
@@ -250,6 +252,8 @@ public class PlayLevelScreen extends Screen {
         String mapCont = "";
         int playerHealthCont = 0;
         int playerStrengthCont = 0;
+        int prevLocXCont = 0;
+        int prevLocYCont = 0;
         if(MenuScreen.continueState.getPressedContinue()){
             try{
                 File saveFile = new File("src/Saves/Save.txt");
@@ -262,18 +266,9 @@ public class PlayLevelScreen extends Screen {
                 System.out.println(mapCont);
                 playerHealthCont = in.nextInt();
                 playerStrengthCont = in.nextInt();
-                //beaten jv
-                /*if(in.nextBoolean()){
-                    flagManager.setFlag("jvBeaten");
-                }
-                //kraken's existence
-                if(in.nextBoolean()){
-                    flagManager.setFlag("krakenKilled");
-                }
-                //beetle defeated
-                if(in.nextBoolean()){
-                    flagManager.setFlag("beetleKilled");
-                }*/
+                prevLocXCont = in.nextInt();
+                prevLocYCont = in.nextInt();
+                prevLoc = new Point(prevLocXCont, prevLocYCont);
                 boolean[] flagValues = new boolean[flagManager.getSize()];
                 for(int i = 0; i < flagManager.getSize(); i++){
                     boolean temp = false;
@@ -699,6 +694,8 @@ public class PlayLevelScreen extends Screen {
                         writer.write("\n" + map.getMapFileName());
                         writer.write("\n" + (int)player.getHealth());
                         writer.write("\n" + (int)player.getStrength());
+                        writer.write("\n" + (int)prevLoc.x);
+                        writer.write("\n" + (int)prevLoc.y);
                         //writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
                         //writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
                         //writer.write("\n" + flagManager.isFlagSet("beetleKilled"));

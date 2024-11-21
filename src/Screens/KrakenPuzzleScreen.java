@@ -3,6 +3,7 @@ package Screens;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Key;
@@ -18,6 +19,7 @@ public class KrakenPuzzleScreen extends Screen{
     protected SpriteFont question;
     protected SpriteFont first;
     protected SpriteFont last;
+    protected SpriteFont enter;
     protected int keyPressTimer;
     protected int hoverX, hoverY;
     protected int[] answer = {1,2,0,3};
@@ -37,6 +39,7 @@ public class KrakenPuzzleScreen extends Screen{
         question = new SpriteFont("What order did the pirates meet their end?", 400, 50, "Arial", 30, Color.white);
         first = new SpriteFont("Earliest", 10, 279,"Arial", 20, Color.white);
         last = new SpriteFont("Lastest", 800, 279,"Arial", 20, Color.white);
+        enter = new SpriteFont("Try Order", 605, 405+45,"Arial", 20, Color.white);
     
         hoverY = 400;
     }
@@ -89,34 +92,35 @@ public class KrakenPuzzleScreen extends Screen{
                 currInput++;
             }
 
-            for(int i = 0; i < input.length; i++){
+            /*for(int i = 0; i < input.length; i++){
                 System.out.println(input[i]);
-            } 
+            }*/ 
             keyLocker.lockKey(Key.E);
         }
     }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
+        graphicsHandler.drawFilledRectangleWithBorder(0, 0, GameWindow.gamePanel.getWidth(), GameWindow.gamePanel.getHeight(), Color.darkGray, Color.BLUE, 10);
         question.draw(graphicsHandler);
         first.draw(graphicsHandler);
         last.draw(graphicsHandler);
-        graphicsHandler.drawFilledRectangle(hoverX, hoverY, 100, 100, Color.DARK_GRAY);
-        graphicsHandler.drawImage(flintlockGhost, 105, 405,90,90);
+        graphicsHandler.drawFilledRectangle(hoverX, hoverY, 100, 100, Color.LIGHT_GRAY);
+        graphicsHandler.drawImage(pirateGhost, 105, 405,90,90);
         graphicsHandler.drawImage(swordGhost, 205, 405,90,90);
-        graphicsHandler.drawImage(pirateGhost, 305, 405,90,90);
+        graphicsHandler.drawImage(flintlockGhost, 305, 405,90,90);
         graphicsHandler.drawImage(cannibalGhost, 405, 405,90,90);
         graphicsHandler.drawImage(backspace, 505, 405, 90, 90);
-        //graphicsHandler.drawFilledRectangleWithBorder(0, 0, Screen., currInput, null, null, currHovered);
+        enter.draw(graphicsHandler);
         switch (input[0]) {
             case 0:
-                graphicsHandler.drawImage(flintlockGhost, 100, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 100, 250, 90, 90);
                 break;
             case 1:
                 graphicsHandler.drawImage(swordGhost, 100, 250, 90, 90);
                 break;
             case 2:
-                graphicsHandler.drawImage(pirateGhost, 100, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 100, 250, 90, 90);
                 break;
             case 3:
                 graphicsHandler.drawImage(cannibalGhost, 100, 250, 90, 90);
@@ -126,13 +130,13 @@ public class KrakenPuzzleScreen extends Screen{
         }
         switch (input[1]) {
             case 0:
-                graphicsHandler.drawImage(flintlockGhost, 200, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 200, 250, 90, 90);
                 break;
             case 1:
                 graphicsHandler.drawImage(swordGhost, 200, 250, 90, 90);
                 break;
             case 2:
-                graphicsHandler.drawImage(pirateGhost, 200, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 200, 250, 90, 90);
                 break;
             case 3:
                 graphicsHandler.drawImage(cannibalGhost, 200, 250, 90, 90);
@@ -142,13 +146,13 @@ public class KrakenPuzzleScreen extends Screen{
         }
         switch (input[2]) {
             case 0:
-                graphicsHandler.drawImage(flintlockGhost, 300, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 300, 250, 90, 90);
                 break;
             case 1:
                 graphicsHandler.drawImage(swordGhost, 300, 250, 90, 90);
                 break;
             case 2:
-                graphicsHandler.drawImage(pirateGhost, 300, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 300, 250, 90, 90);
                 break;
             case 3:
                 graphicsHandler.drawImage(cannibalGhost, 300, 250, 90, 90);
@@ -158,13 +162,13 @@ public class KrakenPuzzleScreen extends Screen{
         }
         switch (input[3]) {
             case 0:
-                graphicsHandler.drawImage(flintlockGhost, 400, 250, 90, 90);
+                graphicsHandler.drawImage(pirateGhost, 400, 250, 90, 90);
                 break;
             case 1:
                 graphicsHandler.drawImage(swordGhost, 400, 250, 90, 90);
                 break;
             case 2:
-                graphicsHandler.drawImage(pirateGhost, 400, 250, 90, 90);
+                graphicsHandler.drawImage(flintlockGhost, 400, 250, 90, 90);
                 break;
             case 3:
                 graphicsHandler.drawImage(cannibalGhost, 400, 250, 90, 90);

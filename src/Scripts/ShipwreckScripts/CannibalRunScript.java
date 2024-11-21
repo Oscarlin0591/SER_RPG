@@ -23,8 +23,9 @@ public class CannibalRunScript extends Script{
         scriptActions.add(new NPCWalkScriptAction(36, Direction.UP, 1000, 10));
         scriptActions.add(new ChangeFlagScriptAction("doneWithCannibal", true));
         scriptActions.add(new ChangeFlagScriptAction("cannibalEnemy", true));
-        scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
         scriptActions.add(new ChangeFlagScriptAction("cannibalGhost", false));
+        scriptActions.add(new ChangeFlagScriptAction("combatTriggered", true));
+
         scriptActions.add(new UnlockPlayerScriptAction());
         return scriptActions;
     }
