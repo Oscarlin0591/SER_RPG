@@ -6,13 +6,13 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.NPC;
+import Level.Enemy;
 import Utils.Point;
 import java.util.HashMap;
 
-public class PirateShip extends NPC{
-    public PirateShip (int id, Point location, String imageFile) {
-        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load(imageFile), 64, 64), "STAND_LEFT");
+public class PirateShip extends Enemy{
+    public PirateShip (int id, Point location, String imageFile, int health, int strength, int critChance, int dodgeChance) {
+        super(id, location.x, location.y, new SpriteSheet(ImageLoader.load(imageFile), 64, 64), "STAND_LEFT", health, strength, critChance, dodgeChance);
     }
 
     @Override

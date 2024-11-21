@@ -30,8 +30,6 @@ public class SuperPotionScript extends Script {
             }
         });
 
-        scriptActions.add(new NPCChangeVisibilityScriptAction(Visibility.HIDDEN));
-
         scriptActions.add(new UnlockPlayerScriptAction());
 
         return scriptActions;

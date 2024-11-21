@@ -59,27 +59,14 @@ public class Bug extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("STAND_LEFT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(2)
-                    .withBounds(3, 5, 18, 7)
-                    .build()
-            });
-            put("STAND_RIGHT", new Frame[] {
-                new FrameBuilder(spriteSheet.getSprite(0, 0))
-                    .withScale(2)
-                    .withBounds(3, 5, 18, 7)
-                    .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                    .build()
-           });
            put("WALK_LEFT", new Frame[] {
                 new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
                         .withScale(2)
-                        .withBounds(3, 5, 18, 7)
+                        .withBounds(3, 5, 16, 16)
                         .build(),
                 new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
                         .withScale(2)
-                        .withBounds(3, 5, 18, 7)
+                        .withBounds(3, 5, 16, 16)
                         .build()
             });
             put("WALK_RIGHT", new Frame[] {

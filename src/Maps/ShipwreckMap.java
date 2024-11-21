@@ -6,10 +6,15 @@ import Level.Map;
 import Level.Music;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.GreenGem;
 import NPCs.Bosses.Kraken;
+import NPCs.Interactable.Cannibal;
+import NPCs.Interactable.CannibalGhost;
+import NPCs.Interactable.FlintlockGhost;
 import NPCs.Interactable.GhostPirate;
 import NPCs.Interactable.SwordGhost;
 import Scripts.ShipwreckScripts.*;
+import Scripts.StartIslandMap.GreenGemScript;
 import Tilesets.*;
 
 public class ShipwreckMap extends Map{
@@ -36,6 +41,24 @@ public class ShipwreckMap extends Map{
         kraken.setInteractScript(new KrakenScript());
         npcs.add(kraken);
 
+        Cannibal cannibal = new Cannibal(36, getMapTile(21, 40).getLocation());
+        cannibal.setExistenceFlag("doneWithCannibal");
+        npcs.add(cannibal);
+
+        CannibalGhost cannibalGhost = new CannibalGhost(37, getMapTile(21, 6).getLocation());
+        cannibalGhost.setExistenceFlag("cannibalGhost");
+        cannibalGhost.setInteractScript(new CannibalGhostScript());
+        npcs.add(cannibalGhost);
+
+        FlintlockGhost flintlockGhost = new FlintlockGhost(38, getMapTile(50, 20).getLocation());
+        flintlockGhost.setInteractScript(new FlintlockGhostScript());
+        npcs.add(flintlockGhost);
+        
+        GreenGem gem = new GreenGem(30,getMapTile(48,6).getLocation());
+        gem.setExistenceFlag("greenGem");
+        gem.setInteractScript(new GreenGemScript());
+        npcs.add(gem);
+
         return npcs;
     }
 
@@ -44,11 +67,13 @@ public class ShipwreckMap extends Map{
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        triggers.add(new Trigger(getMapTile(21, 0).getLocation().x, getMapTile(21, 0).getLocation().y, 15, 50, new ShipwreckExitScript()));
+        triggers.add(new Trigger(getMapTile(21, 0).getLocation().x, getMapTile(21, 0).getLocation().y, 150, 50, new ShipwreckExitScript()));
+        triggers.add(new Trigger(getMapTile(21, 6).getLocation().x, getMapTile(21, 6).getLocation().y, 150, 50, new CannibalRunScript(),"doneWithCannibal"));
+        
         return triggers;
     }
 
     public void loadMusic() {
-        Music.playMusic("Music/Sinking Feeling.wav");
+        //Music.playMusic("Music/Sinking Feeling.wav");
     }
 }

@@ -21,13 +21,13 @@ public class PotionScript extends Script {
         scriptActions.add(new LockPlayerScriptAction());
 
         scriptActions.add(new TextboxScriptAction() {{
-            addText("You gained 5 health!");
+            addText("You gained 1 health!");
         }});
 
         scriptActions.add(new ScriptAction() {
             @Override
             public ScriptState execute() {
-                player.setMaxHealth(player.getMaxHealth()+5);
+                player.setMaxHealth(player.getMaxHealth()+1);
                 System.out.println("Max: " + player.getMaxHealth());
                 System.out.println("Health: " + player.getHealth());
 
