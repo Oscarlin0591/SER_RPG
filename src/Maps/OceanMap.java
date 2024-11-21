@@ -50,7 +50,7 @@ public class OceanMap extends Map {
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
-        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(40,29).getLocation(),"Shipwreck.png");
+        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(5,20).getLocation(),"Shipwreck.png");
         shipwreck1.setInteractScript(new ShipwreckScript());
         npcs.add(shipwreck1);
 
@@ -58,7 +58,7 @@ public class OceanMap extends Map {
         pirateShip.setInteractScript(new PirateScript());
         npcs.add(pirateShip);
         
-        Cave cave = new Cave(4, getMapTile(3, 28).getLocation());
+        Cave cave = new Cave(4, getMapTile(2,13).getLocation());
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 

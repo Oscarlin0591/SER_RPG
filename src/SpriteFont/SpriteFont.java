@@ -14,6 +14,15 @@ public class SpriteFont {
 	protected Color outlineColor;
 	protected float outlineThickness = 1f;
 
+	public SpriteFont(String text, float x, float y, String fontName, int fontSize, Color color, Color outlineColor) {
+		this.text = text;
+		font = new Font(fontName, Font.PLAIN, fontSize);
+		this.x = x;
+		this.y = y;
+		this.color = color;
+		this.outlineColor = outlineColor;
+	}
+
 	public SpriteFont(String text, float x, float y, String fontName, int fontSize, Color color) {
 		this.text = text;
 		font = new Font(fontName, Font.PLAIN, fontSize);
