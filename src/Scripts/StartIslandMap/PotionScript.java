@@ -28,15 +28,13 @@ public class PotionScript extends Script {
             @Override
             public ScriptState execute() {
                 player.setMaxHealth(player.getMaxHealth()+5);
-                System.out.println("Max: " + player.getMaxHealth());
-                System.out.println("Health: " + player.getHealth());
 
                 //remove potion once used
-                if (map.getNPCById(7) != null) {
-                    PlayLevelScreen.flagManager.setFlag("startIslandPotion");
-                } else if (map.getNPCById(77) != null) {
+                // if (map.getNPCById(7) != null) {
+                //     PlayLevelScreen.flagManager.setFlag("startIslandPotion");
+                // } else if (map.getNPCById(77) != null) {
                     PlayLevelScreen.flagManager.setFlag("oceanPotion");
-                }
+                // }
 
                 return ScriptState.COMPLETED;
             }

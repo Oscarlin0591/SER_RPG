@@ -50,19 +50,19 @@ public class OceanMap extends Map {
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
-        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(5,20).getLocation(),"Shipwreck.png");
-        shipwreck1.setInteractScript(new ShipwreckScript()/*SimpleTextScript("An unfortunate vessel appears to have fallen into the\nmarine abyss. You pray for the sailors' lost souls...")*/);
+        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(40,29).getLocation(),"Shipwreck.png");
+        shipwreck1.setInteractScript(new ShipwreckScript());
         npcs.add(shipwreck1);
 
-        PirateShip pirateShip = new PirateShip(6, getMapTile(36,33).getLocation(), "pirateShip.png", -1, -1, -1, -1);
+        PirateShip pirateShip = new PirateShip(6, getMapTile(33,33).getLocation(), "pirateShip.png", -1, -1, -1, -1);
         pirateShip.setInteractScript(new PirateScript());
         npcs.add(pirateShip);
         
-        Cave cave = new Cave(4, getMapTile(2, 13).getLocation());
+        Cave cave = new Cave(4, getMapTile(3, 28).getLocation());
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
-        Atlantis atlantis = new Atlantis(5, getMapTile(36, 18).getLocation());
+        Atlantis atlantis = new Atlantis(5, getMapTile(39, 12).getLocation());
         atlantis.setInteractScript(new AtlantisScript());
         npcs.add(atlantis);
 
@@ -102,7 +102,7 @@ public class OceanMap extends Map {
                         addScriptAction(new ScriptAction() {
                             @Override
                             public ScriptState execute() {
-                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY() + 10);
+                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY());
                                 return ScriptState.COMPLETED;
                             }
                         });
@@ -115,19 +115,25 @@ public class OceanMap extends Map {
         }});
         npcs.add(endIsland);
 
-        RedPotion potion = new RedPotion(77, getMapTile(2,10).getLocation());
-        potion.setExistenceFlag("oceanPotion");
-        potion.setInteractScript(new PotionScript());
-        npcs.add(potion);
-
-        BluePotion bluePotion = new BluePotion(11,getMapTile(1,5).getLocation());
-        bluePotion.setInteractScript(new SuperPotionScript());
-        npcs.add(bluePotion);
-
+        Diver diver = new Diver(13,getMapTile(1,33).getLocation());
+        diver.setInteractScript(new DiverScript());
+        npcs.add(diver);
         //determine various ship of theseus quest variable values based on quest progression
         this.goodShipAnimation = "LEFT";
         this.badShipExistenceFlag = "";
 
+        BlueGem gem = new BlueGem(24,getMapTile(18,44).getLocation());
+        gem.setExistenceFlag("blueGem");
+        gem.setInteractScript(new BlueGemScript());
+        npcs.add(gem);
+
+        WorriedMan man = new WorriedMan(31,getMapTile(37,2).getLocation());
+        man.setInteractScript(new WorriedManScript());
+        npcs.add(man);
+        
+        //determine various ship of theseus quest variable values based on quest progression
+        this.goodShipAnimation = "LEFT";
+        this.badShipExistenceFlag = "";
         if (PlayLevelScreen.flagManager.isFlagSet("badShipKilled")) {
             this.goodShipXPosition = 39;
             this.goodShipYPosition = 8;
@@ -148,11 +154,10 @@ public class OceanMap extends Map {
             this.goodShipXPosition = 39;
             this.goodShipYPosition = 8;
         }
-
         ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), this.goodShipAnimation, -1, -1, -1, -1);
         goodShipOfTheseus.setInteractScript(new GoodShipOfTheseusScript());
         npcs.add(goodShipOfTheseus);
-
+        
         ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT", -1, -1, -1, -1);
         badShipOfTheseus.setInteractScript(new BadShipOfTheseusScript());
         badShipOfTheseus.setExistenceFlag(this.badShipExistenceFlag);
@@ -166,7 +171,7 @@ public class OceanMap extends Map {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        triggers.add(new Trigger(930, 2285, 300, 20, new ArcticScript()));
+        triggers.add(new Trigger(800, 2200, 500, 50, new ArcticScript()));
         return triggers;
     }
 
@@ -183,7 +188,7 @@ public class OceanMap extends Map {
 
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Seafaring Humdrum.wav");
+        Music.playMusic("Music/Seafaring Humdrum.wav");
     }
 }
 

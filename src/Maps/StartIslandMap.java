@@ -90,8 +90,6 @@ public class StartIslandMap extends Map {
  //       port.setIsUncollidable(true);
  //       npcs.add(port);
 
-        if (PlayLevelScreen.flagManager.isFlagSet("treeHaunted"))
-            PlayLevelScreen.flagManager.setFlag("reunitedAtLast");
 
         AppleTree tree = new AppleTree(17, getMapTile(19,7).getLocation());
         tree.setInteractScript(new AppleTreeScript());
@@ -101,6 +99,15 @@ public class StartIslandMap extends Map {
         Farmer farmer = new Farmer(18,getMapTile(22,5).getLocation());
         farmer.setInteractScript(new FarmerScript());
         npcs.add(farmer);
+
+        WaterWell well = new WaterWell(20,getMapTile(3,3).getLocation());
+        well.setInteractScript(new WellScript());
+        npcs.add(well);
+
+        RedGem redGem = new RedGem(22,getMapTile(27,27).getLocation());
+        redGem.setExistenceFlag("redGem");
+        redGem.setInteractScript(new RedGemScript());
+        npcs.add(redGem);
 
         return npcs;
     }
@@ -176,7 +183,7 @@ public class StartIslandMap extends Map {
     //all new maps must override
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
+        Music.playMusic("Music/Bossa_Drum_Beat16bit.wav");
     }
 }
 

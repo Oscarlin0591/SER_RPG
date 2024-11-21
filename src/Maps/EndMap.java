@@ -184,7 +184,7 @@ public class EndMap extends Map{
 
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Sparkling_Rime16bit.wav");
+        Music.playMusic("Music/creepy.wav");
     }
     
 }

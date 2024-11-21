@@ -33,6 +33,6 @@ public class TitleScreenMap extends Map {
     //all new maps must override (once properly implemented)
     @Override
     public void loadMusic() {
-        // Music.playMusic("Music/Gold_in_C_demo.wav");
+        Music.playMusic("Music/Gold_in_C_demo.wav");
     }
 }

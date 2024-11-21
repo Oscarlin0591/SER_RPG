@@ -20,6 +20,11 @@ public class SpeedBoat extends Player {
                 walkSpeed = defaultWalkSpeed;
         }
 
+        public SpeedBoat(String image, int spriteWidth, int spriteHeight, float x, float y, float health, float strength, float critChance, float dodgeChance) {
+                super(new SpriteSheet(ImageLoader.load(image), spriteWidth, spriteHeight), x, y, "STAND_RIGHT", health, strength, critChance, dodgeChance);
+                walkSpeed = defaultWalkSpeed;
+        }
+
         public void update() {
                 super.update();
         }

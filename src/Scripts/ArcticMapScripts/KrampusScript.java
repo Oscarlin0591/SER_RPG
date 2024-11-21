@@ -40,8 +40,7 @@ public class KrampusScript extends Script{
                 }});
             }});
         }});
-
-        // if (!done) {
+        
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
             addRequirement(new FlagRequirement("krampusQuestComplete", false));
@@ -77,12 +76,6 @@ public class KrampusScript extends Script{
                 addScriptAction(new TextboxScriptAction() {{
                     addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
                 }});
-        //     }});
-        // }});
-
-        // scriptActions.add(new TextboxScriptAction() {{
-        //     addText("Sorry lad, I ain't performing ye favors lest I get something in return", new String[] {"Talking to you is futile, draw yer weapons!", "What favors can I do?"});
-        // }});
 
         scriptActions.add(new ConditionalScriptAction() {{
         addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
@@ -141,7 +134,7 @@ public class KrampusScript extends Script{
                         addScriptAction(new TextboxScriptAction() {{
                             addText("Well blow me down, then!");
                             addText("Ye sailing the high seas, fightin through waves and monsters, and yet cannot converse with a lady?", new String[]{"Me have social anxiety, I'm afraid"});
-                            addText("Oh buzz off, social anxiety? Ye making that up!", new String[] {"It's very real I'm afraid"});
+                            addText("Oh buzz off, social anxiety? Ye making that up!", new String[] {"It's very real"});
                             addText("Ye know what my kind does for yer ailment?", new String[] {"...What do ye do?"});
                             addText("We make the lad talk! Ye younguns so entranced in yer \"innovations\" that ye bunch can't hold\nno conversation with yer kin, ye don't think thats an issue?", new String[]{"You don't get it"});
                             addText("Of course I get it! Both ye and the funny people looking in through the sky need to just toughen up and just talk! Ye hear?", new String[] {"Aye, I do...", "What people in the sky?"});

@@ -6,6 +6,8 @@ import Level.Map;
 import Level.Music;
 import Level.NPC;
 import Level.Trigger;
+import NPCs.GreenGem;
+import NPCs.RedPotion;
 import NPCs.Bosses.Kraken;
 import NPCs.Interactable.Cannibal;
 import NPCs.Interactable.CannibalGhost;
@@ -13,6 +15,8 @@ import NPCs.Interactable.FlintlockGhost;
 import NPCs.Interactable.GhostPirate;
 import NPCs.Interactable.SwordGhost;
 import Scripts.ShipwreckScripts.*;
+import Scripts.StartIslandMap.GreenGemScript;
+import Scripts.StartIslandMap.PotionScript;
 import Tilesets.*;
 
 public class ShipwreckMap extends Map{
@@ -52,6 +56,16 @@ public class ShipwreckMap extends Map{
         flintlockGhost.setInteractScript(new FlintlockGhostScript());
         npcs.add(flintlockGhost);
         
+        GreenGem gem = new GreenGem(30,getMapTile(48,6).getLocation());
+        gem.setExistenceFlag("greenGem");
+        gem.setInteractScript(new GreenGemScript());
+        npcs.add(gem);
+
+        RedPotion potion = new RedPotion(77, getMapTile(8,10).getLocation());
+        potion.setExistenceFlag("oceanPotion");
+        potion.setInteractScript(new PotionScript());
+        npcs.add(potion);
+
         return npcs;
     }
 

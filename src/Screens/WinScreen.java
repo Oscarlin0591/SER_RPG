@@ -8,6 +8,7 @@ import java.awt.*;
 // This class is for the win level screen
 public class WinScreen extends Screen {
     protected SpriteFont winMessage;
+    protected SpriteFont lore;
     protected SpriteFont instructions;
     protected KeyLocker keyLocker = new KeyLocker();
     protected PlayLevelScreen playLevelScreen;
@@ -19,8 +20,9 @@ public class WinScreen extends Screen {
 
     @Override
     public void initialize() {
-        winMessage = new SpriteFont("You win!", 350, 239, "Arial", 30, Color.white);
-        instructions = new SpriteFont("Press Space to play again or Escape to go back to the main menu", 120, 279,"Arial", 20, Color.white);
+        winMessage = new SpriteFont("You win!", 350, 239, "Lucida Calligraphy", 30, Color.white);
+        lore = new SpriteFont("You vanquished the spirit that possessed the Nave d'Oro and now owns the golden vessel.\nHowever, something still bothers you in the back of your mind, as if something isn't right about this situation.\nYou push these thoughts aside and sail away with your new found riches", 0, 0, "Lucida Calligraphy", 20, Color.white);
+        instructions = new SpriteFont("Press Space to play again or Escape to go back to the main menu", 120, 279,"Lucida Calligraphy", 20, Color.white);
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
     }

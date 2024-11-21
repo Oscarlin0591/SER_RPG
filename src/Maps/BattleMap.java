@@ -41,7 +41,7 @@ public class BattleMap extends Map{
         //set default enemy
         Random rand = new Random();
         int ranEnemy = rand.nextInt(4);
-        switch (4) {
+        switch (ranEnemy) {
             case 0:
                 enemy = new Bug(999, getMapTile(8,12).getLocation(), 8, 2, 1, 1);
                 break;
@@ -76,14 +76,14 @@ public class BattleMap extends Map{
         }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
-            enemy = new Kraken(801, getMapTile(8,12).getLocation(), 20, 7, 1, 0);
+            enemy = new Kraken(801, getMapTile(8,12).getLocation(), 75, 6, 1, 1);
             npcs.set(0,enemy);
             kraken = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
         }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("beetleEnemy")) {
-            enemy = new HolyBeetle(802, getMapTile(8,12).getLocation(), 45, 5, 1, 1);
+            enemy = new HolyBeetle(802, getMapTile(8,12).getLocation(), 100, 5, 1, 1);
             npcs.set(0,enemy);
             beetle = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("beetleEnemy");
@@ -115,7 +115,7 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("finalBoss")) {
-            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 200, 15, 1, 1);
+            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 2, 1, 1, 1);
             boss = true;
             npcs.set(0, enemy);
         }
@@ -151,24 +151,27 @@ public class BattleMap extends Map{
 
     @Override
     public void loadMusic() {
-        // if (beetle == true) {
-        //     Music.playMusic("Music/Cave Boss.wav");
-        //     beetle = false;
-        // } else {
-        //     Random rand = new Random();
-        // int randMusic = rand.nextInt(4);
-        //     switch (randMusic) {
-        //         case 1:
-        //             Music.playMusic("Music/Fighting The Invisible.wav");
-        //             break;
-        //         case 2:
-        //             Music.playMusic("Music/Splash Thunder.wav");
-        //             break;
-        //         default:
-        //             Music.playMusic("Music/BossThemeOne16bit.wav");
-        //             break;
-        //     }
-        // }
+        if (beetle == true) {
+            Music.playMusic("Music/Cave Boss.wav");
+            beetle = false;
+        } else if (boss == true) {
+            Music.playMusic("Music/NavedOro.wav");
+            boss = false;
+        } else {
+            Random rand = new Random();
+        int randMusic = rand.nextInt(4);
+            switch (randMusic) {
+                case 1:
+                    Music.playMusic("Music/Fighting The Invisible.wav");
+                    break;
+                case 2:
+                    Music.playMusic("Music/Splash Thunder.wav");
+                    break;
+                default:
+                    Music.playMusic("Music/BossThemeOne16bit.wav");
+                    break;
+            }
+        }
         
     }
 }
