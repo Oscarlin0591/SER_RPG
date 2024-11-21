@@ -157,6 +157,7 @@ public class OceanMap extends Map {
         ShipOfTheseus goodShipOfTheseus = new ShipOfTheseus(999, getMapTile(this.goodShipXPosition, this.goodShipYPosition).getLocation(), this.goodShipAnimation, -1, -1, -1, -1);
         goodShipOfTheseus.setInteractScript(new GoodShipOfTheseusScript());
         npcs.add(goodShipOfTheseus);
+        
         ShipOfTheseus badShipOfTheseus = new ShipOfTheseus(666, getMapTile(6, 30).getLocation(), "RIGHT", -1, -1, -1, -1);
         badShipOfTheseus.setInteractScript(new BadShipOfTheseusScript());
         badShipOfTheseus.setExistenceFlag(this.badShipExistenceFlag);
