@@ -50,7 +50,7 @@ public class OceanMap extends Map {
         island.setInteractScript(new IslandScript());
         npcs.add(island);
 
-        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(40,29).getLocation(),"Shipwreck.png");
+        Shipwreck shipwreck1 = new Shipwreck(3, getMapTile(5,20).getLocation(),"Shipwreck.png");
         shipwreck1.setInteractScript(new ShipwreckScript());
         npcs.add(shipwreck1);
 
@@ -58,7 +58,7 @@ public class OceanMap extends Map {
         pirateShip.setInteractScript(new PirateScript());
         npcs.add(pirateShip);
         
-        Cave cave = new Cave(4, getMapTile(3, 28).getLocation());
+        Cave cave = new Cave(4, getMapTile(2,13).getLocation());
         cave.setInteractScript(new CaveScript());
         npcs.add(cave);
 
@@ -73,12 +73,25 @@ public class OceanMap extends Map {
                 ArrayList<ScriptAction> scriptActions = new ArrayList<>();
                 scriptActions.add(new LockPlayerScriptAction());
 
-                scriptActions.add(new TextboxScriptAction() {{
-                    addText("Enter Island?", new String[] { "Yes", "No" });
-                }});
-
                 scriptActions.add(new ConditionalScriptAction() {{
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("endIslandUnlocked", false));
+
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("There is a magical barrier preventing you from entering...");
+                        }});
+                    }});
+                
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("endIslandUnlocked", true));
+
+                        addScriptAction(new TextboxScriptAction() {{
+                            addText("Enter Island?", new String[] { "Yes", "No" });
+                        }});
+                        
+                    }});
+                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                        addRequirement(new FlagRequirement("endIslandUnlocked", true));
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
@@ -86,10 +99,10 @@ public class OceanMap extends Map {
                                 return answer == 0;
                             }
                         });
-
+    
                         addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
                     }});
-
+    
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                         addRequirement(new CustomRequirement() {
                             @Override
@@ -98,7 +111,7 @@ public class OceanMap extends Map {
                                 return answer == 1;
                             }
                         });
-
+    
                         addScriptAction(new ScriptAction() {
                             @Override
                             public ScriptState execute() {
@@ -107,8 +120,7 @@ public class OceanMap extends Map {
                             }
                         });
                     }});
-
-                }});
+            }});
                 scriptActions.add(new UnlockPlayerScriptAction());
 
                 return scriptActions;

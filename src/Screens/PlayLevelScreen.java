@@ -239,6 +239,7 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("treeHaunted", false);
             flagManager.addFlag("reunitedAtLast", false);
             flagManager.addFlag("krakenQuestCompleted", false);
+            flagManager.addFlag("endIslandUnlocked", false);
 
             flagManager.addFlag("bossUnlocked",false);
             flagManager.addFlag("finalBoss", false);
@@ -477,84 +478,84 @@ public class PlayLevelScreen extends Screen {
                     }
         
         
-                // if flag is set at any point during gameplay, game is "lost"
-                if (map.getFlagManager().isFlagSet("gameOver")) {
-                    GamePanel.combatFinished();
-                    playLevelScreenState = PlayLevelScreenState.GAME_OVER;
-                }
-                
-                // if flag is set for portal interaction, change map
-                if (map.getFlagManager().isFlagSet("interactPortal")) {
-                    System.out.println("DEBUG: Portal interaction flag checker");
-                    teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
-                }
-        
-                // if flag is set for portal interaction, change map
-                if (map.getFlagManager().isFlagSet("toggleIsland")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new StartIslandMap(), "toggleIsland", speedBoatSteve, new StartIslandMap().getPlayerStartPosition());
-                }
-        
-                if (map.getFlagManager().isFlagSet("exitIsland")) {
-                    teleport(new OceanMap(), "exitIsland", speedBoat, new OceanMap().getPlayerStartPosition());
-                }
-                // if flag is set for cave icon, change to caves
-                if (map.getFlagManager().isFlagSet("toggleCave")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new CaveMap(), "toggleCave", speedBoatSteve, new CaveMap().getPlayerStartPosition());
-                }
-        
-                if (map.getFlagManager().isFlagSet("exitCave")) { // figuring out location soon
-                    teleport(new OceanMap(), "exitCave", speedBoat, prevLoc);
-                }
-        
-                // if flag is set for atlantis icon, change to atlantis
-                if (map.getFlagManager().isFlagSet("toggleAtlantis")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new AtlantisMap(), "toggleAtlantis", speedBoatSteve, new AtlantisMap().getPlayerStartPosition());
-                }
-        
-                if (map.getFlagManager().isFlagSet("exitAtlantis")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new OceanMap(), "exitAtlantis", speedBoat,  prevLoc);
-                }
-        
-                if (map.getFlagManager().isFlagSet("toggleArctic")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new ArcticMap(), "toggleArctic", speedBoatSteve, new ArcticMap().getPlayerStartPosition());
-                }
-        
-                if (map.getFlagManager().isFlagSet("exitArctic")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new OceanMap(), "exitArctic", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
-                }
-        
-                if(map.getFlagManager().isFlagSet("toggleShipwreck")){
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new ShipwreckMap(), "toggleShipwreck", speedBoatSteve,  new ShipwreckMap().getPlayerStartPosition());
-                }
-        
-                if (map.getFlagManager().isFlagSet("exitShipwreck")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new OceanMap(), "exitShipwreck", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
-                }
-        
-                if (map.getFlagManager().isFlagSet("toggleEndIsland")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new EndMap(), "toggleEndIsland", speedBoatSteve, new EndMap().getPlayerStartPosition());
-                }
-        
-                if (map.getFlagManager().isFlagSet("exitEndIsland")) {
-                    playerLoc = getPlayer().getLocation();
-                    teleport(new OceanMap(), "exitEndIsland", speedBoat, prevLoc);
-                }
-        
-                if (map.getFlagManager().isFlagSet("battlePanel")) {
-                    battle();
-                    refreshBattle();
-                    // date();
-                    map.getFlagManager().unsetFlag("battlePanel");
-                }
+            // if flag is set at any point during gameplay, game is "lost"
+            if (map.getFlagManager().isFlagSet("gameOver")) {
+                GamePanel.combatFinished();
+                playLevelScreenState = PlayLevelScreenState.GAME_OVER;
+            }
+            
+            // if flag is set for portal interaction, change map
+            if (map.getFlagManager().isFlagSet("interactPortal")) {
+                System.out.println("DEBUG: Portal interaction flag checker");
+                teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
+            }
+    
+            // if flag is set for portal interaction, change map
+            if (map.getFlagManager().isFlagSet("toggleIsland")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new StartIslandMap(), "toggleIsland", speedBoatSteve, new StartIslandMap().getPlayerStartPosition());
+            }
+    
+            if (map.getFlagManager().isFlagSet("exitIsland")) {
+                teleport(new OceanMap(), "exitIsland", speedBoat, new OceanMap().getPlayerStartPosition());
+            }
+            // if flag is set for cave icon, change to caves
+            if (map.getFlagManager().isFlagSet("toggleCave")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new CaveMap(), "toggleCave", speedBoatSteve, new CaveMap().getPlayerStartPosition());
+            }
+    
+            if (map.getFlagManager().isFlagSet("exitCave")) { // figuring out location soon
+                teleport(new OceanMap(), "exitCave", speedBoat, prevLoc);
+            }
+    
+            // if flag is set for atlantis icon, change to atlantis
+            if (map.getFlagManager().isFlagSet("toggleAtlantis")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new AtlantisMap(), "toggleAtlantis", speedBoatSteve, new AtlantisMap().getPlayerStartPosition());
+            }
+    
+            if (map.getFlagManager().isFlagSet("exitAtlantis")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new OceanMap(), "exitAtlantis", speedBoat,  prevLoc);
+            }
+    
+            if (map.getFlagManager().isFlagSet("toggleArctic")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new ArcticMap(), "toggleArctic", speedBoatSteve, new ArcticMap().getPlayerStartPosition());
+            }
+    
+            if (map.getFlagManager().isFlagSet("exitArctic")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new OceanMap(), "exitArctic", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
+            }
+    
+            if(map.getFlagManager().isFlagSet("toggleShipwreck")){
+                playerLoc = getPlayer().getLocation();
+                teleport(new ShipwreckMap(), "toggleShipwreck", speedBoatSteve,  new ShipwreckMap().getPlayerStartPosition());
+            }
+    
+            if (map.getFlagManager().isFlagSet("exitShipwreck")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new OceanMap(), "exitShipwreck", speedBoat,  new Point(prevLoc.x, prevLoc.y-2));
+            }
+    
+            if (map.getFlagManager().isFlagSet("toggleEndIsland")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new EndMap(), "toggleEndIsland", speedBoatSteve, new EndMap().getPlayerStartPosition());
+            }
+    
+            if (map.getFlagManager().isFlagSet("exitEndIsland")) {
+                playerLoc = getPlayer().getLocation();
+                teleport(new OceanMap(), "exitEndIsland", speedBoat, prevLoc);
+            }
+    
+            if (map.getFlagManager().isFlagSet("battlePanel")) {
+                battle();
+                refreshBattle();
+                // date();
+                map.getFlagManager().unsetFlag("battlePanel");
+            }
 
 if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
     krakenPuzzle();
@@ -566,157 +567,200 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
     map.getFlagManager().isFlagSet("capricornGameTriggered");
 }
                 
-                if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
-                    map.getFlagManager().setFlag("bossUnlocked");
+            if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
+                map.getFlagManager().setFlag("bossUnlocked");
+            }
+    
+            if (map.getFlagManager().isFlagSet("datePanel")) {
+                date();
+                refreshDate();
+                map.getFlagManager().unsetFlag("datePanel");
+            }
+    
+            // if flag is set for being in combat PRINT DEBUG
+            if (map.getFlagManager().isFlagSet("combatTriggered")) {
+                //add logic to pull up combat menu here 
+                prevMap = getMap();
+                playerLoc = getPlayer().getLocation();
+                map = new BattleMap();
+                map.setFlagManager(flagManager);
+                player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+                player.setMap(map);
+                player.unlock();
+                playLevelScreenState = PlayLevelScreenState.RUNNING;
+                map.setPlayer(player);
+                map.getTextbox().setInteractKey(player.getInteractKey());
+                map.getFlagManager().unsetFlag("combatTriggered");
+                GamePanel.combatTriggered();
+    
+            }
+    
+            if (map.getFlagManager().isFlagSet("battleWon")) {
+                GamePanel.combatFinished();
+                switch(prevMap.getMapFileName()) {
+                    case "cave_map.txt":
+                        returnToPrevMap(new CaveMap(), playerLoc, getPlayer());
+                        break;
+                    case "game_map.txt":
+                        returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
+                        break;
+                    case "starting_map.txt":
+                        returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
+                        break;
+                    case "shipwreck_map.txt":
+                        returnToPrevMap(new ShipwreckMap(), playerLoc, getPlayer());
+                        break;
+                    case "atlantis_map.txt":
+                        returnToPrevMap(new AtlantisMap(), playerLoc, getPlayer());
+                        break;
+                    case "arctic_map.txt":
+                        returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
+                        break;
+                    case "end_map.txt":
+                        returnToPrevMap(new EndMap(), playerLoc, getPlayer());
+                    default:
+                        returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
+                        break;
                 }
-        
-                if (map.getFlagManager().isFlagSet("datePanel")) {
-                    date();
-                    refreshDate();
-                    map.getFlagManager().unsetFlag("datePanel");
-                }
-        
-                // if flag is set for being in combat PRINT DEBUG
-                if (map.getFlagManager().isFlagSet("combatTriggered")) {
-                    //add logic to pull up combat menu here 
-                    prevMap = getMap();
-                    playerLoc = getPlayer().getLocation();
-                    map = new BattleMap();
-                    map.setFlagManager(flagManager);
-                    player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-                    player.setMap(map);
-                    player.unlock();
-                    playLevelScreenState = PlayLevelScreenState.RUNNING;
-                    map.setPlayer(player);
-                    map.getTextbox().setInteractKey(player.getInteractKey());
-                    map.getFlagManager().unsetFlag("combatTriggered");
-                    GamePanel.combatTriggered();
-        
-                }
-        
-                if (map.getFlagManager().isFlagSet("battleWon")) {
-                    GamePanel.combatFinished();
-                    switch(prevMap.getMapFileName()) {
-                        case "cave_map.txt":
-                            returnToPrevMap(new CaveMap(), playerLoc, getPlayer());
-                            break;
-                        case "game_map.txt":
-                            returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
-                            break;
-                        case "starting_map.txt":
-                            returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
-                            break;
-                        case "shipwreck_map.txt":
-                            returnToPrevMap(new ShipwreckMap(), playerLoc, getPlayer());
-                            break;
-                        case "atlantis_map.txt":
-                            returnToPrevMap(new AtlantisMap(), playerLoc, getPlayer());
-                            break;
-                        case "arctic_map.txt":
-                            returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
-                            break;
-                        case "end_map.txt":
-                            returnToPrevMap(new EndMap(), playerLoc, getPlayer());
-                        default:
-                            returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
-                            break;
-                    }
-                    player.fullHealth();
-                }
-        
-                // date logic
-                if (map.getFlagManager().isFlagSet("dateTriggered")) {
-                    //add logic to pull up combat menu here 
-                    prevMap = getMap();
-                    playerLoc = getPlayer().getLocation();
-                    map = new DateMap();
-                    map.setFlagManager(flagManager);
-                    player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-                    player.setMap(map);
-                    player.unlock();
-                    playLevelScreenState = PlayLevelScreenState.RUNNING;
-                    map.setPlayer(player);
-                    map.getTextbox().setInteractKey(player.getInteractKey());
-                    map.getFlagManager().unsetFlag("dateTriggered");
-                    isDating = true;
-                }
-        
-                if (map.getFlagManager().isFlagSet("dateWon")) {
-                    switch(prevMap.getMapFileName()) {
-                        case "cave_map.txt":
-                            returnToPrevMap(new CaveMap(), playerLoc, getPlayer());
-                            break;
-                        case "game_map.txt":
-                            returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
-                            break;
-                        case "starting_map.txt":
-                            returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
-                            break;
-                        case "shipwreck_map.txt":
-                            returnToPrevMap(new ShipwreckMap(), playerLoc, getPlayer());
-                            break;
-                        case "atlantis_map.txt":
-                            returnToPrevMap(new AtlantisMap(), playerLoc, getPlayer());
-                            break;
-                        case "arctic_map.txt":
-                            returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
-                            break;
-                        case "end_map.txt":
-                            returnToPrevMap(new EndMap(), playerLoc, getPlayer());
-                            break;
-                        default:
-                            returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
-                            break;
-                    }
-                }
-                
-                if (map.getChosenMap() != null) {
-                    teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
-                    map.setChosenMap(null);
-                }
-        
-                if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("neptuneKilled")) {
-                    // insert flag for bad ending
-                    getMap().getFlagManager().setFlag("goodEnding");
-                } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("neptuneQuestCompleted")) {
-                    // insert flag for good ending
-                    getMap().getFlagManager().setFlag("badEnding");
-                } else {
-                    // neutral ending
-                    getMap().getFlagManager().setFlag("neutralEnding");
+                player.fullHealth();
+            }
+    
+            // date logic
+            if (map.getFlagManager().isFlagSet("dateTriggered")) {
+                //add logic to pull up combat menu here 
+                prevMap = getMap();
+                playerLoc = getPlayer().getLocation();
+                map = new DateMap();
+                map.setFlagManager(flagManager);
+                player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+                player.setMap(map);
+                player.unlock();
+                playLevelScreenState = PlayLevelScreenState.RUNNING;
+                map.setPlayer(player);
+                map.getTextbox().setInteractKey(player.getInteractKey());
+                map.getFlagManager().unsetFlag("dateTriggered");
+                isDating = true;
+            }
+    
+            if (map.getFlagManager().isFlagSet("dateWon")) {
+                switch(prevMap.getMapFileName()) {
+                    case "cave_map.txt":
+                        returnToPrevMap(new CaveMap(), playerLoc, getPlayer());
+                        break;
+                    case "game_map.txt":
+                        returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
+                        break;
+                    case "starting_map.txt":
+                        returnToPrevMap(new StartIslandMap(), playerLoc, getPlayer());
+                        break;
+                    case "shipwreck_map.txt":
+                        returnToPrevMap(new ShipwreckMap(), playerLoc, getPlayer());
+                        break;
+                    case "atlantis_map.txt":
+                        returnToPrevMap(new AtlantisMap(), playerLoc, getPlayer());
+                        break;
+                    case "arctic_map.txt":
+                        returnToPrevMap(new ArcticMap(), playerLoc, getPlayer());
+                        break;
+                    case "end_map.txt":
+                        returnToPrevMap(new EndMap(), playerLoc, getPlayer());
+                        break;
+                    default:
+                        returnToPrevMap(new OceanMap(), playerLoc, getPlayer());
+                        break;
                 }
             }
+            
+            if (map.getChosenMap() != null) {
+                teleport(EditorMaps.getMapByName(map.getChosenMap()), "interactPortal", new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,player.getHealth(),player.getStrength(), player.getCritChance(), player.getDodgeChance()));
+                map.setChosenMap(null);
+            }
+    
+            if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("neptuneKilled")) {
+                // insert flag for bad ending
+                getMap().getFlagManager().setFlag("goodEnding");
+            } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("neptuneQuestCompleted")) {
+                // insert flag for good ending
+                getMap().getFlagManager().setFlag("badEnding");
+            } else {
+                // neutral ending
+                getMap().getFlagManager().setFlag("neutralEnding");
+            }
+
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted")) && (flagManager.isFlagSet("neptuneKilled")|| flagManager.isFlagSet("neptuneQuestCompleted"))) {
+                getMap().getFlagManager().setFlag("endIslandUnlocked");
+            }
+        }
         
-            private void updatePauseState() {
-                if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
-                    //if screen currently running, it is now paused
-                    if (playLevelScreenState == PlayLevelScreenState.RUNNING) {
-                        playLevelScreenState = PlayLevelScreenState.PAUSED;
-        
-                        //lock player movement
-                        getPlayer().lock();
-        
-                        //lock npc movement - seems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
-                        for (NPC npc : getMap().getNPCs()) {
-                            npc.lock();
-                        }
-                    }
-                    //if screen currently paused, it is now running
-                    else if (playLevelScreenState == PlayLevelScreenState.PAUSED) {
-                        playLevelScreenState = PlayLevelScreenState.RUNNING;
-                        System.out.println("DEBUG: UNLOCKED");
-        
-                        //unlock player movement
-                        getPlayer().unlock();
-        
-                        //unlock npc movement
-                        for (NPC npc : getMap().getNPCs()) {
-                            npc.unlock();
-                        }
+        private void updatePauseState() {
+            if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
+                //if screen currently running, it is now paused
+                if (playLevelScreenState == PlayLevelScreenState.RUNNING) {
+                    playLevelScreenState = PlayLevelScreenState.PAUSED;
+    
+                    //lock player movement
+                    getPlayer().lock();
+    
+                    //lock npc movement - seems to only lock movement, not animations, so we will want to add that as well later on (possibly by updating NPC.lock() method)
+                    for (NPC npc : getMap().getNPCs()) {
+                        npc.lock();
                     }
                 }
-        
-                keyLocker.lockKey(pauseKey);
+                //if screen currently paused, it is now running
+                else if (playLevelScreenState == PlayLevelScreenState.PAUSED) {
+                    playLevelScreenState = PlayLevelScreenState.RUNNING;
+                    System.out.println("DEBUG: UNLOCKED");
+    
+                    //unlock player movement
+                    getPlayer().unlock();
+    
+                    //unlock npc movement
+                    for (NPC npc : getMap().getNPCs()) {
+                        npc.unlock();
+                    }
+                }
+            }
+    
+            keyLocker.lockKey(pauseKey);
+            
+            if(Keyboard.isKeyDown(leftKey) && buttonHover > 0){
+                buttonHover--;
+            }
+    
+            if(Keyboard.isKeyDown(rightKey) && buttonHover < 1){
+                buttonHover++;
+            }
+    
+            if(Keyboard.isKeyDown(enterKey) && playLevelScreenState == PlayLevelScreenState.PAUSED){
+                switch (buttonHover) {
+                    case 1:
+                        // Write to save file
+                        //IMPORTANT: DO NOT UNCOMMENT, COULD LEAD TO MULTIPLE MERGE CONFLICTS!
+                        try (BufferedWriter writer = new BufferedWriter(new FileWriter("src/Saves/Save.txt"))) {
+                            writer.write("" + (int)player.getX());
+                            writer.write("\n" + (int)player.getY());
+                            writer.write("\n" + map.getMapFileName());
+                            writer.write("\n" + (int)player.getHealth());
+                            writer.write("\n" + (int)player.getStrength());
+                            //writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
+                            //writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
+                            //writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
+                            String temp = flagManager.getValues();
+                            writer.write("\n" + temp.substring(1,temp.length() - 1));
+                            temp = flagManager.getKeys();
+                            writer.write("\n" + temp.substring(1, temp.length() - 1));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        System.exit(0);
+                        break;
+                    default:
+                        playLevelScreenState = PlayLevelScreenState.RUNNING; //may run into issues if unpausing while game state was not previously running, but dont think thats possible anyways
+                        
+                        //unlock player movement
+                        this.getPlayer().unlock();
+                        break;
+                }
                 
                 if(Keyboard.isKeyDown(leftKey) && buttonHover > 0){
                     buttonHover--;
@@ -765,6 +809,11 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
                     keyLocker.unlockKey(pauseKey);
                 }
             }
+    
+            if (Keyboard.isKeyUp(pauseKey)) {
+                keyLocker.unlockKey(pauseKey);
+            }
+        }
             
             // methods to switch map
         
@@ -826,7 +875,6 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
                 switch (tier[tierCount]) {
                     case 1:
                         shipUpgrade(speedBoat1);
-                        System.out.println("Upgrade applied");
                         break;
                     case 2:
                         shipUpgrade(speedBoat2);
@@ -840,17 +888,17 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
                 }
             }
     
-            public static void shipUpgrade(SpeedBoat newPlayer) {
-                float playerHealth = getPlayer().getHealth();
-                float playerMaxHealth = getPlayer().getMaxHealth();
-                float playerStrength = getPlayer().getStrength();
-        
-                System.out.println("shipUpgrade reached");
-                speedBoat = newPlayer;
-                speedBoat.setHealth(playerHealth);
-                speedBoat.setMaxHealth(playerMaxHealth);
-                speedBoat.setStrength(playerStrength);
-                // speedBoat.setLocation(getMap().getPlayer().getLocation().x, getMap().getPlayer().getLocation().y);
+        public static void shipUpgrade(SpeedBoat newPlayer) {
+            float playerHealth = getPlayer().getHealth();
+            float playerMaxHealth = getPlayer().getMaxHealth();
+            float playerStrength = getPlayer().getStrength();
+    
+            System.out.println("shipUpgrade reached");
+            speedBoat = newPlayer;
+            speedBoat.setHealth(playerHealth);
+            speedBoat.setMaxHealth(playerMaxHealth);
+            speedBoat.setStrength(playerStrength);
+            // speedBoat.setLocation(getMap().getPlayer().getLocation().x, getMap().getPlayer().getLocation().y);
         }
     
         public void draw(GraphicsHandler graphicsHandler) {
