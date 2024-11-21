@@ -54,6 +54,7 @@ public class PlayLevelScreen extends Screen {
         public static BattleScreen battleScreen;
         public static DateScreen dateScreen;
         public static KrakenPuzzleScreen krakenPuzzleScreen;
+        public static ZodiacMatchingScreen zodiacMatchingScreen;
         public static FlagManager flagManager; //chaged to public static from protected
         protected JPanel healthBar;
         private int buttonHover = 0;
@@ -226,6 +227,8 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("krampusQuestComplete",false);
             flagManager.addFlag("beetleQuestComplete",false);
             flagManager.addFlag("beetleBeaten",false);
+            flagManager.addFlag("capricornGameTriggered", false);
+            flagManager.addFlag("capricornGameSolved", false);
             flagManager.addFlag("capricornQuestComplete", false);
             flagManager.addFlag("capricornBeaten", false);
             flagManager.addFlag("boo", false);
@@ -421,6 +424,7 @@ public class PlayLevelScreen extends Screen {
                     battleScreen = new BattleScreen(this);
                     krakenPuzzleScreen = new KrakenPuzzleScreen(this);
                     dateScreen = new DateScreen(this);
+                    zodiacMatchingScreen = new ZodiacMatchingScreen(this);
             
             
             }
@@ -466,6 +470,9 @@ public class PlayLevelScreen extends Screen {
                         break;
                     case KRAKEN_PUZZLE:
                         krakenPuzzleScreen.update();
+                        break;
+                    case CAPRICORN_GAME:
+                        zodiacMatchingScreen.update();
                         break;
                     }
         
@@ -552,6 +559,11 @@ public class PlayLevelScreen extends Screen {
 if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
     krakenPuzzle();
     map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
+}
+
+if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
+    capricornGame();
+    map.getFlagManager().isFlagSet("capricornGameTriggered");
 }
                 
                 if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
@@ -898,6 +910,10 @@ if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
                 case KRAKEN_PUZZLE:
                     krakenPuzzleScreen.draw(graphicsHandler);
                     break;
+
+                case CAPRICORN_GAME:
+                    zodiacMatchingScreen.draw(graphicsHandler);
+                    break;
                 case PAUSED:
                     int currentHealth = Math.round(player.getHealth());
                     int currentStrength = Math.round(player.getStrength());
@@ -1004,6 +1020,10 @@ if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
         public static void krakenPuzzle(){
             setPlayLevelScreenState(PlayLevelScreenState.KRAKEN_PUZZLE);
         }
+
+        public static void capricornGame(){
+            setPlayLevelScreenState(PlayLevelScreenState.CAPRICORN_GAME);
+        }
     
         public void refreshDate() {
             dateScreen = new DateScreen(this);
@@ -1027,6 +1047,6 @@ if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE, CAPRICORN_GAME
     }
 }
