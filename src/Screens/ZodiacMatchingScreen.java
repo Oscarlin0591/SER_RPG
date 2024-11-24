@@ -1,8 +1,10 @@
 package Screens;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 
+import Engine.GameWindow;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import Engine.Screen;
@@ -20,6 +22,7 @@ public class ZodiacMatchingScreen extends Screen{
     protected int[] solution = {0,1,2,3,4}; //correct order
     protected int[] input = {-1,-1,-1,-1,-1}; //player input
     protected KeyLocker keyLocker = new KeyLocker();
+    protected boolean incorrect = false;
 
     //Constellations
     protected BufferedImage ariesImage = ImageLoader.load("AriesConstellation.png");
@@ -67,11 +70,6 @@ public class ZodiacMatchingScreen extends Screen{
 
         hoverX = 100 * currentSelection + 100;
 
-        //processing E for input
-        if(Keyboard.isKeyDown(Key.E)){
-            keyLocker.unlockKey(Key.E);
-        }
-
         if(!keyLocker.isKeyLocked(Key.E) && Keyboard.isKeyDown(Key.E)){
             if(currentInput <5){
                 input[currentInput] = currentSelection;
@@ -84,12 +82,15 @@ public class ZodiacMatchingScreen extends Screen{
                 if(checkSolution()){
                     System.out.println("Correct!");
                     PlayLevelScreen.running();
+                    PlayLevelScreen.getMap().getFlagManager().unsetFlag("capricornGameTriggered");
                 } else {
                     System.out.println("Incorrect!");
                     resetInputs();
                 }
             }
 
+        } else if (Keyboard.isKeyUp(Key.E)) {
+            keyLocker.unlockKey(Key.E);
         }
 
     }
@@ -107,6 +108,15 @@ public class ZodiacMatchingScreen extends Screen{
         graphicsHandler.drawImage(leoImage, 300,400,64,64);
         graphicsHandler.drawImage(cancerImage, 400,400,64,64);
         graphicsHandler.drawImage(capricornImage, 500,400,64,64);
+
+        if (incorrect) {
+            graphicsHandler.drawString("Incorrect!", GameWindow.gamePanel.getWidth()-200, 200, new Font("Lucida Calligraphy", 0, 20), Color.white);
+            int timer = 100;
+            timer--;
+            if (timer == 0)
+            incorrect = false;
+        }
+        
     
      //displayinng the match constellations in their postions
     for (int i = 0; i<5 ; i++){
