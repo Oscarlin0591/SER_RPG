@@ -54,6 +54,7 @@ public class PlayLevelScreen extends Screen {
         public static BattleScreen battleScreen;
         public static DateScreen dateScreen;
         public static KrakenPuzzleScreen krakenPuzzleScreen;
+        public static ZodiacMatchingScreen zodiacMatchingScreen;
         public static FlagManager flagManager; //chaged to public static from protected
         protected JPanel healthBar;
         private int buttonHover = 0;
@@ -224,6 +225,8 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("goodShipPloy", false);
             flagManager.addFlag("beetleQuestComplete",false);
             flagManager.addFlag("beetleBeaten",false);
+            flagManager.addFlag("capricornGameTriggered", false);
+            flagManager.addFlag("capricornGameSolved", false);
             flagManager.addFlag("capricornQuestComplete", false);
             flagManager.addFlag("capricornBeaten", false);
             flagManager.addFlag("boo", false);
@@ -269,163 +272,169 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("badEnding",false);
             
                     // define/setup map - may need to replicate for all maps
-            int playerContX = 0;
-            int playerContY = 0;
-            String mapCont = "";
-            int playerHealthCont = 0;
-            int playerStrengthCont = 0;
-            if(MenuScreen.continueState.getPressedContinue()){
-                try{
-                    File saveFile = new File("src/Saves/Save.txt");
-                    Scanner in = new Scanner(saveFile);
-                    playerContX = in.nextInt();
-                    System.out.println(playerContX);
-                    playerContY = in.nextInt();
-                    System.out.println(playerContY);
-                    mapCont = in.next();
-                    System.out.println(mapCont);
-                    playerHealthCont = in.nextInt();
-                    playerStrengthCont = in.nextInt();
-                    //beaten jv
-                    /*if(in.nextBoolean()){
-                        flagManager.setFlag("jvBeaten");
-                    }
-                    //kraken's existence
-                    if(in.nextBoolean()){
-                        flagManager.setFlag("krakenKilled");
-                    }
-                    //beetle defeated
-                    if(in.nextBoolean()){
-                        flagManager.setFlag("beetleKilled");
-                    }*/
-                    boolean[] flagValues = new boolean[flagManager.getSize()];
-                    for(int i = 0; i < flagManager.getSize(); i++){
-                        boolean temp = false;
-                        String value = in.next();
-                        value = value.substring(0, value.length() - 1);
-                        if(value.equals("true")){
-                            temp = true;
-                        }
-                        flagValues[i] = temp;
-                    }
-                    for(int i = 0; i < flagValues.length; i++){
-                        System.out.println(i);
-                        System.out.println(flagValues[i]);
-                    }
-    
-                    String[] flagNames = new String[flagManager.getSize()];
-                    for(int i = 0; i < flagManager.getSize(); i++){
-                        String name = in.next();
-                        name = name.substring(0, name.length() - 1);
-                        flagNames[i] = name;
-                    }
-                    for(int i = 0; i < flagNames.length; i++){
-                        System.out.println(i);
-                        System.out.println(flagNames[i]);
-                    }
-    
-                    for(int i = 0; i < flagManager.getSize(); i++){
-                        if(flagValues[i]){
-                            flagManager.setFlag(flagNames[i]);
-                        }
-                    }
-    
-                    //String flagName = in.nextLine();
-                    //String flagValues = in
-                    
-                    /*while(!flagString.isEmpty()){
-                        //for()
-                        String temp = "";
-                        for(int i = 0; i > flagArray.length; i++){
-                            if(flagArray[i] != '{'){
-                                temp = 
+                    int playerContX = 0;
+                    int playerContY = 0;
+                    String mapCont = "";
+                    int playerHealthCont = 0;
+                    int playerStrengthCont = 0;
+                    int prevLocXCont = 0;
+                    int prevLocYCont = 0;
+                    if(MenuScreen.continueState.getPressedContinue()){
+                        try{
+                            File saveFile = new File("src/Saves/Save.txt");
+                            Scanner in = new Scanner(saveFile);
+                            playerContX = in.nextInt();
+                            System.out.println(playerContX);
+                            playerContY = in.nextInt();
+                            System.out.println(playerContY);
+                            mapCont = in.next();
+                            System.out.println(mapCont);
+                            playerHealthCont = in.nextInt();
+                            playerStrengthCont = in.nextInt();
+                            prevLocXCont = in.nextInt();
+                            prevLocYCont = in.nextInt();
+                            prevLoc = new Point(prevLocXCont, prevLocYCont);
+                            //beaten jv
+                            /*if(in.nextBoolean()){
+                                flagManager.setFlag("jvBeaten");
                             }
-                        }
-                        //    vvvv replace with another var
-                        if(flagString.equals("true")){
-    
-                        }else{
-    
-                        }
-                    }*/
-                    in.close();
-                }catch(FileNotFoundException e){
-                    e.printStackTrace();
-                }
-    
-                switch (mapCont) {
-                    case "game_map.txt":
-                        map = new OceanMap();
-                        break;
-                    case "cave_map.txt":
-                        map = new CaveMap();
-                        break;
-                    case "shipwreck_map.txt":
-                        map = new ShipwreckMap();
-                        break;
-                    case "atlantis_map.txt":
-                        map = new AtlantisMap();
-                        break;
-                    case "arctic_map.txt":
-                        map = new ArcticMap();
-                        break;
-                    default:
-                        map = new StartIslandMap();
-                        break;
-                }
-            }else{
-                map = new StartIslandMap();
-            }
+                            //kraken's existence
+                            if(in.nextBoolean()){
+                                flagManager.setFlag("krakenKilled");
+                            }
+                            //beetle defeated
+                            if(in.nextBoolean()){
+                                flagManager.setFlag("beetleKilled");
+                            }*/
+                            boolean[] flagValues = new boolean[flagManager.getSize()];
+                            for(int i = 0; i < flagManager.getSize(); i++){
+                                boolean temp = false;
+                                String value = in.next();
+                                value = value.substring(0, value.length() - 1);
+                                if(value.equals("true")){
+                                    temp = true;
+                                }
+                                flagValues[i] = temp;
+                            }
+                            for(int i = 0; i < flagValues.length; i++){
+                                System.out.println(i);
+                                System.out.println(flagValues[i]);
+                            }
             
-            map.setFlagManager(flagManager);
-    
-            // static players
-            // speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
-            speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,4, 1, 1);
-            speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
-            speedBoat1 = new SpeedBoat1("CharacterPNGs/SpeedBoat1.png", 32,32,map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
-            speedBoat2 = new SpeedBoat2("CharacterPNGs/SpeedBoat2.png", 64,48,map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
-            // speedBoat3 = new SpeedBoat3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
-            // speedBoat4 = new SpeedBoat4(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
-    
-            // setup player
-            if(MenuScreen.continueState.getPressedContinue()){
-                if(map.getMapFileName().equals("game_map.txt")){
-                    player = speedBoat;
-                    // new SpeedBoat(playerContX, playerContY, playerHealthCont, playerStrengthCont);
-                }else{
-                    player = speedBoatSteve;
-                    // new SpeedBoatSteve(playerContX, playerContY, playerHealthCont, playerStrengthCont);
-                }
-                player.setLocation(playerContX, playerContY);
-                player.setStrength(playerStrengthCont);
-                player.setMaxHealth(playerHealthCont);
-            }else{
-                player = speedBoatSteve;
-                // new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
-            }
-            player.setMap(map);
-            playLevelScreenState = PlayLevelScreenState.RUNNING;
-            player.setFacingDirection(Direction.LEFT);
-            System.out.println(player.getLocation());
-            map.setPlayer(player);
-    
-            // let pieces of map know which button to listen for as the "interact" button
-            map.getTextbox().setInteractKey(player.getInteractKey());
-    
-            // preloads all scripts ahead of time rather than loading them dynamically
-            // both are supported, however preloading is recommended
-            map.preloadScripts();
-    
-            winScreen = new WinScreen(this);
-            goodWinScreen = new GoodWinScreen(this);
-            badWinScreen = new BadWinScreen(this);
-            gameOverScreen = new GameOverScreen(this);
-            battleScreen = new BattleScreen(this);
-            krakenPuzzleScreen = new KrakenPuzzleScreen(this);
-            dateScreen = new DateScreen(this);
-    
-    
+                            String[] flagNames = new String[flagManager.getSize()];
+                            for(int i = 0; i < flagManager.getSize(); i++){
+                                String name = in.next();
+                                name = name.substring(0, name.length() - 1);
+                                flagNames[i] = name;
+                            }
+                            for(int i = 0; i < flagNames.length; i++){
+                                System.out.println(i);
+                                System.out.println(flagNames[i]);
+                            }
+            
+                            for(int i = 0; i < flagManager.getSize(); i++){
+                                if(flagValues[i]){
+                                    flagManager.setFlag(flagNames[i]);
+                                }
+                            }
+            
+                            //String flagName = in.nextLine();
+                            //String flagValues = in
+                            
+                            /*while(!flagString.isEmpty()){
+                                //for()
+                                String temp = "";
+                                for(int i = 0; i > flagArray.length; i++){
+                                    if(flagArray[i] != '{'){
+                                        temp = 
+                                    }
+                                }
+                                //    vvvv replace with another var
+                                if(flagString.equals("true")){
+            
+                                }else{
+            
+                                }
+                            }*/
+                            in.close();
+                        }catch(FileNotFoundException e){
+                            e.printStackTrace();
+                        }
+            
+                        switch (mapCont) {
+                            case "game_map.txt":
+                                map = new OceanMap();
+                                break;
+                            case "cave_map.txt":
+                                map = new CaveMap();
+                                break;
+                            case "shipwreck_map.txt":
+                                map = new ShipwreckMap();
+                                break;
+                            case "atlantis_map.txt":
+                                map = new AtlantisMap();
+                                break;
+                            case "arctic_map.txt":
+                                map = new ArcticMap();
+                                break;
+                            default:
+                                map = new StartIslandMap();
+                                break;
+                        }
+                    }else{
+                        map = new StartIslandMap();
+                    }
+                    
+                    map.setFlagManager(flagManager);
+            
+                    // static players
+                    // speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
+                    speedBoatSteve = new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,4, 1, 1);
+                    speedBoat = new SpeedBoat(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
+                    speedBoat1 = new SpeedBoat1("CharacterPNGs/SpeedBoat1.png", 32,32,map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
+                    speedBoat2 = new SpeedBoat2("CharacterPNGs/SpeedBoat2.png", 64,48,map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
+                    // speedBoat3 = new SpeedBoat3(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
+                    // speedBoat4 = new SpeedBoat4(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y, speedBoatSteve.getHealth(), speedBoatSteve.getStrength(), speedBoatSteve.getDodgeChance(), speedBoatSteve.getCritChance());
+            
+                    // setup player
+                    if(MenuScreen.continueState.getPressedContinue()){
+                        if(map.getMapFileName().equals("game_map.txt")){
+                            player = speedBoat;
+                            // new SpeedBoat(playerContX, playerContY, playerHealthCont, playerStrengthCont);
+                        }else{
+                            player = speedBoatSteve;
+                            // new SpeedBoatSteve(playerContX, playerContY, playerHealthCont, playerStrengthCont);
+                        }
+                        player.setLocation(playerContX, playerContY);
+                        player.setStrength(playerStrengthCont);
+                        player.setMaxHealth(playerHealthCont);
+                    }else{
+                        player = speedBoatSteve;
+                        // new SpeedBoatSteve(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y,10,2);
+                    }
+                    player.setMap(map);
+                    playLevelScreenState = PlayLevelScreenState.RUNNING;
+                    player.setFacingDirection(Direction.LEFT);
+                    System.out.println(player.getLocation());
+                    map.setPlayer(player);
+            
+                    // let pieces of map know which button to listen for as the "interact" button
+                    map.getTextbox().setInteractKey(player.getInteractKey());
+            
+                    // preloads all scripts ahead of time rather than loading them dynamically
+                    // both are supported, however preloading is recommended
+                    map.preloadScripts();
+            
+                    winScreen = new WinScreen(this);
+                    goodWinScreen = new GoodWinScreen(this);
+                    badWinScreen = new BadWinScreen(this);
+                    gameOverScreen = new GameOverScreen(this);
+                    battleScreen = new BattleScreen(this);
+                    krakenPuzzleScreen = new KrakenPuzzleScreen(this);
+                    dateScreen = new DateScreen(this);
+                    zodiacMatchingScreen = new ZodiacMatchingScreen(this);
+            
+            
             }
                     
             public void update() {
@@ -469,6 +478,9 @@ public class PlayLevelScreen extends Screen {
                         break;
                     case KRAKEN_PUZZLE:
                         krakenPuzzleScreen.update();
+                        break;
+                    case CAPRICORN_GAME:
+                        zodiacMatchingScreen.update();
                         break;
                     }
         
@@ -552,10 +564,15 @@ public class PlayLevelScreen extends Screen {
                 map.getFlagManager().unsetFlag("battlePanel");
             }
 
-            if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
-            krakenPuzzle();
-            map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
-            }
+if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
+    krakenPuzzle();
+    map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
+}
+
+if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
+    capricornGame();
+    map.getFlagManager().isFlagSet("capricornGameTriggered");
+}
                 
             if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
                 map.getFlagManager().setFlag("bossUnlocked");
@@ -951,6 +968,10 @@ public class PlayLevelScreen extends Screen {
                 case KRAKEN_PUZZLE:
                     krakenPuzzleScreen.draw(graphicsHandler);
                     break;
+
+                case CAPRICORN_GAME:
+                    zodiacMatchingScreen.draw(graphicsHandler);
+                    break;
                 case PAUSED:
                     int currentHealth = Math.round(player.getHealth());
                     int currentStrength = Math.round(player.getStrength());
@@ -1057,6 +1078,10 @@ public class PlayLevelScreen extends Screen {
         public static void krakenPuzzle(){
             setPlayLevelScreenState(PlayLevelScreenState.KRAKEN_PUZZLE);
         }
+
+        public static void capricornGame(){
+            setPlayLevelScreenState(PlayLevelScreenState.CAPRICORN_GAME);
+        }
     
         public void refreshDate() {
             dateScreen = new DateScreen(this);
@@ -1080,6 +1105,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE, CAPRICORN_GAME
     }
 }

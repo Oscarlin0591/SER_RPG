@@ -22,6 +22,8 @@ public class BattleMap extends Map{
     protected boolean kraken = false;
     protected boolean capricorn = false;
 
+    protected static Random rand = new Random();
+
     public BattleMap() {
         super("battle_map.txt", new BattleMapTileset());
         this.playerStartPosition = getMapTile(20,12).getLocation();
@@ -39,7 +41,6 @@ public class BattleMap extends Map{
         ArrayList<NPC> npcs = new ArrayList<>();
         
         //set default enemy
-        Random rand = new Random();
         int ranEnemy = rand.nextInt(4);
         switch (ranEnemy) {
             case 0:
@@ -48,17 +49,17 @@ public class BattleMap extends Map{
             case 1:
                 enemy = new Shrek(503, getMapTile(8,12).getLocation(), 10, 1, 1, 1);
                 break;
-            case 3:
+            case 2:
                 enemy = new Shark(69, getMapTile(8,11).getLocation(), 15, 4, 2, 0);
-            case 4:
+                break;
+            case 3:
                 enemy = new GhostShip(420, getMapTile(8,10).getLocation(), 5, 2, 2, 2);
+                break;
             default:
                 break;
         }
-        if (npcs.size() == 0)
-            npcs.add(enemy);
-        else
-            npcs.set(0, enemy);
+
+        npcs.add(enemy);
 
         //override default enemy depending on enemy flags
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("bugEnemy")) {

@@ -41,7 +41,8 @@ public class CapricornScript extends Script{
                     addText("The Nave d'Oro, eh?");
                     addText("Intriging");
                     addText("Well ye would have to do something for me though \n all I need ye to do is 'elp me get my pic tures of the stars \nback into order");
-                    addText("they go all mixed up at somepoint an' I can't really seem to fix it \nThe waves tend to mess up the clarity of the night sky", new String[]{"Aye I can", "No prepare to die"});
+                    addText("they go all mixed up at somepoint an' I can't really seem to fix it \nThe waves tend to mess up the clarity of the night sky");
+                    addText("Now truth be told I figured all but 5 of them out \nThe ones still mized up are: \nAries, Taurus, Leo, Cancer, and Capricorn", new String[]{"Aye I can", "No prepare to die"});
                 }});
 
                 //Screw this fight me response
@@ -82,12 +83,9 @@ public class CapricornScript extends Script{
 
 
                 addScriptAction(new TextboxScriptAction() {{
-                    addText("Ah perfect thank ye so much");
-                    addText("I'll show them to you and you give me their name");
-                    addText("Now truth be told I figured all but 5 of them out \nThe ones still mized up are: \nAries, Taurus, Leo, Cancer, and Capricorn");
-                   
+                    scriptActions.add(new ChangeFlagScriptAction("capricornGameTriggered", true));    
                 }});
-                //mini game code starts here
+                    
 
 
 
