@@ -57,7 +57,7 @@ public class ShipwreckMap extends Map{
         npcs.add(flintlockGhost);
         
         GreenGem gem = new GreenGem(30,getMapTile(48,6).getLocation());
-        gem.setExistenceFlag("greenGem");
+        gem.setExistenceFlag("collectedGreenGem");
         gem.setInteractScript(new GreenGemScript());
         npcs.add(gem);
 

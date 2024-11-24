@@ -209,21 +209,19 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("jvSpokenTo", false);
             flagManager.addFlag("jvDate", false);
             flagManager.addFlag("jvDated", false);
-            flagManager.addFlag("krampusQuest", false);
-            flagManager.addFlag("witchSpokenTo",false);
-            flagManager.addFlag("dateTriggered", false);
+
             flagManager.addFlag("treeBroken", false);
             flagManager.addFlag("atlantisTreeBroken", false);
             flagManager.addFlag("treePocketed", false);
             flagManager.addFlag("treeReplanted", false);
+            flagManager.addFlag("treeHaunted", false);
+
             flagManager.addFlag("goodShipEncountered", false);
             flagManager.addFlag("badShipEncountered", false);
             flagManager.addFlag("goodShipInformed", false);
             flagManager.addFlag("goodShipMoved", false);
             flagManager.addFlag("badShipUltimatum", false);
             flagManager.addFlag("goodShipPloy", false);
-            flagManager.addFlag("shipDiscussion", false);
-            flagManager.addFlag("krampusQuestComplete",false);
             flagManager.addFlag("beetleQuestComplete",false);
             flagManager.addFlag("beetleBeaten",false);
             flagManager.addFlag("capricornQuestComplete", false);
@@ -233,11 +231,20 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("sonReveal", false);
             flagManager.addFlag("appleGiven", false);
             flagManager.addFlag("appleHaunted", false);
-            flagManager.addFlag("treeHaunted", false);
             flagManager.addFlag("reunitedAtLast", false);
-            flagManager.addFlag("krakenQuestCompleted", false);
-            flagManager.addFlag("endIslandUnlocked", false);
+            flagManager.addFlag("shipDiscussion", false);
 
+            flagManager.addFlag("gemQuest", false);
+            flagManager.addFlag("collectedBlueGem", false);
+            flagManager.addFlag("collectedGreenGem", false);
+            flagManager.addFlag("collectedRedGem", false);
+            
+            flagManager.addFlag("krampusQuest", false);
+            flagManager.addFlag("krampusQuestComplete",false);
+            flagManager.addFlag("witchSpokenTo",false);
+            flagManager.addFlag("krakenQuestCompleted", false);
+
+            flagManager.addFlag("endIslandUnlocked", false);
             flagManager.addFlag("bossUnlocked",false);
             flagManager.addFlag("finalBoss", false);
 
@@ -670,7 +677,10 @@ public class PlayLevelScreen extends Screen {
                 getMap().getFlagManager().setFlag("neutralEnding");
             }
 
-            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted")) && (flagManager.isFlagSet("neptuneKilled")|| flagManager.isFlagSet("neptuneQuestCompleted"))) {
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted"))
+            //  && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))
+            //  && (flagManager.isFlagSet("neptuneKilled")|| flagManager.isFlagSet("neptuneQuestCompleted"))
+            ) {
                 getMap().getFlagManager().setFlag("endIslandUnlocked");
             }
         }

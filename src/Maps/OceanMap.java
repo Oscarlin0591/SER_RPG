@@ -89,9 +89,6 @@ public class OceanMap extends Map {
                             addText("Enter Island?", new String[] { "Yes", "No" });
                         }});
                         
-                    }});
-                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                        addRequirement(new FlagRequirement("endIslandUnlocked", true));
                         addRequirement(new CustomRequirement() {
                             @Override
                             public boolean isRequirementMet() {
@@ -102,6 +99,8 @@ public class OceanMap extends Map {
     
                         addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
                     }});
+                    //     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    // }});
     
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                         addRequirement(new CustomRequirement() {
@@ -135,7 +134,7 @@ public class OceanMap extends Map {
         this.badShipExistenceFlag = "";
 
         BlueGem gem = new BlueGem(24,getMapTile(18,44).getLocation());
-        gem.setExistenceFlag("blueGem");
+        gem.setExistenceFlag("collectedBlueGem");
         gem.setInteractScript(new BlueGemScript());
         npcs.add(gem);
 
