@@ -67,9 +67,6 @@ public class CapricornScript extends Script{
                     addScriptAction(new ChangeFlagScriptAction("combatTriggered", true));
                 }});
             
-           
-                
-
             //aye I can reponse
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
@@ -86,11 +83,6 @@ public class CapricornScript extends Script{
                     scriptActions.add(new ChangeFlagScriptAction("capricornGameTriggered", true));    
                 }});
                     
-
-
-
-
-                
                 //no prepare to die reponse 
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                     addRequirement(new CustomRequirement() {

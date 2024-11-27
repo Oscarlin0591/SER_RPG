@@ -182,7 +182,7 @@ public abstract class Player extends GameObject {
         
         if (Keyboard.isKeyDown(SPRINT_KEY) && !isSprinting) {
             isSprinting = true;
-            walkSpeed *= 2; 
+            walkSpeed *= 7; 
         }
     
         if (Keyboard.isKeyUp(SPRINT_KEY) && isSprinting) {

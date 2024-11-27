@@ -261,6 +261,7 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("torch1", false);
             flagManager.addFlag("torch2", false);
             flagManager.addFlag("torch3", false);
+            flagManager.addFlag("torch4", false);
             flagManager.addFlag("tier1");
             flagManager.addFlag("tier2");
             flagManager.addFlag("tier3");
@@ -574,7 +575,7 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
     map.getFlagManager().isFlagSet("capricornGameTriggered");
 }
                 
-            if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")) {
+            if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")&&map.getFlagManager().isFlagSet("torch4")) {
                 map.getFlagManager().setFlag("bossUnlocked");
             }
     
@@ -683,21 +684,20 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
                 map.setChosenMap(null);
             }
     
-            if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("neptuneKilled")) {
+            if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("capricornKilled")) {
                 // insert flag for bad ending
-                getMap().getFlagManager().setFlag("goodEnding");
-            } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("neptuneQuestCompleted")) {
-                // insert flag for good ending
                 getMap().getFlagManager().setFlag("badEnding");
+                getMap().getFlagManager().unsetFlag("neutralEnding");
+            } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("capricornQuestCompleted")) {
+                // insert flag for good ending
+                getMap().getFlagManager().setFlag("goodEnding");
+                getMap().getFlagManager().unsetFlag("neutralEnding");
             } else {
                 // neutral ending
                 getMap().getFlagManager().setFlag("neutralEnding");
             }
 
-            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted"))
-            //  && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))
-            //  && (flagManager.isFlagSet("neptuneKilled")|| flagManager.isFlagSet("neptuneQuestCompleted"))
-            ) {
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))) {
                 getMap().getFlagManager().setFlag("endIslandUnlocked");
             }
         }

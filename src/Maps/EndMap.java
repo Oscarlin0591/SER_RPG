@@ -30,7 +30,7 @@ public class EndMap extends Map{
     public ArrayList<NPC> loadNPCs() {
         ArrayList<NPC> npcs = new ArrayList<>();
 
-        SkullTorch torch1 = new SkullTorch(981, getMapTile(58,2).getLocation());
+        SkullTorch torch1 = new SkullTorch(981, getMapTile(4,12).getLocation());
         torch1.setInteractScript(new Script() {
             
             @Override
@@ -38,6 +38,7 @@ public class EndMap extends Map{
                 ArrayList<ScriptAction> scriptActions = new ArrayList<>();
 
                 scriptActions.add(new NPCStandScriptAction(Direction.RIGHT));
+                scriptActions.add(new LockPlayerScriptAction());
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
@@ -45,6 +46,18 @@ public class EndMap extends Map{
                     return ScriptState.COMPLETED;
                 }
                 });
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("As the unnatural flames dance in front of you. You see a memory of a distant past");
+                }});
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("The King, hungry for gold, was in search for distant lands.");
+                    addText("He wanted to trade for their insignificant goods so he can grow his kingdom's reserves.");
+                    addText("There was kindess in his heart yet. Until the incident.");
+                }});
+
+                scriptActions.add(new UnlockPlayerScriptAction());
                 return scriptActions;
             }
         });
@@ -58,6 +71,7 @@ public class EndMap extends Map{
                 ArrayList<ScriptAction> scriptActions = new ArrayList<>();
 
                 scriptActions.add(new NPCStandScriptAction(Direction.RIGHT));
+                scriptActions.add(new LockPlayerScriptAction());
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
@@ -65,6 +79,20 @@ public class EndMap extends Map{
                     return ScriptState.COMPLETED;
                 }
                 });
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("As the unnatural flames dance in front of you. You see a memory of a distant past");
+                }});
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("His right hand man, covetus of the King's powers, conspired a plot with the natives on\n one of the islands they are visiting.");
+                    addText("On the fateful night, they took out the guards posted in from the King's chambers\nand apprached the King's bed.");
+                    addText("The King, however, was a cautious man, when the traitors approached his bed, one\nstepped on a pressure plate, sounding an alarm above his bed.");
+                    addText("The King awoke immediately, but his right hand man did not hesitate and brought down\nthe axe that he had with him.");
+                    addText("The King tried to parry, but poetically, his right hand was severed. The wounded king\ntook off the protective gauntlet he wore and turned all of his dissidents into gold.");
+                    addText("The immediate danger was quelled, but the King was not the same after the attempt on his life.");
+                }});
+                scriptActions.add(new UnlockPlayerScriptAction());
                 return scriptActions;
             }
         });
@@ -79,6 +107,7 @@ public class EndMap extends Map{
                 ArrayList<ScriptAction> scriptActions = new ArrayList<>();
 
                 scriptActions.add(new NPCStandScriptAction(Direction.RIGHT));
+                scriptActions.add(new LockPlayerScriptAction());
                 scriptActions.add(new ScriptAction() {
                    @Override
                    public ScriptState execute() {
@@ -86,10 +115,33 @@ public class EndMap extends Map{
                     return ScriptState.COMPLETED;
                 }
                 });
+                scriptActions.add(new UnlockPlayerScriptAction());
                 return scriptActions;
             }
         });
         npcs.add(torch3);
+
+        SkullTorch torch4 = new SkullTorch(983, getMapTile(58,12).getLocation());
+        torch4.setInteractScript(new Script() {
+            
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+
+                scriptActions.add(new NPCStandScriptAction(Direction.RIGHT));
+                scriptActions.add(new LockPlayerScriptAction());
+                scriptActions.add(new ScriptAction() {
+                   @Override
+                   public ScriptState execute() {
+                    torch3.lightTorch("torch4");
+                    return ScriptState.COMPLETED;
+                }
+                });
+                scriptActions.add(new UnlockPlayerScriptAction());
+                return scriptActions;
+            }
+        });
+        npcs.add(torch4);
 
         DeadTree1 deadTree1 = new DeadTree1(984, getMapTile(3, 32).getLocation());
         npcs.add(deadTree1);

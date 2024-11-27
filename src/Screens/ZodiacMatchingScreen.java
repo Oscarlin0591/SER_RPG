@@ -23,23 +23,29 @@ public class ZodiacMatchingScreen extends Screen{
     protected int[] input = {-1,-1,-1,-1,-1}; //player input
     protected KeyLocker keyLocker = new KeyLocker();
     protected boolean incorrect = false;
-
+    protected boolean correct= false;
+    
     //Constellations
     protected BufferedImage ariesImage = ImageLoader.load("AriesConstellation.png");
     protected BufferedImage taurusImage = ImageLoader.load("TaurusConstellation.png");
     protected BufferedImage leoImage = ImageLoader.load("LeoConstellation.png");
     protected BufferedImage cancerImage = ImageLoader.load("CancerConstellation.png");
     protected BufferedImage capricornImage = ImageLoader.load("CapricornConstellation.png");
-
+    
     protected SpriteFont instructions;
     protected SpriteFont matchPrompt;
+    protected SpriteFont incorrectText;
+    protected SpriteFont correctText;
     protected int hoverX, hoverY;
     protected int keyPressTimer = 0;
+    int timer = 100;
 
     public ZodiacMatchingScreen(PlayLevelScreen playLevelScreen){ 
         this.playLevelScreen = playLevelScreen;
-        instructions = new SpriteFont("Match the constellation to its name", 300, 50, "Arial", 30, Color.white);
-        matchPrompt = new SpriteFont("Hover over and press E", 300, 100, "Arial", 20, Color.BLUE);
+        instructions = new SpriteFont("Match the constellation to its name", 300, 50, "Lucida Calligraphy", 48, Color.white);
+        matchPrompt = new SpriteFont("Hover over and press E", 300, 100, "Lucida Calligraphy", 36, Color.BLUE);
+        incorrectText = new SpriteFont("Incorrect!", GameWindow.gamePanel.getWidth()-200, 200, "Lucida Calligraphy", 36,Color.black);
+        correctText = new SpriteFont("Correct!", GameWindow.gamePanel.getWidth()-200, 200, "Lucida Calligraphy", 36,Color.white);
         hoverY = 400;
         keyLocker.lockKey(Key.E);
     }
@@ -80,11 +86,14 @@ public class ZodiacMatchingScreen extends Screen{
             //checking the win condition to see if they are filled correctly
             if(currentInput ==5){
                 if(checkSolution()){
+                    correct = true;
                     System.out.println("Correct!");
                     PlayLevelScreen.running();
+                    PlayLevelScreen.getMap().getFlagManager().setFlag("capricornQuestCompleted");
                     PlayLevelScreen.getMap().getFlagManager().unsetFlag("capricornGameTriggered");
                 } else {
                     System.out.println("Incorrect!");
+                    incorrect = true;
                     resetInputs();
                 }
             }
@@ -93,15 +102,25 @@ public class ZodiacMatchingScreen extends Screen{
             keyLocker.unlockKey(Key.E);
         }
 
-    }
+        if (incorrect) {
+            incorrectText.setColor(Color.white);
 
+            timer--;
+            if (timer == 0) {
+            incorrectText.setColor(Color.black);
+            incorrect = false;
+            timer = 100;
+            }
+        }
+    }
+    
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         instructions.draw(graphicsHandler);
         matchPrompt.draw(graphicsHandler);
         
         graphicsHandler.drawFilledRectangle(hoverX, hoverY, 64, 64, Color.darkGray);
-    
+        
         //constellations
         graphicsHandler.drawImage(ariesImage, 100,400,64,64);
         graphicsHandler.drawImage(taurusImage, 200,400,64,64);
@@ -109,14 +128,7 @@ public class ZodiacMatchingScreen extends Screen{
         graphicsHandler.drawImage(cancerImage, 400,400,64,64);
         graphicsHandler.drawImage(capricornImage, 500,400,64,64);
 
-        if (incorrect) {
-            graphicsHandler.drawString("Incorrect!", GameWindow.gamePanel.getWidth()-200, 200, new Font("Lucida Calligraphy", 0, 20), Color.white);
-            int timer = 100;
-            timer--;
-            if (timer == 0)
-            incorrect = false;
-        }
-        
+        incorrectText.draw(graphicsHandler);
     
      //displayinng the match constellations in their postions
     for (int i = 0; i<5 ; i++){
