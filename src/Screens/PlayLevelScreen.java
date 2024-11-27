@@ -1082,6 +1082,18 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
         public static void capricornGame(){
             setPlayLevelScreenState(PlayLevelScreenState.CAPRICORN_GAME);
         }
+
+        public static void memory1() {
+            setPlayLevelScreenState(PlayLevelScreenState.MEMORY1);
+        }
+
+        public static void memory2() {
+            setPlayLevelScreenState(PlayLevelScreenState.MEMORY2);
+        }
+
+        public static void memory3() {
+            setPlayLevelScreenState(PlayLevelScreenState.MEMORY3);
+        }
     
         public void refreshDate() {
             dateScreen = new DateScreen(this);
@@ -1105,6 +1117,6 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE, CAPRICORN_GAME
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE, CAPRICORN_GAME, MEMORY1, MEMORY2,MEMORY3
     }
 }
