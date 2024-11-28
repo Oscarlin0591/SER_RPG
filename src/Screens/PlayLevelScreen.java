@@ -60,6 +60,7 @@ public class PlayLevelScreen extends Screen {
         public static MemoryScreen memoryScreen1;
         public static MemoryScreen memoryScreen2;
         public static MemoryScreen memoryScreen3;
+        public static EndScene endScene;
         
 
         public static FlagManager flagManager; //chaged to public static from protected
@@ -283,6 +284,7 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("goodEnding",false);
             flagManager.addFlag("neutralEnding",false);
             flagManager.addFlag("badEnding",false);
+            flagManager.addFlag("endScene",false);
             
                     // define/setup map - may need to replicate for all maps
                     int playerContX = 0;
@@ -449,6 +451,7 @@ public class PlayLevelScreen extends Screen {
                     memoryScreen1 = new MemoryScreen(this,1);
                     memoryScreen2 = new MemoryScreen(this,2);
                     memoryScreen3 = new MemoryScreen(this,3);
+                    endScene = new EndScene(this);
             
             
             }
@@ -506,6 +509,9 @@ public class PlayLevelScreen extends Screen {
                         break;
                     case MEMORY3:
                         memoryScreen3.update();
+                        break;
+                    case ENDSCENE:
+                        endScene.update();
                         break;
                     }
         
@@ -1010,6 +1016,9 @@ public class PlayLevelScreen extends Screen {
                 case MEMORY3:
                     memoryScreen3.draw(graphicsHandler);
                     break;
+                case ENDSCENE:
+                    endScene.draw(graphicsHandler);
+                    break;
                 case PAUSED:
                     int currentHealth = Math.round(player.getHealth());
                     int currentStrength = Math.round(player.getStrength());
@@ -1132,6 +1141,10 @@ public class PlayLevelScreen extends Screen {
         public static void memory3() {
             setPlayLevelScreenState(PlayLevelScreenState.MEMORY3);
         }
+
+        public static void endScene() {
+            setPlayLevelScreenState(PlayLevelScreenState.ENDSCENE);
+        }
     
         public void refreshDate() {
             dateScreen = new DateScreen(this);
@@ -1155,6 +1168,6 @@ public class PlayLevelScreen extends Screen {
 
     // This enum represents the different states this screen can be in
     private enum PlayLevelScreenState {
-        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE, CAPRICORN_GAME, MEMORY1, MEMORY2,MEMORY3
+        RUNNING, LEVEL_COMPLETED, GAME_OVER, PAUSED, BATTLE, HEAL, DATE, KRAKEN_PUZZLE, CAPRICORN_GAME, MEMORY1, MEMORY2,MEMORY3, ENDSCENE
     }
 }

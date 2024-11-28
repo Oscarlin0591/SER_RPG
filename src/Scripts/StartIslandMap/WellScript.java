@@ -15,12 +15,13 @@ public class WellScript extends Script {
         
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        return (PlayLevelScreen.flagManager.isFlagSet("waterQuest"));
-                    }
-                });
+                addRequirement(new FlagRequirement("waterQuest", true));
+                // addRequirement(new CustomRequirement() {
+                //     @Override
+                //     public boolean isRequirementMet() {
+                //         return (PlayLevelScreen.flagManager.isFlagSet("waterQuest"));
+                //     }
+                // });
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You filled the water bottle with well water");
@@ -32,12 +33,13 @@ public class WellScript extends Script {
 
         scriptActions.add(new ConditionalScriptAction() {{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        return !(PlayLevelScreen.flagManager.isFlagSet("waterQuest"));
-                    }
-                });
+                addRequirement(new FlagRequirement("waterQuest", false));
+                // addRequirement(new CustomRequirement() {
+                //     @Override
+                //     public boolean isRequirementMet() {
+                //         return !(PlayLevelScreen.flagManager.isFlagSet("waterQuest"));
+                //     }
+                // });
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("This water looks refreshing...");

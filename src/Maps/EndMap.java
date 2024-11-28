@@ -285,6 +285,28 @@ public class EndMap extends Map{
 
                 return scriptActions;
         }}));
+
+        triggers.add(new Trigger(getMapTile(10, 0).getLocation().x, getMapTile(10, 0).getLocation().y+50, 300, 15, new Script() {
+            
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+
+                scriptActions.add(new LockPlayerScriptAction());
+                scriptActions.add(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.endScene();
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
+                scriptActions.add(new ChangeFlagScriptAction("endScene", true));
+
+                scriptActions.add(new UnlockPlayerScriptAction());
+                return scriptActions;
+            }}, "endScene")
+            );
         return triggers;
     }
 
