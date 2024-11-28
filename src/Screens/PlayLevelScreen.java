@@ -708,11 +708,15 @@ public class PlayLevelScreen extends Screen {
                 map.setChosenMap(null);
             }
     
-            if (flagManager.isFlagSet("krakenKilled") && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("capricornKilled")) {
+            if (flagManager.isFlagSet("krakenKilled") 
+            // && flagManager.isFlagSet("beetleKilled") && flagManager.isFlagSet("krampusKilled") && flagManager.isFlagSet("capricornKilled")
+            ) {
                 // insert flag for bad ending
                 getMap().getFlagManager().setFlag("badEnding");
                 getMap().getFlagManager().unsetFlag("neutralEnding");
-            } else if (flagManager.isFlagSet("krakenQuestCompleted") && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("capricornQuestCompleted")) {
+            } else if (flagManager.isFlagSet("krakenQuestCompleted") 
+            // && flagManager.isFlagSet("beetleQuestCompleted") && flagManager.isFlagSet("krampusQuestCompleted") && flagManager.isFlagSet("capricornQuestCompleted")
+            ) {
                 // insert flag for good ending
                 getMap().getFlagManager().setFlag("goodEnding");
                 getMap().getFlagManager().unsetFlag("neutralEnding");
