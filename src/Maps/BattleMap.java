@@ -77,7 +77,7 @@ public class BattleMap extends Map{
         }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
-            enemy = new Kraken(801, getMapTile(8,12).getLocation(), 75, 6, 1, 1);
+            enemy = new Kraken(801, getMapTile(8,12).getLocation(), 1, 6, 1, 1);
             npcs.set(0,enemy);
             kraken = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");

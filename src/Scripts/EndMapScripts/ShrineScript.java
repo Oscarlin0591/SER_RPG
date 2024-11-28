@@ -19,7 +19,7 @@ public class ShrineScript extends Script {
                 addRequirement(new FlagRequirement("bossUnlocked", false));
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You cannot yet enter");
-                    addText("Light the trinity of torches and only then will the door open");
+                    addText("Light all of the Torches of Recollection and only then will the door open");
                 }});
             }});
 

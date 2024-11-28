@@ -47,6 +47,8 @@ public class PlayLevelScreen extends Screen {
         protected static SpeedBoatSteve speedBoatSteve;
         private static Point prevLoc;
         protected static PlayLevelScreenState playLevelScreenState;
+
+        //Screens
         protected WinScreen winScreen;
         protected GoodWinScreen goodWinScreen;
         protected BadWinScreen badWinScreen;
@@ -55,6 +57,11 @@ public class PlayLevelScreen extends Screen {
         public static DateScreen dateScreen;
         public static KrakenPuzzleScreen krakenPuzzleScreen;
         public static ZodiacMatchingScreen zodiacMatchingScreen;
+        public static MemoryScreen memoryScreen1;
+        public static MemoryScreen memoryScreen2;
+        public static MemoryScreen memoryScreen3;
+        
+
         public static FlagManager flagManager; //chaged to public static from protected
         protected JPanel healthBar;
         private int buttonHover = 0;
@@ -182,6 +189,11 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("cannibalGhost", true);                
             // flag to determine if game is lost
             flagManager.addFlag("gameOver", false);
+
+            // memory flags
+            flagManager.addFlag("memory1");
+            flagManager.addFlag("memory2");
+            flagManager.addFlag("memory3");
 
             // enemy flags
             flagManager.addFlag("shrekEnemy", false);
@@ -434,6 +446,9 @@ public class PlayLevelScreen extends Screen {
                     krakenPuzzleScreen = new KrakenPuzzleScreen(this);
                     dateScreen = new DateScreen(this);
                     zodiacMatchingScreen = new ZodiacMatchingScreen(this);
+                    memoryScreen1 = new MemoryScreen(this,1);
+                    memoryScreen2 = new MemoryScreen(this,2);
+                    memoryScreen3 = new MemoryScreen(this,3);
             
             
             }
@@ -482,6 +497,15 @@ public class PlayLevelScreen extends Screen {
                         break;
                     case CAPRICORN_GAME:
                         zodiacMatchingScreen.update();
+                        break;
+                    case MEMORY1:
+                        memoryScreen1.update();
+                        break;
+                    case MEMORY2:
+                        memoryScreen2.update();
+                        break;
+                    case MEMORY3:
+                        memoryScreen3.update();
                         break;
                     }
         
@@ -565,15 +589,15 @@ public class PlayLevelScreen extends Screen {
                 map.getFlagManager().unsetFlag("battlePanel");
             }
 
-if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
-    krakenPuzzle();
-    map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
-}
+            if (map.getFlagManager().isFlagSet("krakenPuzzleTriggered")) {
+                krakenPuzzle();
+                map.getFlagManager().unsetFlag("krakenPuzzleTriggered");
+            }
 
-if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
-    capricornGame();
-    map.getFlagManager().isFlagSet("capricornGameTriggered");
-}
+            if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
+                capricornGame();
+                map.getFlagManager().isFlagSet("capricornGameTriggered");
+            }
                 
             if(map.getFlagManager().isFlagSet("torch1")&& map.getFlagManager().isFlagSet("torch2")&&map.getFlagManager().isFlagSet("torch3")&&map.getFlagManager().isFlagSet("torch4")) {
                 map.getFlagManager().setFlag("bossUnlocked");
@@ -697,7 +721,9 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
                 getMap().getFlagManager().setFlag("neutralEnding");
             }
 
-            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))) {
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) 
+            // && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))
+            ) {
                 getMap().getFlagManager().setFlag("endIslandUnlocked");
             }
         }
@@ -968,9 +994,17 @@ if (map.getFlagManager().isFlagSet("capricornGameTriggered")){
                 case KRAKEN_PUZZLE:
                     krakenPuzzleScreen.draw(graphicsHandler);
                     break;
-
                 case CAPRICORN_GAME:
                     zodiacMatchingScreen.draw(graphicsHandler);
+                    break;
+                case MEMORY1:
+                    memoryScreen1.draw(graphicsHandler);
+                    break;
+                case MEMORY2:
+                    memoryScreen2.draw(graphicsHandler);
+                    break;
+                case MEMORY3:
+                    memoryScreen3.draw(graphicsHandler);
                     break;
                 case PAUSED:
                     int currentHealth = Math.round(player.getHealth());

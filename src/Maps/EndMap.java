@@ -1,10 +1,9 @@
 package Maps;
 
-import NPCs.*;
-import NPCs.Bosses.*;
 import NPCs.Decoration.*;
 import Level.*;
 import NPCs.Interactable.*;
+import Screens.PlayLevelScreen;
 import ScriptActions.*;
 import Scripts.EndMapScripts.ShrineScript;
 // import Scripts.EndMapScripts.*;
@@ -51,6 +50,14 @@ public class EndMap extends Map{
                     addText("As the unnatural flames dance in front of you. You see a memory of a distant past");
                 }});
 
+                scriptActions.add(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.memory1();
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
                 scriptActions.add(new TextboxScriptAction() {{
                     addText("The King, hungry for gold, was in search for distant lands.");
                     addText("He wanted to trade for their insignificant goods so he can grow his kingdom's reserves.");
@@ -84,6 +91,14 @@ public class EndMap extends Map{
                     addText("As the unnatural flames dance in front of you. You see a memory of a distant past");
                 }});
 
+                scriptActions.add(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.memory2();
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
                 scriptActions.add(new TextboxScriptAction() {{
                     addText("His right hand man, covetus of the King's powers, conspired a plot with the natives on\n one of the islands they are visiting.");
                     addText("On the fateful night, they took out the guards posted in from the King's chambers\nand apprached the King's bed.");
@@ -115,6 +130,28 @@ public class EndMap extends Map{
                     return ScriptState.COMPLETED;
                 }
                 });
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("As the unnatural flames dance in front of you. You see a memory of a distant past");
+                }});
+
+                scriptActions.add(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        PlayLevelScreen.memory3();
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Consumed by paranoia and contempt, the King abandons his pacifist ways of trade.");
+                    addText("As I sailed on, he mercilessly wiped out entire populations of the islands unfortunate\nenough to be in his path.");
+                    addText("Men, women, children, livestock, anything inhabiting the land are massacred and turned into gold.");
+                    addText("Perhaps it is of convenience or perversion, but the King would only take the head of the lives he took");
+                    addText("These horrors would be widespread across the globe, known later to be the \n\"Golden Decapitation\" in the years to come");
+                    addText("The King's rampage stopped months later once he reached this island.");
+                }});
+
                 scriptActions.add(new UnlockPlayerScriptAction());
                 return scriptActions;
             }
@@ -137,6 +174,30 @@ public class EndMap extends Map{
                     return ScriptState.COMPLETED;
                 }
                 });
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("As the unnatural flames dance in front of you. You see a memory of a distant past");
+                }});
+
+                scriptActions.add(new ScriptAction() {
+                    @Override
+                    public ScriptState execute() {
+                        // PlayLevelScreen.memory3();
+                        return ScriptState.COMPLETED;
+                    }
+                });
+
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Upon setting foot on this island, the King is met by a coven of witches.");
+                    addText("Expecting the King's arrival, the witches cast a barrier over the island.");
+                    addText("The barrier will do two things: suppress the golden touch, and seal the island away from the world.");
+                    addText("The witches made contracts with mythical creatures across the seven seas to ensure that the barrier\ndoes not come down unless the creatures undoes them voluntarily or are killed thus nullifying the contract.");
+                    addText("The King was unaware of this, so he went to attack the witches as he did with countless islands.");
+                    addText("The following battle was unlike any before. Where the witches had magic and spells, the King met\nthem with blades and arms. This war lasted over a year.");
+                    addText("The King's forces barely came out victorius, and only then when the King went to touch the corpses\nwhere he discovered that his powers have weakened");
+                    addText("When he tries to leave the island on his ship, he found that he cannot go further than a couple\nhundred yards past the shore.");
+                    addText("The King hauled his ship onto the island, hopeless, and died years after within the walls of his warship:\nThe Nave d'Oro...");
+                }});
                 scriptActions.add(new UnlockPlayerScriptAction());
                 return scriptActions;
             }
