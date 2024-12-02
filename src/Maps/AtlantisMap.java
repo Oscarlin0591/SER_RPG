@@ -55,11 +55,11 @@ public class AtlantisMap extends Map {
         capricorn.setInteractScript(new CapricornScript());
         npcs.add(capricorn);
 
-        BluePotion bluePotion = new BluePotion(11,getMapTile(35,45).getLocation());
+        BluePotion bluePotion = new BluePotion(15,getMapTile(35,45).getLocation());
         bluePotion.setInteractScript(new SuperPotionScript());
         npcs.add(bluePotion);
 
-        Mermaid mermaid1 = new Mermaid(12, getMapTile(5, 5).getLocation(), "CharacterPNGs/mermaid1.png", 31, 52, 15, 2, 1, 1);
+        Mermaid mermaid1 = new Mermaid(11, getMapTile(5, 5).getLocation(), "CharacterPNGs/mermaid1.png", 31, 52, 15, 2, 1, 1);
         mermaid1.stand(Direction.RIGHT);
         mermaid1.setInteractScript(new MermaidScript());
         npcs.add(mermaid1);

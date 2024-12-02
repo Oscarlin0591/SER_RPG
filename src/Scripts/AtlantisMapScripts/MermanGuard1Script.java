@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import Level.Script;
 import Level.ScriptState;
+import Screens.PlayLevelScreen;
 import ScriptActions.*;
+import Utils.Direction;
 
 
 // trigger script at beginning of game to set that heavy emotional plot
@@ -122,6 +124,7 @@ public class MermanGuard1Script extends Script {
                 addRequirement(new FlagRequirement("merman1", true));
                 addRequirement(new FlagRequirement("wingmanQuest", true));
                 addRequirement(new FlagRequirement("wingmanDone", true));
+                addRequirement(new FlagRequirement("mermanGuardComplete", false));
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("How did it go?", new String[]{"She likes ye."});
@@ -130,6 +133,9 @@ public class MermanGuard1Script extends Script {
                     addText("I sincerely thank you, sailor, with your help I found true love");
                     addText("You may pass and see the ruler", new String[]{"Thank you!"});
                 }});
+
+                addScriptAction(new NPCWalkScriptAction(Direction.UP, (PlayLevelScreen.getMap().getNPCById(13).getY()-PlayLevelScreen.getMap().getNPCById(11).getY()), 10));
+                addScriptAction(new NPCWalkScriptAction(Direction.LEFT, (PlayLevelScreen.getMap().getNPCById(13).getX()-PlayLevelScreen.getMap().getNPCById(11).getX()-50), 10));
 
                 addScriptAction(new ChangeFlagScriptAction("mermanGuardComplete", true));
             }});

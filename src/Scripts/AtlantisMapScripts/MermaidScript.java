@@ -25,6 +25,15 @@ public class MermaidScript extends Script{
 
             scriptActions.add(new ConditionalScriptAction() {{
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new FlagRequirement("mermanGuardComplete", true));
+                    addScriptAction(new TextboxScriptAction() {{
+                        addText("They seem to be happily conversing.");
+                    }});
+                }});
+            }});
+
+            scriptActions.add(new ConditionalScriptAction() {{
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                     addRequirement(new FlagRequirement("mermaid1", true));
                     addRequirement(new FlagRequirement("wingmanQuest", false));
                     addScriptAction(new TextboxScriptAction() {{
@@ -47,6 +56,20 @@ public class MermaidScript extends Script{
                     addScriptAction(new ChangeFlagScriptAction("wingmanIntro", true));
                 }});
             }});
+
+            scriptActions.add(new ConditionalScriptAction() {{
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new FlagRequirement("mermaid1", true));
+                    addRequirement(new FlagRequirement("wingmanQuest", true));
+                    addRequirement(new FlagRequirement("wingmanIntro", true));
+                    addRequirement(new FlagRequirement("wingmanDone", true));
+                    addScriptAction(new TextboxScriptAction() {{
+                        addText("Go call Aqua over!");
+                    }});
+                    
+                }});
+            }});
+
 
             scriptActions.add(new ConditionalScriptAction() {{
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
