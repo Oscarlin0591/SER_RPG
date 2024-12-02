@@ -33,6 +33,19 @@ public class Merman extends Enemy{
                     .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                     .build()
            });
+           put("WALK_LEFT", new Frame[] {
+            new FrameBuilder(spriteSheet.getSprite(0, 0))
+                .withScale(2)
+                .withBounds(0, 24, 24, 48/2)
+                .build()
+            });
+        put("WALK_RIGHT", new Frame[] {
+                new FrameBuilder(spriteSheet.getSprite(0, 0))
+                .withScale(2)
+                .withBounds(0, 24, 24, 48/2)
+                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                .build()
+       });
         }};
         
 

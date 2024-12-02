@@ -81,6 +81,6 @@ public class ShipwreckMap extends Map{
     }
 
     public void loadMusic() {
-        //Music.playMusic("Music/Sinking Feeling.wav");
+        Music.playMusic("Music/Sinking Feeling.wav");
     }
 }

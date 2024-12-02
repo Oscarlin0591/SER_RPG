@@ -250,6 +250,18 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("reunitedAtLast", false);
             flagManager.addFlag("shipDiscussion", false);
 
+            flagManager.addFlag("mermaid1", false);
+            flagManager.addFlag("mermaid2", false);
+            flagManager.addFlag("merman1", false);
+            flagManager.addFlag("merman2", false);
+            flagManager.addFlag("guardScriptTriggered", false);
+            flagManager.addFlag("wingmanQuest", false);
+            flagManager.addFlag("wingmanIntro", false);
+            flagManager.addFlag("wingmanDone", false);
+            flagManager.addFlag("mermanEnemy", false);
+            flagManager.addFlag("mermanGuardComplete", false);
+            
+
             flagManager.addFlag("gemQuest", false);
             flagManager.addFlag("collectedBlueGem", false);
             flagManager.addFlag("collectedGreenGem", false);
