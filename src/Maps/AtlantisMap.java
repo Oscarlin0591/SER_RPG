@@ -73,6 +73,15 @@ public class AtlantisMap extends Map {
             scriptActions.add(new LockPlayerScriptAction());
             scriptActions.add(new NPCFacePlayerScriptAction());
 
+            scriptActions.add(new ConditionalScriptAction() {{
+                addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                    addRequirement(new FlagRequirement("mermaid2", true));
+
+                    addScriptAction(new TextboxScriptAction() {{
+                    addText("Still hanging around? Don't you have something more important to do?");
+                    }});
+                }});
+            }});
             
             scriptActions.add(new ConditionalScriptAction() {{
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
@@ -103,7 +112,6 @@ public class AtlantisMap extends Map {
                     }});
                 }});
             }});
-
             scriptActions.add(new ConditionalScriptAction() {{
                 addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                     addRequirement(new FlagRequirement("mermaid2", true));
@@ -127,7 +135,28 @@ public class AtlantisMap extends Map {
         merman1.stand(Direction.RIGHT);
         npcs.add(merman1);
 
-        Merman merman2 = new Merman(14, getMapTile(50, 20).getLocation(), "CharacterPNGs/merman2.png", 24, 48, 15, 2, 1, 1);
+        Merman merman2 = new Merman(14, getMapTile(50, 41).getLocation(), "CharacterPNGs/merman2.png", 24, 48, 15, 2, 1, 1);
+        merman2.setInteractScript(new Script() {
+
+            @Override
+            public ArrayList<ScriptAction> loadScriptActions() {
+                ArrayList<ScriptAction> scriptActions = new ArrayList<>();
+
+                scriptActions.add(new LockPlayerScriptAction());
+                scriptActions.add(new TextboxScriptAction() {{
+                    addText("Yuhh wassup cuz", new String[]{"What?"});
+                    addText("The names John, I guard this place.", new String[]{"Sure doesn't look like ye doing much guarding"});
+                    addText("Well, I'm just here for the paycheck. Aqua over there is the only serious one here");
+                    addText("Pretty ironic right? The man who throws the biggest parties in Atlantis is also\nthe most serious one about the job");
+                    addText("What a man he is");
+                }});
+
+                scriptActions.add(new UnlockPlayerScriptAction());
+
+                return scriptActions;
+            }
+            
+        });
         npcs.add(merman2);
 
         return npcs;
@@ -138,10 +167,10 @@ public class AtlantisMap extends Map {
         ArrayList<Trigger> triggers = new ArrayList<>();
         //add triggers below, commented out one is an example.
 
-        triggers.add(new Trigger(getMapTile(41, 39).getLocation().x, getMapTile(41, 39).getLocation().y, 1100, 50, new MermanGuardMoveScript(), "guardScriptTriggered"));
+        triggers.add(new Trigger(getMapTile(41, 35).getLocation().x, getMapTile(41, 35).getLocation().y, 1100, 50, new MermanGuardMoveScript(), "guardScriptTriggered"));
         triggers.add(new Trigger(getMapTile(37, 0).getLocation().x, getMapTile(37, 0).getLocation().y, 50, 750, new MermanGuardMoveScript(), "guardScriptTriggered"));
 
-        triggers.add(new Trigger(getMapTile(41, 38).getLocation().x, getMapTile(41, 38).getLocation().y, 1100, 50, new Script() {
+        triggers.add(new Trigger(getMapTile(41, 34).getLocation().x, getMapTile(41, 34).getLocation().y, 1100, 50, new Script() {
 
             @Override
             public ArrayList<ScriptAction> loadScriptActions() {

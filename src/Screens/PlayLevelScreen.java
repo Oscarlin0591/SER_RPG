@@ -240,7 +240,7 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("beetleBeaten",false);
             flagManager.addFlag("capricornGameTriggered", false);
             flagManager.addFlag("capricornGameSolved", false);
-            flagManager.addFlag("capricornQuestComplete", false);
+            flagManager.addFlag("capricornQuestCompleted", false);
             flagManager.addFlag("capricornBeaten", false);
             flagManager.addFlag("boo", false);
             flagManager.addFlag("finishedBusiness?", false);

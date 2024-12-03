@@ -87,10 +87,9 @@ public class ZodiacMatchingScreen extends Screen{
             if(currentInput ==5){
                 if(checkSolution()){
                     correct = true;
-                    System.out.println("Correct!");
-                    PlayLevelScreen.running();
                     PlayLevelScreen.getMap().getFlagManager().setFlag("capricornQuestCompleted");
                     PlayLevelScreen.getMap().getFlagManager().unsetFlag("capricornGameTriggered");
+                    PlayLevelScreen.running();
                 } else {
                     System.out.println("Incorrect!");
                     incorrect = true;
