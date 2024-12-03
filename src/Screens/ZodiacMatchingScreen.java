@@ -115,44 +115,54 @@ public class ZodiacMatchingScreen extends Screen{
     
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
+        // Draw instructions and prompts
         instructions.draw(graphicsHandler);
         matchPrompt.draw(graphicsHandler);
-        
-        graphicsHandler.drawFilledRectangle(hoverX, hoverY, 64, 64, Color.darkGray);
-        
-        //constellations
-        graphicsHandler.drawImage(ariesImage, 100,400,64,64);
-        graphicsHandler.drawImage(taurusImage, 200,400,64,64);
-        graphicsHandler.drawImage(leoImage, 300,400,64,64);
-        graphicsHandler.drawImage(cancerImage, 400,400,64,64);
-        graphicsHandler.drawImage(capricornImage, 500,400,64,64);
-
-        incorrectText.draw(graphicsHandler);
     
-     //displayinng the match constellations in their postions
-    for (int i = 0; i<5 ; i++){
-        if(input[i] != -1){
-            switch(input[i]){
-                case 0:
-                    graphicsHandler.drawImage(ariesImage, i*100+100, 250, 64, 64);
-                    break;
-                case 1:
-                    graphicsHandler.drawImage(taurusImage, i*100+100,250,64,64);
-                    break;
-                case 2:
-                    graphicsHandler.drawImage(leoImage, i*100+100,250,64,64);
-                    break;
-                case 3:
-                    graphicsHandler.drawImage(cancerImage, i*100+100,250,64,64);
-                    break;
-                case 4:
-                    graphicsHandler.drawImage(capricornImage, i*100+100,250,64,64);
-                    break;
-
+        // Draw the hover box
+        graphicsHandler.drawFilledRectangle(hoverX, hoverY, 64, 64, Color.darkGray);
+    
+        // Draw constellation images
+        graphicsHandler.drawImage(ariesImage, 100, 400, 64, 64);
+        graphicsHandler.drawImage(taurusImage, 200, 400, 64, 64);
+        graphicsHandler.drawImage(leoImage, 300, 400, 64, 64);
+        graphicsHandler.drawImage(cancerImage, 400, 400, 64, 64);
+        graphicsHandler.drawImage(capricornImage, 500, 400, 64, 64);
+    
+        // Draw labels below constellation images
+        graphicsHandler.drawString("Aries", 115, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Taurus", 215, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Leo", 315, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Cancer", 415, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Capricorn", 505, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
+    
+        // Draw player input matches in their positions
+        for (int i = 0; i < 5; i++) {
+            if (input[i] != -1) {
+                switch (input[i]) {
+                    case 0:
+                        graphicsHandler.drawImage(ariesImage, i * 100 + 100, 250, 64, 64);
+                        break;
+                    case 1:
+                        graphicsHandler.drawImage(taurusImage, i * 100 + 100, 250, 64, 64);
+                        break;
+                    case 2:
+                        graphicsHandler.drawImage(leoImage, i * 100 + 100, 250, 64, 64);
+                        break;
+                    case 3:
+                        graphicsHandler.drawImage(cancerImage, i * 100 + 100, 250, 64, 64);
+                        break;
+                    case 4:
+                        graphicsHandler.drawImage(capricornImage, i * 100 + 100, 250, 64, 64);
+                        break;
+                }
             }
         }
+    
+        // Draw incorrect message if triggered
+        incorrectText.draw(graphicsHandler);
     }
-}
+
     //checking if it is right
     private boolean checkSolution() {
         for (int i = 0; i <solution.length; i++){

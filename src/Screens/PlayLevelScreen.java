@@ -249,6 +249,8 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("appleHaunted", false);
             flagManager.addFlag("reunitedAtLast", false);
             flagManager.addFlag("shipDiscussion", false);
+            flagManager.addFlag("waterQuest", false);
+            flagManager.addFlag("waterCollected", false);
 
             flagManager.addFlag("mermaid1", false);
             flagManager.addFlag("mermaid2", false);
@@ -739,8 +741,7 @@ public class PlayLevelScreen extends Screen {
                 getMap().getFlagManager().setFlag("neutralEnding");
             }
 
-            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))
-            ) {
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))) {
                 getMap().getFlagManager().setFlag("endIslandUnlocked");
             }
         }

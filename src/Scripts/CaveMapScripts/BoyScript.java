@@ -1,6 +1,7 @@
 package Scripts.CaveMapScripts;
 
 import java.util.ArrayList;
+import java.util.concurrent.ConcurrentHashMap;
 
 import Level.Script;
 import Screens.PlayLevelScreen;
@@ -30,22 +31,19 @@ public class BoyScript extends Script {
                     addText("here, i'll give you my empty water bottle!");
                     addText("if you find some fresh water, would you fill it up and return it to me?", new String[] {"sure buddy!", "i can't right now"});
                 }});
-
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        int answer = outputManager.getFlagData("waterCollected");
-                        return answer == 0;
-                    }
-                });
-
-                addScriptAction(new TextboxScriptAction() {{
-                    addText("thank you mister! i can finally get back to exploring! here's something for you!");
-                }});
-
-                
+                addScriptAction(new ChangeFlagScriptAction("waterQuest", true));
             }});
         }});
+    scriptActions.add(new ConditionalScriptAction(){{
+        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{ 
+            addRequirement(new FlagRequirement("waterCollected", true));
+
+            addScriptAction(new TextboxScriptAction() {{
+                addText("thank you mister! i can finally get back to exploring! here's something for you!");
+            }});
+
+        }});
+    }});
 
         scriptActions.add(new UnlockPlayerScriptAction());
 
