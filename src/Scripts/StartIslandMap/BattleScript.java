@@ -110,7 +110,11 @@ public class BattleScript extends Script {
                             PlayLevelScreen.getMap().getFlagManager().setFlag("pirateBeaten"); 
                         }
 
-                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(803)){
+                        if(BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(13)) {
+                            PlayLevelScreen.getMap().getFlagManager().setFlag("mermanGuardComplete");
+                        }
+
+                        if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(201)){
                         PlayLevelScreen.getMap().getFlagManager().setFlag("yetiBeaten"); 
                         }
                         if (BattleMap.enemy == PlayLevelScreen.getMap().getNPCById(805)){

@@ -81,16 +81,19 @@ public class OceanMap extends Map {
                             addText("There is a magical barrier preventing you from entering...");
                         }});
                     }});
-                
+                }});
+                scriptActions.add(new ConditionalScriptAction() {{
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                         addRequirement(new FlagRequirement("endIslandUnlocked", true));
 
                         addScriptAction(new TextboxScriptAction() {{
                             addText("Enter Island?", new String[] { "Yes", "No" });
                         }});
-                        
                     }});
-                        addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                }});
+                        
+                scriptActions.add(new ConditionalScriptAction() {{
+                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
                         addRequirement(new FlagRequirement("endIslandUnlocked", true));
                         addRequirement(new CustomRequirement() {
                             @Override
@@ -99,28 +102,10 @@ public class OceanMap extends Map {
                                 return answer == 0;
                             }
                         });
-    
-                        addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
+
+                    addScriptAction(new ChangeFlagScriptAction("toggleEndIsland", true));
                     }});
-    
-                    addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                        addRequirement(new CustomRequirement() {
-                            @Override
-                            public boolean isRequirementMet() {
-                                int answer = outputManager.getFlagData("TEXTBOX_OPTION_SELECTION");
-                                return answer == 1;
-                            }
-                        });
-    
-                        addScriptAction(new ScriptAction() {
-                            @Override
-                            public ScriptState execute() {
-                                getPlayer().setLocation(getPlayer().getX(), getPlayer().getY());
-                                return ScriptState.COMPLETED;
-                            }
-                        });
-                    }});
-            }});
+                }});
                 scriptActions.add(new UnlockPlayerScriptAction());
 
                 return scriptActions;
@@ -135,7 +120,7 @@ public class OceanMap extends Map {
         this.badShipExistenceFlag = "";
 
         BlueGem gem = new BlueGem(24,getMapTile(18,44).getLocation());
-        gem.setExistenceFlag("blueGem");
+        gem.setExistenceFlag("collectedBlueGem");
         gem.setInteractScript(new BlueGemScript());
         npcs.add(gem);
 

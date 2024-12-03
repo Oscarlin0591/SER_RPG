@@ -24,40 +24,22 @@ public class BlueGemScript extends Script {
         scriptActions.add(new ConditionalScriptAction() {{
     
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        return !(PlayLevelScreen.flagManager.isFlagSet("gemQuest"));
-                    }
-                });
+                addRequirement(new FlagRequirement("gemQuest", false));
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("This is a shiny looking gem...");
                 }});
             }});
-
+        }});
+        scriptActions.add(new ConditionalScriptAction(){{
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
-                addRequirement(new CustomRequirement() {
-                    @Override
-                    public boolean isRequirementMet() {
-                        return (PlayLevelScreen.flagManager.isFlagSet("gemQuest"));
-                    }
-                });
+                addRequirement(new FlagRequirement("gemQuest", true));
 
                 addScriptAction(new TextboxScriptAction() {{
                     addText("You collected one of three gems!");
                 }});
 
-                addScriptAction(new ScriptAction() {
-                    @Override
-                    public ScriptState execute() {
-                        PlayLevelScreen.flagManager.setFlag("collectedBlueGem");
-        
-                        if (map.getNPCById(24) != null) {
-                            PlayLevelScreen.flagManager.setFlag("blueGem");
-                        }
-                        return ScriptState.COMPLETED;
-                }});         
+                addScriptAction(new ChangeFlagScriptAction("collectedBlueGem", true));         
              }});
         }});
 

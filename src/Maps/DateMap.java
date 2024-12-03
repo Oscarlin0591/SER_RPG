@@ -57,6 +57,6 @@ public NPC defaultNPC;
 
     @Override
     public void loadMusic() {
-        
+        Music.playMusic("Music/date.wav");
     }
 }

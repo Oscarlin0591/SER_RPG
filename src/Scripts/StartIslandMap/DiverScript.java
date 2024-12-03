@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import Level.Script;
 import Level.ScriptState;
 import Screens.PlayLevelScreen;
+import ScriptActions.ChangeFlagScriptAction;
 import ScriptActions.ConditionalScriptAction;
 import ScriptActions.ConditionalScriptActionGroup;
 import ScriptActions.CustomRequirement;
@@ -63,12 +64,14 @@ public class DiverScript extends Script {
                     addText("if you can bring them all to me, i'll give you something for your time");
                     addText("i could've sworn i saw a blue one nearby...");
                 }});
+
+                addScriptAction(new ChangeFlagScriptAction("gemQuest", true));
             }});
 
         }});
 
     
-        PlayLevelScreen.flagManager.setFlag("gemQuest");
+        // PlayLevelScreen.flagManager.setFlag("gemQuest");
         
         scriptActions.add(new UnlockPlayerScriptAction());
 

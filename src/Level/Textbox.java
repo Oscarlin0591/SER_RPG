@@ -25,7 +25,7 @@ public class Textbox {
 
     // textbox constants
     protected final int x = 22;
-    protected final static int bottomY = ScreenManager.getScreenHeight()-130;
+    protected final static int bottomY = GameWindow.gamePanel.getHeight();
     protected final int topY = 22;
     protected final int fontX = 35;
     protected final int fontBottomY = bottomY;

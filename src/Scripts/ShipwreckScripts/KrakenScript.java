@@ -36,8 +36,8 @@ public class KrakenScript extends Script {
     
                 
                 addScriptAction(new TextboxScriptAction () {{
-                    addText(".....");
-                    addText("Back so soon?", new String[] { "Enough of yer puzzle, we're doing this the old fashioed way!", "Ask me the question again." });
+                    addText("Incorrect.");
+                    addText("But that's to be expected...", new String[] { "Enough of yer puzzle, we're doing this the old fashioned way!", "Ask me the question again." });
                 }});
                 scriptActions.add(new ConditionalScriptAction() {{
                     addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{

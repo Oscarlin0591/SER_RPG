@@ -105,7 +105,7 @@ public class StartIslandMap extends Map {
         npcs.add(well);
 
         RedGem redGem = new RedGem(22,getMapTile(27,27).getLocation());
-        redGem.setExistenceFlag("redGem");
+        redGem.setExistenceFlag("collectedRedGem");
         redGem.setInteractScript(new RedGemScript());
         npcs.add(redGem);
 

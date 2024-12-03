@@ -4,6 +4,7 @@ import Level.*;
 import NPCs.*;
 import NPCs.Bosses.*;
 import NPCs.Interactable.Cannibal;
+import NPCs.Interactable.Merman;
 import Screens.PlayLevelScreen;
 import Scripts.StartIslandMap.*;
 import Tilesets.BattleMapTileset;
@@ -91,7 +92,7 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("yetiEnemy")) {
-            enemy = new Yeti(803, getMapTile(8,12).getLocation(), 100, 8, 1, 1);
+            enemy = new Yeti(201, getMapTile(8,12).getLocation(), 100, 8, 1, 1);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("yetiEnemy");
         }
@@ -116,7 +117,7 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("finalBoss")) {
-            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 2, 1, 1, 1);
+            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 200, 1, 1, 1);
             boss = true;
             npcs.set(0, enemy);
         }
@@ -131,6 +132,12 @@ public class BattleMap extends Map{
             enemy = new PirateShip(807, getMapTile(8,12).getLocation(), "pirateShip.png", 30, 3, 2, 1);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("pirateEnemy");
+        }
+
+        if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("mermanEnemy")) {
+            enemy = new Merman(13, getMapTile(44, 25).getLocation(), "CharacterPNGs/merman1.png", 24, 48, 15, 2, 1, 1);
+            npcs.set(0,enemy);
+            PlayLevelScreen.getMap().getFlagManager().unsetFlag("mermanEnemy");
         }
 
         //enemy.stand(Direction.RIGHT);
