@@ -130,11 +130,11 @@ public class ZodiacMatchingScreen extends Screen{
         graphicsHandler.drawImage(capricornImage, 500, 400, 64, 64);
     
         // Draw labels below constellation images
-        graphicsHandler.drawString("Aries", 115, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
-        graphicsHandler.drawString("Taurus", 215, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
-        graphicsHandler.drawString("Leo", 315, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
-        graphicsHandler.drawString("Cancer", 415, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
-        graphicsHandler.drawString("Capricorn", 505, 480, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Aries", 115, 200, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Taurus", 215, 200, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Leo", 315, 200, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Cancer", 415, 200, new Font("Arial", Font.PLAIN, 16), Color.white);
+        graphicsHandler.drawString("Capricorn", 505, 200, new Font("Arial", Font.PLAIN, 16), Color.white);
     
         // Draw player input matches in their positions
         for (int i = 0; i < 5; i++) {
