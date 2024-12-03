@@ -795,6 +795,8 @@ public class PlayLevelScreen extends Screen {
                             writer.write("\n" + map.getMapFileName());
                             writer.write("\n" + (int)player.getHealth());
                             writer.write("\n" + (int)player.getStrength());
+                            writer.write("\n" + (int)prevLoc.x);
+                            writer.write("\n" + (int)prevLoc.y);
                             //writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
                             //writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
                             //writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
