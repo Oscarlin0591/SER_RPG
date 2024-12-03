@@ -1,4 +1,4 @@
-package NPCs;
+package Players;
 
 import java.util.HashMap;
 

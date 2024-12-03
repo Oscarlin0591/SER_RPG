@@ -351,7 +351,7 @@ public abstract class Player extends GameObject {
                 setHealth(health - damage);
             }
         } else
-            PlayLevelScreen.flagManager.setFlag("attackDodged");
+            PlayLevelScreen.getMap().getFlagManager().setFlag("attackDodged");
     }
 
     public void heal() {
