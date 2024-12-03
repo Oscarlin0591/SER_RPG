@@ -249,6 +249,8 @@ public class PlayLevelScreen extends Screen {
             flagManager.addFlag("appleHaunted", false);
             flagManager.addFlag("reunitedAtLast", false);
             flagManager.addFlag("shipDiscussion", false);
+            flagManager.addFlag("waterQuest", false);
+            flagManager.addFlag("waterCollected", false);
 
             flagManager.addFlag("mermaid1", false);
             flagManager.addFlag("mermaid2", false);
@@ -739,8 +741,7 @@ public class PlayLevelScreen extends Screen {
                 getMap().getFlagManager().setFlag("neutralEnding");
             }
 
-            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))
-            ) {
+            if ((flagManager.isFlagSet("krakenKilled")||flagManager.isFlagSet("krakenQuestCompleted")) && (flagManager.isFlagSet("beetleKilled") || flagManager.isFlagSet("beetleQuestCompleted")) && (flagManager.isFlagSet("krampusKilled") || flagManager.isFlagSet("krampusQuestCompleted"))&& (flagManager.isFlagSet("capricornKilled")|| flagManager.isFlagSet("capricornQuestCompleted"))) {
                 getMap().getFlagManager().setFlag("endIslandUnlocked");
             }
         }
@@ -795,6 +796,8 @@ public class PlayLevelScreen extends Screen {
                             writer.write("\n" + map.getMapFileName());
                             writer.write("\n" + (int)player.getHealth());
                             writer.write("\n" + (int)player.getStrength());
+                            writer.write("\n" + (int)prevLoc.x);
+                            writer.write("\n" + (int)prevLoc.y);
                             //writer.write("\n" + flagManager.isFlagSet("jvBeaten"));
                             //writer.write("\n" + flagManager.isFlagSet("krakenKilled"));
                             //writer.write("\n" + flagManager.isFlagSet("beetleKilled"));
