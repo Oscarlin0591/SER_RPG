@@ -2,6 +2,8 @@ package Level;
 
 import javax.sound.sampled.*;
 import java.io.File;
+import java.io.IOException;
+
 import Engine.Config;
 import Screens.PlayLevelScreen;
 
@@ -37,8 +39,20 @@ public class Music {
             //store currentMap when song played
             currentMap = PlayLevelScreen.getMap();
 
-        } catch (Exception e) { //currently not properly handled
-            System.out.println(e.toString());
+        } catch (NullPointerException npe) {
+            System.out.println(npe.toString());
+        } catch (IOException ioe) {
+            System.out.println(ioe.toString());
+        } catch (UnsupportedAudioFileException uafe) {
+            System.out.println(uafe.toString());
+        } catch (LineUnavailableException lue) {
+            System.out.println(lue.toString());
+        } catch (IllegalArgumentException iae) {
+            System.out.println(iae.toString());
+        } catch (IllegalStateException ise) {
+            System.out.println(ise.toString());
+        } catch (SecurityException se) {
+            System.out.println(se.toString());
         }
     }
 }
