@@ -78,7 +78,7 @@ public class BattleMap extends Map{
         }
 
         if (PlayLevelScreen.getMap().getFlagManager().isFlagSet("krakenEnemy")) {
-            enemy = new Kraken(801, getMapTile(8,12).getLocation(), 1, 6, 1, 1);
+            enemy = new Kraken(801, getMapTile(8,12).getLocation(), 75, 6, 1, 1);
             npcs.set(0,enemy);
             kraken = true;
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("krakenEnemy");
@@ -92,7 +92,7 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("yetiEnemy")) {
-            enemy = new Yeti(803, getMapTile(8,12).getLocation(), 100, 8, 1, 1);
+            enemy = new Yeti(201, getMapTile(8,12).getLocation(), 100, 8, 1, 1);
             npcs.set(0,enemy);
             PlayLevelScreen.getMap().getFlagManager().unsetFlag("yetiEnemy");
         }
@@ -117,7 +117,7 @@ public class BattleMap extends Map{
         }
 
         if(PlayLevelScreen.getMap().getFlagManager().isFlagSet("finalBoss")) {
-            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 2, 1, 1, 1);
+            enemy = new GoldenShip(805, getMapTile(8,12).getLocation(), 200, 1, 1, 1);
             boss = true;
             npcs.set(0, enemy);
         }

@@ -39,6 +39,8 @@ public class BossBeetleScript extends Script{
                     addText("I only ask you be careful.");
                     addText("A terrible fate awaits us if you blunder...");
                 }});
+
+                addScriptAction(new ChangeFlagScriptAction("beetleQuestCompleted", true));
             }});
             
             addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
