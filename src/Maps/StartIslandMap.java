@@ -76,6 +76,7 @@ public class StartIslandMap extends Map {
 
         Meat mysteryMeat = new Meat(9, getMapTile(26,3).getLocation());
         mysteryMeat.setInteractScript(new MeatScript());
+        mysteryMeat.setExistenceFlag("meatflag");
         npcs.add(mysteryMeat);
 
         MysteriousMan mysteryMan = new MysteriousMan(10,getMapTile(5, 20).getLocation());

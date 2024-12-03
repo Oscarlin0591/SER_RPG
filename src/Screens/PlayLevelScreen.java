@@ -281,6 +281,7 @@ public class PlayLevelScreen extends Screen {
             // item picked up flags
             flagManager.addFlag("startIslandPotion", false);
             flagManager.addFlag("oceanPotion", false);
+            flagManager.addFlag("meatflag",false);
 
             // misc flags
             flagManager.addFlag("playerRoided", false);

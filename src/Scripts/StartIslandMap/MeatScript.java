@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import Level.Script;
 import Level.ScriptState;
+import ScriptActions.ChangeFlagScriptAction;
+import ScriptActions.ConditionalScriptAction;
+import ScriptActions.ConditionalScriptActionGroup;
+import ScriptActions.FlagRequirement;
 import ScriptActions.LockPlayerScriptAction;
 import ScriptActions.NPCChangeVisibilityScriptAction;
 import ScriptActions.ScriptAction;
@@ -29,6 +33,13 @@ public class MeatScript extends Script {
                 return ScriptState.COMPLETED;
             }
         });
+
+        scriptActions.add(new ConditionalScriptAction(){{
+            addConditionalScriptActionGroup(new ConditionalScriptActionGroup() {{
+                addScriptAction(new ChangeFlagScriptAction("meatflag", true));         
+             }});
+        }});
+
 
         scriptActions.add(new NPCChangeVisibilityScriptAction(Visibility.HIDDEN));
 
